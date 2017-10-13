@@ -1,0 +1,220 @@
+﻿<!--rontap NXT-->
+<html>
+<head>
+	<script src="NXTJS/jsplus.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans&amp:300,200,500;subset=latin-ext" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			background:#FEFEFE;
+			font-family: 'Open Sans', sans-serif;
+		}
+		header {
+			 background: #3F51B5;
+			 background: #3F51B5;
+			 width:100%;
+			 height:450px;
+			 font-family: 'Montserrat', sans-serif;
+			 text-align: center;
+			 vertical-align: middle;
+			 color:white;
+			 font-size: 75px;
+		}
+		header span {
+			display: block;
+		      padding-top: 179px;
+		}
+		nav {
+			font-family: 'Montserrat', sans-serif;
+			background:#283593;
+			height:50px;
+			padding-top: 30px;
+			display: block;
+			color:#FEFEFE;
+			text-align: center;
+			letter-spacing: 1px;
+		}
+		container {
+			display: block;
+			margin: 50px auto;
+			max-width: 800px;
+			 box-shadow: 0px 2px 4px #999;
+			transition:all .4s;
+			border-radius: 0px 0px 3px 3px;
+		}
+		container:hover {
+			box-shadow: 0px 2px 8px #777;
+		}
+		card {
+			display: block;
+			
+			padding: 20px;
+			    background: #FAFAFA;
+    transition: all .2s;  
+		}
+	
+		card:hover {
+			 background:#DDD;
+			cursor: pointer;
+		}
+		card b {
+			display: block;
+			font-weight: 500;
+			font-family: 'Montserrat', sans-serif;
+		}
+			card.title {
+			    color: white;
+				background: #3F51B5;
+				border-radius: 3px 3px 0px 0px;
+				border:none;
+				font-family: 'Montserrat', sans-serif;
+		}
+
+		.scroll450 header {
+			position: fixed;
+			top:0; left:0; width:250px;
+			font-size:30px;
+			height: 80px;
+			z-index: 99;
+			animation:scrollIn .2s;
+		}
+		@keyframes scrollIn {
+			0% {left:-250px;}
+			100% {left:0px;}
+		}
+		.scroll450 header span {
+			padding-top:20 !important;
+		}
+		.scroll450 nav {
+			position: fixed;
+			top:0; left:0; right:0;
+		}
+		.scroll450 {
+			margin-top:530px;
+		}
+		#dotnet {
+			display: none;
+			    position: fixed;
+    bottom: -20px;
+    z-index: 99;
+    left: calc(50% - 10px );
+    border-radius: 20px;
+    border: 1px solid #444;
+    transform: rotate(90deg);
+			background:rgba(240,240,240,0.9);
+		}
+		#dotnet span {
+			border-radius: 100%;
+			display: block;
+			width:15px;
+			height:15px;
+			overflow: hidden;
+			color:transparent;
+			background: red;
+			margin: 3px;
+		}
+
+	</style>
+	</head>
+	<body>
+			<header>
+		  	<span><b>RONTAP</b> - NXT</span>
+		  </header>
+		
+		
+		  <nav>
+				A new generation of apps and websites by Aron
+		  </nav>
+		<br>
+        <container>
+            <card class="title" style="background:#009688;">
+                Handy Tools and APIs
+            </card>
+            <card onclick="location.href='random/noteIO.html'">
+                <b>Note.IO</b>
+                <span>A simple note taking application; strictly for those who do not know notepad.exes</span>
+            </card>
+            <card onclick="location.href='random.html'">
+                <b>TOOLS 3 </b>
+                <span>A collection of awesome tools like random generators, music player and more.</span>
+            </card>
+            <card onclick="location.href='random.html'">
+                <b>TAPCALK 6</b>
+                <span>A Calculator that has been developed deveeloped since 2012, rewritten multiple times. This time, it has been redesigned</span>
+            </card>
+        </container>
+
+        <container>
+			<card class="title">
+			Games and Simulation
+			</card>
+			<card onclick="location.href='ColorGame/'">
+				<b>Color Game</b>
+				<span>A simple game for passing time and getting too much involved in matching colors.</span>
+			</card>
+			<card onclick="location.href='SuperFarmer/'">
+				<b>Hyper Farmer Game and AI</b>
+				<span>A game originally as a role-play game, transformed into a mad simulator and AI testing software.</span>
+			</card>
+			<card onclick="location.href='cigi.html'">
+				<b>DoNotSmoke</b>
+				<span>A simple timer for those quitting</span>
+			</card>
+			
+			<card onclick="location.href='money.html'">
+				<b>Riches (Hungarian)</b>
+				<span>a Real-Time app following the richest (and best) hungarian millionares.</span>
+			</card>			
+		</container>
+		
+		<container>
+		
+		
+	
+		<card class="title" style="background:#4CAF50;">
+			Website Eaters and redesigns
+			</card>
+			<card onclick="location.href='note_app.html'">
+			    <center><i>more to come</i></center>
+            </card>		
+		</container>
+		
+		<container>
+		<card class="title" style="background:#FFA726;">
+			Other Projects
+			</card>
+            <card onclick="location.href='note_app.html'">
+                <center><i>more to come</i></center>
+            </card>		
+		</container>
+		
+		<br><br><br>
+		<div id="dotnet">
+			<span style="background:#3F51B5">a</span>
+			<span style="background:#009688">a</span>
+			<span style="background:#4CAF50">a</span>
+			<span style="background:#FF9800">a</span>
+		</div>
+	</body>
+	
+	
+	<script>
+		window.onscroll = function() {
+			console.log(window.scrollY);
+			if (window.scrollY<320)
+				{
+			$('header span').style.paddingTop=179+window.scrollY/2;
+				}
+			if (window.scrollY>450)
+				{
+					$('body').classList.add('scroll450');
+				}
+			else {
+				$('body').classList.remove('scroll450');
+			}
+		}
+	</script>
+</html>

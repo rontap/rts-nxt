@@ -1,0 +1,81 @@
+<html>
+  <head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+	var data;
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+	 var graf= new Array();
+	 var tomb= new Array();
+	// graf= [1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293, 307, 311, 313, 317, 331, 337, 347, 349, 353, 359, 367, 373, 379, 383, 389, 397, 401, 409]
+	 readfromhash();
+	 graf=tomb;
+      function drawChart() {
+
+        // Create the data table.
+        
+                data = google.visualization.arrayToDataTable([
+          ['Szám (bemenet)', 'Kimenet'],
+           [parseInt(0)+'.', Number(graf[0])]
+          
+        ]);
+        for (i=1;i<graf.length;i++)
+        {
+        	data.addRows([
+         	 [parseInt(i)+'.', Number(graf[i])],     
+       		 ]);
+       		 console.log(i+graf[i]);
+        }
+	rockChart(data);
+	}
+	function rockChart()
+	{
+        // Set chart options
+         var options = {
+          title: 'garfikon'
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        //chart.draw(data, options);
+        chart.draw(data, {curveType: "function",
+                  chartArea:{left:40,top:10,width:"80%",height:"80%"},
+                  vAxis: {maxValue: 10}});
+      }
+      function readfromhash() {
+      r=location.hash;
+      tomb= new Array();
+      tombs=0;
+      szam='';
+      for (i=1;i<r.length;i++)
+      {
+      if(r.charAt(i)=='-')
+      	 {
+      	 
+      	 tomb[tombs]=Number(szam);
+      	 szam='';
+      	 tombs++;
+      		}
+      else {
+      		szam+=r.charAt(i);
+      	}
+      }
+      console.log(tomb);
+      }
+    </script>
+  </head>
+
+  <body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+    <style>
+    #chart_div {
+    	width:100%;
+    	height:100%;
+    	position:fixed;
+    }
+    </style>
+  </body>
+</html>

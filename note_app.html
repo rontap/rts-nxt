@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet"> 
+    <title>Super Simple Notes</title>
+    <script>
+        
+        
+   function switcher(change)
+    {
+        if (change.className=="on") {
+            change.className="";
+            document.body.classList.remove(change.id)
+        }
+        else {
+            change.className="on";
+            document.body.classList.add(change.id)
+        }
+    }
+    </script>
+    <style type="text/css">
+       body {
+       	margin: 0; padding: 0;
+       	background: #FEFEFE;
+       	font-family: 'Sanchez', serif;
+       }
+
+       container {
+       	 max-width: 680px;
+       	 background: #444;
+       	 margin: 50px auto;
+       	 display: block;
+       	 padding: 5px 20px 20px 20px;
+       	 color: #EEE;
+        transition:.2s all;
+       }
+       body.dark {
+           background: #444;
+       }
+       body.dark container {
+           background: #444;
+           color:#EEE;
+       }
+       body.dark container hr {
+           background: #444;
+       }
+       body.dark container {
+            background: #F1F1F1;
+            color:#222;
+       }
+       body.full container {
+         width: 100%; 
+         position:fixed; 
+         left:0; right:0; top:0;
+         bottom:20px;
+         margin:0px !important;
+         padding: 15px;
+         max-width:99999px;
+         
+       }
+       container hr {
+           border: none;
+           background: #EEE;
+           height: 2px;
+           margin: 20px 0px;
+       }
+       section {
+           display: block;
+           max-width: 680px;
+           word-wrap: break-word;
+           transition: .2s all;
+       }
+
+        footer {
+            background:white;
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+            padding:2px;
+            border-top:1px solid #444;
+            font-size:15px;
+            
+        }
+        footer span {
+            padding:3px 10px;
+            transition:all .2s;
+            cursor:pointer;
+        }
+        footer span.on {
+            background:#444;
+            color:white;
+        }
+        
+        #saving {
+            float: right;
+            font-size: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    
+<container>
+    <div id="saving"></div>
+     <h2>
+    	<section id="title" contenteditable>
+    	   This is the title
+      	</section>
+	</h2>
+	<hr>
+	
+	<section id="note" class="note-main" contenteditable>
+	   Write your notes here...
+	</section>
+
+</container>
+
+    <footer>
+        <span onclick="switcher(this)" id="dark">Dark Mode</span><span onclick="switcher(this)" id="full">Fullscreen Mode</span><span onclick="note.innerHTML='';title.innerHTML='';location.reload();" id="full">Reset</span>
+        <span onclick="alert('Created by\nCsehi Agoston and Aron Tatai\nCopyright 2017')">About</span>
+    </footer>
+    
+    
+    
+    
+    
+<script type="text/javascript">
+
+    var timer = 2000;
+
+    window.onclick = function(event) {
+        if (event.target.id != "title" && event.target.id != "note") {
+            if (title.innerHTML == "&nbsp;" || title.innerHTML == "") {
+                title.innerHTML = "This is the title";
+            }
+            if (note.innerHTML == "&nbsp;" || note.innerHTML == "") {
+                note.innerHTML = "Write your notes here...";
+            }
+        }
+        if (event.target.id == "title" && title.innerHTML == "This is the title") {
+            title.innerHTML = "&nbsp;";
+        }
+        if (event.target.id == "note" && note.innerHTML == "Write your notes here...") {
+            note.innerHTML = "&nbsp;";
+        }
+        
+      
+        
+    }
+    
+    //SAVE
+    if (localStorage.saveNote != undefined ) {
+        note.innerHTML = localStorage.saveNote;
+        title.innerHTML = localStorage.saveTitle;
+    }
+    
+  
+    function onkeyupFunction() {
+        console.log(timer);
+        localStorage.saveNote = note.innerHTML;
+        localStorage.saveTitle = title.innerHTML;
+        if (timer > 0) {
+            saving.innerHTML = "saving...";
+            setTimeout(function() {
+                saving.innerHTML = "saved";
+                timer = 0;
+                return;
+            }, timer);
+        }
+    }
+    note.onkeydown = function() {
+        timer = timer + 1000;
+    }
+    title.onkeydown = function() {
+        timer = timer + 1000;
+    }
+    note.onkeyup = function() {
+        onkeyupFunction();
+    }
+    title.onkeyup = function() {
+        onkeyupFunction();
+    }
+ 
+</script>
+
+
+</body>
+</html>

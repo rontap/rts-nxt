@@ -1,0 +1,107 @@
+
+
+<body id="body">
+<meta charset="UTF-8">
+<script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+<center ><div id="sf">Time is:</div >
+<p id="pp">
+<a class="l" onClick="say()">What??</a>  <a class="l"onClick="about()">About</a> <a class="l" onClick="stopper();">Stopper</a> <img src="x.png" height="15px" onClick="pp.innerHTML='';">
+</p>
+
+</center>
+</body>
+
+<script>
+var time;
+i=0;
+ora=0;
+perc=0;
+ktm=false;
+ppsave=pp.innerHTML;
+var time = new Date();
+console.log(time.getHours());
+console.log(time.getMinutes()	);
+console.log(time.getSeconds()	);
+function timewrite() {
+console.log("time");
+
+hour=(time.getHours()*10)+15;
+mins=(time.getMinutes()*4)+15;
+secs=(time.getSeconds()*4)+15;
+ts="rgb("+hour+","+mins+","+secs+")";
+body.style.background=ts;
+if (ktm==false)
+	{
+	setTimeout(timewrite,1000);
+	}
+}
+timewrite();
+function say() {
+pp.innerHTML='A SZÍN AZ IDŐ.<br>avagy, a SZÍN megmutatja, hogy mennyi az IDŐ<br><img src="x.png" height="15px" onClick="pp.innerHTML=ppsave;">'
+}
+function about() {
+pp.innerHTML='Készítette: rontap <br>Ötlet: rontapparty, pebble és a mindennapok<br>A projekt az Elemential része.<br><img src="x.png" height="15px" onClick="pp.innerHTML=ppsave;">';
+}
+function stopper() {
+	ktm=true;
+		i++
+		if (i>=60)
+	     {
+			if (perc>=59)
+			{
+				ora++;
+				perc=0;
+				i=0;
+			}
+			else
+			{
+				perc++;
+				i=0;
+			}
+			
+		
+		}
+	hour=(ora*10)+15;
+mins=(perc*4)+15;
+secs=(i*4)+15;	
+
+	 
+	ts="rgb("+hour+","+mins+","+secs+")";
+	body.style.background=ts;
+	//alert();
+	ktm=true;
+	if (ora<1)
+	{
+	ora=1;
+	}
+	setTimeout(function(){stopper();},1000);
+}
+
+</script>
+<style>
+#sf{
+
+
+font-size:5em;
+margin-top:20%;
+
+}
+body {
+-webkit-transition:background 5s;
+font-family: 'Ubuntu', sans-serif;
+}
+p {
+
+margin:auto;
+margin-top:20%;
+
+}
+ @import url(http://fonts.googleapis.com/css?family=Ubuntu);
+</style>
+
+<cl-hd></cl-hd>
+
+
+ <link rel="import" href="../clocker.html">
+ <link rel="import" href="../../../polyfome/include_minimalist.html">

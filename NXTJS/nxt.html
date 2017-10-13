@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+
+    <div class="nxtjs-logo-container">
+            <i></i>
+            <i></i>
+            <i></i>
+
+            <x id="x"></x>
+            <x></x>
+    </div>
+
+
+    <style>
+        body {
+            margin:150px;
+        }
+        .nxtjs-logo-container * {
+            position:absolute;
+            display:block;
+        }
+
+        .nxtjs-logo-container i{
+            height: 200px;
+            background: #444;
+            width: 40px;
+        }
+        .nxtjs-logo-container x {
+            width: 30px;
+            height: 120px;
+            margin-left: 300px;
+            background: #444;
+            margin-top: 40px;
+            transform: rotate(45deg);
+        } 
+        
+        .nxtjs-logo-container i:nth-child(2) {
+            margin-left: 150px;
+        }
+        .nxtjs-logo-container i:nth-child(3) {
+                margin-left: 75px;
+                transform:rotate(-45deg);
+            }
+        .nxtjs-logo-container x#x {
+            margin-left: 300px;
+            transform: rotate(-45deg);
+        }
+    </style>
+</body>
+</html>

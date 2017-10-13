@@ -1,0 +1,172 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab);
+ 
+#ui {
+        position: fixed;
+        bottom: 0;
+        right: 0; left:0;
+        background: white;
+        box-shadow: 0px -2px 4px #ddd;
+        padding:20px;
+        font-size: 20px;
+        height:40px;
+    }
+#ui table { 
+    margin-top: -12px;
+}
+#ui paper-icon-button::shadow svg {
+    fill:#444;
+}
+#ui paper-icon-button {
+    vertical-align: -13px;
+}
+#ui paper-icon-button[icon="av:pause"] {
+    position:fixed;
+    right:0px; bottom:0px; 
+      zoom: 2;
+    border-left:1px solid #aaa;
+}
+
+#ui paper-icon-button[icon="communication:vpn-key"] {
+  -webkit-transform: rotate(-30deg);
+  zoom: 1.5;
+}
+#ui paper-icon-button[icon="av:pause"]:hover {
+ background:#f84;   
+}
+#ui paper-icon-button[icon="av:pause"]::shadow paper-ripple { display: none; }
+
+#ui section {
+    border-left:1px solid #999;
+    margin:-20px;
+    padding:20px;
+}
+.collkey {
+  margin-top: -52px !important;
+  margin-left: 81px;
+  border-spacing: 4px
+    
+}
+.collkey tr td:not(:first-child) {
+    transition:all .4s; /*TODO fancy effect*/
+    background:transparent;
+    width:20px;
+    padding:2px;
+    border:1px solid #999;
+}
+.collkey tr td:first-child { 
+    background:red;
+    border-radius: 50%;
+    padding: 5px;
+}
+.collkey tr:nth-child(1)  td:first-child { background:#48F; }
+.collkey tr:nth-child(2)  td:first-child { background:#62c; }
+.collkey tr:nth-child(3)  td:first-child { background:#F44; }
+
+.collkey tr:nth-child(1)  td:not(:first-child) { background:#48F ;  border:1px solid #48F;}
+.collkey tr:nth-child(2)  td:not(:first-child) { background:#62c ;  border:1px solid #62c;}
+.collkey tr:nth-child(3)  td:not(:first-child) { background:#F44 ;  border:1px solid #F44;}
+
+
+#collkeyimp tr:not(.a1):not(.a2):not(.a3)    td:nth-child(n + 2) ,
+#collkeyimp tr.a1 td:nth-child(n + 3) ,
+#collkeyimp tr.a2 td:nth-child(n + 4) ,
+#collkeyimp tr.a3 td:nth-child(n + 5) { background:transparent;  border:1px solid #999; }
+
+
+body.main_menu #ui
+,body.main_menu #actual_game {
+display: none;
+}
+/*editar*/
+body:not(.edit) #editar {
+    display: none;
+}
+#editar {
+      position: fixed;
+  right: -6px;
+  width: 248px;
+  margin-top: 23px;
+}
+#editar #blocks div {
+      width: 100px;
+  padding: 5px;
+    margin:-5px -10px;
+    cursor:pointer;
+}
+#editar #blocks div:hover { background:#48f;color:white;}
+#editar_settings {
+      background: #48F;
+  height: 58px;
+  margin: 4px -10px -10px -10px;
+  padding: 10px;
+  color: #f1f1f1;
+    transition:height .4s;
+}
+#editar_settings.exp {
+    height:150px;
+}
+#editar_settings input {
+      display: block;
+      width: 267px;
+      margin: 10px -10px;
+      padding: 12px;
+      font-size: 15px;
+      border: none;
+      border-left: 3px solid #444;
+      opacity: .8;
+}
+#editar_settings input:hover ,#editar_settings input:focus {
+    opacity:1;
+}
+
+/* menu */
+.main_menu #cubicon {
+    width:500px;
+    height:500px;
+    margin-top:100px;
+    margin-left:100px;
+    background: #48F;
+    position: fixed;
+    opacity:0;
+    -webkit-animation:cubicons 2s;
+    -webkit-animation-delay:1s;
+    -webkit-animation-fill-mode:forwards;
+}
+.main_menu #main_menu_buttons {
+    position: fixed;
+  left: 600px;
+  top: 100px;
+}
+#main_menu_buttons button {
+    display:none;
+}
+.main_menu #main_menu_buttons button{
+    font-family: 'Roboto Slab', serif;
+    display: block;
+  background: #444;
+  border: none;
+  margin: 0px;
+  padding: 19px;
+  font-size: 54px;
+  color: #f1f1f1;
+    transition: all .2s;
+    overflow: hidden;
+     max-width:0px;padding:19px 0;
+    -webkit-animation:mainbuttons 1.5s;
+    -webkit-animation-delay:2s;
+    -webkit-animation-fill-mode:forwards;
+}
+#main_menu_buttons button:hover {
+    cursor:pointer;
+    background:#48F;
+    color:white;
+}
+@-webkit-keyframes mainbuttons {
+    0% {max-width:0px;padding:14px 0;color:transparent;}
+    100% {max-width:500px;padding:14px;}
+}
+@-webkit-keyframes cubicons {
+    0% {opacity:0;}
+    20% {   opacity:0.1; }
+    100% {opacity:1;}
+}

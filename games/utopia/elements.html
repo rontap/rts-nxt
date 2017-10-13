@@ -1,0 +1,124 @@
+<!-- U BLOCK-->
+<polymer-element name="u-block" attributes="x y color portal color" noscript>
+           <template>
+               <div id="uBlock"></div>                  
+               <style>
+               #uBlock {
+                    position: absolute;
+                    width: 50px;
+                    height: 50px;
+                    background: #666 ;
+                       left:{{x*50}};
+                       top:{{y*50}};                 
+                }               
+               </style>
+                   <template if="{{color}}">
+                       <style> #uBlock { background: {{color}}; }  </style>
+                   </template>
+           </template>
+</polymer-element>
+ 
+<polymer-element name="placed-mine" attributes="x y color portal color" noscript>
+           <template>
+              <div id="Mine">
+                <div> </div> 
+                <div> </div> 
+              </div>
+               <style>
+               div#Mine {
+                position: absolute;
+                    width: 50px;
+                    height: 50px;
+                    border-color: #444 !important;
+                       left:{{x*50}};
+                       top:{{y*50}};   
+               } 
+                #Mine div::after, #Mine div::before {
+                    content: '';
+                    position: absolute;
+                    background: red;
+                    width: 4px;
+                    border-radius: 50%;
+                    height: 4px;
+                    margin-left: 4px;
+                    margin-top: 8px;
+                   }
+                   #Mine div:last-child::after {  margin-left:12px;   }
+                   #Mine div::before { background:blue; margin-left:8px; margin-top:4px;}
+                   #Mine div:last-child::before { margin-top:12px;}
+                   @-webkit-keyframes defuses {
+                        0% {transform:rotate(0deg);}
+                       40% {border-color:#444;}
+                       50% {
+                           transform:rotate(1800deg);
+                           box-shadow:0px 0px 50px #f44;
+                           border-color:#f44; 
+                           border-width:2px;
+                           margin:13px;
+                       }
+                       55% {
+                            border-width: 20px;
+                            margin: -5px;
+                           box-shadow:0px 0px 100px #f44;
+                       }
+                       75% {
+                           border-width: 20px;
+                            margin: -5px;
+                           opacity:.9;
+                       }
+                       90% {
+                           border-width:2px;
+                           margin:13px;
+                           opacity:.7;
+                       }
+                       100% {opacity:0;box-shadow:none;}
+                    }
+                   
+               </style>
+           </template>
+</polymer-element>
+
+
+<polymer-element name="alert-box" attributes="content text fabicon fabaction fabcolor" noscript>
+    <template>
+        <container id="abx">
+            <div>
+                <h2>{{content}}</h2>
+                <div>
+                    {{text}}
+                </div>
+                <paper-fab icon="{{fabicon}}" 
+                           onclick='{{fabaction}};this.parentNode.parentNode.setAttribute("class", "done");'></paper-fab>
+                
+            </div>
+        </container>
+        <style>
+            container {
+                background:white;
+                  background-image: -webkit-linear-gradient(#eee , #fff) !important;
+                position:fixed;
+                top:0px; left:0px; right:0px;
+                height:125px;
+                box-shadow:0px 2px 7px #666;
+                padding:20px;
+                transition:all .4s ease-out;
+            }
+            paper-fab {
+                right: 50px;
+                position: absolute;
+                top: 137px;
+                background:{{fabcolor}};
+            }
+            container.done {
+               top:-200px;
+            }
+        </style>
+    </template>
+    
+</polymer-element>
+
+<script>
+function abxhide() {
+    $(this).html('');
+}
+</script>

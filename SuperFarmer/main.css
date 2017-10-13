@@ -1,0 +1,147 @@
+body {
+    margin:0; padding:20px;
+    background:#DDD;
+    font-family:monospace;
+    color:#222;
+    max-width:600px;
+       
+}
+table tr td {
+    border:1px solid #444;
+    padding:5px;
+    border-collapse: collapse;
+}
+table tr td:hover {
+    background:#999;
+}
+td.on {
+    background:#66BB6A;
+}
+table {
+     border-collapse: collapse;
+     margin:5px;
+}
+container {
+    border:2px solid #999;
+    padding:5px;
+    margin:10px;
+    transition:all .2s;
+    display:block;
+}
+container:hover {
+    background:#EEE;
+}
+body container:last-child {
+    animation:whoosh .5s;
+}
+@keyframes whoosh {
+    0% { opacity:.1; margin-top:50px; }
+    100% { opacity:1; margin-top:10px; }
+}
+table span {
+    padding:0 5px;
+    
+}
+body.performance table {
+    display:none;
+}
+.performance .pHide {
+    display: none;
+}
+.performance .pGray {
+    color:#777;
+}
+body :not(h2) button {
+    font-size:11px;
+    cursor:pointer;
+}
+button {
+    padding:2px;
+}
+#tickSpeed {
+    width: 45px;
+    text-align: center;
+    border: 10px;
+}
+#UIElementHolder {
+    max-height: calc( 100% - 150px);
+    overflow-x: HIDDEN;
+    overflow-y: AUTO;
+}
+/*lazy editor*/
+#ultimateEditor , #ultimateStat{
+    position:fixed;
+    
+    height:600px;
+    right:-650px; top:20px; bottom:20px;
+    width:340px;
+    padding:20px;
+    border:2px solid #666;
+    background:#FEFEFE;
+    transition:all .3s;
+}
+#ultimateStat:hover {
+    border-left:2px solid #666;
+}
+#ultimateStat::before {
+        content: 'stats';
+    position: absolute;
+    background: #ddd;
+    top: 300px;
+    left: -30px;
+    transform: rotate(-90deg);
+    color: black;
+    margin-left: -19px;
+    padding: 3px;
+    border-radius: 3px;
+}
+#ultimateStat:hover::before {
+    content: '';
+}
+#ultimateStat {
+    border-left:50px solid #666;
+     right:-390px;
+}
+
+#ultimateEditor textarea {
+    display:block;
+    width:100%;
+    height:90%;
+    border:none;
+    font-size:10px;
+}
+
+#ultimateEditor.on , #ultimateStat:hover {
+    right:16px;
+}
+code {
+    background: #AAA;
+    padding: 5px;
+    color:black;
+}
+code:hover {
+    background:#AAA;
+    cursor:pointer;
+}
+@media screen and (min-width:1200px) {
+    body {
+        zoom:1.2;
+    }
+}
+.blink {
+    animation:blinkit .9s;
+}
+@keyframes blinkit {
+    0% { border:2px solid #48F; }
+    100% { border:2px solid #999; }
+}
+
+/*stat window*/
+#proghold {
+     width: 340px;
+    height: 150px;
+}
+#proghold span {
+    display: inline-block;
+    background:#48F;
+}

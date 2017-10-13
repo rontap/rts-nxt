@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<HTML>
+	<Head>
+		<title>Speed game by rontap</title>
+	  <meta charset="UTF-8">
+		<meta name="author" content="TAP">
+	  <meta name="description" content="rontap">
+		<meta name="keywords" content="rontap,linux,TaPium,tapsite,rts,rjsx">
+	 <script src="goog.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	
+	</Head>
+	<div id="navbar" >
+
+</div> 
+	
+	<body >
+
+
+<div id="body">
+<script>
+appver="TapCalk2.2\n TAPIS/calkr.js 1.6 ";
+		sited="ttest.html";
+		navname="Speeed"; //hogy jelenik majd meg
+		navplus="2 számológép";
+		coa=false;		
+		pack="rontap.mainHelp/tapcalk2";
+		moretag=true;
+		//holvan
+		vit_start="Start";
+		vit_tema="Segítő alkalmazások";
+		
+		
+		manimg='f_icons/game.svg';
+</script>
+<script>
+
+scards=2;//kártyák (a speed esetén felhúzzák)
+speed=false;
+endgame=false;//a jatek utolso 4 kartyaja
+var k =new Array("2","3","4","5","6","7","8","9","10","J","Q","K","A","2");
+
+
+function card() {
+r=Math.floor(Math.random()*13) ;
+
+return k[r];
+}
+for (i=0;i<10;i++)
+{
+card();
+}
+</script>
+<style>
+.card, tr td:not(#nope){
+	width:91px;
+	padding:20px;
+	padding-left:10px;
+	padding-right:10px;
+	border:3px outset #555;
+	font-size:70px;
+	cursor:pointer;
+	border-radius:4px;
+	margin:20px;
+	-webkit-transition:background-color 0.13s;
+	}
+.card:hover,tr td:not(#nope):hover {
+	background-color:#555;
+	
+	}
+tr td:not(#nope):active {
+	padding-top:25px;
+	padding-bottom:15px;
+	border:3px inset #555;
+	}
+.cardlos {
+	width:91px;
+	padding:20px;
+	padding-left:10px;
+	padding-right:10px;
+	opacity:0;
+	font-size:70px;
+	display:inline;
+	border-radius:4px;
+	margin:20px;
+	-webkit-transition:background-color 0.1s;
+	}
+	tr td #lap:hover {
+	border:3px solid #26F;
+	}
+	
+</style>
+<rts>
+<br><br>
+
+<TABLE>
+<tr>
+	<td id="a1" onClick="placeA('a1');">
+	L
+	</td >
+	<td id="a2" onClick="placeA('a2');">
+	O
+	</td>
+	<td id="a3" onClick="placeA('a3');">
+	A
+	</td>
+	<td id="a4" onClick="placeA('a4');">
+	D
+	</td>
+	<td id="nope">
+	
+	</td>
+	<td id="ca" style="border:3px solid #26F;font-size:26px;" >
+	42
+	</td>
+</tr>
+<tr>
+	<td id="nope">
+	
+	</td>
+	<td id="c" onClick="hasspeedA();">
+	#
+	</td>
+	<td id="d" onClick="hasspeedB();">
+	#
+	</td>
+	<td id="nope">
+	
+	</td>
+	<td id="nope">
+	
+	</td>
+	<td id="fcs" onClick="csap();" style="border:3px solid #F62;font-size:26px;">
+	felcsapás
+	</td>
+</tr>
+<tr>
+	<td id="b1" onClick="placeB('b1');">
+	K
+	</td>
+	<td id="b2" onClick="placeB('b2');"> 
+	K
+	</td>
+	<td id="b3" onClick="placeB('b3');">
+	K
+	</td>
+	<td id="b4" onClick="placeB('b4');">
+	K
+	</td>
+	<td id="nope">
+	
+	</td>
+	<td id="cb" style="border:3px solid #26F;font-size:26px;">
+	42
+	</td>
+</tr>
+</TABLE>
+<span id="rmdsz"></span>
+<script>
+c.innerHTML=card();
+d.innerHTML=card();
+	for (i=1;i<=4;i++)
+	{
+	document.getElementById('a'+i).innerHTML=card();
+	document.getElementById('b'+i).innerHTML=card();
+	}
+	//---------------------------------------------------------------------------
+//placecard functions	
+function placeA(event) {
+if (seegood(window[event].innerHTML,c.innerHTML))// A lapja + C mezo
+{
+	console.log('good--'+event);
+	bef=window[event].innerHTML;
+	window[event].innerHTML=card();
+	ca.innerHTML=Number(ca.innerHTML)-1;
+	c.innerHTML=bef;
+	window[seeksameA('a')].innerHTML=card();
+	isgameendA(event);
+	scards++;
+}
+else if (seegood(window[event].innerHTML,d.innerHTML))// A lapja + D mezo
+{
+	console.log('good--b'+event);
+	bef=window[event].innerHTML;
+	window[event].innerHTML=card();
+	ca.innerHTML=Number(ca.innerHTML)-1;
+	d.innerHTML=bef;
+	window[seeksameA('a')].innerHTML=card();
+	isgameendA(event);
+	scards++;
+}
+isspeed();//speed-e
+}//function
+
+function placeB(event) {
+if (seegood(window[event].innerHTML,c.innerHTML))// B lapja + C mezo
+{
+	console.log('good--'+event);
+	bef=window[event].innerHTML;
+	window[event].innerHTML=card();//jelenlegi helyett random
+	cb.innerHTML=Number(cb.innerHTML)-1;
+	c.innerHTML=bef;
+	window[seeksameB('a')].innerHTML=card();
+	isgameendB(event);
+	scards++;
+}
+else if (seegood(window[event].innerHTML,d.innerHTML))// B lapja + D mezo
+{
+	console.log('goodb--'+event);
+	bef=window[event].innerHTML;
+	window[event].innerHTML=card();
+	cb.innerHTML=Number(cb.innerHTML)-1;
+	d.innerHTML=bef;
+	window[seeksameB('a')].innerHTML=card();
+	isgameendB(event);
+	scards++;
+}
+isspeed();//speed-e
+}//function
+	//---------------------------------------------------------------------------
+function seegood(a,b) {//jó-e amit raktunk
+	if (k[k.indexOf(a)]==k[k.indexOf(b)-1])
+	{return true;
+	
+	}
+	else if (k[k.indexOf(a)]==k[k.indexOf(b)+1])
+	{return true;
+	
+	}
+	else if (k[k.indexOf(b)]==k[k.indexOf(a)-12])//2-A összekötzés
+	{return true;
+	
+	}
+	else {
+	return false;
+	}
+}
+	//---------------------------------------------------------------------------
+//egyenlő lapok kiirtása
+function seeksameA() {
+	if (!endgame)
+	{
+	r =new Array();
+	r[1]=a1.innerHTML;
+	r[2]=a2.innerHTML;
+	r[3]=a3.innerHTML;
+	r[4]=a4.innerHTML;
+		
+	for (i=1;i<=4;i++)
+	{
+		for (y=1;y<=4;y++)
+		{
+		if (i!=y)
+		{
+			if (r[i]==r[y])
+			{
+			console.log('seeksameA-'+i+'+'+y)
+			save=i+'-'+y;		
+			ca.innerHTML=Number(ca.innerHTML)-1;
+			return 'a'+y;		
+			}
+		}
+		}
+	}
+	}//if
+	return 'rmdsz';
+	
+}
+r =new Array();
+function seeksameB() {// kiirtja az azonos mezoket
+	if (!endgame)
+	{
+	r[1]=b1.innerHTML;
+	r[2]=b2.innerHTML;
+	r[3]=b3.innerHTML;
+	r[4]=b4.innerHTML;	
+	for (i=1;i<=4;i++)
+	{
+		for (y=1;y<=4;y++)
+		{
+		if (i!=y)
+		{
+		if (r[y]!='^')
+		{
+			if (r[i]==r[y])
+			{
+			console.log('seeksameB-'+i+'+'+y+'-'+r)
+			save=i+'-'+y;			
+			cb.innerHTML=Number(cb.innerHTML)-1;
+			return 'b'+y;		
+			}
+		}
+		}
+		}//for
+	}
+	}//if
+	return 'rmdsz';
+}
+	//---------------------------------------------------------------------------
+function csap() {//csapás
+	c.innerHTML=card();
+	d.innerHTML=card();
+	cb.innerHTML=Number(cb.innerHTML)-1;
+	ca.innerHTML=Number(ca.innerHTML)-1;
+	scards=scrads+2;
+}
+	//---------------------------------------------------------------------------
+	//game end
+function isgameendA(call) {//vége felé van?
+	if (Number(ca.innerHTML)<=4)
+	{
+	window[call].innerHTML="^";
+	endgame=true;
+	}
+	isfinal();
+}
+function isgameendB(call) {// vélge felé van?
+	if (Number(cb.innerHTML)<=4)
+	{
+	window[call].innerHTML="^";
+	endgame=true;
+	}
+	isfinal();
+}
+function isfinal() {// vége van?
+
+if (Number(cb.innerHTML)<=0)
+	{
+	alert('Bnyert');
+	cb.innerHTML="NYERT";
+	}
+	else	if (Number(ca.innerHTML)<=0)
+	{
+	alert('Anyert');
+	ca.innerHTML="NYERT";
+	}
+}
+	//---------------------------------------------------------------------------
+function isspeed() {//speed van?
+	if (c.innerHTML==d.innerHTML)
+	{
+	return true;
+	}
+	else {
+	return false;
+	}
+}
+function hasspeedA() {// a -speedet mond
+	if (isspeed())
+	{
+	alert('Speed van! a B játékos '+scards+' lapot húz fel!');
+	console.log('speedA:'+cb.innerHTML+'+'+scards);
+	cb.innerHTML=Number(cb.innerHTML)+scards;
+	scards=0;
+	}
+}
+function hasspeedB() {// a -speedet mond
+	if (isspeed())
+	{
+	alert('Speed van! az A játékos '+scards+' lapot húz fel!');
+	console.log('speedB:'+ca.innerHTML+'+'+scards);
+	ca.innerHTML=Number(ca.innerHTML)+scards;
+	scards=0;
+	}
+}
+//0.1  thinking of SPEED <13.05.10>
+
+//1.0  starting speed, creating table <13.05.13>
+//1.1B design
+//1.1  random numbers
+//1.2  placing card (not valid) [UNITY] 
+
+//2.0  placing card (valid!) <13.05.18>
+//2.1  placing cards AB + two slots
+//2.2  card remaining (42 alap), go less
+//2.2B placing cards bugfix (2->>A) <13.05.19>
+//2.3  redesign (bit)
+//2.4  felcsapás
+//2.6  removing double cards (hardwork)
+//2.7  starting implementing game end [UNIT] 
+
+//3.0  adding '^' endcards
+//3.1  stresstest
+//3.2  user B added (not implemented seit 2.4)
+//3.3  starting implementing SPEED
+//3.4  added for both (A+B)
+//3.5  bugfixes
+
+</script>
+	<script src="main.rjsx" type="text/javascript"></script>
+	</Body>
+</HTML>

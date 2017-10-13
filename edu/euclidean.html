@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>GeoCalk</title>
+	<link rel="shortcut icon" href="http://rontap.elemential.net/logos/gc.ico" />
+	<meta charset="UTF-8" />
+	<style>
+	body
+	{
+		margin: 0;
+		overflow: hidden;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+	}
+	/*small
+	{
+		color:#aaa;
+		position:fixed;
+		bottom:0;
+		right:0;
+		font-family:'Sans',sans-serif;
+		font-size:6pt;
+		text-align:right;
+		margin:3pt;
+		line-height:1.2;
+	}*/
+	a
+	{
+		color:#aaa;
+	}
+	a:visited
+	{
+		color:#aaa;
+	}
+	a:hover
+	{
+		color:#ccc;
+	}
+	a:active
+	{
+		color:#ddd;
+	}
+	div
+	{
+		width: 100%;
+		height: 100%;
+	}
+	</style>
+</head>
+<body onselectstart="return false">
+	<!--<canvas id="euclidean" onContextMenu="return false" onMouseDown="downMouse(event)" onMouseUp="upMouse(event)" onMouseMove="moveMouse(event)">
+	</canvas>-->
+	<div id="euclidean">
+	</div>
+	<script src="geocalk.js"></script>
+	<script>
+		div=document.getElementById("euclidean");
+		initCanvas(div);
+	</script>
+	<!--<small>GeoCalk for <a href="http://edu.elemential.net/tapcalk.html">TapCalk</a> by <a href="http://elemential.net">Elemential</a><br>Licensed under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons BY-NC-SA</a></small>-->
+</body>
+</html>

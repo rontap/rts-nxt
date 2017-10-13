@@ -1,0 +1,105 @@
+<!-- rontap + danifoldi kifogasgyarto-->
+
+<div class="away"> <h1>Ha kell egy jó kifogás</h1>
+<div id="aaaaaa" class="card away">
+<span id="kezdc" onClick='kezdc.innerHTML=kezd[Math.floor(Math.random()*kezd.length)]+" ";'>itt</span>
+<span id="szemc" onClick='szemc.innerHTML=szem[Math.floor(Math.random()*szem.length)]+" ";'>lesz</span>
+<span id="mittc" onClick='mittc.innerHTML=mitt[Math.floor(Math.random()*mitt.length)]+" !";'>a mentség</span>
+<br>
+<br>
+<paper-button onClick="barom()" class="blue" label="">új kifogás!</paper-button>
+<paper-button onClick="newt()" class="btn-green" label="">Adj hozzá te is!</paper-button>
+</div>
+<br>
+Made by <span onclick="document.location='http://elemential.net'">rontap</span> (2013-07-14). Updated by <span onclick="document.location='http://elemential.net'">DaniFoldi</span> (2014-08) Based on kifogasgyarto. Jelenleg <span id="combo"></span> kombináció érhető el
+<script>
+kezd=new Array();
+szem=new Array();
+mitt=new Array();	
+	function barom()
+{
+kezdc.innerHTML=kezd[Math.floor(Math.random()*kezd.length)]+" ";
+szemc.innerHTML=szem[Math.floor(Math.random()*szem.length)]+" ";
+mittc.innerHTML=mitt[Math.floor(Math.random()*mitt.length)]+"!";
+}
+	loaded=0;
+      get1=new XMLHttpRequest();
+        get1.open("GET","http://elemential.net/kifogas2/get_kezd.php",true);
+        get1.send();
+        get1.onreadystatechange=function()
+      {
+        if(get1.readyState==4 && get1.status==200)
+        {
+          message=JSON.parse(get1.responseText);
+			kezd=message;
+			loaded+=1;
+			setload();
+        }
+	}
+		get2=new XMLHttpRequest();
+        get2.open("GET","http://elemential.net/kifogas2/get_szem.php",true);
+        get2.send();
+        get2.onreadystatechange=function()
+      {
+        if(get2.readyState==4 && get2.status==200)
+        {
+          message2=JSON.parse(get2.responseText);
+			szem=message2;
+			loaded+=1;
+			setload();
+        }
+	}
+		get3=new XMLHttpRequest();
+        get3.open("GET","http://elemential.net/kifogas2/get_mitt.php",true);
+        get3.send();
+        get3.onreadystatechange=function()
+      {
+        if(get3.readyState==4 && get3.status==200)
+        {
+          message3=JSON.parse(get3.responseText);
+			mitt=message3;
+			loaded+=1;
+			setload();
+        }
+	}
+	function setload()
+	{
+		if (loaded>=2)
+			{
+				barom();			
+combo.innerHTML=szem.length*mitt.length*kezd.length;
+			}
+	}
+function newt() {
+	aaa="<form action='send.php' method='post' class='away'>";
+	aaaa=aaa+'Melyik részhez szeretnél beküldeni?<select name="tipus" id="tip" class="inp-text"><option value="1">eleje (bocsáss meg, de)</option><option value="2">ki csináta (a mumus,)</option><option value="3">mit tett (ellopta a biciklimet)</option></select>';
+	aaaaa=aaaa+"<paper-input class='inp-text' type='text' placeholder='ird ide a szöveget amit kitaláltál!' name='szoveg'></paper-input><br>";
+    janisave=aaaaaa.innerHTML;
+	aaaaaa.innerHTML=aaaaa+'<br><input type="submit" class="btn-green" value="Beküldés!"></form>';
+}
+/*console.log('<--WELCOME-->');
+/*console.log("Hello! This code is under CC licence, so you can modify it");
+console.log("Üdv! A kifogásgyártó kódja CC liszensz alatt, van , tehát nyugodtan adj hozzá, szerkeszd, de a forrást (ezt az oldalt) tüntesd fel!");
+console.log('<---DEBUG--->');*/
+</script>
+<style>
+ #aaaaaa span:hover {
+background:#48F;
+cursor:pointer;
+     color:white;
+}
+input {
+width:250px;
+}
+
+    #aaaaaa span {
+padding:4px;
+transition:background .4s;
+border-radius:4px;
+font-size:17px;
+margin:3px 0;
+        line-height: 2;
+        -webkit-user-select:initial;
+}
+</style>
+    </div>

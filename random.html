@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<title>NXT RANDOM 3</title>
+
+	<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+
+	<script src="random/text.io.js" type="text/javascript"></script>
+	<script src="random/multiplix.js" type="text/javascript"></script>
+	<script src="random/coloring.js" type="text/javascript"></script>
+	<script src="random/music.js" type="text/javascript"></script>
+	<script src="random/count.class.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="../NXTJS/design.css">
+	<link rel="stylesheet" href="../NXTJS/input-design.css">
+	<link rel="stylesheet" href="../NXTJS/mobile.css">
+
+	<link rel="stylesheet" href="random/multiplix.css">
+	<link rel="stylesheet" href="random/music.css">
+	<link rel="stylesheet" href="random/random.css">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+<nav class="fixed">
+	<header>
+		<i class="material-icons" onclick="$('body').classList.toggle('sidebarMinimised')">menu</i>
+		<div>TOOLS 3</div></header>
+  <span id="pageTitle">Welcome To Tools3!</span>
+
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu();">apps</i>
+</nav>
+
+<container class="sidebar" onclick="$('body').classList.add('sidebarMinimised');">
+		<div class="otitle"><div>Text Manipulation</div></div>
+		<div class="omenu">Text Editor</div>
+		<div class="omenu">SMALL.tools</div>
+		<div class="omenu">Habit Counter</div>
+		<div class="omenu">Multiplix</div>
+		<div class="omenu" onmouseup="location.href='random/noteio.html'">note.IO <i class="material-icons">open_in_new</i></div>
+
+		<div class="otitle"><div>Time</div></div>
+		<div class="omenu">Timer & Stopwatch</div>
+		<div class="omenu">Fancy Clock<i class="material-icons">open_in_new</i></div>
+		<div class="omenu">Binary Clock<i class="material-icons">open_in_new</i></div>
+		<div class="omenu">Round Clock<i class="material-icons">open_in_new</i></div>
+
+		<div class="otitle"><div>Generators</div></div>
+		<div class="omenu">Random Password & Text</div>
+		<div class="omenu">Color Tools</div>
+
+		<div class="otitle"><div>File</div></div>
+		<div class="omenu">Music Player  <i class="material-icons" id="musicEQLogo">equalizer</i></div>
+</container>
+
+
+<holder>
+		<div>
+			<div class="card" id="">
+				<h1 class="covered grey-dark">Text Editor</h1>
+				<div class="toolbar">
+						<i class="material-icons" onclick="document.execCommand('undo', false, null);">undo</i>
+						<i class="material-icons" onclick="document.execCommand('redo', false, null);">redo</i>
+						<span separator></span>
+						<i class="material-icons" onclick="document.execCommand('redo', false, null);">text_format</i>
+ 						<i class="material-icons" onclick="">format_bold</i>
+						<i class="material-icons" onclick="">format_italic</i>
+						<i class="material-icons" onclick="">strikethrough_s</i>
+						<i class="material-icons" onclick="">format_size</i>
+				</div>
+				<div class="textarea fill-card" contenteditable="true" onkeyup="updateTextStats();" id="mainText">
+					noss
+				</div>
+				<switch checked="true"><span>Text On Much Larger</span><span>Text Off</span></switch>
+				<switch checked="true"><span>Text On Much Larger</span><span>Setting Off</span></switch>
+				<switch checked="true"><span>Uranos</span><span>Saturn</span></switch>
+
+				<br />
+				<hr />
+				<div id="textStats" style="color:#444;font-size:16px;">
+						<i>Start Typing and you will see stats here</i>
+				</div>
+			</div>
+		</div>
+
+
+		<container class="card">Small Tools</container>
+		<div>
+			<div class="card" id="habitHolder">
+				<h1 class="covered green-antigene">Count Your habits</h1>
+			<i class="material-icons fab h1-connect-fab blue-antigene" onclick="counter.add()">add</i>
+			<section id="sect" style="margin:-25px;">
+				<br>
+					<center><i>Start tracking your habits, and count everything!</i></center>
+				<br>
+			</section>
+		</div>
+		</div>
+
+		<div id="multiplix">
+ 			<div id="userNames">
+					<button real onclick="newUser()">New Recepient</button>
+			<br><br><br>
+        <div id="userNamesHolder"></div>
+
+			</div>
+			<div id="userSpace">
+					<div id="userTitle">
+					<span>Editing
+						<span contenteditable spellcheck="false" onkeyup="editNameSpan(this);">Moss</span>
+					</span></div>
+					<div id="userCurrText" ondrop="dropContent(event,false);" ondragover="prevDef(event);">
+						<container class="card">
+							<h1>About Multiplix</h1>
+							This is going to be the title and help info<br>
+							Please fill it so other also understand this mess <br>
+						</container>
+				  </div>
+			</div>
+			<div id="snippets">
+					<div id="snippetHeader" class="menuHeader">
+							<div class="menuItem">
+									<span class="on">Snippets</span>
+									<span>Stats</span>
+							</div>
+					</div>
+					<div id="snippetTextareaHolder"  ondrop="dropContent(event,true);" ondragover="prevDef(event);">
+					<textinput draggable="true" ondrag="dragContent(event)" contenteditable="true" ondragover="">Hey Jude</textinput>
+			  	</div>
+					<textinput onclick="newSnippet();">Start Writing Here to add a New Snippet..</textinput>
+			</div>
+		</div>
+
+
+		<container>text4</container>
+
+		<div>
+			<div class="card" id="timerHolder">
+				<h1 class="covered cyan-antigene">Timer</h1>
+
+				<i class="material-icons fab h1-connect-fab" onclick="switchTimer()">hourglass_empty</i>
+				<i class="material-icons fab-small  h1-connect-fab-small" onclick="resetTimer()">restore</i>
+				<br /><br />
+				Please set Timer below:<br /><br />
+				<input  class="non-expand short" placeholder="Hours"/> :
+				<input  class="non-expand short" placeholder="Minutes"/> :
+				<input  class="non-expand short" placeholder="Seconds"/>
+				<hr /><br />
+
+				<status value="100" block></status>
+
+			</div>
+			<div class="card" id="stopHolder">
+				<h1 class="covered yellow-antigene">Stopper</h1>
+				<i class="material-icons fab h1-connect-fab" onclick="switchStopper()">timer</i>
+				<i class="material-icons fab-small  h1-connect-fab-small" onclick="resetStopper()">replay</i>
+
+				<br /><br />
+				Click on the icon to start the stopper<br /><hr /><br />
+
+				<status value="100" block></status>
+				<status value="100" block></status>
+				<br />
+				<div class="colorResults" id="timerCurrent" onclick="roundStopper()">
+					HH:MM:SS:MS××
+				</div><hr /><br />
+				<div id="stopperRounds">				</div>
+			</div>
+
+		</div>
+		<container>text2</container>
+		<container>text3</container>
+
+		<container>text4</container>
+
+		<div>
+				<div class="card" id="passwordHolder">
+					<h1 class="covered yellow-antigene">Set Randomised Password</h1>
+					<i class="material-icons fab h1-connect-fab" onClick="generateAllPwd(Number($('#passwordCharCount').value),Number($('#passwordCount').value))">fingerprint</i>
+
+					<br /><br />
+					<input placeholder="Characters" type="number" id="passwordCharCount">
+					<input placeholder="Number of PWDs" type="number" id="passwordCount">
+					<br /><br />
+					<hr />
+					<h3>Include:</h3>
+
+				  <checkbox>Numbers</checkbox>
+					<checkbox>Uppercase</checkbox>
+					<checkbox>Special Chars.</checkbox>
+					<checkbox checked="true">Cyrill & Ext. Latin</checkbox>
+					<br><hr>
+					<div id="passwordOutput"></div>
+
+				</div>
+
+			<div class="card">
+				<h1 class="covered orange-antigene">Random Text & Numbers</h1>
+				<i class="material-icons fab h1-connect-fab" >graphic_eq</i>
+				<br /><br />
+				<input placeholder="Length" type="number" min="0">
+				<br /><br /><hr />
+				<checkbox>Text</checkbox>
+				<checkbox>Numbers</checkbox>
+				<h3>Include:</h3>
+				<checkbox checked="true">Spaces</checkbox>
+				<checkbox>Sentences</checkbox>
+				<checkbox disabled="true">Special Chars.</checkbox>
+			</div>
+
+		</div>
+
+    <div>
+			<div class="card" id="colorMixer">
+				<h1 class="covered red-antigene">Random Color and Color Mixer</h1>
+				<i class="material-icons fab h1-connect-fab" onclick="randomColor()">invert_colors</i>
+				<br />
+				<switch checked="true"><span>Use RGB</span><span>Use HSL</span></switch>
+
+				<br /><br />
+				<input onkeyup="updateColor(false,0);" class="non-expand short" value="55"/>
+					<input type="range" min="0" value="55" max="255" onmousemove="updateColor(true,0);"/> Red/Hue<br /><br />
+				<input onkeyup="updateColor(false,1);" class="non-expand short"value="55"/>
+					<input type="range" min="0" value="55" max="255" onmousemove="updateColor(true,1);"/> Green/Saturation<br /><br />
+				<input onkeyup="updateColor(false,2);" class="non-expand short"value="55"/>
+					<input type="range" min="0" value="55" max="255" onmousemove="updateColor(true,2);"/> Blue/Vendetta
+				<div id="colorResult" class="colorResults" onclick="saveColor();"> Color	</div><br /><br />
+				<hr />
+				<div id="colorResults"></div>
+			</div>
+		</div>
+
+
+<div>
+	<div class="card card-2x1" id="musicPlayer">
+		<h1 class="covered grey-dark" id="currPlayedMusic">MUSIC</h1>
+		<input type="range" min="0" value="0" max="1000" onmousemove="musicControl.seek(Number(this.value))" id="currSeek"/>
+
+		<div id="currPlayedTime">			</div>
+
+		<div id="musicWrapper">
+			<div id="musicMainControls">
+				<i class="material-icons importantIcon" onclick="musicControl.prev()">skip_previous</i>
+				<i class="material-icons fab"  onclick="musicControl.toggle()">play_arrow</i>
+				<i class="material-icons importantIcon" onclick="musicControl.next()">skip_next</i>
+			</div>
+
+			<br />
+			<i class="material-icons importantIcon" id="volumeIcon" onclick="musicControl.toggleVolume();">volume_up</i>
+			<input type="range" min="0" value="55" max="100" onmousemove="musicControl.volume(Number(this.value))"/>
+			<span float>
+				<i class="material-icons importantIcon leftMargin2x" id="volumeIcon" onclick="this.classList.toggle('on');">autorenew</i>
+				<i class="material-icons importantIcon leftMargin" id="volumeIcon"   onclick="this.classList.toggle('on');">shuffle</i>
+			</span>
+		</div>
+
+	<audio  id="musicHolder">
+			<source src="" type="audio/mp3" id="musicInput" />
+		</audio>
+	</div>
+
+	<div id="currPlayListFull" class="card card-2x2">
+
+		<label class="chip" for="getfiles">
+			<i class="material-icons">open_in_browser</i>Click Here To Open Folder From
+			<input placeholder="C" class="short non-expand" value="E" id="musicDriveOpen"/> Drive
+		</label>
+		<label class="chip" for="getfiles"><i class="material-icons">language</i>Click Here To Open From Website</label>
+
+		<input type="file"  name="client-file" id="getfiles" webkitdirectory directory multiple onchange="collectMusic(getfiles.files);musicControl.load(4)"/>
+
+
+		</div>
+</div music>
+
+
+
+</holder>
+
+	<script>
+counter = new Microcount();
+newUser(); //MULTIPLIX
+	</script>
+	<script src="../NXTJS/design.js" type="text/javascript"></script>
+	<script src="../NXTJS/design-input.js" type="text/javascript"></script>
+</body>
+
+</html>

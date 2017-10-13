@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<HTML>
+	<Head>
+		<title>Sakk</title>
+	  <meta charset="UTF-8">
+		<meta name="author" content="TAP">
+	  <meta name="description" content="rontap">
+		<meta name="keywords" content="rontap,linux,TaPium,tapsite,rts,rjsx">
+	 <script src="goog.js" type="text/javascript"></script>
+	<link rel="stylesheet" type="text/css" href="main.css">
+	
+	</Head>
+	<Body id="body">
+<script>
+appver="TapCalk2.2\n TAPIS/calkr.js 1.6 ";
+		sited="ttest.html";
+		navname="Sakk"; //hogy jelenik majd meg
+		navplus=" app";
+		coa=false;		
+		
+		moretag=true;
+		//holvan
+		vit_start="Start";
+		vit_tema="Segítő alkalmazások";
+		
+		
+		console.info('[SITE] loading site...');
+		
+</script>
+
+<script>
+//VER : HISTORX
+/*
+*v1.0  bábuk init
+*v1.1  RJSX[DRAW-MOTOR] imported from car's
+*v1.2  maked compatibe !
+*v1.3A $SetAlapállás started
+*v1.3B $Load event formally
+*v1.4  szinezes  
+*v1.5  NEW STYLE
+
+*v2.0  objektumb center [Sept28]
+*v2.1  render with objects
+*v2.2  render bugfixes
+*v2.3  mező kijelölő
+*v2.4 környező mező kijelölő
+*/
+//sakk karakterek
+//Paraszt Ló Bástya Király Futó Vezér
+	wp='♙';
+	wl='♘';
+	wb='♖';
+	wk='♔';
+	wf='♗';
+	wv='♕';
+	
+	bp='♟';
+	bl='♞';
+	bb='♜';
+	bk='♚';
+	bf='♝';
+	bv='♛';
+	
+	document.write(wp+wl+wb+wk+wf+wv+' '+bp+bl+bb+bk+bf+bv);
+	
+	
+	function $SetAlapallas() //alapallas
+	{
+	//8feher paraszt
+table[17].babu=wp;
+table[27].babu=wp;
+table[37].babu=wp;
+table[47].babu=wp;
+table[57].babu=wp;
+table[67].babu=wp;
+table[77].babu=wp;
+table[87].babu=wp;
+		
+table[28].babu=wl;
+table[78].babu=wl;
+	
+table[18].babu=wb;
+table[88].babu=wb;
+	
+table[38].babu=wf;
+table[68].babu=wf;
+	
+table[58].babu=wk;
+table[48].babu=wv;
+	
+	//feketek
+	//9fekete paraszt
+table[12].babu=bp;
+table[22].babu=bp;
+table[32].babu=bp;
+table[42].babu=bp;
+table[52].babu=bp;
+table[62].babu=bp;
+table[72].babu=bp;
+table[82].babu=bp;
+	
+table[71].babu=bl;
+table[21].babu=bl;
+	
+table[11].babu=bb;
+table[81].babu=bb;
+	
+table[31].babu=bf;
+table[61].babu=bf;
+	
+table[51].babu=bk;
+table[41].babu=bv;
+	
+for (i=11;i<91;i++)
+{
+console.log(i+'a'+table[i].babu);
+
+
+window['m'+i].innerHTML=table[i].babu;
+if (i%10==0) {i=i+1;};
+
+if ((i+2)%10==0) {i=i+2;};
+}
+	
+	}
+	/*
+		.0 nincs
+	W világos
+	B sötét
+	
+	0 nincs
+	p gyalog
+	l huszár
+	f futó
+	b bástya
+	v vezér
+	k király
+	
+
+	*/
+	table = new Array();
+	for (i=0;i<99;i++)
+	{
+	table[i]= new Object;
+	table[i].babu='';
+
+	}
+	var fekete = new Array('12','14','16','18','21','23','25','27','32','34','36','38' ,'41','43','45','47','52','54','56','58','61','63','65','67','72','74','76','78','81','83','85','87');
+
+	function szinez() {//mezok kiszinezesee (fekete,fehert) [$Loaded event]
+		m11.style.backgroundColor='green';
+	for (i=0;i<32;i++)
+		{
+			
+			c=String(fekete[i]);
+			
+			
+			
+			document.getElementById('m'+c).style.backgroundColor='rgba(70,70,70,0.5)';
+			//document.getElementById('m'+fekete[i]).style.backgroundColor='green';
+		}	
+	}	
+	selected='00'
+	function select(call) {//1
+	console.log(call);
+	
+	tablar();
+		if (table[call].babu!="")
+		{
+		window['m'+call].style.border='3px solid #48F';
+		window['m'+call].style.background='#48F';
+		
+	/*	window['m'+reord(call,1,1)].style.border='3px solid #48F';
+	window['m'+reord(call,0,1)].style.border='3px solid #48F';
+	window['m'+reord(call,1,0)].style.border='3px solid #48F';
+	window['m'+reord(call,1,'-1')].style.border='3px solid #48F';
+	window['m'+reord(call,0,'-1')].style.border='3px solid #48F';
+	window['m'+reord(call,'-1','-1')].style.border='3px solid #48F';
+	window['m'+reord(call,'-1',0)].style.border='3px solid #48F';
+	window['m'+reord(call,'-1',1)].style.border='3px solid #48F';*/
+	
+	for (t1=0;t1<=2;t1++)
+	 {
+		for (t2=0;t2<=2;t2++) 
+		{	
+			at=reord(call,Number(t1-1),Number(t2-1));
+			//a kijelölt négyez (x y koordinátáját -1). körül . kék border készítése;
+			window['m'+at].style.border='3px solid #48F';
+			console.log(at);
+			document.getElementById("m"+at).onclick='moveto(call,at);';
+			
+		
+		}
+	}
+		
+		}
+		selected=call;
+	
+	
+	
+	
+	}
+	
+	function reord (number,a,b)//3
+	
+	{
+	ax=String(Number(String(number).charAt(0))+(Number(a)));
+	bx=String(Number(String(number).charAt(1))+(Number(b)));
+	return ax+bx;
+	}
+	
+	function moveto (prev,neu) {//4
+	console.log(prev,neu)
+	window['m'+neu].innerHTML=window['m'+prev].innerHTML
+	} 
+	
+	function tablar() {//reset //2
+	
+		
+		
+	
+	for (i=11;i<91;i++)
+			{
+
+			window['m'+i].style.border='3px solid #BBB';
+			
+			if (fekete.indexOf(String(i))>=0)
+			{
+			window['m'+i].style.backgroundColor='rgba(70,70,70,0.5)';
+			}
+			else {
+			window['m'+i].style.backgroundColor=' #DDD';
+			}
+			if (i%10==0) {i=i+1;};
+
+			if ((i+2)%10==0) {i=i+2;};
+			
+			
+			
+			}
+	}
+</script>
+<rts>
+
+
+<button class="btn-b" onClick="draw();">rajzol</button>
+mennyi100<input type="text" id="zoldszam">
+<TABLE id="table">
+<tbody id="tbbd">
+		
+	</tbody>
+</TABLE>
+<script>
+var clX = 1; //auto helye X
+var clY = 1; //auto helye Y
+//VIRT.TABLA GEN
+function twoArray(rows) {//ketdimenziostomb
+  var gt = [];
+
+  for (var i=0;i<rows;i++) {
+     gt[i] = [];
+  }
+
+  return gt;
+}
+var gt = twoArray(10);
+
+
+//TABLA KIRAJZOL
+
+//szurki
+function draw() 
+{
+console.info('[RJSX][tableDraw] Drawing...');//kiiras
+tbbd.innerHTML="";
+rndzold=zoldszam.value;
+///szurk
+for (sor=1;sor<9;sor++)
+{
+tbbd.innerHTML+="<tr id='"+sor+"'>";//TR gen
+	for (j=1;j<9;j++)
+	{
+	
+					
+		gt[j][sor]=String(j)+String(sor);
+	
+	//SZURKIT
+	/*OFFLINE rndszam=Math.floor(Math.random()*100);
+if (rndszam<=rndzold)//1/10 ed esély a szürkeségre  (rndszam<=rndzold)
+	{
+	document.getElementById(sor).innerHTML+="<td class='uns' id='m"+gt[j][sor]+"'>"+gt[j][sor]+"</td>";
+	}
+else
+	{  OFFLINE*/
+	document.getElementById(sor).innerHTML+="<td class='un' id='m"+gt[j][sor]+"'  onClick='select("+gt[j][sor]+")'></td>";
+	//}OFFLINE
+}
+		
+					
+	}
+	
+tbbd.innerHTML+="</tr>";
+
+}
+
+//LOADED EVENTS
+
+draw(); //tabla kirajzolasa
+szinez();//tabla kiszinezese
+$SetAlapallas(); //alapallas
+
+</script>
+
+
+<style>
+body #table{
+font-size:40px;
+
+}
+#table {
+border:6px double #99AAFF;
+}
+#table td{
+border:3px solid #BBB;
+height:50px;
+width:50px;
+text-align:center;
+-webkit-transition:box-shadow 0.2s;
+cursor:pointer;
+}
+#table td:hover {
+box-shadow:0px 0px 3px #777;
+}
+#terbox {
+margin-top: -3px;
+}
+</style>
+
+	
+	<script src="main.rjsx" type="text/javascript"></script>
+	</Body>
+</HTML>

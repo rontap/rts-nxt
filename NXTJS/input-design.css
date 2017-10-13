@@ -1,0 +1,196 @@
+*[block] { display: block; }
+*[in-block] { display: inline-block; }
+*[float] { float:right;}
+/*REGURAL INPUT*/
+
+/*----------------------------------------------------------------------------*/
+/*text inputs*/
+input:not([type="range"]):not([type="file"]) {
+	padding:5px;
+	margin:0px 5px;
+	border:1px solid #A1A1A1;
+	background:#F1F1F1;
+	border-radius: 3px;
+	width:100px;
+	 outline: none;
+	transition:all .2s;
+}
+input:not([type="range"]):not([type="file"]):hover , input.active {
+	background:#FFF;
+	box-shadow: 0px 1px 1px #DDD;
+	width:140px;
+}
+input.non-expand, input.short:not(.non-expand):hover {
+	width:100px !important;
+}
+input.short {
+	width:60px !important;
+}
+
+input:not([type="range"]):not([type="file"]):active , input.active {
+	border:1px solid #48F;
+}
+
+/*----------------------------------------------------------------------------*/
+/*status AKA progressbar*/
+status {
+  height:9px;
+  margin:5px 0px;
+  /*border:1px solid red;*/
+  display: inline-block;
+  background:#DDD;
+  transition:all .2s;
+}
+status:hover{
+  height:19px;
+  margin:0px;
+}
+status:hover * {
+  height:19px;
+}
+status::before {
+  content:attr(value) ;
+  position:absolute;
+  opacity: 0;
+  z-index: -1;
+  margin-top:0px;
+  transition:all .2s;
+  height:25px;
+  font-size:16px;
+  font-family: monospace;
+  color:white;
+  margin-left:10px;
+}
+status:hover::before {
+  opacity: 1;
+  z-index: 1;
+}
+status * {
+  display:block;
+  height:9px;
+  background:#FFA726;
+  border-right:9px solid #F57C00;
+  transition:height .2s, width .9s linear ;
+}
+
+/*----------------------------------------------------------------------------*/
+/*CSS RANGE*/
+input[type=range] {
+    -webkit-appearance: none;
+
+    width: 150px;
+
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height:3px;
+    background:#FFA726;
+    border-radius: 1px;
+    transition:background .2s;
+    cursor: pointer;
+}
+input[type=range]:active {
+  cursor:e-resize !important;
+}
+input[type=range]::-webkit-slider-runnable-track:hover {
+  background: #AAA;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 13px;
+    width: 13px;
+    background:#FFA726;
+    margin-top:-5px;
+    border-radius: 50%;
+    transition:all .2s;
+}
+input[type=range]::-webkit-slider-thumb:hover {
+  height: 19px;
+  width: 19px;
+  margin-top:-8px;
+}
+input[type=range]:focus::-webkit-slider-thumb {
+  height: 19px;
+  width: 19px;
+  margin-top:-8px;
+}
+
+input[type=range]:focus {
+    outline: none;
+    padding:15px,
+}
+
+.fill-card {
+  margin:0px -25px;
+  display: block;
+  width:calc( 100% + 18px );
+}
+
+textarea ,.textarea {
+  outline:none;
+  padding:15px;
+  border:1px solid #DDD;
+      font-family: 'Open Sans', sans-serif;
+}
+
+/*----------------------------------------------------------------------------*/
+/*0 - 1 checkbox*/
+checkbox .material-icons {
+	font-size: 22px;
+	vertical-align: -5px;
+}
+checkbox {
+ padding:7px 10px 7px 0px;
+ margin:3px;
+ border-radius: 3px;
+ border:1px solid transparent;
+ user-select: none;
+ transition:all .2s;
+ cursor: pointer;
+}
+checkbox:hover {
+border:1px solid #888;
+}
+checkbox[disabled] .material-icons {
+	color:#999;
+}
+checkbox[disabled] {
+ border:1px solid #DDD;
+ color:#999;
+ cursor: not-allowed;
+}
+
+/*----------------------------------------------------------------------------*/
+/*A - B checkbox*/
+switch {
+	margin:10px 5px;
+	display: inline-block;
+	border:5px solid #DDD;
+	border-left:22px solid #DDD;
+	border-radius: 4px;
+  background:#666;
+	font-family: 'Montserrat', sans-serif;
+	color:white;
+	padding:10px 15px;
+	transition:all .2s;
+	text-align: center;
+	cursor: pointer;
+	user-select:none;
+	font-size:14px;
+}
+switch[checked="true"] {
+	border:5px solid #DDD;
+	border-right:22px solid #DDD;
+	background:#FF9800;
+
+}
+switch span {
+	display: block;
+}
+switch span:last-child {
+	margin-top:-17px;
+}
+switch[checked="false"] span:first-child , switch[checked="true"] span:last-child {
+	opacity:0;
+}

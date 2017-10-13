@@ -1,0 +1,71 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" href="main.css">
+<h2>About HyperFarmer</h2>
+<hr>
+
+<button onclick="location.href='main.html'">Go back to the game</button>
+<hr>
+<h3>Original Game</h3>
+<p>
+    The game is basically an upgrade chain. There are 5 basic classes of animals:<br>
+    Rabbit, Sheep, Pig, Cow and Horse.
+    At the beginning of each round, you can trade <b>once</b> (both ways). The exchange rates are the following:<br>
+    <ul>
+        <li>6 Rabbits = 1 Sheep</li>
+        <li>2 Sheep = 1 Pig</li>
+        <li>3 Pig = 1 Cow</li>
+        <li>2 Sheep = 1 Horse</li>
+    </ul>
+   
+    You can get animals by rolling two, 12 sided dices, each having a different layout.<br>
+    If you roll two rabbits or sheeps or pigs; you earn 1 of that type.
+    Later, if you throw a rabbit, and you have one, the sum of what you have and what you threw (1 or 2) is halfed and given to you.<br>
+    <br><i>Example:</i> You have three pigs, a rabbit and one sheep. You throw a pig and a sheep. Therefore you get two pigs and one sheep.
+    <hr>
+    <b>Beware</b> there is a fox on one and a wolf on the other dice.<br>
+    If you throw a fox, all your rabbits will be gone; if you throw a wolf, all your livestock will be gone execept rabbits AND horses.<br>
+    However, you can buy small dogs and big dogs; who will defend you <b>once</b> from their respective wild "partner"<br>
+    <br>
+    <i>Example:</i> You have seven rabbits a big dog and 4 pigs. You throw a wolf and a pig. Your big dog will automatically perish, but your pigs are saved and can breed that round; so you get 2 pigs.
+    <br>Exchange rates for dogs are the following (you can either trade dogs or upgrade animals!):
+    <ul>
+        <li>1 small dog = 1 sheep</li>
+        <li>1 cow = 1 big dog</li>
+    </ul>
+    <hr>
+    The ultimate goal is to have all livestock (not including the small and big dogs.)
+</p><br>
+<h3>Implementation</h3>
+<p>
+    To create a new user call <code>createNewUser();</code><br><br>
+    The value of each animal (measured in rabbits) is called <code title="[1,6,12,36,72,6,36]">values</code> <i>array</i><br><br>
+    The upgrade cost for each livestock animal is stored in <code title="[6,2,3,2]">upgradeCost</code> <i>array</i><br><br>
+    The sum and maximum amount of animals is stored in <code>gameFieldHas</code> and <code title="[50,24,20,12,3,4,2]">gameFieldMax</code> <i>arrays</i> respectively.<br>
+    <br><hr>
+    <b>Writing AI</b>
+    you can interact with the code by using the 
+    <br><br><code>curr.doRound(<i>what,which,where</i>)</code>
+    function, where:
+    <ul>
+        <li><b>what</b> is the main action you want to do: 0 is nothing, 1 is trade, 2 is buying dogs</li>
+        <li><b>which</b> is needed if you choose to do something in that round. 0=rabbit 1=sheep 2=pig 3=cow 4=horse. Or true=small dog false=big dog<br>
+        </li><li><b>where</b> is whether you want to upgrade=true or downgrade=false. </li> 
+    </ul>
+    If an invalid function is called, it will just throw the dice, as if nothing was called.<br>
+    <br>
+    the curr object has the following parameters:<br><br>
+    <code>curr.has</code> stores the amount of animal you have (including dogs);<br><br>
+    <code>curr.diceResult</code> <i>array[2]</i> storing the results of the last dice.<br><br>
+    <code>curr.topscore</code> is the sum points you have in all you livestock.<br><br>
+    <hr>
+    <a target="_blank" href="ai.js">Example AI</a> by Aron
+    
+    <br><br><br><br>
+    <hr>
+    <i>Website created by Aron and Mate 2017 CC-BY-NC</i>
+</p>
+
+<script>
+    
+ 
+</script>

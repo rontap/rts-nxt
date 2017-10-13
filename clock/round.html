@@ -1,0 +1,189 @@
+<meta charset="utf-8"> 
+<!--round clock made by rontap  2015
+                                 -->
+<div id="holder">
+    <div id="main">&nbsp;</div>
+    <div id="hrs">&nbsp;</div>
+    <div id="min">&nbsp;</div>
+     <div id="sec">&nbsp;</div>
+</div>
+<style>
+    #holder {
+        margin: 100px auto;
+        width:300px;
+
+    }
+    #main {
+        border:10px solid #48F;
+        width: 300px;
+        height:300px;
+        border-radius: 50%;
+        transition:all .4s;
+    }
+    .timerup #main {
+        background:#48F;
+        -webkit-animation:ups 2s infinite;
+    }
+    @-webkit-keyframes ups {
+        0% {box-shadow:0px 0px 0px #444;}
+        50% {box-shadow:0px 5px 20px #444;}
+    }
+    .timerup #hrs, .timerup #min, .timerup #sec {
+        opacity:0;
+    }
+    #hrs , #min, #sec{
+        height:320px;
+       /* background: red;*/
+        width:50px;
+        position: absolute;
+        margin-top:-320px;
+        margin-left:135px;
+        transition: all .4s;
+    } 
+    .inedit #hrs::before,.inedit   #min::before,.inedit  #sec::before {
+        background:red;
+         width: 10px;
+         height: 10px;
+        margin-top: 0px;
+        border-radius: 0px;
+        background:white;
+    }
+    #hrs::before,  #min::before, #sec::before  {
+          content: '';
+          margin-top: 16px;
+          background: #f84;
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          margin-left: 14px;
+          border-radius: 50%;
+        transition: all .4s;
+    }
+    #min::before {
+          background: #f44;
+    }
+    #sec {
+        transition: all 1s linear;
+    }
+     #sec::before {
+          background: #444;
+          margin-top:-28px;
+    }
+     #stopper,  #st {
+         background:white;
+         border:1px solid #ddd;
+         padding:15px;
+         margin:10px;
+     }
+    div input {
+        padding:10px 5px;
+        width:60px;
+        font-size: 20px;
+    }
+    #cent {
+      text-align: center;
+    }
+#inputs { transition:all .2s; opacity:0;}
+.inedit #inputs { opacity:1;}
+    #st { background:#48F;  
+        border:1px solid #48f; 
+        vertical-align: 2;
+        padding: 14px; 
+        color:white;
+    }
+</style>
+<audio id="pinger">
+  <source src="ping.mp3" type="audio/mpeg">
+</audio>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+
+<script>
+    ist=true;
+    function time() {
+         $('body').removeClass('inedit timerup');
+        ist=true;
+        a= new Date();
+        h=a.getHours();
+        m=a.getMinutes();
+        s=a.getSeconds();
+        $('#hrs').css('transform','rotate('+(h/12)*360+'deg)');
+        $('#min').css('transform','rotate('+(m/60)*360+'deg)');
+        $('#sec').css('transform','rotate('+(s/60)*360+'deg)');
+        
+        setTimeout(function(){
+            if(ist) time();
+        },1000)
+    }
+    time();
+    function edit() {
+        $('body').toggleClass('inedit');
+        ist=false;
+    }
+    function start() {
+        $('body').removeClass('inedit timerup');
+        ist=false; 
+        setTimeout(function(){
+            ist=false;
+             sh=0; sm=0; ss=0;
+            realstart();
+            
+        },1000);
+    }
+    function realstart() {
+         
+         ss++;
+         if (ss>=60) { ss=0; sm++; }
+         if (sm>=60) { sm=0; sh++; }
+        $('#hrs').css('transform','rotate('+(sh/12)*360+'deg)');
+        $('#min').css('transform','rotate('+(sm/60)*360+'deg)');
+        $('#sec').css('transform','rotate('+(ss/60)*360+'deg)');
+         setTimeout(function(){
+             if (!ist) realstart();
+        },1000)
+    }
+    function go(gh,gm,gs) {
+       $('body').toggleClass('inedit');
+        $('body').removeClass('timerup');
+        timer(gh,gm,gs);
+    }
+    function timer(gh,gm,gs) {
+         gs--;
+        if (gs+gm+gh<0) {
+            $('body').addClass('timerup');
+            pinger.currentTime = 0;
+            pinger.play() ;
+        }
+        else {
+         if (gs<0) { gs=60; gm--; }
+         if (gm<0) { gm=60; gh--; }
+        $('#hrs').css('transform','rotate('+(gh/12)*360+'deg)');
+        $('#min').css('transform','rotate('+(gm/60)*360+'deg)');
+        $('#sec').css('transform','rotate('+(gs/60)*360+'deg)');
+         
+         setTimeout(function(){
+             if (!ist) timer(gh,gm,gs);
+             console.log(gs);
+        },1000);
+            }
+    }
+</script>
+<div id="cent">
+    <div id="inputs">
+        <input type="number" id="th" max="24" min="0" placeholder="H">
+        <input type="number" id="tm" max="60" min="0"  placeholder="M">
+        <input type="number" id="ts" max="60" min="0"  placeholder="S">
+        <button id="st" onclick="go(th.value,tm.value,ts.value)">Start</button>
+        <br>
+    </div>
+    <button onclick="time();" id="stopper">clock</button>
+    <button onclick="start();" id="stopper">stopper</button>
+    <button onclick="edit();" id="stopper">timer</button>
+    <button onclick="edit();" id="stopper">wecker</button>
+</div>
+
+<cl-hd></cl-hd>
+
+
+ <link rel="import" href="../clocker.html">
+ <link rel="import" href="../../../polyfome/include_minimalist.html">

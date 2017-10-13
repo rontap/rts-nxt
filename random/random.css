@@ -1,0 +1,115 @@
+nav { background:#FF9800;}
+header { background:#FFA726; width:300px !important;}
+.otitle div {background:#FF9800;}
+.omenu:hover {background:#FF9800;}
+
+holder {
+  display: block;
+  margin-top:120px;
+  margin-left:300px;
+  transition: opacity .15s, margin-left .4s;
+}
+holder>* {
+  display: none !important;
+
+}
+holder>*.on {
+  display: block !important;
+
+}
+.sidebar { margin-bottom:0px;}
+button[real] {
+  background:#F57C00;
+}
+container container {
+padding:10px;
+}
+#colorResult {/*this is the main box*/
+float:right;
+margin-top: -120px;
+padding:50px;
+text-shadow: 1px 1px 1px  #444;
+}
+#colorResults * {
+display: inline-block;
+margin:10px;
+border:1px solid #888;
+box-shadow: none;
+}
+#colorResults *:last-child {
+animation:showUp .4s;
+}
+.colorResults {
+transition: all .2s;
+background: rgb(55, 140, 133);
+border-radius: 4px;
+padding: 20px 30px;
+font-family: monospace;
+
+font-size:16px;
+border:1px solid #666;
+box-shadow:0px 2px 2px  #AAA;
+
+}
+.colorResults:hover {
+cursor:pointer;
+box-shadow:0px 2px 4px  #666;
+}
+.colorResults:active {
+box-shadow:0px 2px 4px  #666 inset;
+}
+
+#timerCurrent {
+text-align: center;
+font-size:20px;
+font-weight: bold;
+color:white;
+background: #00acc1;
+
+}
+#stopperRounds div {
+padding:10px;
+margin:10px;
+width:110px;
+font-family: monospace;
+text-align:center;
+display: inline-block;
+box-shadow: none;
+background: #FFCC80;
+}
+#stopperRounds div:first-child {
+background:#FF9800;
+}
+#stopperRounds div:nth-child(2), #stopperRounds div:nth-child(3),#stopperRounds div:nth-child(4) {
+background:#FFA726;
+}
+.otitle:first-child div {
+ background:#1E88E5;
+}
+input input {
+background:blue;
+}
+/*habit counter */
+#habitHolder {
+  user-select:none;
+}
+#habitHolder section div:hover span:last-child {
+  opacity:1;
+}
+#habitHolder section div span:last-child i {
+  transition: all .2s;
+  border-radius: 5px;
+}
+#habitHolder section div span:last-child i:hover {
+  background:#81C784;
+}
+#habitHolder section div span:first-child {
+  padding:25px 50% 25px 0px;
+}
+#habitHolder section div span:last-child {
+  float:right;
+  opacity: 0;
+  transition:all .2s;
+  display: block;
+margin-top: -12px;
+}

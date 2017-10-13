@@ -1,0 +1,112 @@
+<meta charset="utf-8">
+<!--2015. created by rontap -->
+<container>
+    <div class="a0">
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div>
+    <div class="a1">
+        <span class="b3">&nbsp;</span>
+        <span class="b2">&nbsp;</span>
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div><br><br>
+    <div class="a2">
+        <span class="b2">&nbsp;</span>
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div>
+    <div class="a3">
+        <span class="b3">&nbsp;</span>
+        <span class="b2">&nbsp;</span>
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div><br><br>
+    <div class="a4">
+        <span class="b2">&nbsp;</span>
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div>
+    <div class="a5">
+        <span class="b3">&nbsp;</span>
+        <span class="b2">&nbsp;</span>
+        <span class="b1">&nbsp;</span>
+        <span class="b0">&nbsp;</span>
+    </div>
+</container>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+<style>
+    container div.a0 span,container div.a1 span { border-color: #48F ;} 
+    container div.a0 span.on, container div.a1 span.on  {background: #48F;}
+    
+    container div.a2 span,container div.a3 span { border-color: #62c ;} 
+    container div.a2 span.on, container div.a3 span.on  {background: #62c;}
+    
+    container div.a4 span,container div.a5 span { border-color: #f84 ;} 
+    container div.a4 span.on, container div.a5 span.on  {background: #f84;}
+
+    
+container div span {
+    border:1px solid red;
+    width:50px;
+    height:50px;
+    display: inline-block;
+    margin:10px;
+    border-radius: 50%;
+    transition:all .2s;
+}
+    container div span.on {
+        background:red;
+    }
+    container {
+        -webkit-transform: rotate(-90deg);
+        display: inline-block;
+        margin-left:calc(50% - 150px);
+    }
+</style>
+<script>
+//console.log('a');
+    function sg() {
+s=[];
+t=new Date();
+//console.log(t.getHours());
+    s[0]=Number( String( t.getHours()  ).slice(0,1) ).toString(2);
+    	if (s[0].length<2) {s[0]='0'+s[0];}
+    s[1]=Number( String( t.getHours()  ).slice(1,2) ).toString(2);
+   	    if (s[1].length<2) {s[1]='000'+s[1];} else if (s[1].length<1) {s[1]='00'+s[1];} else if (s[1].length<4) {s[2]='0'+s[2];}
+    s[2]=Number( String( t.getMinutes()).slice(0,1) ).toString(2);
+    	if (s[2].length<2) {s[2]='00'+s[2];} else if (s[2].length<3) {s[2]='0'+s[2];}
+    s[3]=Number( String( t.getMinutes()).slice(1,2) ).toString(2);
+    	if (s[3].length<2) {s[3]='000'+s[3];} else if (s[3].length<3) {s[3]='00'+s[3];} else if (s[3].length<4) {s[3]='0'+s[3];}
+    s[4]=Number( String( t.getSeconds()).slice(0,1) ).toString(2);
+        if (s[4].length<2) {s[4]='00'+s[4];} else if (s[4].length<3) {s[4]='0'+s[4];}
+    s[5]=Number( String( t.getSeconds()).slice(1,2) ).toString(2);
+    	
+        if (s[5].length<2) {s[5]='000'+s[5];} else if (s[5].length<3) {s[5]='00'+s[5];} else if (s[5].length<4) {s[5]='0'+s[5];}
+    for (i=0;i<=5;i++) {
+    	
+        for (k=5;k>=0;k--) {
+          // console.log(s[i][k]);
+            if (s[i][k]==1) $('.a'+i+' .b'+k).addClass('on');
+            else $('.a'+i+' .b'+k).removeClass('on');
+        }
+       
+    }
+    console.log(s);
+        
+    }
+    setInterval( function() {
+        sg();
+    },1000);
+</script>
+<style>
+
+</style>
+
+<cl-hd></cl-hd>
+
+
+ <link rel="import" href="../clocker.html">
+ <link rel="import" href="../../../polyfome/include_minimalist.html">

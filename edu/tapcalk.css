@@ -1,0 +1,401 @@
+#moreinfo_icon
+{
+	    position: fixed;
+    right: 80px;
+	top:21px;
+	width:38px;
+	cursor: pointer;
+}
+.sideBar #infopanel, .sideBar #histh {
+	right:-350px;
+}
+.sideBar #tmain {
+	right:0px;
+}
+#dc {
+    position: fixed;
+    top:60%;
+    height:20px;
+    z-index: 99;
+    margin-top:-8px;
+    margin-left:-4px;
+    left:60%;
+    cursor: move;
+    border-radius: 50%;
+    transition:box-shadow .2s;
+}
+    #dc:active {
+        cursor: none;
+        box-shadow: 0px 0px 5px #444;
+
+
+    }
+    #calkbtn {
+
+
+    }
+    #calkbtn.on,#graphbtn.on {
+
+    }
+    .mainbtn {
+        padding: 10px !important;
+			position: fixed;
+			overflow: hidden;
+			z-index: 99;
+			top: 14px;
+			border-radius: 4px;
+			height: 50px;
+			border-radius: 3px;
+			background: #FFF;
+			border: none;
+			width:140px;
+			font-family: 'Montserrat', sans-serif;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			font-weight: 300;
+			transition: .2s all;
+			outline:none;
+			left:370px;
+    }
+.mainbtn:hover {
+	box-shadow: 0px 2px 3px #222;
+	background:#EEE;
+	cursor: pointer;
+}
+.mainbtn:active {
+
+	box-shadow: 0px 2px 3px #444 inset;
+}
+    #graphbtn{
+        margin-left:160px;
+			opacity: 0;
+      top:-20px;
+    }
+    #graphbtn.on {
+        opacity:1;
+         z-index: 100;
+			top:14px;
+    }
+
+    @-webkit-keyframes showitem {
+     from {
+          height:0px;
+          opacity:0.1;
+     }
+        to {
+          height:24px;
+            opacity:1;
+        }
+    }
+    #histh .item {
+        overflow: hidden;
+
+        padding:9px 15px;
+       transition:all .2s;
+         min-height:24px;
+    }
+    #histh .item:first-child {
+      -webkit-animation:showitem .4s;
+    }
+    #histh .item:hover {
+     box-shadow: 0 0 5px #444;
+        cursor: pointer;
+
+    }
+        #histh .item:active {
+    background:#3F51B5;
+        cursor: grab !important;
+        color:white;
+    }
+
+	#kera {
+		background:transparent;
+		border:none;
+		}
+	#nv3fel , #kero {
+		-webkit-transition:all .2s;
+		}
+	#euclidean canvas {
+		height:100%;
+		}
+#euclidean {
+	transition:all .4s;
+	position:fixed;
+	top:100%;
+	bottom:0%;
+	right:0;
+	left:0;
+}
+	.euclOn>#euclidean {
+			top:50px;
+		}
+
+.euclOn>#tmain  {
+	opacity:0;
+}
+.euclOn>#tnav>#tco {
+	left:-300px;
+}
+.euclOn>#infopanel , .euclOn>#histh {
+	right:-300px;
+}
+	#kero {
+		position:fixed;
+		top:0;
+		background:#DDD;
+		box-shadow:0 3px 3px #aaa;
+		width:23%;
+		margin-right:10px;
+		/*border-right:2px solid #48F;*/
+		}
+#tco, #tci {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select:none;
+	}font-weight: 100;
+r {color:#F44;}
+#terbox {
+margin-left:75px;
+}
+
+
+#infopanel, #histh {
+	position:fixed;
+	overflow:hidden;
+  background:#e5e5e5;
+	color:#222;
+}
+ #infopanel {
+
+right:0px;
+width:300px;
+top:calc(40%);
+bottom:0;
+overflow:hidden;
+background: #e5e5e5;
+}
+#infopanell {
+padding:15px;
+overflow-y:scroll;
+height:65%;
+}
+ #histh {
+
+right:0px;
+width:300px;
+top:80px;
+margin-top:0;
+
+	 height:calc(40% - 80px);
+}
+#hist hr {
+margin-top:0px;
+margin-top: 0;
+}
+#hist {
+overflow-y:auto;
+margin-top: -5px;
+
+
+}
+#hist .otitle {
+position:fixed;
+padding:5px 0 5px 0 ;
+margin:-5px;
+}
+#hist .btn-menu {
+overflow:hidden;
+}
+body {
+background:#DDD;
+	overflow: hidden;
+}
+h1 {
+font-weight: 400;
+}
+
+
+
+#alapmuveletek div{
+	background:#48F;
+	}
+#sorozatok div{
+	background:#259b24;
+	}
+#atlag div{
+	background:#009688;
+	}
+#primszamok div{
+	background:#ff9800;
+	}
+#geometria div{
+	background:#795548;
+	}
+#atvaltas div{
+	background:#9e9e9e;
+	}
+#szamrendszerek div{
+	background:#48F;
+	}
+#oth div{
+	background:#9c27b0;
+	}
+containter {
+position:fixed;
+top:35px;
+}
+    #tco .otitle {
+     color:white;
+    }
+container.sidebar {/*navcentraloptions*/
+position:fixed;
+width:299px;
+top:28px;
+left:0;
+margin-left:1px;
+overflow-y:scroll;
+background:#e5e5e5;
+font-family: 'Montserrat', sans-serif;
+font-weight: 300;
+		margin-bottom:0 !important;
+}
+#tmain {
+position:fixed;
+transition:opacity .3s, top .5s, width .5s, left .5, bottom .5s, right .5s;
+left:300px;
+right:0;
+overflow-y:scroll;
+top:80px;
+right:300px;
+}
+#tfill h1:first-child {
+	margin-top:5px !important;
+}
+
+.btn-menu {
+width:80%;
+text-align:center;
+}
+#tcontent {
+margin-left:40.5%;
+}
+#treganwser {
+
+margin-left:42%;
+font-size:23px;
+
+}
+.inp-text {
+width:175px;
+z-index:9999;
+}
+#tfill {
+z-index:999;
+transition:all .15s;
+margin:10px;
+}
+#tmain .btn-menu {
+width:120px;
+
+}
+#tco hr , #histh hr, #infopanel hr{
+border:1px solid #444;
+background:#444;
+margin-bottom:0px;
+}
+.tc {
+border:1px solid #48F;
+}
+.fc {
+border:1px solid #F44;
+}
+.kc {
+border:1px solid #F84;
+}
+.gc {
+border:1px solid #49C42E;
+}
+.gc:hover {
+background:#49C42E;
+}
+.tc:hover {
+background:#48F;
+}
+.fc:hover {
+background: #F44;
+}
+.kc:hover {
+background:#F84;
+}
+#imgs {
+position:relative;
+}
+select.atv {
+-webkit-transition:border-radius 0.2s;
+
+}
+#rjsxholder {
+	-webkit-transition:all .4s;
+	}
+select.atv:active {
+border-bottom-left-radius:0px;
+border-bottom-right-radius:0px;
+}
+
+
+
+.keyhint {
+font-size: 15px;
+text-align: right;
+float: right;
+background: rgb(153, 153, 153);
+padding: 1px 3px 1px 3px;
+border-radius: 3px;
+color: rgb(68, 68, 68);
+-webkit-transition: opacity .6s, background .4s, color .4s;
+opacity:0 ;
+}
+
+.omenu:hover .keyhint {
+    /*  */
+    box-shadow:0px 0px 3px #888;
+    background: #666;
+    color:#000;
+
+  }
+    #tmain textarea {
+  border-radius:0px;
+  width:100%;
+ padding:5px;
+  resize:vertical;
+	border:1px solid #3F51B5;
+	padding:5px;
+	font-family: 'Open Sans', sans-serif;
+		transition:all .2s;
+}
+#tmain textarea:focus {
+	background:#EEE;
+	outline:none;
+}
+ #tco, #histh, #infopanel, #tmain {
+ -webkit-transition:opacity .6s , top .5s, width .5s, left .5s, bottom .5s, right .5s;
+ }
+    .floatboxnotif {
+     right:50px;
+    max-width: 250px;
+        left:inherit;
+    }
+   #dwnbtn {
+  padding:5px 10% !important;
+       -webkit-transition:all 1s;
+       opacity:0;
+ }
+
+
+
+#outmen {
+	display: inline-block;
+	padding: 5px;
+	margin:5px;
+	border-radius: 3px;
+}

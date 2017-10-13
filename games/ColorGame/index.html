@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css">
+         <link rel="stylesheet" href="media.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://use.fontawesome.com/eb75e4edc0.js"></script>
+    </head>
+    <body>
+        <div class="main_header" id="main_header">Color Awesome Game</div>
+        
+        
+        
+    <section id="container_holder">
+        
+        
+        <container id="face" class="on">
+            <span id="points"></span>
+            <b><span id="score"></span></b>
+            <span id="level">Match the colors on the sides!<br>If you have no tokens left, the game is over</span>
+        </container>
+        
+        
+        <container id="difficulty_selector">
+            Select difficulty<br><br>
+            <button onclick="setDifficulty(0)">Easy</button>
+            <button onclick="setDifficulty(1)">Medium</button>
+            <button onclick="setDifficulty(2)">Hard</button><wbr>
+            <button onclick=setDifficulty(3) disabled>Insane</button>
+            <button onclick=setDifficulty(4) disabled>Zen</button>
+            <br><hr><br>
+            Select powerup<br><br>
+            <div id="achievementHolder"></div><br>
+            <div id="currSelAchievement">
+              <span>You can earn achievements by completing different tasks.<br>Hover one to see the benefits! Click to equip</span>
+                
+            </div>
+        </container>
+        
+        
+        <container id="additional_info" class="wide hide">
+            You can earn time-bounded powerups every some levels, which are:<br>
+            
+                 <b>Time</b> <i class="fa fa-history" aria-hidden="true"></i>
+                 Restart color hue if reached the end<br>
+             
+             
+                 <b>Shield</b> <i class="fa fa-shield" aria-hidden="true"></i>
+                 Saves you once from dying<br>
+           
+            
+                <b>Hourglass</b> <i class="fa fa-hourglass-start" aria-hidden="true"></i>
+                slows down the game by 30% for a limited time<br>
+           <b>These powerups activate automatically.</b>
+             <hr>
+             If you reach certain goals (e.t. level 250), you can earn permanent powerups, of which one can be activated prior to the game in settings. Unlimited use.
+             <hr>
+            There may be some evil things that await you, so beware after some levels!
+        </container>
+        
+        <container id="floor">
+            Your highscore: <span id="topscore"></span>
+            <br>
+            <button onclick=resetGame()>Reset Game</button>
+            <button>Cheat Mode</button>
+            <br>
+            version 5.0 beta<br>
+            &copy; 2017<br>
+            Created By <a href="http://rontap.netne.net/" target="_blank">rontap</a> and <a href="http://ago.comeze.com/mystuff/main.html" target="_blank">csagobi</a>
+        </container>
+        
+        
+    </section>
+        
+        <footer id="container_holder_selector" onclick="changeActiveTab(event)">
+            <span class="on">How to play</span><span>Settings</span><span>Guide</span><span>About</span>
+        </footer>
+        
+        
+        <span id="game_field">
+            <div id="left"></div>
+            <div id="right"></div>
+            
+            <img src="trump.png" id="trump">
+            
+            <holder >
+                 <fab class="hidden"><i class="fa fa-history fa-2x" aria-hidden="true"></i></fab>
+                 <fab class="hidden"><i class="fa fa-shield fa-2x" aria-hidden="true"></i></fab>
+                 <fab class="hidden"><i class="fa fa-hourglass-start fa-2x" aria-hidden="true"></i></fab>
+                 <fab class="hidden"><i class="fa fa-thumbs-o-down fa-2x" aria-hidden="true"></i></fab>
+            </holder> 
+            
+            <span id="pointsStatistic"></span>
+            <button id="returnHome">Retun to homepage</button>
+            
+        </span>
+        
+        
+        <container id="succes_notification">
+            <div id="succes_notificationColor"></div>
+            <div id="succes_notificationText"></div>
+        </container>
+        
+         <script src="ui.js"></script>
+         <script src="main.js"></script>
+         <script src="gameloop.js"></script>
+         <script src="powerups.js"></script>
+    </body>
+</html>
+
+<!--
+  -->
+
+<!-- TBA
+-show how many points you earn each round
+-zen and insane mode
+-proper highscore
+-added doom-s
+-combo
+    20< színkül. -> comboFaszom++ 
+    és mindig score *(1+comboFaszom/10)
+
+-->

@@ -1,0 +1,41 @@
+
+<div class="away">
+    <h1>Enimga Titkosító</h1>
+    <div class="away card">
+        <paper-input floatinglabelid="codetext" value="kutya" label="Kód"  style="width:150px" id="codetext"></paper-input>
+	<paper-input floatinglabel label="jelszó" type="number" id="pin" value="3.14" max="1000" style="width:100px"></paper-input>
+	<paper-button  class="blue" onClick="code();" id="pin_btn" label="">Jelszó titkosítása</paper-button>
+    <paper-button  onClick="fome.page.reload('enigma');pin_btn.disabled='false';" label="">frissítés...</paper-button>
+	<br>
+	<paper-input floatinglabel class="inp-text" type="text" id="decodetext" value="" label="Kód" style="width:150px"></paper-input>
+	<paper-input floatinglabel class="inp-text-short" type="number" id="depin" value="3.14" max="1000" label="jelszó" style="width:100px"></paper-input>
+	<paper-button class="blue" onClick="decode();pin_btn.disabled='true';"  label="">Kód kiírása!</paper-button>
+	
+	</div>
+    <br><br>
+	<div id="outputPSW" class="sizeit card userselect">
+		<i>itt fog megjelenni a jelszó titkosítva</i>
+	</div>
+	<style>
+    paper-button {
+        vertical-align: 10px;
+    }
+    </style>
+	<!--
+	VERSIONS 2 
+	2.x.x 
+	  2.4 varzion added
+	  2.5 [BUGFIX] 'ekutya' bug solved with Math.round && added debug option
+	  2.6 [BUGFIX] EXT WAS 104 length also xXqQwW was interpreted as 'e'	
+	  2.7 [MODIFY] rename to enigma 
+	2.3.0 try with BigInt >>not work
+	  3.1 retry with another
+	-->
+	<!--<span id="log"><b>[! HIBA történt a TapCoder 2 indulása közben !] </b></span>-->
+	<script src="random.js" type="text/javascript"></script>
+
+	
+	<script>
+	//var largeNumber = bigInt("75643564363473453456342378564387956906736546456235345");
+	</script>
+</div>	

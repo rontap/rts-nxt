@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>Super Simple Note.IO</title>
+    <script>
+
+
+   function switcher(change)
+    {
+        if (change.className=="on") {
+            change.className="";
+            document.body.classList.remove(change.id)
+        }
+        else {
+            change.className="on";
+            document.body.classList.add(change.id)
+        }
+    }
+    </script>
+    <style type="text/css">
+       body {
+       	margin: 0; padding: 0;
+       	background: #FEFEFE;
+       	font-family: 'Sanchez', serif;
+       }
+       * {
+         outline:none;
+       }
+       container {
+       	 max-width: 680px;
+       	 background: #444;
+       	 margin: 50px auto;
+       	 display: block;
+       	 padding: 5px 20px 20px 20px;
+       	 color: #EEE;
+        transition:.2s all;
+        border-radius: 4px;
+        box-shadow: 0px 2px 3px #222;
+
+       }
+       body.dark {
+           background: #444;
+       }
+       body.dark container {
+           background: #444;
+           color:#EEE;
+       }
+       body.dark container hr {
+           background: #444;
+       }
+       body.dark container {
+            background: #F1F1F1;
+            color:#222;
+       }
+       body.dark .material-icons {
+         color:#FEFEFE;
+       }
+       body.full container {
+         width: 100%;
+         position:fixed;
+         left:0; right:0; top:0;
+         bottom:20px;
+         margin:0px !important;
+         padding: 15px;
+         max-width:99999px;
+         border-radius: 0px;
+       }
+       container hr {
+           border: none;
+           background: #EEE;
+           height: 2px;
+           margin: 20px 0px;
+       }
+       section {
+           display: block;
+           max-width: 680px;
+           word-wrap: break-word;
+           transition: .2s all;
+       }
+
+        footer {
+            background:white;
+            position:fixed;
+            bottom:0;
+            left:0;
+            right:0;
+            padding:2px;
+            border-top:1px solid #444;
+            font-size:15px;
+
+        }
+        footer span {
+            padding:3px 10px;
+            transition:all .2s;
+            cursor:pointer;
+        }
+        footer span.on {
+            background:#444;
+            color:white;
+        }
+
+        #saving {
+            float: right;
+            font-size: 10px;
+        }
+        .material-icons {
+          padding:12px; cursor: pointer;
+        }
+        .material-icons::before {
+          content:''; display: block; position:absolute;
+          border-radius: 100%;
+        }
+        .material-icons:active::before {
+          animation:blow .5s  ease-out;
+        }
+        @keyframes blow {
+          0% { margin-left:12px; margin-top:12px; width:0px; height:0px; background:rgba(100,100,100,0.6);}
+          100% {margin-left:-4px; margin-top:-4px; width:32px; height:32px; background:rgba(200,200,200,0.3);}
+        }
+        #linkBack span {
+              opacity:0;
+              vertical-align: 6px;
+              padding:7px;
+              margin-left:5px;
+              border-radius: 3px;
+              box-shadow: 0px 1px 2px #444;
+              background:#FF9800;
+              display: inline-block;
+              color:white;
+              transition:all .2s;
+        }
+        #linkBack:hover span {
+          opacity:1;
+          margin-left:0px;
+          cursor:pointer;
+        }
+        #linkBack span:active {
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="linkBack"  onclick="location.href='../random.html'">
+<i class="material-icons">arrow_back</i>
+<span>Go back to rontap Tools.</span>
+</div>
+
+<container>
+    <div id="saving"></div>
+     <h2>
+    	<section id="title" contenteditable>
+    	   This is the title
+      	</section>
+	</h2>
+	<hr>
+
+	<section id="note" class="note-main" contenteditable>
+	   Write your notes here...
+	</section>
+
+</container>
+
+    <footer>
+        <span onclick="switcher(this)" id="dark">Dark Mode</span><span onclick="switcher(this)" id="full">Fullscreen Mode</span><span onclick="note.innerHTML='';title.innerHTML='';location.reload();" id="full">Reset</span>
+        <span onclick="alert('NOTE.IO ported from C9.io\nOriginal Created by\nCsehi Agoston and Aron Tatai\nCopyright 2017')">About</span>
+    </footer>
+
+<script type="text/javascript">
+
+
+    window.onclick = function(event) {
+        if (event.target.id != "title" && event.target.id != "note") {
+            if (title.innerHTML == "&nbsp;" || title.innerHTML == "") {
+                title.innerHTML = "This is the title";
+            }
+            if (note.innerHTML == "&nbsp;" || note.innerHTML == "") {
+                note.innerHTML = "Write your notes here...";
+            }
+        }
+        if (event.target.id == "title" && title.innerText == "This is the title") {
+            title.innerHTML = "&nbsp;";
+        }
+        if (event.target.id == "note" && note.innerText == "Write your notes here...") {
+            note.innerHTML = "&nbsp;";
+        }
+    }
+
+    //SAVE
+    if (localStorage.saveNote != undefined ) {
+        note.innerHTML = localStorage.saveNote;
+        title.innerHTML = localStorage.saveTitle;
+    }
+
+
+    function onkeyupFunction() {
+        localStorage.saveNote = note.innerHTML;
+        localStorage.saveTitle = title.innerHTML;
+
+    }
+    note.onkeyup = function() {
+        onkeyupFunction();
+    }
+    title.onkeyup = function() {
+        onkeyupFunction();
+    }
+
+</script>
+
+
+</body>
+</html>

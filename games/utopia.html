@@ -1,0 +1,620 @@
+<title id="titlea">Utopia </title>
+<meta charset="UTF-8">
+<link href='http://fonts.googleapis.com/css?family=Titillium+Web|Open+Sans|Roboto&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="utopia/gamepad.js"></script>
+<body class="main_menu edit">
+
+
+<div id="main_menu">
+        <div id="cubicon">&nbsp;</div>
+    <div id="main_menu_buttons">
+        <button onclick="ui.openlevel();">Play&nbsp;Story</button>
+        <button>Play&nbsp;Challenges</button>
+        <button>Options</button>
+        <button>Mods</button>
+        <button>About</button>
+        </div>
+</div>
+
+<div id="namecon">
+        <h1 class="big">UTOPIA</h1>
+    </div>
+
+   <div id="vera" style="padding:15px;">ver </div>
+<container id="actual_game">
+    <div id="playercube">
+        <player id="play1" class="loading"></player>
+    </div>
+    
+    <div id="particles"></div>
+
+    <div id="field" onclick="dbg.click(event)">
+        
+    </div>
+</container>
+    <!--focus></focus-->
+
+<link href="utopia/core.css" rel="stylesheet">
+<link href="utopia/ui.css" rel="stylesheet">
+<div id="editar" class="card">
+    <div id="blocks">
+     <paper-radio-group selected="Block" role="radiogroup" onchange="bias(event)">
+      <paper-radio-button name="0" label="Block" ></paper-radio-button>
+      <paper-radio-button name="1" label="Lava" ></paper-radio-button>
+      <paper-radio-button name="2" label="Money" ></paper-radio-button>
+      <paper-radio-button name="3" label="CPoint" ></paper-radio-button>
+      <paper-radio-button name="4" label="Mine" ></paper-radio-button>
+      <paper-radio-button name="5" label="Bullet" ></paper-radio-button>   
+         
+      <paper-radio-button name="6" label="Door" ></paper-radio-button>
+      <paper-radio-button name="7" label="Key" ></paper-radio-button>
+      <paper-radio-button name="8" label="Laser" ></paper-radio-button>
+   
+      
+      <paper-radio-button name="8" label="Wall" ></paper-radio-button>
+    </paper-radio-group>
+    </div>
+    <div id="editar_settings">&nbsp;
+        <core-pages selected="0" id="editar_pages">
+          <div>Block. Can't go through</div>
+          <div>Death if in the block</div>
+          <div>Money</div>
+          <div>Chekpoint</div>
+          <div>6</div>
+            <div>6</div>
+          <div>Can be opened by Key <input placeholder="color"> </div>
+          <div>Key   <input placeholder="color"></div> 
+          <div>8</div>
+
+        </core-pages>
+    </div>
+</div>
+<div id="rolo" onclick="pause()">
+    <center>PAUSE</center>
+    
+</div>
+<script>
+    nowsel=0;
+    function bias(event) {
+           var a=Number($(event.target).attr('name'));
+            if (a>5) { $('#editar_settings').addClass("exp"); }
+            else { $('#editar_settings').removeClass("exp");  }
+        
+        setTimeout(function(){
+            console.log(event,event.target,($(event.target)[0].getAttribute('name')));    
+            editar_pages.selected=a;      
+            nowsel=a;
+        },200)           
+    }
+    
+    fncsheet=['block()','fire()','money()','checkpoint()','mine()','bullet()','door(activeinput())','key(activeinput())'];
+    spesheet=[''       ,''      ,''       ,''            ,''      ,' ','activeinput()'      ,'activeinput()'];
+    function activeinput() {
+        return $('#editar_settings .core-selected input').val();
+    }
+</script>
+<div id="ui">
+    <table><tr>
+        <td style="padding-top:12px;">
+             <paper-icon-button icon="stars"></paper-icon-button> <span id="money">0</span>
+        </td>
+            <td>
+                <paper-icon-button icon="communication:vpn-key"></paper-icon-button>
+                <table class="collkey" id="collkeyimp">
+                    <tr><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td> </td><td> </td><td> </td><td> </td></tr>
+                    <tr><td> </td><td> </td><td> </td><td> </td></tr>
+                </table>
+            </td>
+        <td>
+            <paper-icon-button icon="image:timer"></paper-icon-button>
+        </td>
+        <td>
+            <paper-icon-button icon="av:pause" onclick="pause()"></paper-icon-button>
+        </td>
+    </tr></table>
+       <div id="alert_boxes">
+    <alert-box content="Challange Accepted" 
+               text="You succesfully accepted this challange"
+               fabcolor="#48F" fabicon="done" fabaction=""
+               ></alert-box>
+    </div>
+    
+    
+</div>
+
+
+<div id="mainwrap"></div>
+
+<script src="utopia/engine.js"></script>
+<script>
+
+ver="0.27";
+    console.log("utopia version "+ver);
+    titlea.innerHTML+=ver;
+    vera.innerHTML+=ver;
+    
+// special rules
+rules.block = function() {
+     move.doNotMove();
+} 
+rules.key = function(color) {
+     $('#key'+player.posy+player.posx).addClass("hovel");   
+     console.log(color);
+     $('.lock'+color.slice(1,this.length)).addClass("on");
+    
+    console.log(ui.keymap.indexOf(color),'a');
+
+    //register that you have collected this
+        if (coll.keys[color]===undefined) {coll.keys[color]=1;}
+        else coll.keys[color]++;
+        move.prelude=function(){};  //clearing the prelude        
+    //ugly overwrite is ugly
+     posrem=grid[player.posx][player.posy].indexOf('rules.key("'+color+'");');
+     grid[player.posx][player.posy][posrem]='';
+    console.log(posrem,grid[player.posx][player.posy]);
+    
+        $('.collkey tr:nth-child('+Number(ui.keymap.indexOf(color)+1)+')')
+        .removeClass('a1 a2 a3')
+        .addClass('a'+coll.keys[color]);
+    
+    console.log(color,coll.keys,coll.keys[color]);
+}
+rules.nothing = function() {
+    return false;
+}
+rules.laser = function() {
+    return false;
+}
+rules.money= function() {
+    coll.money++;
+    $('#money'+player.posy+player.posx).addClass('on');
+    
+    posrem=grid[player.posx][player.posy].indexOf('rules.money();');
+    grid[player.posx][player.posy][posrem]='';
+    
+}
+rules.checkpoint = function() {
+    $('#play1').addClass('ms');
+    setTimeout(function(){
+        $('#play1').removeClass('ms');
+    },1000)
+    $('checkpoint').removeClass('on');
+    $('#cp'+player.posy+player.posx).addClass("on");  
+    player.cpointx=player.posx;
+    player.cpointy=player.posy;
+}
+rules.gabesz = function() {
+ //   
+}
+rules.fire = function() {
+    player.checkpoint();
+}
+rules.door = function(color) {
+    if (coll.keys[color]>0) {
+        coll.keys[color]--;
+        if( coll.keys[color]==0) {
+           setTimeout(function(){
+               move.prelude=function(){ $('.lock'+color.slice(1,this.length)).removeClass("on");}
+           },10);
+        } 
+        $('u-block[x="'+player.posy+'"][y="'+player.posx+'"]').addClass("open");           
+         posrem=grid[player.posx][player.posy].indexOf('rules.door("'+color+'");');
+         console.log(grid[player.posx][player.posy].indexOf('rules.door("'+color+'");'),color,posrem);
+         grid[player.posx][player.posy][posrem]='';
+        
+        $('.collkey tr:nth-child('+Number(ui.keymap.indexOf(color)+1)+')')
+        .removeClass('a1 a2 a3')
+        .addClass('a'+coll.keys[color]);
+    }
+    else  move.doNotMove();  
+}
+rules.wall = function(dirfrom) {
+    dparty_x=NaN; dparty_y=NaN; 
+    if (dirfrom=="top")    { dparty_x=-1;}     //TODO TRANSFORM INTO NICE FUNCTION
+    if (dirfrom=="bottom") { dparty_x=1; }
+    if (dirfrom=="right")  { dparty_y=1; }
+    if (dirfrom=="left")   { dparty_y=-1;}
+    if (( player.posx+dparty_x==player.befx) || ( player.posy+dparty_y==player.befy) ) {
+       move.doNotMove();
+    }
+}
+rules.time = {} ; //rules that require Timing
+rules.pre = {}; //rules that shall be activated before the 
+
+rules.bullet = function(){
+    coll.bullet++;
+    $('#bull'+player.posy+player.posx).addClass('deleted');
+    
+    posrem=grid[player.posx][player.posy].indexOf('rules.bullet();');
+    grid[player.posx][player.posy][posrem]='';
+}    
+
+
+function pause(){
+    $("#rolo").toggleClass('shower');
+}
+rawLevelData=[];//we store everything to be able to save levels later
+function setRule(what,where,specials) {
+    for (i=0;i<where.length;i++) //BASIC FUNCTIONS
+    {   
+       // console.log(where[i][0],where[i][1]);
+       //if ( grid[where[i][0]][where[i][1]]===undefined) { grid[where[i][0]][where[i][1]]=[];}
+       //  console.warn(grid[where[i][0]]);
+        grid[where[i][0]][where[i][1]][grid[where[i][0]][where[i][1]].length]='rules.'+what+';'; //adding JS function
+
+		rawLevelData[rawLevelData.length]="setRule('"+what+','+where+','+specials+');';	
+		
+        ycord=where[i][0];
+        xcord=where[i][1];
+        if (what=="block()") 
+        {
+            field.innerHTML+='<u-block x='+(where[i][1])+' y='+(where[i][0])+'> </u-block>';
+        }
+        if (what=="fire()") {
+            field.innerHTML+='<u-block x='+(where[i][1])+' y='+(where[i][0])+' color="#f44"> </u-block>';
+        }
+        if (what.search("key")>=0)
+        {
+            field.innerHTML+='<key style="left:'+xcord*50+';top:'+ycord*50+';background:'+specials+';" id="key'+xcord+''+ycord+'" > </key>';
+        }
+        if (what.search("door")>=0)
+        {
+             b=specials.slice(1,specials.length);
+             field.innerHTML+='<u-block x='+(where[i][1])+' y='+(where[i][0])
+                +' color="'+b+'" class="lock'+b+'"> </u-block>';
+            
+             field.innerHTML+='<lock style="left:'+xcord*50+';top:'+ycord*50+';background:'+specials
+                +';" id="lock'+xcord+''+ycord+'" class="lock'+b+'"> </lock>';
+            //var coll.keys[b];
+            //coll.keys[b]++;
+        }
+        if (what.search("money")>=0) //tba: more money
+        {
+             field.innerHTML+='<money style="left:'+xcord*50+';top:'+ycord*50
+                 +'" id="money'+(where[i][1])+(where[i][0])+'"> </money>';
+        }
+        if (what.search("checkpoint")>=0) {
+            field.innerHTML+='<checkpoint style="left:'+xcord*50+';top:'+ycord*50
+                +'" id="cp'+(where[i][1])+(where[i][0])+'"> </money>';
+        }
+        if (what.search("mine")>=0) {
+            field.innerHTML+='<placed-mine x='+(where[i][1])+' y='+(where[i][0])+'></placed-mine>';
+        }
+        if (what.search("wall")>=0) {
+             field.innerHTML+='<wall style="left:'+xcord*50+';top:'+ycord*50+'" class="'+specials+'"></wall>';
+        }
+        if (what.search("bullet")>=0){
+             field.innerHTML+='<img class="bullet" style="left:'+xcord*50+';top:'+ycord*50+'" src="utopia/bullet.png" id="bull'+(where[i][1])+(where[i][0])+'">';
+        }
+    }//FOR 
+    
+    if (what.search("laser")>=0)   {
+            elements.laser.count++;
+            console.info('LASERs',where[0][0],where[0][1]);
+            console.info('LASERf',where[1][0],where[1][1]);
+            
+        if (Math.abs(where[0][0]-where[1][0])>0) {//if Ycord is different.
+                //Y cord
+            field.innerHTML+='<laser style="left:'+where[0][1]*50+';top:'+where[0][0]*50
+                +'" class="bottom" id="laser'+elements.laser.count+'"></laser>'; //first-top
+            field.innerHTML+='<laser style="left:'+where[1][1]*50+';top:'+where[1][0]*50
+                +'" class="top"></laser>'; //sec-bottom
+    
+    particles.innerHTML+='<p-laser style="left:'+where[0][1]*50+';top:'+(where[0][0]+1)*50+'; height:'+(Math.abs((where[1][0]-where[1][1])*50)-10)+'" id="plaser'+elements.laser.count+'"></p-laser>';
+            
+            affected=[];              
+            for (i=1;i<=Math.abs(where[1][0]-where[1][1]);i++) { //blocks that should kill you
+
+                affected[affected.length]=[where[1][1],Math.abs(where[1][0]-i)];
+            }  
+                console.log(affected);
+               // alert(Math.abs((where[1][0]-where[1][1])) +'\n'+ affected);
+                
+            elements.laser.register({
+                id : elements.laser.count,
+                loc : affected,
+                is : false,
+                on : specials[0],
+                off:specials[1]
+                        });
+                
+            }
+            else if (Math.abs(where[0][1]-where[1][1])>0)
+            {
+                    //TODO 4 LATER..
+            }
+    }//LASER
+    
+    if (what.search("portal")>=0) {
+        // in the first Array  the starting portal ID and ending.
+        // specials: directions for the first, 2nd portal
+        
+        elements.portal.count++;
+        
+        field.innerHTML+='<portal style="left:'+where[0][1]*50+';top:'+where[0][0]*50
+            +'" id="portal'+where[0][1]+where[0][0]+'" class="'+specials[0]+'"></portal>'; //first-top
+        
+         field.innerHTML+='<portal style="left:'+where[1][1]*50+';top:'+where[1][0]*50
+            +'" id="portal'+where[1][1]+where[1][0]+'" class="'+specials[1]+'"></portal>'; //first-top
+        
+        particles.innerHTML+='<p-portal style="left:'+where[0][1]*50+';top:'+where[0][0]*50 //yes, the ID-s are swapped
+            +';" class="'+specials[0]+'"id="pportal'+where[1][1]+where[1][0]+'"></portal>';
+        
+        particles.innerHTML+='<p-portal style="left:'+where[1][1]*50+';top:'+where[1][0]*50
+            +';" class="'+specials[1]+'"id="pportal'+where[0][1]+where[0][0]+'"></portal>';
+        
+        elements.portal.register({//register the first one
+                id    :   elements.portal.count,
+                from  :   [where[0][0],where[0][1]],
+                to    :   [where[1][0],where[1][1]],
+                fromDir : specials[0],
+                toDir   : specials[1]
+                        });
+        elements.portal.count++;
+        
+        elements.portal.register({
+                id    :   elements.portal.count,            
+                from    :   [where[1][0],where[1][1]],
+                to      :   [where[0][0],where[0][1]],                
+                fromDir  : specials[1],
+                toDir : specials[0]
+                        });         
+    }
+}//register element function
+    
+coll = {};
+coll.keys={};
+coll.money=0;
+coll.bullet=3;
+   
+elements = {};  
+elements = {};  
+    //noooo there lasers...
+elements.laser={};
+elements.laser.count=0;
+elements.laser.obj=[];
+    
+elements.portal={};
+elements.portal.count=0;
+elements.portal.obj=[];
+    
+elements.portal.register = function(portal) {
+    elements.portal.obj[elements.portal.count]=portal;
+}
+hasPortalActionHappened=false;
+    
+elements.portal.check = function(portal) {
+    //console.warn('PORTAL');
+    //console.log(player.posx,portal.from[0],' - ',player.posy,portal.from[1], portal.fromDir);  
+    party_x=0; party_y=0;
+    
+    if (portal.toDir=="top") { party_x=-1;}
+    if (portal.toDir=="bottom") { party_x=1;}
+    if (portal.toDir=="right") { party_y=1;}
+    if (portal.toDir=="left") { party_y=-1;}
+    
+    if ((player.posx==portal.from[0])&&(player.posy==portal.from[1])) {//if you are on the right place
+        if (  ((portal.fromDir=="top")    && (player.befx==portal.from[0]-1)) ||//and you came from the right direction
+              ((portal.fromDir=="bottom") && (player.befx==portal.from[0]+1)) ||
+              ((portal.fromDir=="right")&& (player.befy==portal.from[1]+1)) ||
+              ((portal.fromDir=="left") && (player.befy==portal.from[1]-1)) ) 
+        {            
+            //move to right location        
+           player.posx=portal.to[0]+party_x;
+           player.posy=portal.to[1]+party_y; 
+            hasPortalActionHappened=true;
+            //console.log(move.to);
+          console.info('Teleported to',portal.to[0],portal.to[1]);
+        } 
+    }
+    
+     $('#portal'+(player.posy-party_y)+''+(player.posx-party_x)).addClass('on');//if you are on the neccesary block
+     $('#pportal'+(player.posy-party_y)+''+(player.posx-party_x)).addClass('on');
+}
+    
+elements.laser.check = function(laser) 
+    {
+    // console.log(laser.loc,laser.id);
+        if (laser.is)
+            for ( i=0 ; i<laser.loc.length ; i++ ) //console.log(laser.loc[0][i]);
+                if ( laser.loc[i][0]==player.posy ) 
+                    for ( j=0 ; j<laser.loc.length ; j++ ) //console.info(laser.loc[1][j]);
+                        if ( laser.loc[j][1]==player.posx )  player.checkpoint();
+                
+    }
+    
+elements.laser.register = function(laser)
+    {
+        elements.laser.obj[elements.laser.count]=laser;
+        elements.laser.turnOn(laser);
+    }
+       
+elements.laser.turnOn =function(laser) {
+    $('#plaser'+laser.id).addClass('on');
+    laser.is=true;
+    //console.log(laser);
+    elements.laser.check(laser);
+    setTimeout(function(){
+        elements.laser.turnOff(laser);
+    },laser.on)
+}
+elements.laser.turnOff =function(laser) {
+    $('#plaser'+laser.id).removeClass('on');
+    laser.is=false;
+    setTimeout(function(){
+        elements.laser.turnOn(laser);
+    },laser.off)
+}  
+    //end.
+    
+
+document.body.addEventListener("keydown",function (e) {
+    map[e.which] = e.type == 'keydown';
+   // console.log(map);
+   
+    player.befx=player.posx;
+    player.befy=player.posy;
+    
+            if (map[ 68 ])  move.right();
+            else if (map[ 87 ])  move.forward(); 
+            else if (map[ 65 ])  move.left();    
+            else if (map[ 83 ])  move.back(); 
+    //move.prevent(false);
+    
+     
+        for  (var iss=0;iss<grid[player.befx][player.befy].length;iss++) {
+            if (grid[player.befx][player.befy][iss].search('wall')>=0) {
+                 party_x=NaN;party_y=NaN;
+                 console.log(grid[player.befx][player.befy][iss]);
+                 dirtemp=grid[player.befx][player.befy][iss];
+                
+                    if (dirtemp.search("top")>=0) { party_x=-1;}
+                    if (dirtemp.search("bottom")>=0) { party_x=1;}
+                    if (dirtemp.search("right")>=0) { party_y=1;}
+                    if (dirtemp.search("left")>=0) { party_y=-1;}
+                
+                 if (    (player.befx+party_x==player.posx ) || //if this has been the move
+                         (player.befy+party_y==player.posy )  )   { //if direction matches
+                           move.doNotMove();
+                        
+                    }
+                      console.log(party_x,party_y,'ATTR');
+            }
+               
+        }//for
+    
+    //disable going out
+    if (player.posy>level.width)  { player.posy=level.width;  move.update(); }
+    if (player.posx>level.height) { player.posx=level.height; move.update(); }   
+    if (player.posy<0) { player.posy=0; move.update(); }
+    if (player.posx<0) { player.posx=0; move.update(); }
+    
+    $('portal,p-portal').removeClass('on');
+    
+    for (var k=1;k<=elements.portal.count;k++) {//check portals
+        elements.portal.check(elements.portal.obj[k]);
+    }
+    for (var k=1;k<=elements.laser.count;k++) { //check lasers
+        elements.laser.check(elements.laser.obj[k]);
+    }
+   
+    if (!hasPortalActionHappened) {
+           for (var is=0;is<grid[player.posx][player.posy].length;is++) {
+            eval(grid[player.posx][player.posy][is]); 
+            //console.warn(grid[player.posx][player.posy][is]);
+           }
+            //console.log(grid[player.posx][player.posy]);
+            //alert();   
+    }
+    hasPortalActionHappened=false;
+        
+
+    move.update();
+    //check(); /|\ moved here
+    if (move.hasMoved()) move.prelude(); //ha mozgott a játékos csak akkor
+    console.log(player.posx,player.posy);
+    ui.update();
+    
+});
+
+
+
+
+
+//MAIN FUNCTION
+document.body.onkeyup = function(e) {
+     map=[];
+    //console.log(map +'E');
+}
+wh=window.innerHeight;
+ww=window.innerWidth;
+
+
+    
+ui.update =function() {
+    money.innerHTML=coll.money;
+}
+  a='';
+setTimeout(function(){
+document.oncontextmenu = function() {return false;};
+  // $('body').addClass('main_menu');
+  $('#field *, #playercube player').mousedown(function(e){ 
+    if( e.button == 2 ) { 
+      //alert('Right mouse button!'+this);
+      console.log(this); 
+        a=this;
+      dbga="<table><tr><td>ID:</td><td>" + a.getAttribute('id') 
+            + "</td></tr><tr><td>name:</td><td>" +a.tagName
+             + "</td></tr><tr><td>class:</td><td> "+a.getAttribute('class') 
+             +"</td></tr><tr><td>style:</td><td> " + a.getAttribute('style');    
+     if (a.tagName=="U-BLOCK") {
+         dbga+="</td></tr><tr><td>location:</td><td>"+ 
+             a.getAttribute('x') +"-" +
+             a.getAttribute('y') +
+             "</td></tr><tr><td>event:</td><td>" +grid[a.getAttribute('y')][a.getAttribute('x')];
+     }   
+        dbg.innerHTML=dbga+"</table>";
+      return false; 
+    } 
+    return true; 
+  }); 
+    },500);
+
+    
+</script>
+
+<script src="utopia/levels.js"></script>
+
+<div id="dbg" style="">Debug window</div>
+<style>
+#dbg {
+    position:fixed;
+    right:0px;
+    min-width:200px;
+    word-break: break-word;
+    font-family:monospace;
+}
+</style>
+
+<script>
+   // setRule("bullet()",[[3,4]])
+	ui.openlevel();
+</script>
+
+<!-- version history 
+0.1  Creating basics: Wall, Key                      15.02.27
+0.2  Adding polymer, openable doors                     02.28
+0.3  Money and fixing some door bugs                    02.29
+0.4  Add checkpoints and death                          03.02
+0.6  Add lasers. Ugly and bad workflow, but it works    03.02
+0.6a fixing lasers, set Time properly                   03.04
+0.7  Add portals. Not yet OOP                           03.04
+0.8  Lasers and Portals converted to OOP                03.05
+0.9  Add laser particles and animations. Debug added    03.07
+0.9a CSS cleaned, focus added.                          03.07
+0.10 Starting walls, pain in the ***.                   03.14
+0.11 functions now in array, relocating some functions  03.16
+0.12 walls work w/o problem.                            03.17
+0.13 cleaned code, distributed over, and designed       03.17
+0.14 Add UI and HUD                                     03.25
+0.15 Add key UI display                                 04.02
+0.16 bugfix                                             04.02
+0.20 level editor added                                 04.03
+0.24 EDC update. Added pause, controller support        04.11
+0.27 UI  setup, and level changer. Toast notification   04.20
+-->
+
+
+ <link rel="import" href="../../polyfome/include_minimalist.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/communication-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/device-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/editor-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/hardware-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/image-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/maps-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/notification-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/social-icons.html">
+  <link rel="import" href="../../polymer/bower_components/core-icons/device-icons.html">
+     <link rel="import" href="utopia/elements.html">

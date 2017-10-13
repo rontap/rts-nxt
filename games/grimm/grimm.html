@@ -1,0 +1,1302 @@
+<html>
+    <!--MADE BY ELEMENTIAL. LICENCED UNDER CC LICENCE. grimm is made by rontap&DaniFoldi-->
+<body onload="slidestartmain()">
+    <div id="body">
+        <rts>
+    <script src="http://code.jquery.com/jquery-latest.min.js"
+        type="text/javascript"></script>
+    <meta charset="UTF-8">
+        <div>
+            <script>navname="Grimm 0.3.8";
+                coa=false;
+                moretag=true;
+                specnav=true;
+                manimg='myrts/f_icons/game.svg';
+                rjsxlocation='http://rontap.netne.net/millenium/';
+                specnavi=["Elemential főoldal","WebNotes RC2","RomboFight 2.9","<div id'mainmenu'><div class='slide'><input type='checkbox' checked value='None' id='slide'><label for='slide' onclick='start();'></label></div></div>"];
+                specnavil=["http://elemential.net/index.html","http://rontap.netne.net/webnotes_rc2/index.html","http://elemential.net/rombo","#"];
+            </script>
+            
+            <title>Grimm 0.3.8</title>
+            <style>
+                /*NON-RJSX*/
+                input[type=range] {
+                    -webkit-appearance: none;
+                    background-color: silver;
+                    width: 150px;
+                    height:15px;
+                }
+            input[type="range"]::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                background-color: #48F !important;
+                opacity: 0.8;
+                width: 10px;
+                height: 20px;
+            }
+            #builders::-webkit-slider-thumb {
+                background-color: #F84 !important;
+            }
+            #rpmans::-webkit-slider-thumb {
+                background-color: #96C !important;
+            }
+            /*END*/
+            #logii {
+                -webkit-transition:height .3s, width .2s;
+                height:250px;
+                width:250px;
+            }
+            
+            #logii:hover,#logii:active,#logii:focus {
+                height:500px;
+                width:300px;
+            }
+            body {
+                background:#EEE;
+            }
+            r {color:red;font-weight:bold;}
+            .g {
+                background:#DDD;
+                border:2px double #48F;
+                padding:3px;
+                margin:3px;
+                width:240px;
+                display:inline-block;
+                -webkit-transition:background 0.2s, color 0.1s;
+                text-align:center;
+                vertical-align:middle;
+            }
+            .g2 {
+                text-align:center;
+                background:#DDD;
+                border:2px double #48F;
+                padding:3px;
+                margin:3px;
+                width:320px;
+                height:40px;
+                vertical-align:middle;
+                display:inline-block;
+                -webkit-transition:background 0.2s, color 0.1s;
+            }
+            .g:hover {
+                background:#48F;
+                color:white;
+            }
+            .g button {
+                cursor:pointer;
+            }
+            .gr {
+                border:2px solid #F84;
+            }
+            .gr:hover {
+                background:#F84;
+            }
+            .gre {
+                background:#EEE;
+                border:2px solid #F26;
+                width:auto;
+            }
+            .gre:hover {
+                background:#F26;
+                color:#444;
+            }
+            summary {
+                font-size:18px;
+                font-type:initial;
+            }
+            code {
+                font-size:15px;
+            }
+            #pplsorting {
+                width:620px;
+                border:1px solid #444;
+            }
+            #pplsorting span {
+                display: inline-flex;
+                -webkit-transition:width 1s;
+                color:white;
+            }
+            #resman {background:#26F;}
+            #builder {background:#F84;}
+            #rpman {background:#96C;}
+                </style>
+           <!-- <div style="position:fixed;background:#FFF;padding-left:10;margin-left:-10px;width:100%;top:0;border-bottom:3px solid #999;z-index:9;"><h3>GRIMM 0.3.8 Elemential</h3>
+                <i>Tapasztalati pontok:</i> <b id="scre"></b> |
+                Pontok másodpercenként: <span id="screps"  style="color:#48F;"></span> |
+                <i>Eltelt idő</i>: <b id="tim"></b> |
+                <b id="gameover" style="color:red;"></b>
+            </div>-->
+            <hr style="margin-top:75px;">
+            <div style="text-align: right; position:fixed; vertical-align:middle">
+                
+            </div>
+            <div class="utitle">Nyersanyagok:</div><br><span id="resu"></span>
+        </div>
+        <div>
+            
+            <div class="utitle">Építkezés</div><br>
+            <table>
+                <tr><td>
+            <span class="g">
+                <button class="btn-r" onClick="build('Mwheat')"> &nbsp; &nbsp; Búzafarm építése &nbsp; &nbsp; </button> </span></td><td><span class="g2"><span style="vertical-align:middle;" id="whkim">nincs</span>
+            </span></tr><tr><td>
+            <span class="g">
+                <button class="btn-r" onClick="build('Mstone')"> &nbsp; &nbsp;Kőbánya építése &nbsp; &nbsp; &nbsp;</button> </span></td><td><span class="g2"><span style="vertical-align:middle;" id="skim">nincs</span>
+            </span></tr><tr><td>
+            <span class="g">
+                <button class="btn-r" onClick="build('Mwood')"> &nbsp; &nbsp; &nbsp; &nbsp; Erdő építése &nbsp; &nbsp; &nbsp; &nbsp;</button> </span></td><td><span style="vertical-align:middle;" class="g2"><span id="wkim">nincs</span>
+            </span></tr><tr><td>
+            <span class="g">
+                <button class="btn-r" onClick="build('Miron')">&nbsp; &nbsp; &nbsp;Vasbánya építése &nbsp; &nbsp; </button> </span></td><td><span class="g2"><span style="vertical-align:middle;" id="ikim">nincs</span>
+            </span></tr><tr><td>
+            <span class="g gr">
+                <button class="btn-b" onClick="build('hause')">&nbsp; &nbsp; &nbsp;Lakóhely építése &nbsp; &nbsp; </button> </span></td><td><span class="g2 gr"><span style="vertical-align:middle;" id="hkim">nincs</span>
+            </span></tr><tr><td>
+            <span class="g gr">
+                <button class="btn-b" onClick="build('storage')">&nbsp; &nbsp; &nbsp; &nbsp;Raktár építése &nbsp; &nbsp; &nbsp; </button> </span></td><td><span style="vertical-align:middle;" class="g2 gr"><span id="stkim">szint:0, tárol: 100, 100, 120, 40</span>
+            </span></tr><tr><td>
+            <span class="g gr">
+                <button class="btn-b" onClick="build('rpbase')">Kutatóközpont építése</button> </span></td><td><span class="g2 gr"><span style="vertical-align:middle;" id="rkim">nincs</span>
+            </span></tr></table>
+            <div id="muiex"></div>
+            <br>
+            <div class="utitle">Idő elosztása:</div>
+            <br>
+            <div id="pplsorting">
+                <span id="builder" align="center">Építés</span><span id="resman" align="center"style="overflow:hidden;">Termelés</span><span id="rpman" align="center"style="overflow:hidden;">Kutatás</span>
+            </div>
+            <br>
+            <input id="builders" type="range" name="points" min="1" max="100" onchange=" pplpost();" value="1">
+                <input id="resmans" type="range" name="points" min="1" max="100" onchange=" pplpost();" value="1">
+                    <input id="rpmans" type="range" name="points" min="1" max="100" onchange=" pplpost();" value="1">
+                        <br>
+                        <div class="utitle">Console</div><br>
+                        
+                        <span id="consolWE" style="color:red"></span><br>
+                        <span id="consolSTOR" style="color:#F84;"></span><br>
+                        <span id="consolWPS" style="color:#48F;"></span><br>
+                        <select  id="logii" multiple style="">
+                            
+                        </select>
+                        </div>
+        
+        
+        <script>
+            function slidestartmain()
+            {
+                setTimeout(function() {
+
+                for (i=1;i<=50;i++)
+                {
+                    document.getElementById("builders").value='i';
+                    document.getElementById("resmans").value='i';
+                    document.getElementById("rpmans").value='i';
+                           }
+                           },100);
+            }
+            
+                //DEF
+                interval=1000;
+                mui = {
+                    "add" : {
+                        ";" : function (){
+                            a='<hr>Kutatás:<div class="g gre">';
+                            
+                            a+='<br><span class="g"><button onClick="research('+"'buildings'"+')">Épülethatékonyság </button>'
+                            a+='<span id="muir_buildings">'+rp.buildings.lmake[rp.buildings.clevel]+'</span></span>';
+                            
+                            a+='<br><span class="g"><button onClick="research('+"'ppl'"+')">Emberek etetése </button>'
+                            a+='<span id="muir_ppl">'+rp.ppl.lmake[rp.ppl.clevel]+'</span></span>';
+                            
+                            a+='</div>';
+                            muiex.innerHTML=a;
+                        },
+                    },
+                };
+        ppls = {//emberek beosztása
+            builder : 1,
+            resman  : 1,
+            rpman   : 1,
+        } ;
+        res = {
+            "stone":10,
+            "wood":10,
+            "wheat":10,
+            "iron":0,
+            "energy":0,
+            "rp":0,
+            "ppl":10,
+            "happy":80,
+            "good":20,
+        }
+        score=1;//sum pontszám
+            //
+            reslist = ["stone","wood","wheat","iron"];
+            resall= ["stone","wheat","wood","iron","energy","rp","ppl","happy","good"];
+            add = {// rendezve találhatóak itt a nyersanyagok változtatói
+                "stone": [],
+                "wheat": [],
+                "wood" : [],
+                "iron" : [],
+                "energy":[],
+                "rp"   : [],
+                "ppl"  : [],
+                "happy": [],
+                "good" : [],
+            }
+        add.wheat[0]=0;
+        rp = {//kutatási tábla
+            "buildings" : {
+                "code":100,
+                "clevel": 0,
+                "lcost" : [0,1,2,3,4,5],
+                "lmake" : [0,0.05,0.07,0.1,0.11,0.12]
+            },
+            "ppl" : {//emberek kevesebb búzát ezsnek. ennyivel:
+                "code":999,
+                "clevel": 0,
+                "lcost" : [0,1,2,4,8,16],
+                "lmake" : [0,0.05,0.07,0.1,0.11,0.12]
+            },
+            
+            
+        };
+        mod ={//az árakat, tulajdonságokat változtató [reseatch]
+            "cost" : {//ÁRAK
+                "build" :1,//az összesített építés árak
+                "pplwheat" : 1, //mennyi búzát eszik egy embör
+            },
+            "pplwheat" : 0,
+        }
+        cost = {
+            "Mwheat" : {//épület
+                "clevel" : 0 ,
+                l1: {//szint
+                    "wood":4,
+                    "stone":2,
+                    "pwheat":1
+				},
+                l2: {//szint
+                    "wood":4.576,
+                    "stone":2.428,
+                    "pwheat":1.1
+				},
+                l3: {//szint
+                    "wood":5.234944,
+                    "stone":2.947592,
+                    "pwheat":1.21
+				},
+                l4: {//szint
+                    "wood":5.988775936,
+                    "stone":3.578376688,
+                    "pwheat":1.331
+				},
+                l5: {//szint
+                    "wood":6.851159670784,
+                    "stone":4.344149299232,
+                    "pwheat":1.4641
+				},
+                l6: {//szint
+                    "wood":7.8377266633769,
+                    "stone":5.27379724926765,
+                    "pwheat":1.61051
+				},
+                l7: {//szint
+                    "wood":8.96635930290317,
+                    "stone":6.40238986061092,
+                    "pwheat":1.771561
+				},
+                l8: {//szint
+                    "wood":10.2575150425212,
+                    "stone":7.77250129078166,
+                    "pwheat":1.9487171
+				},
+                l9: {//szint
+                    "wood":11.7345972086443,
+                    "stone":9.43581656700894,
+                    "pwheat":2.14358881
+				},
+                l10: {//szint
+                    "wood":13.4243792066891,
+                    "stone":11.4550813123489,
+                    "iron":5.31665380788217,
+                    "pwheat":2.357947691
+				},
+                l11: {//szint
+                    "wood":15.3574898124523,
+                    "stone":13.9064687131915,
+                    "iron":6.40125118469014,
+                    "pwheat":2.5937424601
+				},
+                l12: {//szint
+                    "wood":17.5689683454454,
+                    "stone":16.8824530178145,
+                    "iron":7.70710642636692,
+                    "pwheat":2.85311670611
+				},
+                l13: {//szint
+                    "wood":20.0988997871895,
+                    "stone":20.4952979636268,
+                    "iron":9.27935613734578,
+                    "pwheat":3.138428376721
+				},
+                l14: {//szint
+                    "wood":22.9931413565448,
+                    "stone":24.8812917278429,
+                    "iron":11.1723447893643,
+                    "pwheat":3.4522712143931
+				},
+                l15: {//szint
+                    "wood":26.3041537118873,
+                    "stone":30.2058881576013,
+                    "iron":13.4515031263946,
+                    "pwheat":3.79749833583241
+				},
+                l16: {//szint
+                    "wood":30.0919518463991,
+                    "stone":36.669948223328,
+                    "iron":16.1956097641791,
+                    "pwheat":4.17724816941565
+				},
+                l17: {//szint
+                    "wood":34.4251929122805,
+                    "stone":44.5173171431202,
+                    "iron":19.4995141560717,
+                    "pwheat":4.59497298635722
+				},
+                l18: {//szint
+                    "wood":39.3824206916489,
+                    "stone":54.0440230117479,
+                    "iron":23.4774150439103,
+                    "pwheat":5.05447028499294
+				},
+                l19: {//szint
+                    "wood":45.0534892712464,
+                    "stone":65.6094439362619,
+                    "iron":28.266807712868,
+                    "pwheat":5.55991731349223
+				},
+                l20: {//szint
+                    "wood":51.5411917263058,
+                    "stone":79.649864938622,
+                    "iron":34.0332364862931,
+                    "pwheat":6.11590904484146
+				},
+                l21: {//szint
+                    "wood":58.9631233348939,
+                    "stone":96.6949360354871,
+                    "iron":40.9760167294969,
+                    "pwheat":6.7274999493256
+				}
+            },
+            "Mstone" : {//épület
+                "clevel" : 0 ,
+                l1: {//szint
+                    "wood":5,
+                    "wheat":2,
+                    "pstone":1
+				},
+                l2: {//szint
+                    "wood":5.75,
+                    "wheat":2.328,
+                    "pstone":1.1
+				},
+                l3: {//szint
+                    "wood":6.6125,
+                    "wheat":2.709792,
+                    "pstone":1.21
+				},
+                l4: {//szint
+                    "wood":7.604375,
+                    "wheat":3.154197888,
+                    "pstone":1.331
+				},
+                l5: {//szint
+                    "wood":8.74503125,
+                    "wheat":3.671486341632,
+                    "pstone":1.4641
+				},
+                l6: {//szint
+                    "wood":10.0567859375,
+                    "wheat":4.27361010165965,
+                    "pstone":1.61051
+				},
+                l7: {//szint
+                    "wood":11.565303828125,
+                    "wheat":4.97448215833183,
+                    "pstone":1.771561
+				},
+                l8: {//szint
+                    "wood":13.3000994023438,
+                    "wheat":5.79029723229825,
+                    "pstone":1.9487171
+				},
+                l9: {//szint
+                    "wood":15.2951143126953,
+                    "wheat":6.73990597839516,
+                    "pstone":2.14358881
+				},
+                l10: {//szint
+                    "wood":17.5893814595996,
+                    "iron":5.98740279953108,
+                    "wheat":7.84525055885197,
+                    "pstone":2.357947691
+				},
+                l11: {//szint
+                    "wood":20.2277886785396,
+                    "iron":7.30463141542792,
+                    "wheat":9.13187165050369,
+                    "pstone":2.5937424601
+				},
+                l12: {//szint
+                    "wood":23.2619569803205,
+                    "iron":8.91165032682206,
+                    "wheat":10.6294986011863,
+                    "pstone":2.85311670611
+				},
+                l13: {//szint
+                    "wood":26.7512505273686,
+                    "iron":10.8722133987229,
+                    "wheat":12.3727363717808,
+                    "pstone":3.138428376721
+				},
+                l14: {//szint
+                    "wood":30.7639381064738,
+                    "iron":13.264100346442,
+                    "wheat":14.4018651367529,
+                    "pstone":3.4522712143931
+				},
+                l15: {//szint
+                    "wood":35.3785288224449,
+                    "iron":16.1822024226592,
+                    "wheat":16.7637710191804,
+                    "pstone":3.79749833583241
+				},
+                l16: {//szint
+                    "wood":40.6853081458117,
+                    "iron":19.7422869556442,
+                    "wheat":19.513029466326,
+                    "pstone":4.17724816941565
+				},
+                l17: {//szint
+                    "wood":46.7881043676834,
+                    "iron":24.0855900858859,
+                    "wheat":22.7131662988034,
+                    "pstone":4.59497298635722
+				},
+                l18: {//szint
+                    "wood":53.8063200228359,
+                    "iron":29.3844199047808,
+                    "wheat":26.4381255718072,
+                    "pstone":5.05447028499294
+				},
+                l19: {//szint
+                    "wood":61.8772680262613,
+                    "iron":35.8489922838326,
+                    "wheat":30.7739781655836,
+                    "pstone":5.55991731349223
+				},
+                l20: {//szint
+                    "wood":71.1588582302005,
+                    "iron":43.7357705862758,
+                    "wheat":35.8209105847393,
+                    "pstone":6.11590904484146
+				},
+                l21: {//szint
+                    "wood":81.8326869647306,
+                    "iron":53.3576401152565,
+                    "wheat":41.6955399206365,
+                    "pstone":6.7274999493256
+				}
+            },
+            "Mwood" : {//épület
+                "clevel" : 0 ,
+                l1: {//szint
+                    "stone":5,
+                    "wheat":2,
+                    "pwood":1
+				},
+                l2: {//szint
+                    "stone":5.74,
+                    "wheat":2.336,
+                    "pwood":1.1
+				},
+                l3: {//szint
+                    "stone":6.58952,
+                    "wheat":2.728448,
+                    "pwood":1.21
+				},
+                l4: {//szint
+                    "stone":7.56476896,
+                    "wheat":3.186827264,
+                    "pwood":1.331
+				},
+                l5: {//szint
+                    "stone":8.68435476608,
+                    "wheat":3.722214244352,
+                    "pwood":1.4641
+				},
+                l6: {//szint
+                    "stone":9.96963927145984,
+                    "wheat":4.34754623740314,
+                    "pwood":1.61051
+				},
+                l7: {//szint
+                    "stone":11.4451458836359,
+                    "wheat":5.07793400528686,
+                    "pwood":1.771561
+				},
+                l8: {//szint
+                    "stone":13.139027474414,
+                    "wheat":5.93102691817506,
+                    "pwood":1.9487171
+				},
+                l9: {//szint
+                    "stone":15.0836035406273,
+                    "wheat":6.92743944042847,
+                    "pwood":2.14358881
+				},
+                l10: {//szint
+                    "stone":17.3159768646401,
+                    "iron":5.98740279953108,
+                    "wheat":8.09124926642045,
+                    "pwood":2.357947691
+				},
+                l11: {//szint
+                    "stone":19.8787414406069,
+                    "iron":7.30463141542792,
+                    "wheat":9.45057914317908,
+                    "pwood":2.5937424601
+				},
+                l12: {//szint
+                    "stone":22.8207951738167,
+                    "iron":8.91165032682206,
+                    "wheat":11.0382764392332,
+                    "pwood":2.85311670611
+				},
+                l13: {//szint
+                    "stone":26.1982728595415,
+                    "iron":10.8722133987229,
+                    "wheat":12.8927068810243,
+                    "pwood":3.138428376721
+				},
+                l14: {//szint
+                    "stone":30.0756172427537,
+                    "iron":13.264100346442,
+                    "wheat":15.0586816370364,
+                    "pwood":3.4522712143931
+				},
+                l15: {//szint
+                    "stone":34.5268085946812,
+                    "iron":16.1822024226592,
+                    "wheat":17.5885401520586,
+                    "pwood":3.79749833583241
+				},
+                l16: {//szint
+                    "stone":39.6367762666941,
+                    "iron":19.7422869556442,
+                    "wheat":20.5434148976044,
+                    "pwood":4.17724816941565
+				},
+                l17: {//szint
+                    "stone":45.5030191541648,
+                    "iron":24.0855900858859,
+                    "wheat":23.9947086004019,
+                    "pwood":4.59497298635722
+				},
+                l18: {//szint
+                    "stone":52.2374659889812,
+                    "iron":29.3844199047808,
+                    "wheat":28.0258196452695,
+                    "pwood":5.05447028499294
+				},
+                l19: {//szint
+                    "stone":59.9686109553504,
+                    "iron":35.8489922838326,
+                    "wheat":32.7341573456747,
+                    "pwood":5.55991731349223
+				},
+                l20: {//szint
+                    "stone":68.8439653767422,
+                    "iron":43.7357705862758,
+                    "wheat":38.2334957797481,
+                    "pwood":6.11590904484146
+				},
+                l21: {//szint
+                    "stone":79.0328722525001,
+                    "iron":53.3576401152565,
+                    "wheat":44.6567230707458,
+                    "pwood":6.7274999493256
+				}
+            },
+            "Miron" : {//épület
+                "clevel" : 0 ,
+                l1: {//szint
+                    "wood":5,
+                    "stone":5,
+                    "wheat":2,
+                    "piron":0.4
+				},
+                l2: {//szint
+                    "wood":5.6,
+                    "stone":5.74,
+                    "wheat":2.336,
+                    "piron":0.42
+				},
+                l3: {//szint
+                    "wood":6.272,
+                    "stone":6.58952,
+                    "wheat":2.728448,
+                    "piron":0.441
+				},
+                l4: {//szint
+                    "wood":7.02464,
+                    "stone":7.56476896,
+                    "wheat":3.186827264,
+                    "piron":0.46305
+				},
+                l5: {//szint
+                    "wood":7.8675968,
+                    "stone":8.68435476608,
+                    "wheat":3.722214244352,
+                    "piron":0.4862025
+				},
+                l6: {//szint
+                    "wood":8.811708416,
+                    "stone":9.96963927145984,
+                    "wheat":4.34754623740314,
+                    "piron":0.510512625
+				},
+                l7: {//szint
+                    "wood":9.86911342592,
+                    "stone":11.4451458836359,
+                    "wheat":5.07793400528686,
+                    "piron":0.53603825625
+				},
+                l8: {//szint
+                    "wood":11.0534070370304,
+                    "stone":13.139027474414,
+                    "wheat":5.93102691817506,
+                    "piron":0.5628401690625
+				},
+                l9: {//szint
+                    "wood":12.379815881474,
+                    "stone":15.0836035406273,
+                    "wheat":6.92743944042847,
+                    "piron":0.590982177515625
+				},
+                l10: {//szint
+                    "wood":13.8653937872509,
+                    "stone":17.3159768646401,
+                    "wheat":8.09124926642045,
+                    "piron":0.620531286391406
+				},
+                l11: {//szint
+                    "wood":15.529241041721,
+                    "stone":19.8787414406069,
+                    "wheat":9.45057914317908,
+                    "piron":0.651557850710977
+				},
+                l12: {//szint
+                    "wood":17.3927499667276,
+                    "stone":22.8207951738167,
+                    "wheat":11.0382764392332,
+                    "piron":0.684135743246526
+				},
+                l13: {//szint
+                    "wood":19.4798799627349,
+                    "stone":26.1982728595415,
+                    "wheat":12.8927068810243,
+                    "piron":0.718342530408852
+				},
+                l14: {//szint
+                    "wood":21.8174655582631,
+                    "stone":30.0756172427537,
+                    "wheat":15.0586816370364,
+                    "piron":0.754259656929294
+				},
+                l15: {//szint
+                    "wood":24.4355614252546,
+                    "stone":34.5268085946812,
+                    "wheat":17.5885401520586,
+                    "piron":0.791972639775759
+				},
+                l16: {//szint
+                    "wood":27.3678287962852,
+                    "stone":39.6367762666941,
+                    "wheat":20.5434148976044,
+                    "piron":0.831571271764547
+				},
+                l17: {//szint
+                    "wood":30.6519682518394,
+                    "stone":45.5030191541648,
+                    "wheat":23.9947086004019,
+                    "piron":0.873149835352774
+				},
+                l18: {//szint
+                    "wood":34.3302044420601,
+                    "stone":52.2374659889812,
+                    "wheat":28.0258196452695,
+                    "piron":0.916807327120413
+				},
+                l19: {//szint
+                    "wood":38.4498289751074,
+                    "stone":59.9686109553504,
+                    "wheat":32.7341573456747,
+                    "piron":0.962647693476434
+				},
+                l20: {//szint
+                    "wood":43.0638084521202,
+                    "stone":68.8439653767422,
+                    "wheat":38.2334957797481,
+                    "piron":1.01078007815026
+				},
+                l21: {//szint
+                    "wood":48.2314654663747,
+                    "stone":79.0328722525001,
+                    "wheat":44.6567230707458,
+                    "piron":1.06131908205777
+				}
+            },
+        }//COST
+        
+
+        
+        costold = {//árak
+            /*"Mstone" : {//épület
+             "clevel" : 0 ,
+             "l1" : {//szint
+             "wood":2,//alapanyag
+             "wheat":2,
+             "plus":1,
+             },
+             "l2" : {//szint
+             "wood":5,//alapanyag
+             "wheat":5,
+             "plus":2,
+             }
+             },
+             
+             "Mwood" : {//épület
+             "clevel" : 0 ,
+             "l1" : {//szint
+             "wheat":2,//alapanyag
+             "stone":2,
+             "plus":1,
+             },
+             "l2" : {//szint
+             "wheat":5,//alapanyag
+             "stone":5,
+             "plus":2,
+             }
+             },
+             "Miron" : {//épület
+             "clevel" : 0 ,
+             "l1" : {//szint
+             "wheat":2,//alapanyag
+             "stone":2,
+             "plus":0.20,
+             },
+             "l2" : {//szint
+             "wheat":5,//alapanyag
+             "stone":5,
+             "plus":0.40,
+             }
+             },*/
+            "hause" : {//épület
+                "clevel" : 0 ,
+                "l1" : {//szint
+                    "stone":1,
+                    "wood":2,//alapanyag
+                    "wheat":4,
+                    "plus":0.10,
+                    "minus":-0.1,
+		 		},
+                "l2" : {//szint
+                    "stone":4,
+                    "wood":5,//alapanyag
+                    "wheat":5,
+                    "plus":0.40,
+                    "minus":-0.125,
+		 		},
+                "l3" : {//szint
+                    "stone":4,
+                    "wood":8,//alapanyag
+                    "wheat":10,
+                    "plus":0.60,
+                    "minus":-1.15,
+		 		},
+            },
+            "rpbase" : {//épület
+                "clevel" : 0 ,
+                "l1" : {//szint
+                    "stone":6,
+                    "wood":3,//alapanyag
+                    "wheat":1,
+                    "plus":0.10,
+		 		},
+            },
+            "storage" : {//épület
+                "clevel" : 0 ,
+                "l1" : {//szint
+                    "stone":3,
+                    "wood":3,//alapanyag
+                    "wheat":1,
+                    "room":[50,50,60,15]
+		 		},
+                "l2" : {//szint
+                    "stone":6,
+                    "wood":5,//alapanyag
+                    "wheat":2,
+                    "room":[80,80,80,20]
+		 		},
+                "l3" : {//szint
+                    "stone":8,
+                    "wood":6,//alapanyag
+                    "wheat":8,
+                    "room":[110,110,150,22.5]
+		 		},
+            }
+        }
+        storage = {//tárolás
+            "stone": 100,
+            "wood" : 100,
+            "wheat": 120,
+            "iron" : 40,
+        }
+        
+        time=0;
+        rules = ['RULES'];
+        
+            //BASE
+            function timestep()
+            {
+               
+                setTimeout(
+                           function()
+                           {
+                           time++;
+                           
+                           for (i=1;i<rules.length;i++)
+                           {
+                           
+                           
+                           if (rules[i].material=='ppl')//természetes szaporulat lassulása
+                           {
+                           res[rules[i].material]=rules[i].modify*mod.pplwheat+Number(res[rules[i].material]);
+                           res[rules[i].material]=(res[rules[i].material]-res['ppl']/2000);
+                           
+                           }
+                           else if ((rules[i].material=='wheat')||(rules[i].material=='iron')||(rules[i].material=='wood')||(rules[i].material=='stone'))
+                           {//ha olyananyag
+                           
+                           res[rules[i].material]=((ppls.resman*3)/100)*(rules[i].modify)+Number(res[rules[i].material]);
+                           
+                           }
+                           else if (rules[i].material=='rp'){//ha tudás
+                           
+                           res[rules[i].material]=((ppls.rpman*3)/100)*(rules[i].modify)+Number(res[rules[i].material]);
+                           
+                           }
+                           else {
+                           
+                           res[rules[i].material]=rules[i].modify+Number(res[rules[i].material]);
+                           
+                           }
+                           if (rules[i].modify>0)//pontszámok
+                           {
+                           if (((rules[i].material=='ppl')||(rules[i].material=='rp')))
+                           {
+                           score=score+(rules[i].modify/5);
+                           }
+                           else if (rules[i].material=='iron')
+                           {
+                           score=score+(rules[i].modify/10);
+                           }
+                           else {//SCORE
+                           score=score+(rules[i].modify/25);
+                           }
+                           }
+                           }
+                           rescheck();//megnézi, hogy minden +ban van
+                           res.wheat=Number(res.wheat)-(res.ppl/100)*mod.cost.pplwheat;
+                           
+                           mod.pplwheat=0;
+                           wheatsum = 0;//megnézi, hogy mennyi a kajaváltozás /T
+                           for (j=0;add.wheat.length>j;j++)
+                           {
+                           
+                           wheatsum=wheatsum+(Number(add.wheat[j])*(ppls.resman*3)/100);
+                           
+                           }
+                           wheatsum-=(res.ppl/100);
+                           
+                           if (wheatsum>2){mod.pplwheat=1.1+wheatsum/5; }//+2++ KÉSÖBB /10 leszt
+                           if (wheatsum<0.5){mod.pplwheat=0.1+(Number(wheatsum/10));}//-0--
+                           else if (wheatsum<1){mod.pplwheat=wheatsum;}//+1
+                           else if (wheatsum<=2){mod.pplwheat=1;}//+1+2
+                           consolWPS.innerHTML='wheat PS '+wheatsum+', PPLwheat is ×'+mod.pplwheat;
+                           //res.ppl=res.ppl*mod.pplwheat
+                           
+                           
+                           //if (){}
+                           resu.innerHTML='kő '+res.stone+'<br>fa '+res.wood+'<br>búza '+res.wheat+'<br>vas '+res.iron+'<br>energia '+res.energy+'<br>tudás '+res.rp+'<br>ember '+res.ppl+'<br>boldogság '+res.happy+'<br>jólét '+res.good;
+                           timestep();
+                           
+                           upd_inpin=upd_inp.value;//frissitesi gyakorisag
+                           if (upd_is.checked==false) {
+                           upd_inpin=1.1;
+                           upd_inp.disabled=true;
+                           upd_int.style.color="#888";
+                           }
+                           else {
+                           upd_inp.disabled=false;
+                           upd_int.style.color="black";
+                           }
+                           
+                           if (time%(upd_inpin)==0)
+                           {
+                           drawChart();
+                           }
+                           if (time%(upd_inpin*2)==0)
+                           {
+                           drawChart2();
+                           }
+                           if (Math.floor(Math.random()*10)==5)
+                           {
+                           randomness();
+                           }
+                           
+                          // screps.innerHTML=Math.round((score-Number(scre.innerHTML))*10000)/10000;
+                           //scre.innerHTML=score;
+                           
+                           }//CIKLUS
+                           ,interval);
+                           
+                    
+            }
+            //------------------------------------------------------------------------------
+            function rescheck() {
+                
+                if (res.wheat<0)
+                {
+                    res.ppl--;
+                    for  (i=0;add.ppl.length>i;i++)//a ppl tömmböt végigjárja
+                    {
+                        res.ppl-=add.ppl[i];
+                        /*if (add.ppl[i]>0)//ha az adott elem nem csökkentené magától a ppl-t
+                         {
+                         res.ppl=res.ppl-(-1*add.ppl[i]);//akkor csökkenti ez (elkerülni hogy SZUM[add.ppl]>1)
+                         }*/
+                    }
+                    consolWE.innerHTML='<br>Warning: wheat is'+res.wheat;
+                }
+                if (res.ppl<0)
+                {
+                    log('<br><r>GAME OVER: you have no people left!</r> ');
+                    gameover.innerHTML='GAME OVER';
+                    rules=[];
+                    timestep="";
+                }
+                consolSTOR.innerHTML='';
+                for (i=0;i<4;i++)//ha a raktár max-nál többan
+                {
+                    if (res[reslist[i]]>=storage[reslist[i]])
+                    {
+                        res[reslist[i]]=storage[reslist[i]];
+                        consolSTOR.innerHTML+="<br>more resources of <b>"+reslist[i]+'</b> than allowed. Allowed max is '+storage[reslist[i]];
+                    }
+                }
+            }
+        function build(call) {//épület építése
+            
+            cost[call].clevel++;//a kó szintjét fejleszti
+            pay(call,cost[call].clevel);//kifizeti
+            
+            for (i=0;i<resall.length;i++)
+            {
+                if(cost[call]['l'+cost[call].clevel]['p'+resall[i]]!==undefined)
+                {
+                        //új szabály(ennek a nyersanyagnak,a cost nyersanyagának a szintjének az ezen nyersanyagának a változásával
+                        addrule(resall[i],cost[call]['l'+cost[call].clevel]['p'+resall[i]]);//hozáadja
+                        console.log(cost[call]['l'+cost[call].clevel]['p'+resall[i]]);
+                }
+            }
+            switch (call) {
+                case "Mstone":
+                
+                /*mui*/skim.innerHTML='szint: '+cost[call].clevel+' termel +/T:'+(cost[call]['l'+cost[call].clevel].pstone);
+                break;
+                case "Mwheat":
+                
+                /*mui*/whkim.innerHTML='szint: '+cost[call].clevel+' termel +/T:'+(cost[call]['l'+cost[call].clevel].pwheat);
+                break;
+                case "Mwood":
+                
+                /*mui*/wkim.innerHTML='szint: '+cost[call].clevel+' termel +/T:'+(cost[call]['l'+cost[call].clevel].pwood);
+                break;
+                case "Miron":
+                
+                /*mui*/ikim.innerHTML='szint: '+cost[call].clevel+' termel +/T:'+(cost[call]['l'+cost[call].clevel].plus);
+                break;
+                case "hause":
+                cost[call].clevel++;
+                pay(call,cost[call].clevel);
+                addrule('ppl',cost[call]['l'+cost[call].clevel].plus);
+                addrule('wheat',cost[call]['l'+cost[call].clevel].minus);
+                /*mui*/hkim.innerHTML='szint: '+cost[call].clevel+' termel +/T:'+(cost[call]['l'+cost[call].clevel].plus);
+                break;
+                case "rpbase":
+                
+                /*mui*/rkim.innerHTML='szint: '+cost[call].clevel+' generál +/T'+(cost[call]['l'+cost[call].clevel].plus);
+                mui.add.rp();
+                break;
+                case "storage": 	
+                
+                /*mui*/stkim.innerHTML='szint: '+cost[call].clevel+' tárol:';
+                for (i=0;i<reslist.length;i++)
+                {
+                    storage[reslist[i]]+=cost[call]['l'+cost[call].clevel].room[i];
+                    console.log(cost[call]['l'+cost[call].clevel].room[i]);
+                    stkim.innerHTML+=storage[reslist[i]]+', ';
+                }
+                break;
+                
+            }
+                //add[call]=new Array;
+                
+                
+                log('Build_'+call+' : level:'+cost[call].clevel+'<br>') ;
+        }
+        
+        function pay(call,level) {//fizet
+                //ha van ára annak az elemnek annak a szintjén {legyen a készlet=készlet-ár a fejlesztéshez}
+                if (!(isNaN(cost[call]['l'+level].iron))) { 
+                    res.wood=Number(res.wood)-Number(cost[call]['l'+level].wood)*mod.cost.build; 
+                }
+                if (!(isNaN(cost[call]['l'+level].stone))) {
+                    res.stone=Number(res.stone)-Number(cost[call]['l'+level].stone)*mod.cost.build; 
+                }
+                if (!(isNaN(cost[call]['l'+level].wood))) { 
+                    res.wood=Number(res.wood)-Number(cost[call]['l'+level].wood)*mod.cost.build; 
+                }
+                if (!(isNaN(cost[call]['l'+level].wheat))) {
+                    res.wheat=Number(res.wheat)-Number(cost[call]['l'+level].wheat)*mod.cost.build;
+                }
+                log('<br>Pay. for level'+level);
+                
+        }
+        function addrule(call,mod,minus)//tickenkénti szabály hozzáadása
+        {
+            var minus;
+            rules[rules.length]= {'material':call , "modify":parseFloat(mod),}
+            add[call][add[call].length]=mod;
+            log('RuleSet_'+call+' to '+mod+'<br>') ;
+        }
+        function research(kutat)
+        {	
+            switch (kutat)
+            {
+                case 'buildings' :
+                if (rp.buildings.lcost[rp.buildings.clevel++]<=res.rp)//ha van elég kutatáspont
+                {
+                        //rp.buildings.clevel++;
+                        res.rp-=rp.buildings.lcost[rp.buildings.clevel];//vonja le
+                        mod.cost.build=mod.cost.build-rp.buildings.lmake[rp.buildings.clevel];//a építés ára legyen a mostani szinttel kevesebb
+                        log("<br>research buildings. reduced cost by: "+rp.buildings.lmake[rp.buildings.clevel]+'');
+                        /*mui*/muir_buildings.innerHTML=rp.buildings.lmake[rp.buildings.clevel];
+                }
+                break;
+                case 'ppl' : 
+                if (rp.ppl.lcost[rp.ppl.clevel++]<=res.rp)//ha van elég kutatáspont
+                {
+                    res.rp-=rp.buildings.lcost[rp.buildings.clevel];//vonja le
+                    mod.cost.pplwheat=mod.cost.pplwheat-rp.ppl.lmake[rp.ppl.clevel];//a építés ára legyen a mostani szinttel kevesebb
+                    log("<br>research ppl wheat saver. reduced cost by: "+rp.ppl.lmake[rp.buildings.clevel]+'');
+                    /*mui*/muir_ppl.innerHTML=rp.ppl.lmake[rp.ppl.clevel];
+                }
+                break;
+            }
+            if (rp[kutat].lcost[rp[kutat].clevel]<=res.rp)
+            {
+                score=score+(rp[kutat].clevel)*2;
+            }
+                //console.log(rp[kutat].clevel);
+        }
+        function randomness() {
+            rn=Math.round(Math.random()*100);
+            if (rn==42)
+            {
+                res.rp=(res.rp+10)*2;
+                log('<br>Random event: RP+100*2');
+            }
+            if (rn>90)
+            {
+                res.ppl=res.ppl+(res.ppl*((100-rn)/100));
+                log('<br>Random event: PPL+'+res.ppl*((100-rn)/200));
+            }
+            if (rn<10)
+            {
+                res.ppl=res.ppl-(res.ppl*((10-rn)/100));
+                log('<br>Random event: PPL-'+res.ppl*((100-rn)/200));
+            }
+            if ((rn<18)&&(rn<8))
+            {	
+                a=Math.ceil(Math.random()*4)
+                res[reslist[a]]=res[reslist[a]]+(res[reslist[a]]*((10-rn)/100));
+            }
+            
+        }
+        function log(call) {
+            
+            select = document.getElementById('logii');
+            
+            var opt = document.createElement('option');
+            opt.value = '';
+            opt.innerHTML = call;
+            select.appendChild(opt);
+            
+        }
+        
+        log('init');
+        timestep();
+        function pplpost() {//az embereket rendereli
+            bu=Number(builders.value);
+            re=Number(resmans.value);
+            rpm=Number(rpmans.value);
+            sum=bu+re+rpm;
+            ppls.builder=(bu/sum)*100;
+            ppls.resman=(re/sum)*100;
+            ppls.rpman=(rpm/sum)*100;
+            builder.style.width=ppls.builder+'%';
+            resman.style.width=ppls.resman+'%';
+            rpman.style.width=ppls.rpman+'%';
+            
+        }
+            //kezdeti termelés megadása
+            addrule('stone',0.1,'');
+            addrule('wood',0.1,'');
+            pplpost(10,10,10);
+            
+             </script>
+        <div>
+            
+            
+            <hr>
+            <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+            <script type="text/javascript">
+                
+                google.load("visualization", "1", {packages:["corechart"]});
+                google.setOnLoadCallback(initc);
+                var data;
+                function initc() {//grafikonok inicializálása
+                    data = google.visualization.arrayToDataTable([
+                                                                  ['Year', 'stone', 'wood', 'wheat' , 'iron'],
+                                                                  [time+',',  res.stone,   res.wood, res.wheat , res.iron],        
+                                                                  ]);
+                                                                  data2 = google.visualization.arrayToDataTable([
+                                                                                                                 ['Year', 'ppl'],
+                                                                                                                 [time+',',  res.ppl],        
+                                                                                                                 ]); 
+                }      
+            i=0;
+            function drawChart() {
+                
+                i++;
+                data.addRows([
+                              [time+'.',Number(res.stone),Number(res.wood),Number(res.wheat),Number(res.iron) ],     
+                              ]);       
+                              var options = {
+                                  title: 'Nyersanyagok statisztikája'
+                              };
+                              var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                              chart.draw(data, options);
+                              
+            }
+            function drawChart2() {
+                
+                data2.addRows([
+                               [time+'.',Number(res.ppl)],     
+                               ]);       
+                               var options2 = {
+                                   title: 'Emberek statisztikája'
+                               };
+                               
+                               var chart2 = new google.visualization.LineChart(document.getElementById('chart_div2'));
+                               chart2.draw(data2, options2);
+            }
+                </script>
+            <div class="utitle">Grafikonok</div><br>
+            Automatikus frissítés: <input type="checkbox" checked name="autochart" id="upd_is"> |
+                <span id="upd_int">frissítési időköz:</span> <input type="number" min="1" max="60" value="2" id="upd_inp"><br>
+                    <button onClick="drawChart();drawChart2();"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Frissítés most &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </button> |
+                    <button onClick="initc();"> &nbsp; &nbsp; Grafikonok törlése &nbsp; &nbsp; </button>
+                    <br><hr>
+                    <div id="chart_div" style="width: 800px; height: 400px;"></div>
+                    <div id="chart_div2" style="width: 800px; height: 400px;"></div>
+                    
+                    <hr>
+                    <div class="utitle">Documentation</div>
+                    <code>2013 okt 21.<br><br>
+                        <details>
+                            <summary>0.0.1-0.1.0 Projekt kezdése [okt21-okt23]</summary>
+                            0.0.1&nbsp;  projekt elkezdése. példa hozzáadva, struktúrák felépítése<br>
+                            0.0.2&nbsp;  szintrendszer alapok<br>
+                            0.0.3&nbsp;  ház, ember hozzáadva<br>
+                            0.0.3b ember változása, balanszolva<br>
+                            0.0.4&nbsp;  búza hozzáadva, emberek megeszik<br>
+                            0.0.5&nbsp;  alap kutatóközpont, jólét hozzáadva<br>
+                            0.0.7&nbsp;  vas hozzáadva, minden építhető <i>[okt 23]</i><br>
+                            0.0.8&nbsp;  anyagok szabályainak szortírozása<br>
+                            0.0.9&nbsp;  ember csökkenés biztosítva<br>
+                            <b>0.1.0</b>&nbsp;  kutatási rendszer kidolgozása<br>
+                        </details><br>
+                        
+                        <details>
+                            <summary>0.1.1-0.2.0 MUI és grafikon, kutatás [okt23-okt28]</summary>
+                            0.1.1&nbsp;  maximális nyersanyagok hozzáadva (projekt átnevezve GRIMM-re)<br>
+                            0.1.2&nbsp;  MUI elkezédése<br>
+                            0.1.2b  hanszálható MUI, kevéske design hozzáadása<br>
+                            0.1.4&nbsp;  Google Charts grafikonok hozzáadva<br> 
+                            0.1.6&nbsp;  szaporodás-búza arányok hozzáadva, mostmár változik a ppl <i>[okt 24]</i><br>
+                            0.1.7&nbsp;  véletlen szerü események hozzáadva<br>
+                            0.1.7b  véletlenszerű események korrigálva<br>
+                            0.1.8&nbsp;  Kutatás rendszer javítva, MIU-hoz hozzáadva<br>
+                            <b>0.2.0</b>&nbsp;  MIU konzol újítás <i>[okt 28]</i><br>
+                        </details>
+                        <br>
+                        <details>
+                            <summary>0.2.1-0.3.0 MUI2 és GDT, energia és személyes grafikon [okt28-nov10]</summary>
+                            0.2.1&nbsp; GDT-os beosztás MUI-ba implementálása<br>
+                            0.2.3&nbsp; sikertelen próbálkozás, [BACKPORT TO 021]<br>
+                            0.2.4&nbsp; megoldva, sliderek hozzáadva, bugfix <i>[okt 29]</i><br>
+                            0.2.5&nbsp; kis design változtatások <i>[nov 09]</i><br>
+                            0.2.6&nbsp; új kutatás: embergazdálkodás. bugfix, adatok átnézése<br>
+                            0.2.7&nbsp; grafikonok személyreszabhatóak, törölhetőek. grafikonszabályozás modernebb<br>
+                            0.2.9&nbsp; pontrendszer hozzáadva (score) <i>[Nov 10]</i><br>
+                            <b>0.3.0</b>&nbsp;  MIU2.0 (fixált sáv), pontszám rendszer javítva <br>
+                        </details>
+                        <br>
+                        <details>
+                            <summary>0.3.1-0.3.4 magyarosítás, kis szépség és RJSX [dec23-dec27]</summary>
+                            0.3.1&nbsp; magyar nyelv alkalmazása<i>[dec 23][DaniFoldi]</i><br>
+                            0.3.2&nbsp; Grafikonmenü szépítése<br>
+                            0.3.3&nbsp; RTSapi hozzáadva <b>[bugos]</b><br>
+                            0.3.3b RTSapi bugfix elkezdve<br>
+                            0.3.4&nbsp; RTS favicon megoldva, rtsapi bugfix folytatása<br>
+                            0.3.4b&nbsp; Bugfixek, újra működik <i>[Dec 27][rontap]</i><br>
+                        </details>
+                    </code>
+                    <!--500 sor okt 24--> 
+                    
+                    <!--
+                     ADDITIONAL NOTES TO VERSIONS
+                     009 add."res" tartalmazza az összes adott szabályt
+                     010 MOD tartalmazza a globális szorzókat, a RP meg a kutatási árakat, és a MOD megváltoztatási számait
+                     021 GDT = game dey tycoon
+                     -->
+        </div>
+        <!--ELEMENTIAL LICENCED UNDER CC LICENCE. grimm is made by rontap&DaniFoldi-->
+<script src="http://rontap.netne.net/millenium/main.js"
+    type="text/javascript"></script>
+</html>
+</html>
