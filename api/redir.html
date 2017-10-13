@@ -1,0 +1,57 @@
+<meta charset="UTF-8">
+<center>
+
+
+  Redirecting...<br><br />
+<div id="text">
+  Click <a id="a" href="">Here</a>&nbsp;if you are not redirected.<br />
+</div>
+
+<div id="err404">
+<b>ERROR 404</b><br />
+The specified URL doesnt exist. Sorry about that.<br />
+You sould check out the <a href="http://rontap.netne.net">homepage</a>.<br />
+Be safe
+</div>
+
+
+<hr><br />
+<small>
+rontap-nxt redirect v2 <br />
+<i>licenced under CC licence</i>
+</small>
+</center>
+<style>
+#err404 {
+  display: none;
+}
+  body {
+    zoom:2;
+    margin:30px;
+    height:100%;
+    background:#DDD;
+    color:#222;
+    font-family: monospace;
+  }
+  small {
+   font-size:12px;
+  }
+</style>
+<script>
+
+setTimeout(function(){
+  if (window.location.hash=="") {
+      text.innerHTML="Oh no! It seems no URL was specified!<br />"
+  }
+  else if (window.location.hash=="#404")
+  {
+     err404.style.display='block';
+     text.style.display="none";
+    }
+  else {
+  document.location=window.location.hash.slice(1,window.location.hash.length);
+  a.href=window.location.hash;
+}
+},250);
+
+</script>

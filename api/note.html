@@ -1,0 +1,44 @@
+
+<script src="note.js">
+
+</script>
+<style>
+input {
+    width:200px;
+}
+    input:hover {
+    width:300px;
+}  
+</style>
+<div class="note-object">
+
+<h1>Noteio</h1>
+<input placeholder="name" id="nameis" is="name"><br><br>
+    <input disabled id="modis" is="modified"> modified<br>
+    <input disabled id="creatis" is="created"> created<br>
+    <input disabled id="statusis" is="status"> status<br>
+    <textarea id="input" is="content" style="width:450px;height:120px;"> </textarea>
+ 
+    <hr>
+    <button onclick="update()">save</button>
+    <button onclick="update();note.push( note.getById(note.current));">save & sync up</button>
+    
+</div>
+<script use>
+    appId="10";
+    note.new();
+    note.pull( note.current, note.getById(note.current) );
+
+    function update() {
+        temp= {
+            name:nameis.value,
+            content:input.value,
+        
+        }
+        note.edit(note.current,temp);
+        note.status(21,'',true);
+        modis.value=note.getById(note.current).modified;
+        creatis.value=note.getById(note.current).created;
+        statusis.value=note.getById(note.current).status;
+    }
+</script>
