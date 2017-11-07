@@ -3,6 +3,12 @@
 *[float] { float:right;}
 /*REGURAL INPUT*/
 
+/* NXT input type design */ 
+/* required, auto loading:
+ * elements-design.css
+*/
+
+
 /*----------------------------------------------------------------------------*/
 /*text inputs*/
 input:not([type="range"]):not([type="file"]) {
@@ -193,4 +199,95 @@ switch span:last-child {
 }
 switch[checked="false"] span:first-child , switch[checked="true"] span:last-child {
 	opacity:0;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*BUTTONS*/
+button[real] {
+    border-radius: 3px;
+    box-shadow: 0px 1px 2px #666;
+    background: #3D5AFE;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 12px 16px;
+    border: none;
+}
+
+
+/*SCROLLBARS*/
+
+
+
+.sidebar::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+.sidebar::-webkit-scrollbar-track {
+  cursor:col-resize;
+   
+}
+.sidebar::-webkit-scrollbar-track-piece:start {
+    background:#999;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  outline: 1px solid slategrey;
+   background:#666;
+}
+
+
+body::-webkit-scrollbar {
+    width: .9em;
+   border:1px solid #BBB;
+}
+ 
+body::-webkit-scrollbar-track {
+  cursor:col-resize;
+ 
+}
+body::-webkit-scrollbar-track-piece:start {
+    background:#BBB;
+}
+body::-webkit-scrollbar-thumb {
+  outline: 1px solid slategrey;
+   background:#666;
+
+}
+body::-webkit-scrollbar-thumb:active {
+   
+   background:#48F;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*RATING CHOICE JS REQ*/
+selector {
+   transition:all .1s;
+   color:white;
+   box-shadow: 0px 1px 2px #666;
+   display: inline-block;
+}
+
+selector span {
+   padding:12px 15px;
+   text-align: center;
+   display: inline-block;
+   color:#222;
+    transition:all .1s linear;
+   min-width: 20px;
+   cursor:pointer;
+}
+selector span:hover {
+   background:#DDD;
+}
+selector span.on:hover {
+   background: #FFA726;
+}
+selector span.on {
+   margin: -8px -5px;
+   padding: 20px;
+   background: #FF9800;
+   box-shadow: 0px 3px 2px #999;
 }

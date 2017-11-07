@@ -1,0 +1,288 @@
+<!--context menu-->
+
+<head>
+<script src="jsplus.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans&amp:300,200,500;subset=latin-ext" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+   </head>
+
+<body>    
+    
+<div id="ctxElementHolder" onclick="event.preventDefault();"></div>
+
+<div id="something" contenteditable="true"> 
+    Elements
+    Elements
+    Verz Elements
+    Elements
+</div>    
+    
+    
+    <hr><br><br><hr><br><br><hr><br><br><hr><br><br><hr><br><br>
+    
+<span id="something2">
+    ElementsElementLonnnnnnnnnnnnnnnnnnnnnnnnnnnnnng
+    Elements<br>
+    Elements
+</span>  
+    <style>
+        #something, #something2 {
+            border:1px solid red;
+        }
+        
+        
+        #ctxElementHolder {
+            display: none;
+            position: fixed;
+            min-height:20px;
+            margin-top:-10px;
+           opacity:0;
+            border:1px solid #888;
+            background:#DDD;
+            box-shadow:0px 1px #999 inset;
+            border-radius: 4px;
+            padding:5px;
+            transition:all .2s ease-out;
+           font-family: 'Montserrat', sans-serif;
+        }
+        #ctxElementHolder table {
+             min-width: 150px;
+             max-width:250px;
+           transition:0.2s;
+        }
+        #ctxElementHolder.on {
+            opacity:1;
+           margin-top:0;
+            animation:CtxSlideUp .3s;
+           transition:all .4s;
+        }
+        @keyframes CtxSlideUp {
+            0% {
+                opacity: 0;
+                margin-top: 20px;
+            }
+            100% {
+                opacity: 1;
+                margin-top: 0px;
+            }
+        }
+        #ctxElementHolder el {
+            display: block;
+            padding: 7px 2px;
+            border-radius: 3px;
+            transition:all .2s;
+        }
+       #ctxElementHolder el[back] {
+              border-bottom: 1px solid #999;
+             margin: -8px -8px 5px -8px;
+             border-radius: 0;
+             padding: 9px;
+       }
+        #ctxElementHolder tr:not(.ctx-element-countundefined) el {
+            padding: 16px 2px;
+        }
+        
+        
+        
+        #ctxElementHolder el:hover {
+           background:#1E88E5;
+            color:white;
+            cursor: pointer;
+        }
+        #ctxElementHolder tr.ctx-element-countundefined el[icon] span {
+            padding-left:10px;
+            
+        }
+        #ctxElementHolder tr.ctx-element-countundefined el:not([icon]) {
+            padding-left:35px;
+            
+        }
+        
+        #ctxElementHolder i.material-icons {
+            font-size: 16px;
+        padding-left: 7px;
+        vertical-align: -3px;
+        }
+        #ctxElementHolder tr:not(.ctx-element-countundefined) i.material-icons {
+            padding-left: 0px;
+            padding-bottom:5px;
+            font-size:18px;
+        }
+        
+        #ctxElementHolder list el {
+            display: inline-block;
+            text-align:center;
+            height:40px;
+        }
+        #ctxElementHolder list el span {
+            margin-top:5px;
+            display: inline-block;
+            
+        }
+        #ctxElementHolder el[disabled="true"], #ctxElementHolder el[disabled="true"]:hover {
+            color:#444;
+            background:#DDD;
+            border: 1px solid #AAA;
+            cursor: not-allowed;
+        }
+        #ctxElementHolder list el i.material-icons{
+         display: inline-block;
+            padding-left:0; 
+
+        }
+        .ctx-element-count2 td{
+            width:50%;
+        }
+        .ctx-element-count2 td{
+            width:33.3%;
+        }
+        .ctx-element-count2 td{
+            width:25%;
+        }
+        
+        #ctxElementHolder tr:not(.ctx-element-countundefined) td {
+            text-align: center;
+        }
+         #ctxElementHolder tr:not(.ctx-element-countundefined) td span {
+          display: block;
+        }
+        
+    </style>
+    
+    
+<script>
+    ctxmenu = {
+        close : function(e) {
+
+             if (e.path[e.path.length-5]!=$('#ctxElementHolder')) {
+             $('#ctxElementHolder').classList.remove('on');
+             setTimeout(function(){
+                $('#ctxElementHolder').innerHTML=""; 
+                $('#ctxElementHolder').style.display="none";
+             },200);
+             }
+            
+        },
+        preset: {}
+    }
+class Ctxmenu {
+    constructor(obj) {
+        this.content=obj;
+    }
+    click(e) {
+        console.log(e);
+        console.log(e.clientX, e.clientY);
+        $('#ctxElementHolder').classList.add("on");
+        $('#ctxElementHolder').style.display="block";
+       
+        $('#ctxElementHolder').style.top=e.clientY+'px';
+        $('#ctxElementHolder').style.left=e.clientX+'px';
+       
+        $('body').onclick=function(){eval(ctxmenu.close(event))};
+        e.preventDefault();
+       console.log('prevdef');
+        this.fillInfo();
+    }
+    open(e) {
+
+       e.preventDefault();
+       this.fillInfo() ;
+       
+                  
+      
+    }
+    fillInfo() {
+        this.temp="<table>";
+
+        for (let fi=0 ; this.content.length>fi ; fi++) {
+            if (this.content[fi].field==undefined) this.content[fi].field=1;
+            this.temp+="<tr class='ctx-element-count"+ this.content[fi].field.length+"'>";
+            
+            if (this.content[fi].field==1)
+            {
+                console.log(this.content[fi]);
+                this.temp+="<td colspan=12>"
+                this.addElement(this.content[fi]);
+                this.temp+="</td>"
+            }
+            else {
+                
+                for (let fj = 0 ; this.content[fi].field.length>fj ; fj++) 
+                {
+                      this.temp+="<td colspan="+12/this.content[fi].field.length+">"    
+                      this.addElement(this.content[fi].field[fj]);
+                      this.temp+="</td>"
+                }
+               
+            }
+             this.temp+="</tr>"
+        }
+        $('#ctxElementHolder').innerHTML=this.temp;
+    }
+    close() {
+       
+    }
+    addElement(element) {
+        
+        if (element.disabled==undefined) element.disabled=false;
+        this.temp+="<el "+element.flags+" disabled="+element.disabled+' onclick="'+element.fn+'" ';
+        if (element.icon!=undefined) {
+            console.log(element.icon);
+            this.temp+='icon><i class="material-icons">'+element.icon+"</i>";
+        }
+        else {
+            this.temp+='>';
+        }
+        this.temp+='<span >'+element.text+'<span></el>';
+        
+
+    }
+}
+
+   
+ctxmenu.preset.editor = new Ctxmenu([
+    
+    {   text:'Setup Text',  icon:'settings'},
+    {   text:'Clear Selection'},
+    {   text:'Invert Selection'},
+    {   field: 
+        [
+            { text: 'Copy', icon: 'content_copy' , fn: 'alert()' , disabled:true},
+            { text: 'Cut', icon: 'content_cut' , fn:  'document.execCommand("cut")'  },
+            { text: 'Paste', icon: 'content_paste' , fn:  'document.execCommand("paste")'  }
+        ]},
+     
+    {   field: 
+        [
+            { text: 'Undo', icon: 'undo' ,fn:  'document.execCommand("undo")'},
+            { text: 'Redo', icon: 'redo' ,fn:  'document.execCommand("redo")'}
+        ]},
+  
+    {    text: 'More Options' , icon:'more_vert' , fn: 'ctxmenu.preset.sth.open(event)'}
+    
+]);
+ctxmenu.preset.sth = new Ctxmenu([
+    
+    {   text:'Go Back',  icon:'keyboard_arrow_left' , flags:'back', fn: 'ctxmenu.preset.editor.open(event)' },
+    {   text:'Search Google'},
+    {   text:'Invert Selection'},
+    {   text:'use Definition'},
+    {   field: 
+        [
+            { text: 'Copy', icon: 'content_copy' , fn: 'alert()' , disabled:true},
+            { text: 'Cut', icon: 'content_cut' , fn:  'document.execCommand("cut")'  },
+
+        ]}
+    
+]);
+   
+   
+$('#something').oncontextmenu= () => ctxmenu.preset.editor.click(event);
+   
+   
+$('#something2').oncontextmenu=function(){};
+</script>
+    
+    
+</body>

@@ -1,0 +1,311 @@
+/* NXT elements design */ 
+/* required: none.     */
+
+/*cards and chips*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&subset=latin-ext');
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #FEFEFE;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1,
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+}
+
+
+
+container,
+.card {
+    display: block;
+    margin: 50px auto;
+    max-width: 800px;
+    box-shadow: 0px 2px 4px #999;
+    transition: all .4s;
+    border-radius: 0px 0px 3px 3px;
+}
+
+container:hover,
+.card {
+    box-shadow: 0px 2px 8px #777;
+}
+
+.card {
+    padding: 15px;
+}
+
+.chip {
+    display: block;
+    padding: 20px;
+    background: #FAFAFA;
+    transition: all .2s;
+}
+
+.chip:hover {
+    background: #DDD;
+    cursor: pointer;
+}
+
+.chip .material-icons {
+    vertical-align: -7px;
+}
+
+.chip b {
+    display: block;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.chip.title {
+    color: white;
+    background: #3F51B5;
+    border-radius: 3px 3px 0px 0px;
+    border: none;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+/*MATERIAL ICONS*/
+.material-icons {
+    padding: 12px;
+    cursor: pointer;
+}
+
+.material-icons::before {
+    content: '';
+    display: block;
+    position: absolute;
+    border-radius: 100%;
+}
+
+.material-icons:hover::before {
+    animation-delay: 5s;
+    animation: blow .3s ease-out;
+    animation-delay: 5s;
+}
+
+.material-icons:active::before {
+    animation-delay: 0s;
+}
+
+@keyframes blow {
+    0% {
+        margin-left: 12px;
+        margin-top: 12px;
+        width: 0px;
+        height: 0px;
+        background: rgba(100, 100, 100, 0.6);
+    }
+    100% {
+        margin-left: -4px;
+        margin-top: -4px;
+        width: 32px;
+        height: 32px;
+        background: rgba(200, 200, 200, 0.3);
+    }
+}
+
+.omenu .material-icons {
+    font-size: 20px;
+    padding: 0;
+    float: right;
+}
+
+.omenu:not( :hover) .material-icons {
+    color: #444;
+}
+
+.importantIcon.material-icons {
+    border-radius: 50%;
+    border: 1px solid #DDD;
+    color: #444;
+    transition: all .2s;
+    padding: 10px;
+}
+
+.importantIcon.material-icons.on {
+    background: #1E88E5;
+    border: 1px solid #999;
+    color: white;
+}
+
+
+hr {
+    height: 1px;
+    border: none;
+    background: #888;
+}
+
+.fab,
+.fab-small {
+    padding: 17px;
+    border-radius: 100%;
+    box-shadow: 0px 3px 4px #999;
+    background: #FF9800;
+    transition: all .2s;
+}
+
+.fab-small {
+    padding: 14px !important;
+    font-size: 16px !important;
+}
+
+.fab:active,
+.fab-small:active {
+    box-shadow: 0px 4px 8px #777;
+}
+
+.h1-connect-fab {
+    position: relative;
+    margin-top: -22px;
+    margin-left: calc(90% - 24px)/*in order to not overflow*/
+    ;
+}
+
+.h1-connect-fab-small {
+    position: absolute;
+    margin-top: -14px;
+    margin-left: -125px;
+}
+
+/*CARD COLORING*/
+/*to be replaced with mat1900*/
+
+h1.continued {
+   border-radius: 0px !important;
+}
+.card h1.covered {
+    margin: -10px -25px;
+    color: #222;
+    padding: 20px;
+    border-radius: 4px 4px 0px 0px;
+    text-shadow: 0px 1px 1px #666;
+}
+
+.card h2.covered.subtitle {
+   margin: 10px -25px;
+    padding: 14px 20px;
+    background: #81C784;
+    color: #222;
+}
+
+.yellow-antigene {
+    background: #00acc1/*cyan600*/
+    ;
+}
+
+.orange-antigene {
+    background: #009688;
+}
+
+.red-antigene {
+    background: #4caf50;
+}
+
+.cyan-antigene {
+    background: #ff5722;
+    color: white !important;
+}
+
+.green-antigene ,.yellow {
+    background: #FF9800;
+   color:white !important;
+}
+
+.green-antigene-300,.yellow-300 {
+    background: #FFD54F !important;
+}
+
+.grey-dark {
+    background: #455A64;
+    color: white !important;
+
+}
+
+.green-antigene {
+    background: #4CAF50;
+    color: white !important;
+}
+
+.red {
+    background: #F44336;
+    color: #F1F1F1 !important;
+}
+.indigo {
+   background: #283593;
+   color: white !important;
+}
+.red-300 {
+    background: #E57373 !important ;
+    color: #222 !important;
+}
+.blue-antigene {
+    color: white ! important;
+}
+.fab.white {
+   color:#222;
+   background:white;
+       box-shadow: 0px 2px 3px #444;
+   float:right;
+}
+
+
+
+/*toolbar*/
+.toolbar {
+    user-select: none;
+    margin: 10px -25px 0px -25px;
+    background: #FF9800;
+}
+
+.toolbar .material-icons {
+    transition: all .2s;
+    color: white;
+}
+
+.toolbar .material-icons:hover {
+    background: #42A5F5;
+}
+
+.toolbar span[separator] {
+    height: 49px;
+    display: inline-block;
+    width: 1px;
+    background: white;
+    position: absolute;
+}
+
+
+.color-wrapper {
+
+   padding:40px;
+   font-size:20px;
+}
+
+.color-wrapper.divided2 div{
+   width:calc(50% - 40px);
+   display: inline-block;
+   background:#536DFE;
+   padding:40px;
+   margin:-40px;
+   text-align: center;
+   color:white;
+   transition:all .2s;
+   cursor: pointer;
+   font-size:20px;
+}
+.color-wrapper.divided2 div:hover {
+   background:#8C9EFF;
+}
+.color-wrapper.divided2 div:first-child{
+   margin-right:0;
+}
+.color-wrapper.divided2 div:last-child{
+   margin-left:0;
+}

@@ -1,0 +1,110 @@
+.material-icons {
+  padding:12px; cursor: pointer;
+}
+.material-icons::before {
+  content:''; display: block; position:absolute;
+  border-radius: 100%;
+}
+.material-icons:active::before {
+  animation:blow .5s  ease-out;
+}
+@keyframes blow {
+  0% { margin-left:12px; margin-top:12px; width:0px; height:0px; background:rgba(100,100,100,0.6);}
+  100% {margin-left:-4px; margin-top:-4px; width:32px; height:32px; background:rgba(200,200,200,0.3);}
+}
+#linkBack span {
+      opacity:0;
+      vertical-align: 6px;
+      padding:7px;
+      margin-left:5px;
+      border-radius: 3px;
+      box-shadow: 0px 1px 2px #444;
+      background:#FF9800;
+      display: inline-block;
+      color:white;
+      transition:all .2s;
+}
+#linkBack:hover span {
+  opacity:1;
+  margin-left:0px;
+  cursor:pointer;
+}
+#linkBack span:active {
+    box-shadow: none;
+}
+
+#NineDotMenu {
+position: fixed;
+color: white;
+top: 10px;
+z-index: 99;
+font-size: 36px;
+right: 10px;
+}
+
+#linkBack>#NineDotMenu {
+position: fixed;
+color: #222;
+top: 0px;
+z-index: 99;
+font-size: 24px;
+right: 0px;
+}
+
+
+#NineDotMenu {
+    position: fixed;
+    color: white;
+    top: 10px;
+    z-index: 99;
+    font-size: 36px;
+    right: 10px;
+
+}
+
+#NineDotMenu.on::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 99;
+    height: 100%;
+    background: linear-gradient(#EEE, white);
+    animation: NineDotMenuUp .6s forwards;
+}
+
+#NineDotMenu.on::before {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 97;
+    height: 100%;
+    opacity: 0;
+    background: #444;
+    border-radius: 0px !important;
+    animation: NineDotMenuBlack .6s forwards;
+}
+
+@keyframes NineDotMenuUp {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 0%;
+        box-shadow: 0px -5px 20px #444;
+    }
+}
+
+@keyframes NineDotMenuBlack {
+    0% {
+        background: #999;
+        opacity: 0;
+    }
+    100% {
+        background: #444;
+        opacity: .8;
+    }
+}

@@ -1,15 +1,15 @@
 nav header i.material-icons {
   display: none ;
 }/*only screen and*/
-@media  (max-width:980px) {
-container, .card {
-  margin:0px;
-  max-width:9999px;
-}
+@media  (max-width:900px) {
+   container, .card {
+     margin:0px;
+     max-width:9999px;
+   }
 
-.card h1.covered {
-  border-radius: 0px;
-  text-align: center;
+   .card h1.covered {
+     border-radius: 0px;
+     text-align: center;
 }
 holder {
   margin-top:80px !important;
@@ -48,47 +48,57 @@ nav header i.material-icons {
   height:30px;
   overflow: hidden;
 }
+   holder > container.on, holder > div.on {
+
+   }   
+   
 
 }/*only screen and*/
+@media (min-width:900px) and (max-width:1200px) {
+   .card {
+      max-width:640px;
+   }
+}
 @media  (max-width:640px) {
-  holder {
-    margin-left:0px !important;
-  }
-  container.sidebar {
-    z-index: 99;
-    background:#F1F1F1;
-  }
-  body:not(.sidebarMinimised) header {
-    box-shadow: 0px 3px 9px #666;
-  }
-  body:not(.sidebarMinimised) container.sidebar {
-      box-shadow: 3px 3px 9px #999;
-    }
 
-  body:not(.sidebarMinimised) #pageTitle {
-    color:transparent;
-  }
-  container.sidebar::after {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left:100%;
-    content: "";
-    position: fixed;
-    opacity:0;
+     holder {
+       margin-left:0px !important;
+     }
+     container.sidebar {
+       z-index: 99;
+       background:#F1F1F1;
+     }
+     body:not(.sidebarMinimised) header {
+       box-shadow: 0px 3px 9px #666;
+     }
+     body:not(.sidebarMinimised) container.sidebar {
+         box-shadow: 3px 3px 9px #999;
+       }
 
-    transition:opacity .4s;
-  }
-  body:not(.sidebarMinimised) container.sidebar::after {
-    content: "";
-    display: block;
-    position: fixed;
-    background: #333;
-    opacity: 0.5;
-    z-index: 95;
-    left: 300px;
-    animation:wait .8s;
-  }
+     body:not(.sidebarMinimised) #pageTitle {
+       color:transparent;
+     }
+     container.sidebar::after {
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left:100%;
+       content: "";
+       position: fixed;
+       opacity:0;
+
+       transition:opacity .4s;
+     }
+     body:not(.sidebarMinimised) container.sidebar::after {
+       content: "";
+       display: block;
+       position: fixed;
+       background: #333;
+       opacity: 0.5;
+       z-index: 95;
+       left: 300px;
+       animation:wait .8s;
+     }
 }
 @keyframes wait {
    0% {opacity: 0;}

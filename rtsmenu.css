@@ -1,0 +1,262 @@
+     body {
+            user-select: none;
+        }
+        h1 {
+             font-family: 'Montserrat', sans-serif;
+        }
+        article h1 {
+           
+            margin: 0 !important;
+            padding: 10px 5px;
+            text-shadow: 0px 1px 1px #444;
+            color: #111;
+        }
+
+        .scroll nav h1 {
+            position: fixed;
+            top: -12px;
+            z-index: 99;
+            color: white;
+            margin-left: 35px;
+        }
+
+        .scroll nav h1,
+        .scroll #closeicon,
+        .scroll #linkBack {
+            color: white;
+            z-index: 99;
+        }
+
+        .scroll nav {
+            margin-bottom: 145px;
+        }
+
+        .scroll #linkBack {
+            background: #3F51B5;
+
+        }
+
+        article {
+            margin: 50px;
+            padding: 25px;
+            box-shadow: 0px 2px 4px #AAA;
+            transition:all .2s;
+            cursor: pointer;
+        }
+        
+        article:hover {
+            box-shadow: 0px 2px 7px #666;
+        }
+        article:active {
+            box-shadow: 0px -2px 7px #444 inset;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(#EEE, white);
+            animation: show .3s;
+        }
+
+        body.bye {
+            animation: bye .45s infinite forwards;
+        }
+
+        @keyframes show {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bye {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes gs {
+            0% {}
+            100% {
+                background: #666;
+            }
+        }
+
+        .bye article,
+        .bye article div {
+            animation: gs .4s infinite forwards;
+            
+        }
+
+        article span {
+            padding: 0px 10px;
+            display: block;
+            color: #222;
+        }
+
+        article:hover span {
+            color: black;
+            opacity: 1;
+        }
+     
+        .delta {
+            margin: 5px -25px -25px -25px;
+            padding: 20px;
+            background: #00796B;
+            color: white;
+        }
+
+        nav {
+            text-align: center;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 50px 20px 20px 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        #buts {
+            background: white;
+            box-shadow: 0px 2px 7px #888;
+            display: inline-block;
+        }
+
+        button {
+            border: none;
+            padding: 20px;
+            display: inline-block;
+            margin: 0 2px;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 24px;
+        }
+
+        #closeicon {
+            z-index: 99;
+        }
+
+        #closeicon,
+        #homeicon {
+            padding: 10px;
+            margin: 15px 5px;
+            border-radius: 4px;
+            transition: all .2s;
+        }
+
+        #closeicon:hover,
+        #homeicon:hover {
+            cursor: pointer;
+            background: #1E88E5;
+            color: white;
+        }
+
+        #linkBack {
+            transition: all .4s;
+            z-index: -1;
+        }
+
+        #linkBack,
+        #linkHome {
+            position: fixed;
+            top: 0;
+            left: 0px;
+            right: 0px;
+            padding: 0 15px;
+            background: #EEE;
+        }
+
+        #linkHome {
+            top: 50px;
+            position: absolute;
+            background: transparent;
+            text-align: left;
+            margin-top: 48px;
+        }
+        #linkClose {
+            transition:all .4s;
+        }
+        #linkBack  span,
+        #linkHome  span,
+        #linkClose>span {
+            opacity: 0;
+            vertical-align: 6px;
+            padding: 7px;
+            margin-left: 5px;
+            border-radius: 3px;
+            box-shadow: 0px 1px 2px #444;
+            background: #444;
+            display: inline-block;
+            color: white;
+            transition: all .2s;
+        }
+
+        #linkBack:hover span,
+        #linkHome:hover span,
+        #linkClose:hover>span{
+            opacity: 1;
+            margin-left: 0px;
+            cursor: pointer;
+        }
+        #linkClose>span {
+               left: 120px;
+                position: fixed;
+                margin-top: 19px;
+        }
+        #linkBack span:active {
+            box-shadow: none;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        #homeicon {
+            color: #444;
+            cursor: pointer;
+        }
+        /*errors*/
+        #errorcontainer {
+                margin: 50px 50px 100px 50px;
+        padding: 20px 40px 40px 40px;
+        background: white;
+        border: 1px solid #DDD;
+        box-shadow: 0px 1px 1px #DDD;
+            
+        }
+        hr {
+            background:#999;
+            border:0px;
+            height:2px;
+        }
+        #errorcontainer h1 {
+            text-align:center;
+        }
+        #errorcontainer div {
+            text-align: justify;
+            font-size: 18px;
+            display: none;
+        }
+        #errorholder {
+             display: none;
+        }
+        #menuSwitch {
+            position: absolute;
+            left: 15px;
+            height: 21px;
+        }
+        switch[checked="true"] {
+            background: #444;
+        }
+        switch {
+            background: #1E88E5;
+        }

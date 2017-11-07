@@ -5,6 +5,10 @@
     <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+    <link href="../NXTJS/sole-design.css" rel="stylesheet">
+    <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+    
+    
     <title>Super Simple Note.IO</title>
     <script>
 
@@ -107,48 +111,16 @@
             float: right;
             font-size: 10px;
         }
-        .material-icons {
-          padding:12px; cursor: pointer;
-        }
-        .material-icons::before {
-          content:''; display: block; position:absolute;
-          border-radius: 100%;
-        }
-        .material-icons:active::before {
-          animation:blow .5s  ease-out;
-        }
-        @keyframes blow {
-          0% { margin-left:12px; margin-top:12px; width:0px; height:0px; background:rgba(100,100,100,0.6);}
-          100% {margin-left:-4px; margin-top:-4px; width:32px; height:32px; background:rgba(200,200,200,0.3);}
-        }
-        #linkBack span {
-              opacity:0;
-              vertical-align: 6px;
-              padding:7px;
-              margin-left:5px;
-              border-radius: 3px;
-              box-shadow: 0px 1px 2px #444;
-              background:#FF9800;
-              display: inline-block;
-              color:white;
-              transition:all .2s;
-        }
-        #linkBack:hover span {
-          opacity:1;
-          margin-left:0px;
-          cursor:pointer;
-        }
-        #linkBack span:active {
-            box-shadow: none;
-        }
+
     </style>
 </head>
 <body>
 
-<div id="linkBack"  onclick="location.href='../random.html'">
-<i class="material-icons">arrow_back</i>
-<span>Go back to rontap Tools.</span>
-</div>
+    <div id="linkBack" >
+        <i class="material-icons"  onclick="location.href='../random.html'">arrow_back</i>
+        <span  onclick="location.href='../random.html'">Go back to rontap Tools.</span>
+        <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+    </div>
 
 <container>
     <div id="saving"></div>

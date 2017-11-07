@@ -1,6 +1,3 @@
-
-
-
 class Microcount {
   constructor() {
     this.names=[];
@@ -39,17 +36,9 @@ class Microcount {
       let currFwd    = "<i class='material-icons' onclick='counter.counts["+i+"]+=10;counter.refreshUI();'>forward_10</i>";
       sect.innerHTML+="<div class='chip'><span onclick='counter.countUp("+i+")' >"+this.names[i]+" = "+this.counts[i]+"</span> <span>"+currRename+currFwd+currReset+currRemove+" </span></div>";
 
-      localStorage.namesList=JSON.stringify(names);
-      localStorage.countsList=JSON.stringify(counts);
+     
     }
   }
 }
 
 
-if (localStorage.isSiteInit!="true") {
-  localStorage.isSiteInit=true;
-}
-else {
-  names=JSON.parse(localStorage.namesList);
-  counts=JSON.parse(localStorage.countsList);
-}

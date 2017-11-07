@@ -3,17 +3,21 @@
 <head>
 	<title>NXT RANDOM 3</title>
 
-	<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+	<script src="NXTJS/jsplus.js" type="text/javascript"></script>
 
+   <link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
+   
+      
 	<script src="random/text.io.js" type="text/javascript"></script>
 	<script src="random/multiplix.js" type="text/javascript"></script>
 	<script src="random/coloring.js" type="text/javascript"></script>
 	<script src="random/music.js" type="text/javascript"></script>
 	<script src="random/count.class.js" type="text/javascript"></script>
 
-	<link rel="stylesheet" href="../NXTJS/design.css">
-	<link rel="stylesheet" href="../NXTJS/input-design.css">
-	<link rel="stylesheet" href="../NXTJS/mobile.css">
+    <link rel="stylesheet" href="NXTJS/elements-design.css">
+	<link rel="stylesheet" href="NXTJS/design.css">
+	<link rel="stylesheet" href="NXTJS/input-design.css">
+	<link rel="stylesheet" href="NXTJS/mobile.css">
 
 	<link rel="stylesheet" href="random/multiplix.css">
 	<link rel="stylesheet" href="random/music.css">
@@ -32,22 +36,25 @@
 		<div>TOOLS 3</div></header>
   <span id="pageTitle">Welcome To Tools3!</span>
 
-	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu();">apps</i>
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
 </nav>
 
-<container class="sidebar" onclick="$('body').classList.add('sidebarMinimised');">
-		<div class="otitle"><div>Text Manipulation</div></div>
+<container class="sidebar" onclick="nxt.closeSidebar(event);">
+   <br>
+        <div class="omenu">Welcome</div>
+   
+		<div class="otitle"><div>Text</div></div>
 		<div class="omenu">Text Editor</div>
 		<div class="omenu">SMALL.tools</div>
 		<div class="omenu">Habit Counter</div>
-		<div class="omenu">Multiplix</div>
+		<div class="omenu" >Multiplix</div>
 		<div class="omenu" onmouseup="location.href='random/noteio.html'">note.IO <i class="material-icons">open_in_new</i></div>
 
 		<div class="otitle"><div>Time</div></div>
 		<div class="omenu">Timer & Stopwatch</div>
-		<div class="omenu">Fancy Clock<i class="material-icons">open_in_new</i></div>
-		<div class="omenu">Binary Clock<i class="material-icons">open_in_new</i></div>
-		<div class="omenu">Round Clock<i class="material-icons">open_in_new</i></div>
+		<div class="omenu" onmouseup="location.href='clock/clock.html'">Fancy Clock<i class="material-icons">open_in_new</i></div>
+		<div class="omenu" onmouseup="location.href='clock/binary.html'">Binary Clock<i class="material-icons">open_in_new</i></div>
+		<div class="omenu" onmouseup="location.href='clock/round.html'">Round Clock<i class="material-icons">open_in_new</i></div>
 
 		<div class="otitle"><div>Generators</div></div>
 		<div class="omenu">Random Password & Text</div>
@@ -59,6 +66,15 @@
 
 
 <holder>
+   <div id="splash">
+      <div class="card">
+      <h1>Welcome to NXT Tools 3!</h1>
+      <br>
+      <p>These tools may help you in your daily life, enjoy them!</p>
+      </div>
+   </div>
+
+   
 		<div>
 			<div class="card" id="">
 				<h1 class="covered grey-dark">Text Editor</h1>
@@ -275,8 +291,9 @@
 
 
 		</div>
+   
+    
 </div music>
-
 
 
 </holder>
@@ -285,8 +302,8 @@
 counter = new Microcount();
 newUser(); //MULTIPLIX
 	</script>
-	<script src="../NXTJS/design.js" type="text/javascript"></script>
-	<script src="../NXTJS/design-input.js" type="text/javascript"></script>
+	<script src="NXTJS/design.js" type="text/javascript"></script>
+	<script src="NXTJS/design-input.js" type="text/javascript"></script>
 </body>
 
 </html>

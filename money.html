@@ -35,8 +35,8 @@ guys=[];
 function init() {
 	guys=Object.keys(vagyon);
 	for (i=0;i<guys.length;i++) {
-		$('article span:nth-child(3)')[i].innerHTML="Teljes vagyon "+Comma(String(vagyon[guys[i]]))+".000 Forint";
-		$('article span:nth-child(4)')[i].innerHTML="Vagyonának változása "+Comma(String(vagyon[guys[i]] - elozo_ev[guys[i]]))+".000 Forint";
+		$$('article span:nth-child(3)')[i].innerHTML="Teljes vagyon "+Comma(String(vagyon[guys[i]]))+".000 Forint";
+		$$('article span:nth-child(4)')[i].innerHTML="Vagyonának változása "+Comma(String(vagyon[guys[i]] - elozo_ev[guys[i]]))+".000 Forint";
 	}
 }
 ticktime=0;
@@ -47,9 +47,9 @@ function tick() {
 		var sep = ",";
 		base=Math.floor((y2s*(Math.pow(60,y2state-1))*( vagyon[guys[i]] - elozo_ev[guys[i]] )*ticktime)*1000*(1/2));
 		perpill=base/koltseg[curr];
-		$('.delta')[i].innerHTML=Comma(String(perpill)) +' '+ koltseg_nev[curr];
-		$('article')[i].style.background='#'+mat300[i];
-		$('.delta')[i].style.background='#'+mat600[i];
+		$$('.delta')[i].innerHTML=Comma(String(perpill)) +' '+ koltseg_nev[curr];
+		$$('article')[i].style.background='#'+mat300[i];
+		$$('.delta')[i].style.background='#'+mat600[i];
 	}
 	secs.innerHTML=Math.floor(ticktime/2)+" "+y2names[y2state]+" alatt ennyi pénzt kerestek:";
 	setTimeout(function(){tick();},500);
@@ -162,9 +162,18 @@ text-align:justify;
 
 
 </style>
-</head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="NXTJS/sole-design.css" rel="stylesheet">
+    <script src="NXTJS/jsplus.js" type="text/javascript"></script>
 
+</head>
 <body>
+    <div id="linkBack" >
+        <i class="material-icons"  onclick="location.href='index.html'">arrow_back</i>
+        <span  onclick="location.href='index.html'" style="background:#00796B;">Go back to index.</span>
+        <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
+    </div>
+
 <nav>
 <h1>Mennyivel lesz gazdagabb a Magyar?</h1>
 <p>

@@ -107,12 +107,12 @@ function switchSideBar() {
 	if (isSideBarOn) {
 	  document.body.classList.remove('sideBar');
 		isSideBarOn=false;
-		$('#moreinfo_icon').src="../../NXTJS/icon_info.png";
+		$('#moreinfo_icon').innerHTML="info";
 	}
 	else {
 		document.body.classList.add('sideBar');
 		isSideBarOn=true;
-		$('#moreinfo_icon').src="../../NXTJS/icon_info_white.png";
+		$('#moreinfo_icon').innerHTML="info_outline";
 	}
 }
 /*$.each($('.omenu'), function(i, el){//animation

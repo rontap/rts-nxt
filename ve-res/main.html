@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Veres Tools</title>
+		<meta name="theme-color" content="#444444" />
+		<meta name="author" content="rontap" />
+
+	<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+
+   
+
+    <link rel="stylesheet" href="../NXTJS/elements-design.css">
+	<link rel="stylesheet" href="../NXTJS/design.css">
+	<link rel="stylesheet" href="../NXTJS/input-design.css">
+	<link rel="stylesheet" href="../NXTJS/mobile.css">
+    <link rel="stylesheet" href="additions.css">
+
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="https:fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,600" rel="stylesheet">
+   
+   <style>
+
+      p { 
+      text-align: justify;
+      }
+            holder {
+      
+         max-width: 800px;
+        
+         padding:40px 40px 0px  40px;
+         display: block;
+      }
+      #pageTitle {
+         margin-left:40px;
+      }
+   </style>
+   
+   </head>
+   
+   <body>
+   
+   <nav>
+      <span id="pageTitle">VERES</span>
+      
+   </nav>
+   <holder>
+     <p>
+      Minden adat Szigorúan titkos és teljesen anonim!<br><br>
+      </p>
+      <h2>Nemed?</h2>
+      <switch checked="false">
+         <span>Fiú</span>
+         <span>Lány</span>
+      </switch>
+      <br><br>
+      <h2>Melyik évfolyamba jársz?</h2>
+      <selector selected="2">
+         <span>5</span>
+         <span class="on">6</span>
+         <span>7</span>
+         <span>8</span>
+         <span>9</span>
+         <span>10</span>
+         <span>11</span>
+         <span>12</span>
+      </selector><br><br>
+          <selector selected="2">
+         <span>5</span>
+         <span class="on">6</span>
+         <span>7</span>
+         <span>8</span>
+         <span>9</span>
+         <span>10</span>
+         <span>11</span>
+         <span>12</span>
+      </selector><br><br>
+          <selector selected="2">
+         <span>5</span>
+         <span class="on">6</span>
+         <span>7</span>
+         <span>8</span>
+         <span>9</span>
+         <span>10</span>
+         <span>11</span>
+         <span>12</span>
+      </selector><br><br>
+          <selector selected="2">
+         <span>5</span>
+         <span class="on">6</span>
+         <span>7</span>
+         <span>8</span>
+         <span>9</span>
+         <span>10</span>
+         <span>11</span>
+         <span>12</span>
+      </selector><br><br>
+          <selector selected="2">
+         <span>5</span>
+         <span class="on">6</span>
+         <span>7</span>
+         <span>8</span>
+         <span>9</span>
+         <span>10</span>
+         <span>11</span>
+         <span>12</span>
+      </selector><br><br>
+      <br><br><br><br>
+      <h2>Melyik osztályba?</h2>
+        <selector selected="2">
+         <span>A</span>
+         <span class="on">B</span>
+         <span>C</span>
+
+      </selector>
+    </holder>  
+      <br><br><br><br><br>
+      <div class="color-wrapper divided2 ">
+         <div>Hiányzó tanár hozzáadása</div><div>Hibás tanár bejelentése</div>
+      </div>
+      <div class="color-wrapper indigo">
+         Kattints ide,<br> ha kész vagy a véleményezéssel! Elküldés
+         <i class="material-icons fab white" style="margin-top:-28px;">send</i>
+      </div>
+   
+      
+      
+   <script src="../NXTJS/design.js" type="text/javascript"></script>
+   <script src="../NXTJS/design-input.js" type="text/javascript"></script>   
+      
+      
+      <script>
+         
+         for (i=0; i<$$('selector').length; i++) {
+            
+            $$('selector')[i].onclick = function(call) {
+            console.log(call.path[1].tagName)
+            if (call.path[1].tagName=="SELECTOR") {
+                   nth = $$('selector.active span').indexOf(call.target);
+                      $('selector.active span.on').classList.remove('on');
+                  call.target.classList.add('on');
+               }
+
+            }
+            $$('selector')[i].onmousedown = function(call) {
+               call.path[1].classList.add('active');
+            } 
+            $$('selector')[i].onmouseup = function(call) {
+               setTimeout(function(){
+                   call.path[1].classList.remove('active');
+               },20)
+              
+            } 
+            
+         }
+         
+      
+      </script>
+   </body>
+</html>

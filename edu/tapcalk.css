@@ -1,9 +1,9 @@
 #moreinfo_icon
 {
 	    position: fixed;
-    right: 80px;
-	top:21px;
-	width:38px;
+    right: 75px;
+	top:10px;
+	font-size:36px;
 	cursor: pointer;
 }
 .sideBar #infopanel, .sideBar #histh {

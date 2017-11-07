@@ -52,13 +52,4 @@ function changeSwitch(call) {
 }
 
 
-nxt = {
 
-  openMenu : function() {
-    $('#NineDotMenu').classList.add("on");
-      setTimeout(function() {
-
-        location.href="../rtsmenu.html"
-      },550)
-  }
-}

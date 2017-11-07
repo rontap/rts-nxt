@@ -6,6 +6,8 @@ lastSelMenuItem=0;
 for (i=0;i<$$('.omenu').length;i++)
 {
   $$('.omenu')[i].onclick=function(){
+     
+     
     $$('.omenu')[lastSelMenuItem].classList.remove('on');
     $$('holder>*')[lastSelMenuItem].classList.remove('on');
     this.classList.add('on');
@@ -15,10 +17,10 @@ for (i=0;i<$$('.omenu').length;i++)
 
 
     //special rules
-    i=lastSelMenuItem;
+    /*i=lastSelMenuItem;
          if ( (i<3) ) $('body').classList.add('websiteThemeBlue')
-         else $('body').classList.remove('websiteThemeBlue')
-
+         else $('body').classList.remove('websiteThemeBlue')*/
+    trigger(this);
     setTimeout(function(){
 
        $('#pageTitle').innerHTML=$$('.omenu')[lastSelMenuItem].innerHTML;
@@ -29,3 +31,9 @@ for (i=0;i<$$('.omenu').length;i++)
   }
 }
 },100);
+
+
+
+function trigger(call) {
+   return false
+}

@@ -1,13 +1,25 @@
 //JS EMCASCRIPT 5 Additions
 
+//GNU GPL v3 Licence 
+
+//Created by Aron Tatai, 2017
+//base for all NXTJS applications.
+
 
 $    = (call)    =>  document.querySelector(call)
 $$   = (call)    =>  document.querySelectorAll(call)
 
 NodeList.prototype.indexOf = function(element) {
-    ArrayObj = new Array( ...this);
-    return ArrayObj.indexOf(element);
+    return [...this].indexOf(element);
 }
+
+Array.prototype.max = function(){  return Math.max(...this); }
+Array.prototype.min = function(){  return Math.min(...this); }
+   
+
+//-----------------------------------------------------------------
+//-----------------MATHEMATIC-OPERATIONS---------------------------
+//-----------------------------------------------------------------
 
 Math.spread = function(call /*array*/)
 {
@@ -44,7 +56,6 @@ Math.prime = function(call /*single number*/) {
 Math.isPrime = function(call /*single number*/) {
   if (Math.prime(call).length==0) return true;
   else return false;
-  /*returns boolean*/
 }
 
 Number.prototype.pad = function() {/*padding number for dates and stuff*/
@@ -52,8 +63,14 @@ Number.prototype.pad = function() {/*padding number for dates and stuff*/
   else return String(this);
 }
 
-class Color { //simple generation of colors. Finally
-  constructor(r,g,b) { // can create random numbers
+
+//-----------------------------------------------------------------
+//-----------------COLOR-GENERATION--------------------------------
+//-----------------------------------------------------------------
+
+
+class Color {                   //simple generation of colors. Finally
+  constructor(r,g,b) {          // can create random numbers
      if (r!=undefined) this.r=Number(r); else this.r=Math.floor(Math.random()*255);
      if (g!=undefined) this.g=Number(g); else this.g=Math.floor(Math.random()*255);
      if (b!=undefined) this.b=Number(b); else this.b=Math.floor(Math.random()*255);
@@ -67,4 +84,79 @@ class Color { //simple generation of colors. Finally
 
 }
 
-//String.prototype
+
+//-----------------------------------------------------------------
+//-----------------STRING-STATISTICS-------------------------------
+//-----------------------------------------------------------------
+   
+String.prototype.stat = function(call) {
+   switch (call) {
+      case  'LengthNoSpace' :
+         return this.length-this.split(" ").length;  
+
+      case  'wc' :
+         return this.split(/\s+/).length; 
+
+      case 'letters' : //sort the letters 
+       a=this.toLowerCase();
+       letterStore=[];//where we store the actual letters
+       letterCount=[];//where we store those
+       for (i=0;i<a.length;i++) {                    
+           index=letterStore.indexOf(a[i]);//to save power, we calculate this here
+           if (index<0) { //if not
+               letterStore[letterStore.length]=a[i]; 
+               letterCount[letterCount.length]=1;
+           }
+           else {
+               if (letterCount[index]===undefined)     letterCount[index]=0;
+               else                                    letterCount[index]++;
+           }
+       }
+       return [letterCount,letterStore];
+
+      case 'letterMax' :    //     get the most freq. letter from the index of the most used letter
+       text=this.stat('letters');
+       return text[1][ text[0].indexOf( text[0].max() ) ] 
+
+
+      case 'letterMin'  :   //     get the most freq. letter from the index of the most used letter
+       text=this.stat('letters');
+       return text[1][ text[0].indexOf( text[0].min() ) ] 
+
+      case 'letterSort' :   
+       text=this.stat('letters');
+       output=[[],[]];
+       for (let xi=0;xi<text[0].length;xi++)
+           {
+                output[0][output[0].length] = text[0][ text[0].indexOf( text[0].max() ) ]
+                output[1][output[1].length] = text[1][ text[0].indexOf( text[0].max() ) ]
+                text[0][ text[0].indexOf( text[0].max() ) ] = 0 ;
+           }
+        return output;
+
+   }
+}
+
+
+//-----------------------------------------------------------------
+//-----------------NXT-JS-MAIN-DEFAULT-FNS-------------------------
+//-----------------------------------------------------------------
+
+nxt = {
+
+  openMenu : function(call) {
+    $$('#NineDotMenu')[0].classList.add("on");
+      setTimeout(function() {
+
+        location.href=call+"rtsmenu.html"
+      },550)
+  },
+   closeSidebar : function(e) {
+      
+      if (document.body.offsetWidth<640) {
+          $('body').classList.add('sidebarMinimised');
+      }
+   }
+  
+}
+
