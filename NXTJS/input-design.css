@@ -1,6 +1,6 @@
 *[block] { display: block; }
 *[in-block] { display: inline-block; }
-*[float] { float:right;}
+*[float] , *[flr] { float:right;}
 /*REGURAL INPUT*/
 
 /* NXT input type design */ 
@@ -74,8 +74,8 @@ status:hover::before {
 status * {
   display:block;
   height:9px;
-  background:#FFA726;
-  border-right:9px solid #F57C00;
+  background:var(--primary);
+  border-right:9px solid var(--dark-primary);
   transition:height .2s, width .9s linear ;
 }
 
@@ -106,7 +106,7 @@ input[type=range]::-webkit-slider-thumb {
     border: none;
     height: 13px;
     width: 13px;
-    background:#FFA726;
+    background:var(--dark-primary);
     margin-top:-5px;
     border-radius: 50%;
     transition:all .2s;
@@ -141,12 +141,12 @@ textarea ,.textarea {
 }
 
 /*----------------------------------------------------------------------------*/
-/*0 - 1 checkbox*/
-checkbox .material-icons {
+/*0 - 1 checkbox*/ /*multiselect radio*/
+checkbox .material-icons ,radio .material-icons {
 	font-size: 22px;
 	vertical-align: -5px;
 }
-checkbox {
+checkbox ,radio{
  padding:7px 10px 7px 0px;
  margin:3px;
  border-radius: 3px;
@@ -155,18 +155,23 @@ checkbox {
  transition:all .2s;
  cursor: pointer;
 }
-checkbox:hover {
+checkbox:hover ,radio:hover{
 border:1px solid #888;
 }
-checkbox[disabled] .material-icons {
+checkbox[disabled] .material-icons, radio[disabled] .material-icons {
 	color:#999;
 }
-checkbox[disabled] {
+checkbox[disabled]  {
  border:1px solid #DDD;
  color:#999;
  cursor: not-allowed;
 }
-
+radio[checked="true"] {
+    border:1px solid #AAA;
+}
+radio[checked="true"] .material-icons  {
+    color:var(--primary);
+}
 /*----------------------------------------------------------------------------*/
 /*A - B checkbox*/
 switch {
@@ -188,7 +193,7 @@ switch {
 switch[checked="true"] {
 	border:5px solid #DDD;
 	border-right:22px solid #DDD;
-	background:#FF9800;
+	background:var(--dark-primary);
 
 }
 switch span {
@@ -206,16 +211,26 @@ switch[checked="false"] span:first-child , switch[checked="true"] span:last-chil
 /*BUTTONS*/
 button[real] {
     border-radius: 3px;
-    box-shadow: 0px 1px 2px #666;
-    background: #3D5AFE;
+    box-shadow: 0px 2px 5px #999;
+    background: var(--dark-primary);
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: 300;
-    padding: 12px 16px;
+    padding: 10px 16px;
     border: none;
+    transition:all .2s;
+    outline:none;
+    
 }
-
+button:hover, button:focus {
+     box-shadow: 0px 2px 7px #666;
+     background: var(--primary);
+    cursor: pointer;
+}
+button:active {
+    box-shadow: 0px 2px 5px #333 inset;
+}
 
 /*SCROLLBARS*/
 
@@ -242,20 +257,23 @@ body::-webkit-scrollbar {
     width: .9em;
    border:1px solid #BBB;
 }
- 
-body::-webkit-scrollbar-track {
+ *::-webkit-scrollbar {
+    width: 10px;
+   border:1px solid #BBB;
+}
+*::-webkit-scrollbar-track {
   cursor:col-resize;
  
 }
-body::-webkit-scrollbar-track-piece:start {
+*::-webkit-scrollbar-track-piece:start {
     background:#BBB;
 }
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
    background:#666;
 
 }
-body::-webkit-scrollbar-thumb:active {
+*::-webkit-scrollbar-thumb:active {
    
    background:#48F;
 }
@@ -283,11 +301,11 @@ selector span:hover {
    background:#DDD;
 }
 selector span.on:hover {
-   background: #FFA726;
+   background: var(--primary);
 }
 selector span.on {
    margin: -8px -5px;
    padding: 20px;
-   background: #FF9800;
+   background: var(--dark-primary);
    box-shadow: 0px 3px 2px #999;
 }

@@ -9,6 +9,14 @@
  changeChBox($$('checkbox')[checkboxI]);
 }
 
+  for (let radioI=0; radioI<$$('radio').length;radioI++) {
+ $$('radio')[radioI].innerHTML=  '<i class="material-icons"></i>'+$$('radio')[radioI].innerHTML;
+ $$('radio')[radioI].onmouseup=function(){changeRadio(this)};
+ $$('radio')[radioI].children[0].innerText='radio_button_unchecked';
+ changeRadio($$('radio')[radioI]);
+}
+
+
 for (let switchI=0; switchI<$$('switch').length;switchI++) {
  $$('switch')[switchI].onclick=function(){changeSwitch(this)};
 }
@@ -39,6 +47,32 @@ function changeChBox(call) {
        call.setAttribute('checked','true');
        call.children[0].innerText='add_circle';
      }
+ }
+}
+
+function changeRadio(call) {
+
+   if (Boolean(call.getAttribute('disabled')!='true')) {
+     if (Boolean(call.getAttribute('checked')=='false')) {       
+       
+       nameSpace = call.getAttribute('name');
+         
+       for (let cri = 0 ; cri < $$('radio[name="'+nameSpace+'"').length; cri++)
+           {
+             $$('radio[name="'+nameSpace+'"')[cri].setAttribute('checked','false');
+             $$('radio[name="'+nameSpace+'"')[cri].children[0].innerText='radio_button_unchecked';  
+               console.log($$('radio[name="'+nameSpace+'"')[cri]);
+           }
+       call.setAttribute('checked','true');
+       call.children[0].innerText='radio_button_checked';
+     }
+       else {
+          
+           call.setAttribute('checked','false');
+           call.children[0].innerText='radio_button_unchecked';
+     }
+       
+
  }
 }
 

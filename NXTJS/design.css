@@ -6,10 +6,13 @@
 */
 
 /* UI DESIGN */
-
+:root {
+    --primary: #3F51B5;
+    --dark-primary :#28358E; 
+}
 header {
-    background: #3F51B5;
-    background: #3F51B5;
+    background: var(--primary);
+    background: var(--primary);
     width: 100%;
     height: 450px;
     font-family: 'Montserrat', sans-serif;
@@ -38,7 +41,7 @@ header span {
 
 nav {
     font-family: 'Montserrat', sans-serif;
-    background: #283593;
+    background: var(--dark-primary);
     height: 50px;
     padding-top: 30px;
     display: block;
@@ -46,8 +49,14 @@ nav {
     z-index: 9;
     letter-spacing: 1px;
     opacity: 1;
+    
 }
-
+nav , [web-drag] , #linkBack {
+    -webkit-app-region: drag;
+}
+holder * {
+    -webkit-app-region: no-drag;
+}
 nav.fixed {
     position: fixed;
     top: 0;
@@ -98,7 +107,7 @@ container.sidebar {
 }
 
 .omenu:hover {
-    background: #283593;
+    background: var(--dark-primary);
     cursor: pointer;
     color: #fff;
 }
@@ -120,7 +129,7 @@ container.sidebar {
     padding: 6px;
     border-radius: 3px;
     box-shadow: 0px 1px 2px #999;
-    background: #3F51B5;
+    background: var(--primary);
 }
 
 .o-expanded .omenu {
@@ -294,8 +303,10 @@ body.full-covered-active nav {
    
    z-index: -1;
 }
-body.full-covered-active holder > div.on {
+body.full-covered-active holder > div:not(#splash).on {
        border-radius: 6px 6px 0px 0px;
        box-shadow: 0 1px 3px #444;
 }
-
+body.full-covered-active holder > div.on .card {
+    box-shadow: 0 1px 3px #444;
+}

@@ -1,7 +1,10 @@
 /* NXT elements design */ 
 /* required: none.     */
 
-/*cards and chips*/
+/*cards, chips, modal windows and other elements*/
+
+
+/* FONT AND BASE */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&subset=latin-ext');
 
@@ -18,7 +21,10 @@ h2 {
     text-transform: uppercase;
 }
 
-
+small {
+    font-size:16px !important;
+    color:#333;
+}
 
 container,
 .card {
@@ -29,7 +35,9 @@ container,
     transition: all .4s;
     border-radius: 0px 0px 3px 3px;
 }
-
+.full-covered-active .card {
+    border-radius: 5px 5px 3px 3px;
+}
 container:hover,
 .card {
     box-shadow: 0px 2px 8px #777;
@@ -63,13 +71,16 @@ container:hover,
 
 .chip.title {
     color: white;
-    background: #3F51B5;
+    background: var(--primary);
     border-radius: 3px 3px 0px 0px;
     border: none;
     font-family: 'Montserrat', sans-serif;
 }
-
-
+hr {
+    height: 1px;
+    border: none;
+    background: #888;
+}
 
 /*MATERIAL ICONS*/
 .material-icons {
@@ -111,6 +122,8 @@ container:hover,
     }
 }
 
+
+/*SIDE MENU*/
 .omenu .material-icons {
     font-size: 20px;
     padding: 0;
@@ -136,18 +149,14 @@ container:hover,
 }
 
 
-hr {
-    height: 1px;
-    border: none;
-    background: #888;
-}
+/*FLOATING ACTION BUTTON*/
 
 .fab,
 .fab-small {
     padding: 17px;
     border-radius: 100%;
     box-shadow: 0px 3px 4px #999;
-    background: #FF9800;
+    background: var(--dark-primary);
     transition: all .2s;
 }
 
@@ -180,12 +189,18 @@ hr {
 h1.continued {
    border-radius: 0px !important;
 }
-.card h1.covered {
+.card h1.covered , h1.covered{
     margin: -10px -25px;
     color: #222;
     padding: 20px;
     border-radius: 4px 4px 0px 0px;
     text-shadow: 0px 1px 1px #666;
+}
+holder h1.expand.covered {
+               background-size: 100%;
+           padding-top: 220px ;
+           color: white !important;
+           font-weight: 400;
 }
 
 .card h2.covered.subtitle {
@@ -255,8 +270,6 @@ h1.continued {
    float:right;
 }
 
-
-
 /*toolbar*/
 .toolbar {
     user-select: none;
@@ -282,8 +295,9 @@ h1.continued {
 }
 
 
-.color-wrapper {
 
+/*COLOR WRAPPER DOCUMENT*/
+.color-wrapper {
    padding:40px;
    font-size:20px;
 }

@@ -1,13 +1,14 @@
 //JS EMCASCRIPT 5 Additions
 
-//GNU GPL v3 Licence 
+//GNU GPL v3 Licence
 
 //Created by Aron Tatai, 2017
-//base for all NXTJS applications.
+//base for all RONTAP - NXTJS applications.
 
+'use strict';
 
-$    = (call)    =>  document.querySelector(call)
-$$   = (call)    =>  document.querySelectorAll(call)
+var $    = (call)    =>  document.querySelector(call);
+var $$   = (call)    =>  document.querySelectorAll(call);
 
 NodeList.prototype.indexOf = function(element) {
     return [...this].indexOf(element);
@@ -15,7 +16,19 @@ NodeList.prototype.indexOf = function(element) {
 
 Array.prototype.max = function(){  return Math.max(...this); }
 Array.prototype.min = function(){  return Math.min(...this); }
-   
+
+Array.prototype.shuffle = function() { //shuffle the array compleately
+	for (let i = this.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [this[i], this[j]] = [this[j], this[i]];
+    }
+	return this;
+}
+
+Array.prototype.last = function() {
+    return this[this.length-1];
+}
+
 
 //-----------------------------------------------------------------
 //-----------------MATHEMATIC-OPERATIONS---------------------------
@@ -57,6 +70,9 @@ Math.isPrime = function(call /*single number*/) {
   if (Math.prime(call).length==0) return true;
   else return false;
 }
+Math.randInt = function(upTo /*int*/) {
+  return Math.floor(Math.random()*upTo);
+}
 
 Number.prototype.pad = function() {/*padding number for dates and stuff*/
   if (this<10) return String("0"+this);
@@ -71,9 +87,9 @@ Number.prototype.pad = function() {/*padding number for dates and stuff*/
 
 class Color {                   //simple generation of colors. Finally
   constructor(r,g,b) {          // can create random numbers
-     if (r!=undefined) this.r=Number(r); else this.r=Math.floor(Math.random()*255);
-     if (g!=undefined) this.g=Number(g); else this.g=Math.floor(Math.random()*255);
-     if (b!=undefined) this.b=Number(b); else this.b=Math.floor(Math.random()*255);
+     if (r!=undefined) this.r=Number(r); else this.r = Math.floor(Math.random()*255);
+     if (g!=undefined) this.g=Number(g); else this.g = Math.floor(Math.random()*255);
+     if (b!=undefined) this.b=Number(b); else this.b = Math.floor(Math.random()*255);
 
      this.rgb="rgb(" + this.r + ',' + this.g + ',' + this.b + ')';
      this.hex='#'+this.r.toString(16)+this.g.toString(16)+this.b.toString(16)
@@ -88,23 +104,23 @@ class Color {                   //simple generation of colors. Finally
 //-----------------------------------------------------------------
 //-----------------STRING-STATISTICS-------------------------------
 //-----------------------------------------------------------------
-   
+
 String.prototype.stat = function(call) {
    switch (call) {
       case  'LengthNoSpace' :
-         return this.length-this.split(" ").length;  
+         return this.length-this.split(" ").length;
 
       case  'wc' :
-         return this.split(/\s+/).length; 
+         return this.split(/\s+/).length;
 
-      case 'letters' : //sort the letters 
+      case 'letters' : //sort the letters
        a=this.toLowerCase();
        letterStore=[];//where we store the actual letters
        letterCount=[];//where we store those
-       for (i=0;i<a.length;i++) {                    
+       for (i=0;i<a.length;i++) {
            index=letterStore.indexOf(a[i]);//to save power, we calculate this here
            if (index<0) { //if not
-               letterStore[letterStore.length]=a[i]; 
+               letterStore[letterStore.length]=a[i];
                letterCount[letterCount.length]=1;
            }
            else {
@@ -116,14 +132,14 @@ String.prototype.stat = function(call) {
 
       case 'letterMax' :    //     get the most freq. letter from the index of the most used letter
        text=this.stat('letters');
-       return text[1][ text[0].indexOf( text[0].max() ) ] 
+       return text[1][ text[0].indexOf( text[0].max() ) ]
 
 
       case 'letterMin'  :   //     get the most freq. letter from the index of the most used letter
        text=this.stat('letters');
-       return text[1][ text[0].indexOf( text[0].min() ) ] 
+       return text[1][ text[0].indexOf( text[0].min() ) ]
 
-      case 'letterSort' :   
+      case 'letterSort' :
        text=this.stat('letters');
        output=[[],[]];
        for (let xi=0;xi<text[0].length;xi++)
@@ -142,7 +158,7 @@ String.prototype.stat = function(call) {
 //-----------------NXT-JS-MAIN-DEFAULT-FNS-------------------------
 //-----------------------------------------------------------------
 
-nxt = {
+var nxt = {
 
   openMenu : function(call) {
     $$('#NineDotMenu')[0].classList.add("on");
@@ -152,11 +168,14 @@ nxt = {
       },550)
   },
    closeSidebar : function(e) {
-      
+
       if (document.body.offsetWidth<640) {
           $('body').classList.add('sidebarMinimised');
       }
    }
-  
+
 }
 
+//-----------------------------------------------------------------
+//-----------------KEYBOARD-CONTROLL-------------------------------
+//-----------------------------------------------------------------
