@@ -1,8 +1,16 @@
-nav { background:#FF9800;}
-header { background:#FFA726; width:300px !important;}
-.otitle div {background:#FF9800;}
-.omenu:hover {background:#FF9800;}
 
+header { width:300px !important;}
+
+
+:root {
+    --primary:#FFA726;
+    --dark-primary :#FF9800; 
+}
+#splash h1 {
+        
+    
+    text-align: right;
+}
 holder {
   display: block;
   margin-top:120px;

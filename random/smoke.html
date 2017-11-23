@@ -1,0 +1,98 @@
+<html>
+<head>
+	<style>
+    center {
+    font-family:monospace;
+    margin-top:10%;
+    color:#222;
+
+    }
+    center div {
+    font-size:300%;
+    font-weight:bold;
+    color:black;
+    }
+    center a {
+    color:#666;
+    }
+    body {
+    background:#EEE;
+    }
+        span {
+            color:black;
+        }
+	</style>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="../NXTJS/sole-design.css" rel="stylesheet">
+    <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+
+<script>
+dohany=Number(localStorage.dohany)
+//initialisation
+if (location.hash!="") 
+	date = location.hash.slice(1,Infinity);
+else if (Number(localStorage.dohany)>10)
+	date = Number(localStorage.dohany)
+else	date = new Date().getTime()
+
+//
+location.hash="";
+
+function tick() {
+setTimeout(function(){
+        now=new Date().getTime();
+        localStorage.dohany=date; //keeping it up
+        dif=Math.floor((now-date)/1000);
+        console.log(dif);
+        tick();
+        time0.innerHTML=dif;
+        time1.innerHTML=Math.floor(dif/60);
+        time2.innerHTML=Math.floor(dif/(60*60));
+        time3.innerHTML=Math.floor(dif/(60*60*24));
+
+    },ticktime);
+}
+ticktime=300;
+function reset() {
+   $('body').style.background="#F44";
+   $('center').style.color="#f1f1f1";
+   tick=null;
+   localStorage.dohany=0;
+   t.innerHTML=":(";
+   setTimeout(function(){
+       localStorage.dohany=0;
+       location.reload();
+	},3000);
+}
+//ld();
+tick();
+
+
+</script>
+</head>
+<body>    
+
+<div id="linkBack" >
+        <i class="material-icons"  onclick="location.href='../random.html'">arrow_back</i>
+        <span  onclick="location.href='../random.html'">Go back to rontap Tools.</span>
+        <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+</div>    
+    
+<center>
+<div>Do-Not-Smoke!</div>
+<h1 id="t">
+	For <span id="time0">X</span> Seconds not... or<br><br>
+	For <span id="time1">X</span> Minutes not... or<br>
+	For <span id="time2">X</span> Hours not... or<br>
+	For <span id="time3">X</span> Days didn't smoke a cigarette<br>
+
+</h1>
+    <br>
+<a href="#" onclick="reset();">I have failed...</a>
+</center>
+    
+</body>
+</html>
+
