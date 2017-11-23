@@ -3,13 +3,13 @@
 <head>
 	<script src="NXTJS/jsplus.js"></script>
 	<link href="NXTJS/sole-design.css" rel="stylesheet">
-    
+
     <link rel="icon" href="NXTJS/icons/favicon.png" type="image/png">
-   
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans&amp:300,200,500;subset=latin-ext" rel="stylesheet">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
 	<meta charset="UTF-8">
 	<style>
 		body {
@@ -56,17 +56,17 @@
 		}
 		card {
 			display: block;
-			
+
 			padding: 20px;
 			    background: #FAFAFA;
-    transition: all .2s;  
+    transition: all .2s;
 		}
-	
+
 		card:hover {
 			 background:#DDD;
 			cursor: pointer;
 		}
-		card b {
+		card:not([no]) b {
 			display: block;
 			font-weight: 500;
 			font-family: 'Montserrat', sans-serif;
@@ -79,7 +79,7 @@
 				font-family: 'Montserrat', sans-serif;
 		}
 
-		.scroll450 header {
+		.scroll450>header {
 			position: fixed;
 			top:0; left:0; width:250px;
 			font-size:30px;
@@ -87,14 +87,17 @@
 			z-index: 99;
 			animation:scrollIn .2s;
 		}
+		header.small {
+			height:300px;
+		}
 		@keyframes scrollIn {
 			0% {left:-250px;}
 			100% {left:0px;}
 		}
-		.scroll450 header span {
+		.scroll450>header span {
 			padding-top:20 !important;
 		}
-		.scroll450 nav {
+		.scroll450  nav {
 			position: fixed;
 			top:0; left:0; right:0;
 		}
@@ -132,13 +135,25 @@
 
              <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
 
-		 
+
 		  <nav>
 				A new generation of apps and websites by Aron
-              
-               
 		  </nav>
 		<br>
+				<container>
+					<card class="title" style="background:#607D8B;text-align:center;font-size:20px;">
+							About these websites
+					</card>
+					<card style="text-align:justify;padding:20px 50px;font-size:18px;text-indent:30px;background:#EEE;" no>
+						<p>
+							rontap sites have existed since 2012, being rewritten multiple times.<br>
+							This is the fourth iteration, and includes a complete rewrite of almost every website and application, while including numerous new projects.<wbr>
+						</p>
+						<p>
+							I am currently studying Computer Science in <b>University of Southampton, UK</b> previusly went to Veres Peter Grammar School in Hungary.
+						</p>
+					</card>
+				</container>
         <container>
             <card class="title" style="background:#009688;">
                 Handy Tools and APIs
@@ -159,11 +174,24 @@
 
         <container>
 			<card class="title">
-			Games and Simulation
+			Games
 			</card>
 			<card onclick="location.href='ColorGame/'">
 				<b>Color Game</b>
 				<span>A simple game for passing time and getting too much involved in matching colors.</span>
+			</card>
+			<card onclick="location.href='ColorGame/'">
+				<b>Mines</b>
+				<span>The copy of a well known game</span>
+			</card>
+			<card onclick="location.href='ColorGame/'">
+				<b>Speed</b>
+				<span>A famous reaction-based card game.</span>
+			</card>
+		</container>
+		<container >
+			<card class="title" style="background:#FFA726;">
+			Simulation
 			</card>
 			<card onclick="location.href='SuperFarmer/'">
 				<b>Hyper Farmer Game and AI</b>
@@ -173,43 +201,136 @@
 				<b>DoNotSmoke</b>
 				<span>A simple timer for those quitting</span>
 			</card>
-			
+
 			<card onclick="location.href='money.html'">
 				<b>Riches (Hungarian)</b>
 				<span>a Real-Time app following the richest (and best) hungarian millionares.</span>
-			</card>			
+			</card>
 		</container>
-		
 		<container>
-		
-		
-	
+
+
+
 		<card class="title" style="background:#4CAF50;">
 			Website Eaters and redesigns
 			</card>
 			<card onclick="location.href='explore/wiki.php'">
 				<b>RE:WIKI</b>
 				<span>A PHP based website; changing Wikipedia design for a clener, more readable version! | <i>Under construction</i></span>
-			</card>		
+			</card>
             <card onclick="location.href='money.html'">
 				<b>MEK.OSK</b>
 				<span>Read the hungarian public Library easier and better! | <i>Hungarian only</i></span>
-			</card>		
+			</card>
 		</container>
-		
+
 		<container>
 		<card class="title" style="background:#FFA726;">
 			Other Projects
 			</card>
             <card onclick="location.href='note_app.html'">
                 <center><i>more to come</i></center>
-            </card>		
+            </card>
 		</container>
-		
-	    <div id="about"></div>
+
+		<div>
+			<header style="background:#283593;min-height:450px;height:inherit;font-size:60px;margin-bottom:230px;box-shadow:0px 3px 5px #666;">
+					<span style="padding-top:100px;"><b>CONTACT</b></span>
+
+					<div class="blanholder" style="width:350px;padding:20px;">
+							<b>Aron Peter Tatai</b><br>
+							Creator of the site<br>
+							<br>Email: mc.csop@gmail.com<br>
+							<br>Social Media: @arontap
+					</div>
+					<span style="padding-top:50px;"><b>ACKNOWLEDGEMENTS</b></span>
+					<div class="blanholder">
+							<b>Agoston Csehi</b><br>
+							SuperFarmer, ColorGame
+					</div>
+
+					<div class="blanholder">
+							<b>Mate Cser</b><br>
+							SuperFarmer, ColorGame
+					</div>
+					<div class="blanholder">
+							<b>Csikos-Nagy Mate</b><br>
+							Inspiration and testing
+					</div>
+					<br><br>
+			</header>
+			<div id="bottomFix">
+			<h1 style="text-align:center;border-bottom:1px solid #DDD;padding-bottom:30px;margin-bottom:0px;"> Previous Versions </h1>
+		 <div id="bottomHolder">
+
+			<div>
+					<span> RJSX RTS <br> From 2012</span>
+			</div><div>
+					<span> POLYMER RTS <br> From 2015</span>
+			</div><div>
+					<span> RTS-NXT beta <br> From mid-2017</span>
+			</div>
+		</div>
+
+	</div>
+		<style>
+			.blanholder {
+				font-size:18px;
+				display: inline-block;
+				margin:20px;
+				padding:40px 30px;
+				text-align:left;
+				border-radius: 4px;
+				border:1px solid #7986CB;
+				transition:all .2s;
+			}
+			.blanholder:hover {
+				background:#7986CB;
+				cursor: pointer;
+				box-shadow: 0px 0px 2px #999 inset;
+			}
+			#bottomFix  {
+				position: fixed;
+				left:0; right:0; bottom:0;
+				z-index: -1;
+				display: none;
+			}
+			#bottomHolder div{
+				display: inline-block;
+				width:calc(33.32% - 45px);
+				padding:40px 20px;
+				border-left:1px solid #DDD;
+				transition:all .3s;
+			}
+			#bottomHolder div:hover {
+				cursor: pointer;
+				background:#ddd;
+			}
+			#bottomHolder div::after {
+				content:'2';
+				position: absolute;
+				font-size: 72px;
+				font-family: 'Montserrat', sans-serif;
+				font-weight: bold;
+				margin-left: 70px;
+				margin-top: -47px;
+				/* margin-bottom: -20px; */
+				opacity: .7;
+				color:#283593;
+			}
+			#bottomHolder div:nth-child(2)::after {
+					content:'3';
+					color:#FFA726;
+			}
+			#bottomHolder div:last-child::after {
+					content:'4';
+					color:#4CAF50;
+			}
+		</style>
+
 	</body>
-	
-	
+
+
 	<script>
 		window.onscroll = function() {
 			console.log(window.scrollY);
@@ -223,6 +344,12 @@
 				}
 			else {
 				$('body').classList.remove('scroll450');
+			}
+			if (window.scrollY>2000) {
+				$('#bottomFix').style.display="block";
+			}
+			else {
+				$('#bottomFix').style.display="none";
 			}
 		}
 	</script>
