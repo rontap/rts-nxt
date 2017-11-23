@@ -5,10 +5,10 @@
              font-family: 'Montserrat', sans-serif;
         }
         article h1 {
-           
+
             margin: 0 !important;
             padding: 10px 5px;
-            text-shadow: 0px 1px 1px #444;
+            text-shadow: 0px 1px 1px #999;
             color: #111;
         }
 
@@ -35,15 +35,20 @@
             background: #3F51B5;
 
         }
-
+        article h1, article span {
+          display: block;
+          margin-left:150px !important;
+          color:white !important;
+        }
         article {
             margin: 50px;
             padding: 25px;
             box-shadow: 0px 2px 4px #AAA;
             transition:all .2s;
             cursor: pointer;
+
         }
-        
+
         article:hover {
             box-shadow: 0px 2px 7px #666;
         }
@@ -63,7 +68,14 @@
         body.bye {
             animation: bye .45s infinite forwards;
         }
+        .delta.material-icons {
 
+          font-size: 67px;
+          text-align: center;
+          vertical-align: -20px;
+          padding-top: 40px;
+          padding-bottom: 0px;
+        }
         @keyframes show {
             0% {
                 opacity: 0;
@@ -92,7 +104,7 @@
         .bye article,
         .bye article div {
             animation: gs .4s infinite forwards;
-            
+
         }
 
         article span {
@@ -105,12 +117,16 @@
             color: black;
             opacity: 1;
         }
-     
+
         .delta {
             margin: 5px -25px -25px -25px;
             padding: 20px;
             background: #00796B;
             color: white;
+            float: left;
+            height: 107px;
+            margin-top: -103px;
+            width: 107px;
         }
 
         nav {
@@ -231,7 +247,7 @@
         background: white;
         border: 1px solid #DDD;
         box-shadow: 0px 1px 1px #DDD;
-            
+
         }
         hr {
             background:#999;

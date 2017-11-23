@@ -1,4 +1,11 @@
+:root {
+    --primary:#EC407A;
+    --dark-primary:#E91E63;
+}
 
+nav header {
+    width:300px;
+}
  #multiplix.on #userCurrText, #multiplix.on #userNames{
   animation:showWin .8s;
 }
@@ -12,7 +19,7 @@
   0% { background:#FF9800;}
   40% { background:#FF9800;}
   100% { background:#F57C00;}
-}
+} 
 @keyframes showWin {
   0% { opacity:.1;}
   100% { opacity: 1;}
@@ -23,7 +30,7 @@
 }
 #userNames {
 position:fixed;
-left:301px;
+left:0px;
 width:300px;
 background:white;
  top:80px; bottom:0;
@@ -90,14 +97,15 @@ transition:all .2s;
   margin:20px auto;
 }
 #snippets textinput:focus {
-border-color:#FF9800 !important;
+border-color:#EC407A !important;
 }
 #userCurrText textinput:focus {
   border-color:#48F;
 }
 #snippets div#snippetHeader {
- background:#F57C00;
- height:80px;
+ background: #E91E63;
+ height: 105px;
+    margin-top: -25px;
 }
 .menuItem {
 max-width: 200px;
@@ -111,7 +119,7 @@ font-size:13px;
 }
 .menuItem>span {
  padding:7px 11px;
- background:##F57C00;
+ background:#F57C00;
  cursor: pointer;
  transition:all .2s;
 }
@@ -124,7 +132,7 @@ background:#FFA726;
 color:#222;
 }
 .menuItem>span:first-child {
-border:2px solid #FFA726;
+border:2px solid #EC407A;
 border-right:none;
 border-radius: 4px 0px 0px 4px;
 }
@@ -137,7 +145,7 @@ margin-left:-4px;
 
 #userSpace {
   position: fixed;
-  left:601px;
+  left:300px;
   right:30%;
   top:0;
   z-index: 99;
@@ -146,7 +154,7 @@ margin-left:-4px;
 #userSpace #userTitle {
   color:white;
   height:72px;
-  background:#F57C00;
+
   padding-top:8px;
 }
 #userTitle>span {

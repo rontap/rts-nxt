@@ -1,0 +1,59 @@
+<head>
+        <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../NXTJS/elements-design.css">
+        <link rel="stylesheet" href="../NXTJS/design.css">
+        <link rel="stylesheet" href="../NXTJS/input-design.css">
+        <link rel="stylesheet" href="../NXTJS/mobile.css">
+
+        <script src="multiplix.js" type="text/javascript"></script>
+    	<link rel="stylesheet" href="multiplix.css">
+
+</head>
+
+
+<nav class="fixed">
+	<header>
+		<i class="material-icons" onclick="$('body').classList.toggle('sidebarMinimised')">menu</i>
+		<div>MULTIPLIX</div></header>
+  <span id="pageTitle"></span>
+
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
+</nav>
+
+
+<div id="multiplix">
+ 			<div id="userNames">
+					<button real onclick="newUser()">New Recepient</button>
+			<br><br><br>
+        <div id="userNamesHolder"></div>
+
+			</div>
+			<div id="userSpace">
+					<div id="userTitle">
+					<span>Editing
+						<span contenteditable spellcheck="false" onkeyup="editNameSpan(this);">Moss</span>
+					</span></div>
+					<div id="userCurrText" ondrop="dropContent(event,false);" ondragover="prevDef(event);">
+						<container class="card">
+							<h1>About Multiplix</h1>
+							This is going to be the title and help info<br>
+							Please fill it so other also understand this mess <br>
+						</container>
+				  </div>
+			</div>
+			<div id="snippets">
+					<div id="snippetHeader" class="menuHeader">
+							<div class="menuItem">
+									<switch checked="true"><span>Snippets</span><span>Stats</span></switch>
+							</div>
+					</div>
+					<div id="snippetTextareaHolder"  ondrop="dropContent(event,true);" ondragover="prevDef(event);">
+					<textinput draggable="true" ondrag="dragContent(event)" contenteditable="true" ondragover="">Hey Jude</textinput>
+			  	</div>
+					<textinput onclick="newSnippet();"><i>Start Writing Here to add a New Snippet...</i></textinput>
+			</div>
+		</div>
+
+
+    <script src="../NXTJS/design.js" type="text/javascript"></script>
+	<script src="../NXTJS/design-input.js" type="text/javascript"></script>

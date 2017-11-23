@@ -53,16 +53,16 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 <style>
-    container div.a0 span,container div.a1 span { border-color: #48F ;} 
+    container div.a0 span,container div.a1 span { border-color: #48F ;}
     container div.a0 span.on, container div.a1 span.on  {background: #48F;}
-    
-    container div.a2 span,container div.a3 span { border-color: #62c ;} 
+
+    container div.a2 span,container div.a3 span { border-color: #62c ;}
     container div.a2 span.on, container div.a3 span.on  {background: #62c;}
-    
-    container div.a4 span,container div.a5 span { border-color: #f84 ;} 
+
+    container div.a4 span,container div.a5 span { border-color: #f84 ;}
     container div.a4 span.on, container div.a5 span.on  {background: #f84;}
 
-    
+
 container div span {
     border:1px solid red;
     width:50px;
@@ -98,19 +98,19 @@ t=new Date();
     s[4]=Number( String( t.getSeconds()).slice(0,1) ).toString(2);
         if (s[4].length<2) {s[4]='00'+s[4];} else if (s[4].length<3) {s[4]='0'+s[4];}
     s[5]=Number( String( t.getSeconds()).slice(1,2) ).toString(2);
-    	
+
         if (s[5].length<2) {s[5]='000'+s[5];} else if (s[5].length<3) {s[5]='00'+s[5];} else if (s[5].length<4) {s[5]='0'+s[5];}
     for (i=0;i<=5;i++) {
-    	
+
         for (k=5;k>=0;k--) {
           // console.log(s[i][k]);
             if (s[i][k]==1) $('.a'+i+' .b'+k).addClass('on');
             else $('.a'+i+' .b'+k).removeClass('on');
         }
-       
+
     }
     console.log(s);
-        
+
     }
     setInterval( function() {
         sg();

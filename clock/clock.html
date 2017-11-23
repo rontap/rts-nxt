@@ -1,20 +1,23 @@
-
-
-<body id="body">
+<body>
 <script src="http://code.jquery.com/jquery-latest.min.js"
         type="text/javascript"></script>
 <meta charset="UTF-8">
-
+<link rel="stylesheet" href="../NXTJS/elements-design.css">
+	<link rel="stylesheet" href="../NXTJS/design.css">
+    
+	<link rel="stylesheet" href="../NXTJS/input-design.css">
+    <link rel="stylesheet" href="../NXTJS/elements-design.css">
+	<link rel="stylesheet" href="../NXTJS/sole-design.css">
+    <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
-	
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Condensed);
+
 	body {
 	margin:0%;    	    
 	background:#444;
 	color:#DDD;
 	font-size:400%;
 
-	font-family: 'Ubuntu Condensed';	
 	-webkit-transition:background 2s;
 	}
     #content_r select {
@@ -25,6 +28,10 @@
         border: none;
     }
 	#content_r div {
+        
+	font-family: 'Montserrat';	
+        text-transform: uppercase;
+        font-size:37px;
 	height:14.2857%;
 	padding:0;
 	transition:all 1s linear;
@@ -75,43 +82,74 @@
 		text-align:center;
 		border-radius:4px;
 		vertical-align:middle;
-		-webkit-transition:all .4s;
+		transition:all .4s;
 		background:rgba(40,40,40,0.6);
 		opacity:0.4;
 		user-select:none;
 		color: #f1f1f1;
-            cursor: context-menu;
+        cursor: context-menu;
+        padding:5px;
 		}
 		
 	.bubi:hover {
-			background:rgba(40,40,40,0.8);
-			opacity:1;
+        background:rgba(40,40,40,0.8);
+        opacity:1;
 		}
 
     #settings {
-            poisition:fixed;
-            opacity:0;
-            bottom:0;
-            left:-20%;
-            width:20%;
-            top:0;
-            background:#DDD;
-            text-align:left;
-            display:inline-block;
-            font-size:35px !important;
-            transition: all 1s;
-            overflow: hidden;
-            position:fixed;
-            z-index: 9;
-            padding:5;
+        position:fixed;
+        opacity:0;
+        bottom:20px;
+        left:-20%;
+        width:20%;
+        min-width: 320px;
+        top:20px;
+        background:#DDD;
+        text-align:left;
+        display:inline-block;
+        font-size:35px !important;
+        transition: all .4s;
+        overflow: hidden;
+        z-index: 9;
+        padding:5;
+        padding:30px;
+        border:4px solid #F1F1F1;
+        border-radius: 4px;
+        overflow-y: scroll;
             }
+    #settings.on {
+        left:20px;
+        display: block;
+        opacity: 1;
+        box-shadow: 0px 2px 6px #444;
+        
+    }    
+    #settings #linkBack {
+        font-size: 20px !important;
+        margin:-30px;
+        padding:10px;
+        background: #F1F1F1;
+    }
+    #settings #linkBack .material-icons{
+        color:#222;
+    }
+    @media (max-width:640px) {
+        #settings {
+             margin:0 !important; top:0px !important;
+        }
+        #settings.on {
+            top:0; left:0px; right:50px; bottom:0;
+            border-radius: 0;
+            width: calc(90% - 200px);
             
-    tr td {
-            font-size: 20px;
+           
+        }
     }
         
-    table {
+    #new_table {
             color:#444 !important;
+        font-size:16px;
+
     }
     
     #csikocskak{
@@ -124,13 +162,30 @@
     }
     .mutato {
     color:#f1f1f1;
+        
+        padding-top:26px;
+        display: inline-block;
+    }
+    .mutato.off {
+        color:transparent;
+    }
+    #NineDotMenu {
+        display: block;
+        margin-top: -50px !important;
+        float: right;
+        position:relative !important;
     }
 </style>
 
 <title id="title">loading</title>
 
 <span id="settings">
-    <TABLE align="center">
+        <div id="linkBack">
+                    <i class="material-icons" onclick="location.href='../random.html'">arrow_back</i>
+                    <span onclick="location.href='../random.html'">Go back to rontap Tools.</span>
+                    <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+                </div>
+            <br>      
         <!--<tr>
             <td>
                 Melyik sorok látszódjanak:
@@ -147,64 +202,48 @@
                 </select>
             </td>
         </tr>-->
-        <tr>
-            <td>
-                Háttérszín:
-            </td>
-            <td>
-               <input type="color" value=444 onchange="body.style.background=cc.value; localStorage.bg = cc.value" id='cc'>
-			   <paper-button onClick="body.style.background='#444';localStorage.bg='#444'" style="padding:5px;">Alapértelmezett</paper-button>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Témák:
-            </td>
-            <td>
-            <paper-radio-group role="radiogroup" selected="always">
-                
-                     <paper-radio-button-button type="radio" onClick='setTheme()' name="tema" checked name="Alapértelmezett"></paper-radio-button-button><br>
-                     <paper-radio-button type="radio" onClick='setTheme("rjsx")' name="tema" label="RJSX"></paper-radio-button><br>
-                     <paper-radio-button type="radio" onClick='setTheme("simple")' name="tema" label="Egyszerű"></paper-radio-button><br>
-                     <paper-radio-button type="radio" onClick='setTheme("monochrome")' name="tema" label="Monokróm"></paper-radio-button><br>
-                     <paper-radio-button type="radio" onClick='setTheme()' name="tema" label="Egyedi"></paper-radio-button><br>
-               
-               </paper-radio-button>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <hr style="border:none;background:#AAA;height:2px;">
-            <td>
-        </tr>
-        <tr>
-            <td>
-                Nyelv:
-            </td>
-            <td>
-                <paper-radio-button type="radio" onClick='setLang("hu")' name="nyelv" label="Magyar"></paper-radio-button><br>
-                <paper-radio-button type="radio" onClick='setLang("en")' name="nyelv"label="Angol"></paper-radio-button><br>
-                <paper-radio-button type="radio" onClick='setLang("ge")' name="nyelv" label="Német"></paper-radio-button><br>
-                <paper-radio-button type="radio" onClick='setLang("none")' name="nyelv" label="Üres"></paper-radio-button><br>
+       <div id="new_table"> 
+           <h1 class="blue-antigene covered" style="    margin: -18px -36px -5px -36px; 
+    position: relative;
+    width: 120%;">Colourful clock</h1>
+    <h2>Background:</h2>
 
-                    
-            </td>
-        </tr>
-		<tr>
-			<td colspan="2">
-			<br>
-				<paper-button onClick="setLang('');setTheme();body.style.background='#444';localStorage.bg = '#444'; localStorage.theme='';localStorage.lang=''" label="" class="button raised blue">Alapértelmezett
-				</paper-button>
-			</td>
-		</tr>
-		
-		<tr>
-		    <td colspan="2" style="position:absolute;bottom:0">
-		        <span id="author">Made By RonTap, BoBarna and Fuiszgt. This is an elemential Project.</span>
-		    </td>
-		</tr>
-        
-    </TABLE>
+    <input type="color" value=444 onchange="body.style.background=cc.value; localStorage.bg = cc.value" id='cc' class="non-expand">
+    
+    <h2>Themes:</h2>
+
+    <paper-radio-group role="radiogroup" selected="always">
+
+        <radio onClick='setTheme()'          name="tema" checked >Alapértelmezett</radio><br>
+        <radio onClick='setTheme("rjsx")'    name="tema" >RJSX</radio><br>
+        <radio onClick='setTheme("simple")'  name="tema" >Egyszerű</radio><br>
+        <radio onClick='setTheme("monochrome")' name="tema" >Monokróm</radio><br>
+        <radio onClick='setTheme()'          name="tema" >Egyedi</radio><br>
+
+    </paper-radio-group>
+
+    <hr>
+
+    <h2>Language:</h2>
+
+    <radio onClick='setLang("hu")' name="nyelv" >Hungarian</radio><br>
+    <radio onClick='setLang("en")' name="nyelv">English</radio><br>
+    <radio onClick='setLang("ge")' name="nyelv">German</radio><br>
+    <radio onClick='setLang("none")' name="nyelv">Empty</radio><br>
+
+    <br><br>         
+
+    <paper-button onClick="setLang('');setTheme();$('body').style.background='#444';localStorage.bg = '#444'; localStorage.theme='';localStorage.lang=''" label="" class="button raised blue">
+    </paper-button>
+
+    <br>
+    <button block real onClick="$('body').style.background='#444';localStorage.bg='#444'" style="padding:5px;"> Reset everything <br> to default</button>
+
+    <br><hr><small>
+    
+    <span id="author">Part of rontap NXT clock package<br><b>2.2 - 2017 Nov</b><hr>Originally created by RonTap, BoBarna and Fuiszgt.</span>
+    </small>
+		</div>
 </span>
 
 <!--CSíKOCSKÁK-->
@@ -232,196 +271,6 @@
 
 </div>
 <script>
-if (localStorage.theme !== null)
-	{
-		setTheme(localStorage.theme);
-		setLang(localStorage.lang);
-		body.style.background = localStorage.bg;
-	}
-	else
-	{
-		localStorage.theme = "";
-		localStorage.lang = "";
-		localStorage.background = '#DDD';
-	}
-
-
-opened=false; //settings
-
-function setLang(code)
-{
-        switch (code)
-        {
-        case 'en' : lang=['days of the year','month','day','day of the week','hour','minute','secund'];
-         break;
-        case 'ge' : lang=['Tagen des Jahres','Monat','Tag','Tag der Woche','Stunde','Minute','Sekunde'];
-         break;
-        case 'hu': lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;		 
-	 break;
-	case 'bg' : lang=['']
-	 break;
-		case 'none' : lang=['','','','','','',''];
-         break;
-		
-        default: lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;
-        }
-        for (i=0;i<lang.length;i++)
-        {
-        document.getElementsByClassName("mutato")[i].innerHTML=lang[i];
-        }
-		localStorage.lang = code;
-}
-
-function set(call,width) {
-window[call].style.width=width+'%';
-}
-
-i=0;
-
-function time() {
-
-datum = new Date()
-var start = new Date(datum.getFullYear(), 0, 0);
-var diff = datum - start;
-var oneDay = 1000 * 60 * 60 * 24;
-var day = Math.floor(diff / oneDay);
-
-
-
-set('y',(day/365)*100);
-set('mo',((datum.getMonth()+1)/12)*100);
-set('d',(datum.getDate()/31)*100)
-if (datum.getDay()==0) {//hét kezelése
-        set('w',100);
-        }
-        else {
-        set('w',(datum.getDay()/7)*100)
-        }
-set('h',(datum.getHours()/24)*100+(datum.getMinutes()/60)*4.1)
-set('m',((datum.getMinutes()/60)*100)+(datum.getSeconds()/40))
-set('s',(datum.getSeconds()/60)*100)
-
-y_.innerHTML=day;
-mo_.innerHTML=datum.getMonth()+1;
-d_.innerHTML=datum.getDate();
-w_.innerHTML=datum.getDay();
-if (datum.getDay()==0) {w_.innerHTML=7};
-h_.innerHTML=datum.getHours();
-m_.innerHTML=datum.getMinutes();
-s_.innerHTML=datum.getSeconds();
-
-ho=["január", "január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "november","december"]
-
-tit=datum.getHours() + ":" + datum.getMinutes() + ":" + datum.getSeconds() + " " + datum.getDate() + "-" + ho[datum.getMonth()] + "-" + datum.getFullYear();
-
-
-title.innerHTML = tit;
-
-console.log(i)
-
-	setTimeout(
-			function(){time()}
-			,1000
-			);
-	};
-time();
-rti=0;
-function rtp()
-{
-      if (rti<255)   { rti++; }
-      else           { rti=0; }
-      setTheme(rti)
-      setTimeout(      
-		function(){rtp()}
-		,1000
-		);
-          
-}
-function setTheme(call)
-{
-        if (!isNaN(call))
-        {
-       setUI('hsl('+call+', 20%,15%)','hsl('+call+', 35%,25%)','hsl('+call+', 50%,35%)','hsl('+call+', 60%,45%)','hsl('+call+', 70%,55%)','hsl('+call+', 80%,60%)','hsl('+call+', 90%,65%)');
-        
-        }
-        else {
-        switch (call)
-        {
-        case 'rjsx' || 0 : setUI('#62c','#f44','#666','#9c6','#f84','#ebb035','#48f'); break;
-        case 'monochrome' || 1 : setUI('#000','#333','#666','#888','#999','#aaa','#bbb'); break;
-        case 'simple' || 2 : setUI('#000','red','green','blue','orange','purple','brown'); break;
-		case 'rtp' || 3 : setTimeout(function(){
-			setUI(rand(),rand(),rand(),rand(),rand(),rand(),rand()); setTheme('rtp')},500); break;
-        default : setUI("#48F","#192823","#D0C6B1","#218559","#0A2CB","#Ebb035","#DD1E2F")
-        break;
-        }
-        }
-		localStorage.theme = call;
-}
-function rand()
-{
-r=Math.floor(Math.random()*255);
-g=Math.floor(Math.random()*255);
-b=Math.floor(Math.random()*255);
-return 'rgb(' + r + ',' + g + ',' + b + ')' 
-}
-function setUI(aw,bw,cw,dw,ew,fw,gw)
-{
-y.style.background=""+aw;
-mo.style.background=""+bw;
-d.style.background=""+cw;
-w.style.background=""+dw;
-h.style.background=""+ew;
-m.style.background=""+fw;
-s.style.background=""+gw;
-}
-
-function settingso() {
-    if (opened)
-    {
-        settings.style.display="block";
-        
-        setTimeout(function(){
-            settings.style.left="0%";
-            settings.style.borderRight="1px solid #666";
-            settings.style.boxShadow="3px 0px 5px #666";
-            settings.style.opacity="1";
-            csikocskak.style.left="20%";
-        },50);
-        opened=false;
-        
-    }
-    else {
-        //settings.style.display="none";
-        settings.style.marginLeft="0 !important";
-         settings.style.boxShadow="none";
-        settings.style.opacity="0;";
-        settings.style.left="-25%";
-        csikocskak.style.left="0%";
-        opened=true;
-    }
-}
-
-var loading;
-
-window.oncontextmenu = function ()
-{
-	settingso();
-    return false;     // cancel default menu
-}
-
-settingso();
-
-//SOME
-
-$('paper-radio-button').click(function(){
-      
-           for (i=0;i<$('paper-radio-button').length;i++)
-           {
-               $('paper-radio-button')[i].checked=false;
-           }
-            console.log(this);
-        })
 //VERSION HISTORY
 //1.0  initial release  [2013-12-21]
 //1.2  change font, color and accuracy
@@ -435,13 +284,9 @@ $('paper-radio-button').click(function(){
 //1.9B added to Clocker network [2015-04-26]
    
 //2.0  added to NXT [2017-10-17] SOTON
+//2.3  redesigned setting bar, adjusted and changed fonts, NXT.JS added to website; link connected to random.html [2017-11-09]
+//2.4  file split into clock.html and clock-engine.js
 </script>
-<fome-element></fome-element>
-        <splash-element></splash-element>
-
-<cl-hd></cl-hd>
-
-
- <link rel="import" href="../clocker.html">
-
- <link rel="import" href="../../../polyfome/include.html">
+    
+ <script src="clock-engine.js" type="text/javascript"></script>
+ <script src="../NXTJS/design-input.js" type="text/javascript"></script>

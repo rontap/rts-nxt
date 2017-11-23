@@ -7,12 +7,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
       <script src="NXTJS/jsplus.js" type="text/javascript"></script>
-    
+
     <link rel="stylesheet" href="NXTJS/input-design.css">
     <link rel="stylesheet" href="rtsmenu.css">
     <style>
-   
-        
+
+
     </style>
 </head>
 
@@ -31,89 +31,96 @@
 
         <br /><br />
         <h1>RonTapSites Main Menu</h1>
-   
-    
+
+
     <div id="linkClose">
-    
+
         <switch checked="true" id="menuSwitch">
             <span style="margin-top: -2px;"><i class="material-icons">line_weight</i></span>
             <span style="margin-top: -28px;"><i class="material-icons" >settings</i></span>
         </switch>
         <span>View Websites / Settings</span>
      </div>
-    
-        
-        
+
+
+
          </nav>
-    
+
     <div id="errorholder">
         <div id="errorcontainer">
             <div id="e404">
                 <h1>Error 404</h1>
-                The requested site doesnt exist!<br> It's either your or our fault, but anyway, there's nothing to do about that.<br>Sorry about that. :(    
+                The requested site doesnt exist!<br> It's either your or our fault, but anyway, there's nothing to do about that.<br>Sorry about that. :(
             </div>
             <div id="e403">
                 <h1>Error 403</h1>
-                Oh snap! You dont have the acces to that page! <br> It's either your or our fault, but anyway, there's nothing to do about that.<br>Sorry about that. :(    
+                Oh snap! You dont have the acces to that page! <br> It's either your or our fault, but anyway, there's nothing to do about that.<br>Sorry about that. :(
             </div>
             <br>Why not start exploring in sites which are definitely avabile:
-               
+
         </div>
         <hr>
     </div>
-    
- 
-    
-    
+
+
+
+
     <article onclick="go('edu/tapcalk.html')">
         <h1>TAPCALK 6</h1>
         <span>simple calculator</span>
         <img src="">
-        <div class="delta">rontap.netne.net/tapcalk</div>
+        <div class="delta material-icons">functions</div>
     </article>
 
     <article onclick="go('random.html')">
         <h1>TOOLS 3</h1>
         <span>everything  you need as a tool</span>
         <img src="">
-        <div class="delta">rontap.netne.net/random</div>
+        <div class="delta material-icons">shuffle</div>
     </article>
 
     <article>
-        <h1>An Element</h1>
+        <h1>Clocks</h1>
         <span>So it fills the screen</span>
         <img src="">
-        <div class="delta"></div>
+        <div class="delta  material-icons">slow_motion_video</div>
     </article>
 
     <article>
-        <h1>Color Game</h1>
-        <span>An Amasing Game</span>
+        <h1>NXT JS</h1>
+        <span>JavaScript API</span>
         <img src="">
-        <div class="delta"></div>
+        <div class="delta  material-icons">developer_board</div>
     </article>
 
     <article>
-        <h1>Color Game</h1>
+        <h1>Mine Game</h1>
         <span>An Amasing Game</span>
         <img src="">
-        <div class="delta"></div>
+        <div class="delta  material-icons">all_out</div>
     </article>
 
     <article>
-        <h1>Color Game</h1>
+        <h1>Speed Card Game Game</h1>
         <span>An Amasing Game</span>
         <img src="">
-        <div class="delta"></div>
+        <div class="delta material-icons">flip_to_front</div>
     </article>
-    
+
+    <article>
+        <h1>Super Farmer Simulation</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">blur_on</div>
+    </article>
+
     <script>
-        
-        mat300 = ['5c6bc0', 'ffd54f', 'E57373', '4DD0E1', 'FFD54F', '8D6E63'];
-        mat600 = ['283593', 'FFA726', 'E53935', '00ACC1', 'FFB300', '6D4C41'];
+
+        mat300 = ['5c6bc0', 'ffd54f', 'E57373', '666', '673AB7','673AB7','90A4AE'];
+        mat600 = ['283593', 'FFA726', 'E53935', '444', '512DA8','512DA8', '607D8B'];
 
 
-        for (i = 0; i < mat300.length; i++) {
+        for (i = 0; i < mat300.length ; i++) {
             $$('article')[i].style.background = '#' + mat300[i];
             $$('.delta')[i].style.background = '#' + mat600[i];
         }
@@ -145,7 +152,7 @@
         }
     </script>
 </body>
-  
+
     <script src="NXTJS/design-input.js" type="text/javascript"></script>
-    
+
 </html>
