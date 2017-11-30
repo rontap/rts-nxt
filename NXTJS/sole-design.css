@@ -12,6 +12,31 @@
   0% { margin-left:12px; margin-top:12px; width:0px; height:0px; background:rgba(100,100,100,0.6);}
   100% {margin-left:-4px; margin-top:-4px; width:32px; height:32px; background:rgba(200,200,200,0.3);}
 }
+
+nav , [app-drag] , #linkBack, #NineDotMenu {
+    -webkit-app-region: drag;
+}
+holder * {
+    -webkit-app-region: no-drag;
+}
+
+.ctrls-l , .ctrls-x , .ctrls-m{
+    -webkit-app-region: no-drag;
+    position: fixed;
+    top: 17px;
+    right: 80px;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--light-primary) ;
+}
+.ctrls-l {
+    right:140px;
+}
+.ctrls-m {
+    right:200px;   
+}
+
 #linkBack span {
       opacity:0;
       vertical-align: 6px;

@@ -7,6 +7,11 @@
 
 'use strict';
 
+//-----------------------------------------------------------------
+//-----------------BASE-PROTOTYPE-EXTENSIONS-----------------------
+//-----------------------------------------------------------------
+
+
 var $    = (call)    =>  document.querySelector(call);
 var $$   = (call)    =>  document.querySelectorAll(call);
 
@@ -24,7 +29,9 @@ Array.prototype.shuffle = function() { //shuffle the array compleately
     }
 	return this;
 }
-
+Array.prototype.isSame = function() {
+  return !!this.reduce(function(a, b){ return (a === b) ? a : NaN; });
+}
 Array.prototype.last = function() {
     return this[this.length-1];
 }
@@ -45,9 +52,9 @@ Math.spread = function(call /*array*/)
 }
 
 Math.sum = function(call /*array*/) {
-    temp=0;
+    let temp=0;
     for (i=0; i<call.length;i++) {
-        temp+=call[i];
+        temp+=Number(call[i]);
     }
     return temp;
 }
@@ -100,6 +107,41 @@ class Color {                   //simple generation of colors. Finally
 
 }
 
+
+//-----------------------------------------------------------------
+//-----------------JS-GET/from-PHP---------------------------------
+//------------------------------original-version-by-deesnow97------
+
+function $_GET(args) {
+    args = args || 'null' ; //args is only used for asking specific argument
+    var hash = location.hash.slice(1,Infinity);
+
+    if (args!='null') {
+        var startLoc =hash.indexOf(args + '=');
+        var endLoc = hash.slice(startLoc,Infinity).indexOf('&');
+            if (endLoc==-1) endLoc = Infinity;
+        return hash.slice(startLoc + args.length + 1,endLoc);
+
+    }
+    //return other functions of JSGET
+    else {
+        return {
+            'argumentList' : function() {   //list all of the arguments
+                let arr = [ hash.slice( 0 , hash.indexOf('=') ) ];
+                for (i=0; i< $_GET().length() -2 ; i++) {
+                    var tempCont = /&([^=]+)=/g.exec(hash);
+                    //RegExp: search whole where &×××= is the syntax, with any × inbetween
+                    arr.push(tempCont[1]);
+                    hash = hash.replace(tempCont[0],'');
+                    //remove text from hash and put in arr.
+                }
+                return arr;
+            },
+            'length' : function () { return location.hash.split("=").length }
+        }
+    }
+
+}
 
 //-----------------------------------------------------------------
 //-----------------STRING-STATISTICS-------------------------------
@@ -158,7 +200,16 @@ String.prototype.stat = function(call) {
 //-----------------NXT-JS-MAIN-DEFAULT-FNS-------------------------
 //-----------------------------------------------------------------
 
+if (localStorage.nxtDataStore==undefined) {
+    let temp = {
+      nightMode : false,
+      desktopMode : false,
+      mobileEnabled : true
+    }
+    localStorage.nxtDataStore = JSON.stringify(temp);
+}
 var nxt = {
+  build : 1401, 
 
   openMenu : function(call) {
     $$('#NineDotMenu')[0].classList.add("on");
@@ -168,14 +219,24 @@ var nxt = {
       },550)
   },
    closeSidebar : function(e) {
-
       if (document.body.offsetWidth<640) {
           $('body').classList.add('sidebarMinimised');
       }
+   },
+
+   internalNXTStorage : JSON.parse(localStorage.nxtDataStore),
+   //this is strictly READ ONLY
+
+   getStore : function(elem){
+     return nxt.internalNXTStorage[elem];
+    },
+   setStore : function(elem, to) {
+      nxt.internalNXTStorage[elem] = to;
+      localStorage.nxtDataStore = JSON.stringify(nxt.internalNXTStorage);
    }
 
 }
 
 //-----------------------------------------------------------------
-//-----------------KEYBOARD-CONTROLL-------------------------------
+//-----------------KEYBOARD-CONTROL--------------------------------
 //-----------------------------------------------------------------

@@ -34,7 +34,7 @@ kim=null;
 histlength=0;//előzmények
 tprim=new Array();
 eventfire='';//a SZAMOLD-ra uteskor alkalmazza
-prt=new Array("H	Hidrogén","He	Hélium","Li	Lítium","Be	Berillium","B	Bór","C	Szén","N	Nitrogén","O	Oxigén","F	Fluor","Ne	Neon	","Na	Nátrium	","Mg	Magnézium	","Al	Alumínium	","Si	Szilícium","P	Foszfor","S	Kén","Cl	Klór","Ar	Argon","K	Kálium","Ca	Kálcium","Sc	Szkandium	","Ti	Titán	","V	Vanádium	","Cr	Króm	","Mn	Mangán	","Fe	Vas	","Co	Kobalt	","Ni	Nikkel	","Cu	Réz	","Zn	Cink	","Ga	 Gallium","Ge	Germánium	","As	Arzén	","Se	Szelén	","Br	Bróm	","Kr	Kripton	","Rb	Rubídium	","Sr	Stroncium	","Y	Ittrium	","Zr	Cirkónium	","Nb	Nióbium	","Mo	Molibdén	","Tc	Technécium	","Ru	Ruténium	","Rh	Ródium	","Pd	Palládium	","Ag	Ezüst	","Cd	Kadmium	","In	Indium	","Sn	Ón	","Sb	Antimon	","Te	Tellúr	","I	Jód	","Xe	Xenon	","Cs	Cézium	","Ba	Bárium	","La	Lantán	","Ce	Cérium	","Pr	Prazeodímium	","Nd	Neodímium	","Pm	Prométium	","Sm	Szamárium	","Eu	Európium	","Gd	Gadolínium	","Tb	Terbium	","Dy	Diszprózium	","Ho	Holmium	","Er	Erbium	","Tm	Túlium	","Yb	Itterbium	","Lu	Lutécium	","Hf	Hafnium	","Ta	Tantál	","W	Volfrám	","Re	Rénium	","Os	Ozmium	","Ir	Irídium	","Pt	Platina	","Au	Arany	","Hg	Higany	","Tl	Tallium	","Pb	Ólom	","Bi	Bizmut	","Po	Polónium	","At	Asztácium	","Rn	Radon	","Fr	Francium	","Ra	Rádium	","Ac	Aktínium	","Th	Tórium	","Pa	Protaktínium	","U	Urán	","Np	Neptúnium	","Pu	Plutónium	","Am	Amerícium	","Cm	Kűrium	","Bk	Berkélium	","Cf	Kalifornium	","Es	Einsteinium	","Fm	Fermium	","Md	Mendelévium	","No	Nobélium	","Lr	Laurencium	","Rf	Radzerfordium	","Db	Dubnium	","Sg	Sziborgium	","Bh	Borium	","Hs	Hasszium	","Mt	Meitnerium	","Ds	Darmstadtium	","Rg	Röntgenium	","Cn	Kopernícium	","Uut	Ununtrium	","Fl	Flerovium	","Uup	ununpentium	","Lv	Livermorium	","Uuh	Ununszeptium	","Uuo	Ununoktium	","Uue	Ununennium	","Ubn	Unbinilium	","Ubu	Unbiunium");
+
 function makeinput(mal,out) {//legeneralja az input mezőket
 for (i=1;i<=mal;i++)
 	{
@@ -66,25 +66,27 @@ function fillt(c) {
 switch (c)
 {
 	case "base_" :
-
-				tfill.innerHTML ='<h1>Összeadás:</h1>'+input1+"+"+input2+"= "+output1+"<br>";
-				tfill.innerHTML+='<h1>Kivonás:</h1>'+input3+"-"+input4+"= "+output2+"<br>";
-				tfill.innerHTML+='<h1>Szorzás:</h1>'+input5+"×"+input6+"= "+output3+"<br>";
-				tfill.innerHTML+='<h1>Osztás:</h1>'+input7+"÷"+input8+"= "+output4+"<br>";
+                tfill.innerHTML ='<h1 class="covered red-antigene">Alapműveletek</h1>';
+				tfill.innerHTML+='<h2 >Összeadás:</h2>'+input1+"+"+input2+"= "+output1+"<br>";
+				tfill.innerHTML+='<h2 >Kivonás:</h2>'+input3+"-"+input4+"= "+output2+"<br>";
+				tfill.innerHTML+='<h2 >Szorzás:</h2>'+input5+"×"+input6+"= "+output3+"<br>";
+				tfill.innerHTML+='<h2 >Osztás:</h2>'+input7+"÷"+input8+"= "+output4+"<br>";
 				break;
 	case "hatv_" :
-				tfill.innerHTML ='<h1>Gyökvonás:</h1>√'+input1+"="+output1+"<br>";
-				tfill.innerHTML+='<h1>Köbgyök:</h1>√<sup>3</sup>'+input2+"= "+output2+"<br>";
-				tfill.innerHTML+='<h1>N-edik gyök:</h1>√<sup>'+input3+"</sup>"+input4+"= "+output3+"<br>";
+                tfill.innerHTML ='<h1 class="covered red-antigene">Gyökvonás</h1>';
+				tfill.innerHTML+='<br><br>√'+input1+"="+output1+"<br>";
+				tfill.innerHTML+='<h2 >Köbgyök:</h2>√<sup>3</sup>'+input2+"= "+output2+"<br>";
+				tfill.innerHTML+='<h2 >N-edik gyök:</h2>√<sup>'+input3+"</sup>"+input4+"= "+output3+"<br>";
 				ino3.style.width="40px";
-		    tfill2.style.opacity=1
-				tfill2.innerHTML ='<h1>Négyzetre emelés:</h1>'+input4+"<sup>2</sup>="+output4+"<br>";
-				tfill2.innerHTML+='<h1>N-edikre emelés</h1>'+input5+"<sup>"+input6+"</sup>= "+output5+"<br>";
+		    tfill2.style.opacity=1;
+                tfill2.innerHTML ='<h1 class="covered green ">Hatványozás</h1>';
+				tfill2.innerHTML+='<h2>Négyzetre emelés:</h2>'+input4+"<sup>2</sup>="+output4+"<br>";
+				tfill2.innerHTML+='<h2>N-edikre emelés</h2>'+input5+"<sup>"+input6+"</sup>= "+output5+"<br>";
 				tfill2.innerHTML+='<br><button onClick="fillt('+"'negyzet'"+');">Négyzetszámok</button>';
 				ino3.style.width="40px";
 				break;
 		case "besz" :
-				tfill.innerHTML ='<h1>Kiemelés és beszorzás</h1>(x+y)<sup>2</sup>:<br>('+input1+'+'+input2+")<sup>2</sup>="+output1+"<br>";
+				tfill.innerHTML ='<h1 class="covered yellow" >Kiemelés és beszorzás</h1><br><br>(x+y)<sup>2</sup>:<br>('+input1+'+'+input2+")<sup>2</sup>="+output1+"<br>";
 				tfill.innerHTML+='(x-y)<sup>2</sup>:<br>('+input3+'-'+input4+")<sup>2</sup>="+output2+"<br>";
 	tfill.innerHTML+='x<sup>2</sup>-y<sup>2</sup>:<br>'+input5+'<sup>2</sup>-'+input6+"<sup>2</sup>="+output3+"<br>";
 				ino1.style.width="40px";
@@ -94,52 +96,52 @@ switch (c)
 				ino5.style.width="40px";
 				ino6.style.width="40px";
 				break;
-	case "toa" :tfill.innerHTML="<h1>Számok összeadása x-től y-ig:</h1>"+input1+"-től "+input2+"-ig <br><br> a számok összege:"+output1 ;
+	case "toa" :tfill.innerHTML='<h1 class="covered red-antigene" >Számok összeadása x-től y-ig:</h1><br>'+input1+"-től "+input2+"-ig <br><br> a számok összege:"+output1 ;
                 graphis(true)
 
 				break;
-	case "fakt" : tfill.innerHTML ='<h1>Faktorális</h1>'+input1+'!='+output1+"<hr>";
+	case "fakt" : tfill.innerHTML ='<h1 class="covered blue" >Faktorális</h1><br>'+input1+'!='+output1+"<hr>";
                 graphis(true);
 				ino1.style.width="40px";
 				break;
 
-	case "szamtani" : tfill.innerHTML ='<h1>Számtani sorozat</h1>Első szám : a<sub>1</sub>'+input1;
+	case "szamtani" : tfill.innerHTML ='<h1 class="covered red-antigene" >Számtani sorozat</h1><br>Első szám : a<sub>1</sub>'+input1;
 					  tfill.innerHTML+='<br><br>Növekmény: d'+input2+'<br><br>Utolsó szám: '+input3+"<br><br>"+output1;
 				ino3.style.width="40px";
                 graphis(true);
 				break;
 
-	case "mertani" : tfill.innerHTML ='<h1>Mértani sorozat</h1>első szám : a<sub>1</sub>'+input1;
+	case "mertani" : tfill.innerHTML ='<h1 class="covered red-antigene" >Mértani sorozat</h1><br>első szám : a<sub>1</sub>'+input1;
 					  tfill.innerHTML+='<br><br>Növekmény: q'+input2+'<br><br>Meddig generálja: '+input3+"<br><br>"+output1;
 				ino3.style.width="40px";
                 graphis(true);
 				break;
 
-	case "gorbe" : tfill.innerHTML ='<h1>Görbe sorozat</h1>első szám : a<sub>1</sub>'+input1;
+	case "gorbe" : tfill.innerHTML ='<h1 class="covered red-antigene" >Görbe sorozat</h1><br>első szám : a<sub>1</sub>'+input1;
 					  tfill.innerHTML+='<br><br>Növekmény: d'+input2+'<br><br>Növekmény növekménye: e '+input3+'<br><br>Meddig generálja:'+input4+"<br><br>"+output1;
 				ino4.style.width="40px";
 				break;
 
-	case "fibo" : tfill.innerHTML ='<h1>Fibonacci sorozat</h1>Első '+input1+'elem<br><br>'+output1+"<br>";
+	case "fibo" : tfill.innerHTML ='<h1 class="covered red-antigene" >Fibonacci sorozat</h1><br>Első '+input1+'elem<br><br>'+output1+"<br>";
                  graphis(true)
 				ino1.style.width="40px";
 				break;
 
-	case "negyzet" : tfill.innerHTML ='<h1>Négyzetszámok</h1>Az Első '+input1+' db négyzetszám listázása<br><br>'+output1+"<br>";
+	case "negyzet" : tfill.innerHTML ='<h1 class="covered red-antigene" >Négyzetszámok</h1><br>Az Első '+input1+' db négyzetszám listázása<br><br>'+output1+"<br>";
 				ino1.style.width="40px";
                 graphis(true)
 				break;
-	case "spin" : tfill.innerHTML ='<h1>Spinkvantumszám</h1>Az atomok héjain lévő atomok összege<br>1-től '+input1+'. héjig <br>'+output1+"<br>";
+	case "spin" : tfill.innerHTML ='<h1 class="covered red-antigene" >Spinkvantumszám</h1><br>Az atomok héjain lévő atomok összege<br>1-től '+input1+'. héjig <br>'+output1+"<br>";
 				ino1.style.width="40px";
 				break;
 	case "prim_" :
-				tfill.innerHTML ='<h1>Prímtényezőkre bontás. Prím-e a szám?</h1>a szám: '+input1+' <br>'+output1+"<br>";
+				tfill.innerHTML ='<h1 class="covered red-antigene" >Prímtényezőkre bontás</h1><h2 class="covered subtitle red-antigene-300"> Prím-e a szám?</h2><br>a szám: '+input1+' <br>'+output1+"<br>";
 				break;
   case "primgrid":
         tfill.innerHTML=primeListGrid.innerHTML;
         break;
 	case "primlist" :
-				tfill.innerHTML ='<h1>Prímszámok listázása</h1> '+input1+'-ig.  <br>'+output1+"<br>";
+				tfill.innerHTML ='<h1 class="covered red-antigene" >Prímszámok listázása</h1><br> '+input1+'-ig.  <br>'+output1+"<br>";
                 graphis(true);
 				break;
 
@@ -147,39 +149,39 @@ switch (c)
 				//SZAMRENDSZER
 
 	case "szamrend" :
-				tfill.innerHTML ='<h1>Számrendszerek</h1>';
+				tfill.innerHTML ='<h1 class="covered red-antigene" >Számrendszerek</h1>';
 				tfill.innerHTML+='';
 				tfill.innerHTML+='Átváltás '+input1+'-ből'+input2+'-ba.<br>A szám:  '+input3+' <br>'+output1;
 				//GEOMETRIE
 				break;
 	//MESELJ
 	case "mesel" :
-				tfill.innerHTML ='<h1>Mindent a számokról</h1>';
+				tfill.innerHTML ='<h1 class="covered red-antigene" >Mindent a számokról</h1>';
 				tfill.innerHTML+='';
 				tfill.innerHTML+='Mondj el mindent a(z)  '+input1+'-ról/-ről.<br>' +output1;
 				//in1*in1+in2*in2+2*in2*in
 				//mennyiD*mennyiD-mennyiD2*mennyiD2
 				break;
 	case "masodfok" :
-				tfill.innerHTML='<h1>Másodfokú egyenlet megoldás</h1>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Másodfokú egyenlet megoldás</h1>';
 				tfill.innerHTML+=input1+'*X<sup>2</sup> + '+input2+'*X +'+input3+'=0<br>'+output1;
 				ino2.style.width="40px";
 				ino1.style.width="40px";
 				ino3.style.width="40px";
 				break;
 	case 'pir' :
-				tfill.innerHTML='<h1>Pireneusi számok</h1>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Pireneusi számok</h1>';
 				tfill.innerHTML+='számok generálása'+input1+'<br>'+output1;
                 graphis(true)
 				break;
 	case 'kamat' :
-				tfill.innerHTML='<h1>Katamszámítás</h1>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Katamszámítás</h1>';
 				tfill.innerHTML+='Alaptőke: '+input1+'<br>Kamat (%): '+input2+' <br>futamidő (egység): '+input3+' <br>'+output1;
 				ino2.style.width="40px";
 				break;
 	case 'atl_' :
 				makeinput(50,10);
-				tfill.innerHTML='<h1>Átlagok</h1>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Átlagok</h1>';
 				tfill.innerHTML+='<span id="inpns">'+textinp+'</span><br>átlag:'+output1;
 
 				tfill.innerHTML+='<br>mértani átlag:'+output2;
@@ -189,15 +191,15 @@ switch (c)
 				tfill.innerHTML+='<br>négyzetes átlag:'+output4;
 				break;
 	case 'sintg' :
-				tfill.innerHTML='<h1>Szögfüggvények (sin, cosin, tg, ctg)</h1>Háromszög<br>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Szögfüggvények (sin, cosin, tg, ctg)</h1>Háromszög<br>';
 				tfill.innerHTML+='a oldal '+input1+'<br>b oldal '+input2+' <br>c oldal (átfogó) '+input3+'<br><img src="haromszogek.png"> <br>'+output1;
 				break;
 	case 'random' :
 
-				tfill.innerHTML='<h1>Véletlenszerű szám generálása</h1><br>'+input1+' - '+input2+ ' tartományban.<br><br>'+output1+'<br><br><button onClick="window.location='+"'http://rontap.netne.net/#lipusm.html'"+';" style="width:auto;">véletlengeneráló</button>';
+				tfill.innerHTML='<h1 class="covered red-antigene" >Véletlenszerű szám generálása</h1><br>'+input1+' - '+input2+ ' tartományban.<br><br>'+output1+'<br><br><button onClick="window.location='+"'http://rontap.netne.net/#lipusm.html'"+';" style="width:auto;">véletlengeneráló</button>';
 				break;
 	case 'valszam' :
-				tfill.innerHTML='<h1>Kombinatorika</h1>bemenő adatok:'+input1+input2+input3+input4+input5+'<br>ezeknek az összes kombiációja:<br>'+output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" >Kombinatorika</h1>bemenő adatok:'+input1+input2+input3+input4+input5+'<br>ezeknek az összes kombiációja:<br>'+output1;
 				ino1.style.width="40px";
 				ino2.style.width="40px";
 				ino3.style.width="40px";
@@ -207,7 +209,7 @@ switch (c)
 				break;
 	case 'pi' : tfill.innerHTML='Pi<br>értéke: 3.14159265359<br>Használata a Tapcalkban: =PI';break;
 	case 'formula' :
-				tfill.innerHTML='<h1>formula beírása.</h1> Az = kötelező az elejére!<br>'+input1+'<br>'+output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" >formula beírása.</h1> Az = kötelező az elejére!<br>'+input1+'<br>'+output1;
 				ino1.style.width="250px";
 				ino1.placeholder="=2*5+(4/8)";
 				tfill.innerHTML+='<br>Jelenleg támogatott függvények:<br>=PI<br>=E<br>(szám)! <br>=SQRT2<br>=RANDOM (szám közvetlen utána)<br>=RANDF (szám közvetlen utána)';
@@ -224,19 +226,19 @@ switch (c)
 				tfill.innerHTML=valtkod;
 				break;
 	case 'lkkt':
-				tfill.innerHTML="<h1>LKKT: Legkisebb Közös Többszörös</h1>1. szám: " + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" >LKKT: Legkisebb Közös Többszörös</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
 				break;
 	case 'lnko':
-				tfill.innerHTML="<h1>LNKO: Legnagyobb Közös Osztó</h1>1. szám: " + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" >LNKO: Legnagyobb Közös Osztó</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
 				break;
     case 'stat' :
-                tfill.innerHTML="<h1>Statisztika</h1><p>Ebbe a mezőbe, az adatokat VESSZŐVEL elválasztva kell beírni. A tizedesvessző helyett tizedespont van.</p><br><textarea class='inp-text' placeholder='2,3,9,3.1415' id='area'></textarea>"+output1;
+                tfill.innerHTML="<h1 class='covered red-antigene' >Statisztika</h1><p>Ebbe a mezőbe, az adatokat VESSZŐVEL elválasztva kell beírni. A tizedesvessző helyett tizedespont van.</p><br><textarea class='inp-text' placeholder='2,3,9,3.1415' id='area'></textarea>"+output1;
                 break;
     case 'happy' :
-                tfill.innerHTML="<h1>Boldog-boldogtalan számok</h1>"+input1+"<br>"+output1;
+                tfill.innerHTML='<h1 class="covered red-antigene" >Boldog-boldogtalan számok</h1>'+input1+"<br>"+output1;
         break;
     case 'romai' :
-                tfill.innerHTML='<h1>Átváltás római számokra és vissza</h1>'+
+                tfill.innerHTML='<h1 class="covered red-antigene" >Átváltás római számokra és vissza</h1>'+
                     input1+'<br><br><input type="radio" name="witch" value="ar" id="egy" checked>Arabról  Rómaira<br><input type="radio" name="witch" value="ra">Rómairól Arabra<br>'+output1;
                 validatenumber=false;
 }//switch-c
@@ -914,137 +916,7 @@ function writSUBP(base,sup) {
 	output+=base+'<sup>'+sup+'</sup>×';
 
 	}
-function meselj() {
-	althist=true;
-	ahc= in1;
-	pesz=false;
-	console.log('meseSTART'+in1);
-	kim='A '+in1+' egy ';
-//prs prtl
-     if (in1%2==0) { kim+='páros ';}
-     else {kim+='páratlan '}
- //besorolás
-	 if (Math.floor(in1)==in1)
-	{//egész
-        if (in1==0)
-        {
-        kim+=' se nem pozitív, se nem negatív ';
-        }
-		else if (Math.abs(in1)==in1)
-			{
-				kim+='természetes (pozitív) ';
-				pesz=true;
-			}
-		else kim+='negatív ';
 
-	kim+='egész szám ';
-	}
-
-	else {//nem egész
-			if (Math.abs(in1)==in1)	kim+='pozitív ';
-		  else kim+='negatív ';
-		  kim+='racionális szám ';
-	}
-
-	kim+=', ami '
-	//prím e a szám
-	prim=true;
-	kimen='';
-	szam=in1;
-	for (i=2;i<szam;i++)
-			 {
-				if (szam%i==0)
-				{
-					kimen+=' , '+i;
-					prim=false;
-				}
-			}
-	if (prim==false)
-	{
-		kim+=' nem prím, mert<br>osztható: '+kimen+' -val. ';
-	}
-	else
-	{
-	kim+='egy prím.';
-	}
-//tokeletes szam
-	if ((in1==6)||(in1==28)||(in1==496)||(in1==8128))
-	{
-	kim+='Ez egy tökéletes szám (a szám osztóinak összege a szám).';
-	}
-
-//négyzetszám
-	if (Math.floor(Math.sqrt(in1))==Math.sqrt(in1))
-	{
-	kim+='A szám egy négyzetszám, mégpedig a '+Math.sqrt(in1)+' négyzete . '
-	}
-	else if (pesz)
-	{
-	kim+=' A szám gyöke kb. '+Math.round(Math.sqrt(in1))+' . ';
-	}
-	kim+=' A szám négyzete a '+in1*in1+' ,';
-
-//fakt
-	if (pesz)
-	{
-	fakt=1;
-	for (i=in1; i>0; i--) {
-				fakt=i*fakt;
-	}
-	if (fakt<1000000000)
-	{
-		kim+=" a szám faktoriálisa "+fakt;
-	}
-	if (in1>=700000000000000000000)
-	{
-		kim+="Ez a szám nagyobb mint az univerzumban lévő atomok száma";
-		}
-	}
-//fibo
-	var f,fel,fe2;
-					f=1;
-					fel=0;
-					for (i=1; i<in1; i++) {
-						fe2=fel;
-						fel=f;
-							if (f==in1)
-							{
-							kim+=' A szám a fibonacci sorozat '+i+'-dik eleme. '
-							}
-						f=fel+fe2;
-						}
-//szamosszad/osszeg
-	ins=in1.toString();
-	if (ins[0]=="-") {
-	ins=ins.slice(1,ins.length);
-	console.log(ins);
-	}
-	szor="1";
-	add=0;
-	for (i=0;i<ins.length;i++)
-	{
-	szor=szor*Number(ins[i]);
-	add=add+Number(ins[i]);
-	}
-	kim+=" A számjegyeinek az összege "+add+" , a szorzata pedig "+szor+" .";
-//per
-	if (prt[in1-1]!=undefined)
-	{
-	kim+="<br>A periódusos rendszerben a "+in1+". elem a(z) "+prt[in1-1]+" . ";
-	}
-	if (ins.length==3)
-	{
-	kim+='<div id="outmen" style="background:rgb('+(ins[0]*26+21)+","+(ins[1]*26+21)+","+(ins[2]*26+21)+")"+'">Ennek a számnak szine is van</div>';
-	}
-
-if (in1==42) {
-	kim+="<b>Ez a válasz a világmindenségre</b>"
-}
-	ouo1.innerHTML=kim;
-
-
-
-}
 function addinpn() {
 inpn++;
 inpns.innerHTML+='<br>szám '+(inpn)+' '+window['input'+inpn];
@@ -1137,7 +1009,7 @@ function kul(a,b)
 	return kim;
 }
 
-//1000 2014-02-10
+//1000 sor 2014-02-10
 function kutat(hiv) {
 for (i=1;i<fn.length;i++)
 {
@@ -1356,8 +1228,8 @@ function valtra(call) {
         }
         //alap();
 
-        valtkod='<h1>Univerzális átváltás</h1><table class="norjsx"><tr><td>Miben</td><td>     <select id="kategoria" onchange="kat(kategoria.options[kategoria.selectedIndex].value)" class="inp-text"><!--ħ-->       <!--ħ-->        <option value="tomeg">Tömeg</option><!--ħ-->        <option value="terfogat">Térfogat</option><!--ħ-->        <option value="hossz">Hossz</option><!--ħ-->        <option value="terulet">Terület</option><!--ħ-->        <option value="ido">Idő</option><!--ħ-->        <option value="sebesseg">Sebesség</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->    <tr><td><!--ħ-->    <!--ħ-->    Mennyit</td><td> <input type="text" id="rol" onkeyup="ir()"><!-- Mennyit szeretnénk átváltani? --></td></tr><!--ħ-->   <tr><!--ħ-->    <td>Miről</td><!--ħ-->    <td><!--ħ-->    <select id="mirol" onchange="ir()" class="inp-text"><!--ħ-->         <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->   <tr><td> Mire </td><!--ħ-->   <td><!--ħ-->    <select id="mire" onchange="ir()" class="inp-text"><!--ħ-->        <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->  <!--ħ-->    <!--ħ-->    </table><!--ħ-->    <!--ħ-->    <span id="kime"  placeholder="eredmény" onclick="addnum(kime.innerHTML)" class="l"></span> <!-- Eredmény kiírása --><!--ħ-->  '
+        valtkod='<h1 class="covered red-antigene" >Univerzális átváltás</h1><table class="norjsx"><tr><td>Miben</td><td>     <select id="kategoria" onchange="kat(kategoria.options[kategoria.selectedIndex].value)" class="inp-text"><!--ħ-->       <!--ħ-->        <option value="tomeg">Tömeg</option><!--ħ-->        <option value="terfogat">Térfogat</option><!--ħ-->        <option value="hossz">Hossz</option><!--ħ-->        <option value="terulet">Terület</option><!--ħ-->        <option value="ido">Idő</option><!--ħ-->        <option value="sebesseg">Sebesség</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->    <tr><td><!--ħ-->    <!--ħ-->    Mennyit</td><td> <input type="text" id="rol" onkeyup="ir()"><!-- Mennyit szeretnénk átváltani? --></td></tr><!--ħ-->   <tr><!--ħ-->    <td>Miről</td><!--ħ-->    <td><!--ħ-->    <select id="mirol" onchange="ir()" class="inp-text"><!--ħ-->         <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->   <tr><td> Mire </td><!--ħ-->   <td><!--ħ-->    <select id="mire" onchange="ir()" class="inp-text"><!--ħ-->        <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->  <!--ħ-->    <!--ħ-->    </table><!--ħ-->    <!--ħ-->    <span id="kime"  placeholder="eredmény" onclick="addnum(kime.innerHTML)" class="l"></span> <!-- Eredmény kiírása --><!--ħ-->  '
 
-/**end*/
+/**end**/
 
 /*1367 TC6 Design*/

@@ -219,7 +219,7 @@ holder h1.expand.covered {
     background: #009688;
 }
 
-.red-antigene {
+.red-antigene , .green{
     background: #4caf50;
 }
 
@@ -238,7 +238,7 @@ holder h1.expand.covered {
 }
 
 .grey-dark {
-    background: #455A64;
+    background: #455A64 !important;
     color: white !important;
 
 }
@@ -251,6 +251,10 @@ holder h1.expand.covered {
 .red {
     background: #F44336;
     color: #F1F1F1 !important;
+}
+.white {
+    background:white;
+    color:#444 !important;
 }
 .indigo {
    background: #283593;
@@ -269,7 +273,10 @@ holder h1.expand.covered {
        box-shadow: 0px 2px 3px #444;
    float:right;
 }
-
+.blue {
+    background:#2196F3;
+    color:white !important;
+}
 /*toolbar*/
 .toolbar {
     user-select: none;

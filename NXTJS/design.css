@@ -29,7 +29,7 @@ nav header {
     left: 0;
     width: 250px;
     font-size: 30px;
-    height: 80px;
+    height: 70px;
     z-index: 99;
     animation: scrollIn .2s;
 }
@@ -42,7 +42,7 @@ header span {
 nav {
     font-family: 'Montserrat', sans-serif;
     background: var(--dark-primary);
-    height: 50px;
+    height: 40px;
     padding-top: 30px;
     display: block;
     color: #FEFEFE;
@@ -51,7 +51,7 @@ nav {
     opacity: 1;
     
 }
-nav , [web-drag] , #linkBack {
+nav , [app-drag] , #linkBack {
     -webkit-app-region: drag;
 }
 holder * {
@@ -65,7 +65,7 @@ nav.fixed {
 }
 
 nav header div {
-    padding-top: 20px;
+    padding-top: 15px;
 }
 
 holder > container.on,
@@ -85,7 +85,7 @@ container.sidebar {
     position: fixed;
     width: 299px;
     bottom: 0;
-    top: 30px;
+    top: 20px;
     left: 0;
     margin-left: 1px;
     overflow-y: scroll;
@@ -152,7 +152,7 @@ container.sidebar {
 }
 
 #tfill,
-.card {
+.card, #tfill2 {
     opacity: 1;
     margin: 50px auto;
     padding: 10px 25px 25px 25px;
@@ -188,7 +188,7 @@ container.sidebar {
     display: block;
     font-size: 30px;
     margin-left: 350px;
-    margin-top: -10px;
+    margin-top: -15px;
     text-transform: uppercase;
     transition: .2s;
 }
@@ -244,11 +244,11 @@ container.sidebar {
 #NineDotMenu {
     position: fixed;
     color: white;
-    top: 9px;
+    top: 7px;
     z-index: 99;
-    font-size: 36px;
-    right: 10px;
-
+    font-size: 32px;
+    right: 7px;
+-webkit-app-region: no-drag;
 }
 
 #NineDotMenu.on::after {
@@ -277,6 +277,28 @@ container.sidebar {
     animation: NineDotMenuBlack .6s;
 }
 
+.ctrls-l , .ctrls-x , .ctrls-m{
+    display: block !important;
+    -webkit-app-region: no-drag;
+    position: fixed;
+    top: 10px;
+    right: 80px;
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid var(--light-primary);
+    transition:all .1s;
+}
+.ctrls-l {
+    right:140px;
+}
+.ctrls-m {
+    right:200px;   
+}
+.ctrls-l:hover , .ctrls-x:hover , .ctrls-m:hover  {
+    background:var(--light-primary);
+    box-shadow:0px 0px 2px #222;
+}
 @keyframes NineDotMenuUp {
     0% {
         top: 100%;

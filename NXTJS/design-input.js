@@ -21,6 +21,18 @@ for (let switchI=0; switchI<$$('switch').length;switchI++) {
  $$('switch')[switchI].onclick=function(){changeSwitch(this)};
 }
 
+Node.prototype.setSwitchData = function(call) {
+    
+    if (this.tagName=="STATUS") {
+        if (call>100) call=100;
+        if (call<0)   call=0;
+        this.children[0].style.width="calc("+call+"% - 7px)";
+        this.setAttribute('value',call);
+    }
+    else {
+        throw "NXTJS TypeError: getSwitchData can only be run on status infos.";
+    }
+}
 //otitle expand
 for (resizeI=0; resizeI<$$('.otitle').length;resizeI++) {
     $$('.otitle')[resizeI].onclick = function(){
