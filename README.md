@@ -9,7 +9,6 @@
 ## Changes
 ```
  (-) removed jQuery
- (-) removed Polymer and Polyfome
  (-) removed all RJSX versions
  (-) removed old projects and restructured.
  (+) new API called NXT.js and nxt additions
