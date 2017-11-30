@@ -9,7 +9,8 @@
 ```
 (+) global localstorage varaibles in nxt.get(...)
 (+) NW app development begun
-(*) starting to export Tapcalk functionality to tcx (tapcalk express), rewriting main functions from calkr in calknew.js 
+(*) starting to export Tapcalk functionality to tcx (tapcalk express), 
+    rewriting main functions from calkr in calknew.js 
 
 (+) NXT css variables added. JS code is now encapsulated
 (*) cigi.html is changed to smoke, included in tools and is now in english
@@ -75,9 +76,9 @@
 
 > 5.2 SOTON _nxt.js and smaller projects_
 
-> 5.3.x CONNAUGHT
->> 5.3.0 _redesigning project and using nxt.js_
->> 5.3.2 _proper splash screen, tapcalk OOP works begin, distributable as standalone app_
+> 5.3.0 CONNAUGHT _redesigning project and using nxt.js_
+
+> 5.3.2 CONNAUGHT _proper splash screen, tapcalk OOP works begin, distributable as standalone app_
 
 
 
