@@ -129,7 +129,7 @@
 	</style>
 	</head>
 	<body>
-			<header>
+			<header app-drag>
 		  	<span><b>RONTAP</b> - NXT</span>
 		  </header>
 
@@ -146,11 +146,11 @@
 					</card>
 					<card style="text-align:justify;padding:20px 50px;font-size:18px;text-indent:30px;background:#EEE;" no>
 						<p>
-							rontap sites have existed since 2012, being rewritten multiple times.<br>
+							rontap sites have existed in some form since 2012.<br>
 							This is the fourth iteration, and includes a complete rewrite of almost every website and application, while including numerous new projects.<wbr>
 						</p>
 						<p>
-							I am currently studying Computer Science in <b>University of Southampton, UK</b> previusly went to Veres Peter Grammar School in Hungary.
+							I am currently studying Computer Science (BSc) in <b>University of Southampton, UK</b> previusly went to Veres Peter Grammar School in Hungary.
 						</p>
 					</card>
 				</container>
@@ -166,7 +166,7 @@
                 <b>TOOLS 3 </b>
                 <span>A collection of awesome tools like random generators, music player and more.</span>
             </card>
-            <card onclick="location.href='random.html'">
+            <card onclick="location.href='edu/tapcalk.html'">
                 <b>TAPCALK 6</b>
                 <span>A Calculator that has been developed deveeloped since 2012, rewritten multiple times. This time, it has been redesigned</span>
             </card>
@@ -176,15 +176,15 @@
 			<card class="title">
 			Games
 			</card>
-			<card onclick="location.href='ColorGame/'">
+			<card onclick="location.href='games/ColorGame/index.html'">
 				<b>Color Game</b>
 				<span>A simple game for passing time and getting too much involved in matching colors.</span>
 			</card>
-			<card onclick="location.href='ColorGame/'">
+			<card onclick="location.href='games/mine.html'">
 				<b>Mines</b>
 				<span>The copy of a well known game</span>
 			</card>
-			<card onclick="location.href='ColorGame/'">
+			<card onclick="location.href='games/SpeedGame/index.html'">
 				<b>Speed</b>
 				<span>A famous reaction-based card game.</span>
 			</card>
@@ -202,10 +202,7 @@
 				<span>A simple timer for those quitting</span>
 			</card>
 
-			<card onclick="location.href='money.html'">
-				<b>Riches (Hungarian)</b>
-				<span>a Real-Time app following the richest (and best) hungarian millionares.</span>
-			</card>
+			
 		</container>
 		<container>
 
@@ -226,10 +223,10 @@
 
 		<container>
 		<card class="title" style="background:#FFA726;">
-			Other Projects
+			Other Projects & Search
 			</card>
-            <card onclick="location.href='note_app.html'">
-                <center><i>more to come</i></center>
+            <card onclick="location.href='rtsmenu.html'">
+                <center><b>Check out the search of index here</b></center>
             </card>
 		</container>
 
@@ -263,11 +260,11 @@
 			<h1 style="text-align:center;border-bottom:1px solid #DDD;padding-bottom:30px;margin-bottom:0px;"> Previous Versions </h1>
 		 <div id="bottomHolder">
 
-			<div>
+			<div onclick="location.href='RTS2'">
 					<span> RJSX RTS <br> From 2012</span>
-			</div><div>
+			</div><div onclick="location.href='RTS3'">
 					<span> POLYMER RTS <br> From 2015</span>
-			</div><div>
+			</div><div onclick="location.href='RTS4'">
 					<span> RTS-NXT beta <br> From mid-2017</span>
 			</div>
 		</div>
@@ -326,6 +323,9 @@
 					content:'4';
 					color:#4CAF50;
 			}
+            :root {
+                --light-primary:#7986CB  ;
+            }
 		</style>
 
 	</body>
@@ -353,4 +353,6 @@
 			}
 		}
 	</script>
+        
+        <script src="NXTJS/design.js"></script>
 </html>

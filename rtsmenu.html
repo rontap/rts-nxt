@@ -1,26 +1,34 @@
 <!DOCTYPE HTML>
 
-<html>
+<html onclick="$('body').classList.remove('search');">
 
 <head>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <meta charset="UTF-8">
       <script src="NXTJS/jsplus.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="NXTJS/input-design.css">
+    <link rel="stylesheet" href="NXTJS/elements-design.css">
     <link rel="stylesheet" href="rtsmenu.css">
     <style>
-
+        :root {
+                --primary : #2196F3;
+                --dark-primary: #1976D2;
+                --light-primary: #BBDEFB;
+            }
 
     </style>
 </head>
 
-<body>
+<body >
 
     <div id="linkBack">
         <i class="material-icons" id="closeicon" onclick="goBack();">close</i>
-        <span>Close Menu</span>
+        
+        <input type class="holo" id="search" placeholder="Search RTS and the Web..." onclick="setTimeout( ()=>$('body').classList.add('search') , 10 );" onkeyup="updateTextSearch(event);" autocomplete="off">
+        
+        
     </div>
 
     <nav>
@@ -28,16 +36,17 @@
             <i class="material-icons" id="homeicon" >filter_frames</i>
             <span>Go to Welcome Page</span>
         </div>
+        
+        <br />
+        <h1>RonTap Sites Main Menu</h1>
 
-        <br /><br />
-        <h1>RonTapSites Main Menu</h1>
-
-
+            
+    
     <div id="linkClose">
 
-        <switch checked="true" id="menuSwitch">
-            <span style="margin-top: -2px;"><i class="material-icons">line_weight</i></span>
-            <span style="margin-top: -28px;"><i class="material-icons" >settings</i></span>
+        <switch checked="true" id="menuSwitch" onmouseup="$('body').classList.toggle('viewSettings');">
+            <span style="margin-top: -12px;"><i class="material-icons">line_weight</i></span>
+            <span style="margin-top: -48px;"><i class="material-icons" >settings</i></span>
         </switch>
         <span>View Websites / Settings</span>
      </div>
@@ -45,7 +54,27 @@
 
 
          </nav>
-
+<div id="searchResults">
+       <span id="searchResultsList"><center><br><i>Start typing...</i></center></span>  
+    
+    <br>
+    <span id="socMedia"> <b class="imp"  style="margin-bottom:0px;">Search in the Web and other engines</b> 
+    
+        <span onclick="location.href='https://www.google.com/search?q=' + encodeURI(search.value)"> 
+                <i style="color:#48f;"class="material-icons">search</i> <span>Google</span> </span>
+        <span onclick="location.href='explore/wiki.php?q=https://en.wikipedia.org/w/index.php?search=' + encodeURI(search.value)"> 
+                <i style="color:#444;"class="mont-imp">W</i> <span>Wikipedia</span> </span>
+        <span onclick="location.href='https://www.youtube.com/results?search_query=' + encodeURI(search.value) "> 
+                <i style="color:#f00;"class="mont-imp">Y</i> <span>Youtube</span> </span>
+        <span> 
+                <i style="color:#55acee;"class="mont-imp">T</i> <span>Twitter</span> </span>
+        <span onclick="location.href='https://web.archive.org/web/*/' + encodeURI(search.value)"> 
+                <i style="color:#ff6600;"class="mont-imp">A</i> <span>Web archive</span> </span>
+        
+    
+    </span>
+    </div>
+    
     <div id="errorholder">
         <div id="errorcontainer">
             <div id="e404">
@@ -62,9 +91,9 @@
         <hr>
     </div>
 
+    <div id="divider" style="margin-top:200px;"></div>
 
-
-
+    <div id="siteView">
     <article onclick="go('edu/tapcalk.html')">
         <h1>TAPCALK 6</h1>
         <span>simple calculator</span>
@@ -113,7 +142,16 @@
         <img src="">
         <div class="delta material-icons">blur_on</div>
     </article>
-
+</div siteview>
+<div id="settingsView" class="card">
+    <h1 class="covered grey-dark" style="margin:-20px -15px 0px -15px;">Settings</h1>
+    <br>
+    <table>
+    <tr><td><br>Dark Mode </td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
+    <tr><td><br>Mobile Mode </td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
+    <tr><td><br>Desktop Window Mode &nbsp;</td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
+        </table>
+</div>
     <script>
 
         mat300 = ['5c6bc0', 'ffd54f', 'E57373', '666', '673AB7','673AB7','90A4AE'];
@@ -138,21 +176,27 @@
             }, 350);
         }
 
-        window.onscroll = function() {
+        /*window.onscroll = function() {
             console.log(window.scrollY);
             if (window.scrollY > 100) {
                 $('body').classList.add('scroll');
             } else {
                 $('body').classList.remove('scroll');
             }
-        }
+        }*/
         if (location.hash!="") {
             $('#errorholder').style.display="block";
             $('#e'+location.hash.slice(1,9)).style.display="block";
         }
+        
+        $('body').addClass('viewSettings');
     </script>
 </body>
+<script>
 
+</script>
+    <script src="rtsmenu.js" type="text/javascript"></script>
+    <script src="edu/allaboutnumber.js" type="text/javascript"></script>
     <script src="NXTJS/design-input.js" type="text/javascript"></script>
 
 </html>

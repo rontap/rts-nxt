@@ -28,7 +28,7 @@
 
 </head>
 <body>
-<img src="bgtest.png">
+
 <nav class="fixed">
 	<header>
 <i class="material-icons" onclick="$('body').classList.toggle('sidebarMinimised')">menu</i>
@@ -51,8 +51,10 @@ TAPCALK 6 redesign
 	<!--a class="l" href="../rontap/ver.html#tc">4.7.5</a-->
 <!--this.classList.toggle('o-expanded')-->
 		<container id="tco" class="sidebar" onclick="">
-		<center id="kero" style="width: 284.40000000000003px;"><input placeholder="Keresés..." onkeyup="kutat(kera.value)" id="kera" style="width: 73%;margin-left: -5px" class="_square"></center>
-
+		<center id="kero" style="width: 284.40000000000003px;">
+            <input placeholder="Keresés..." onkeyup="kutat(kera.value)" id="kera" style="width: 73%;margin-left: -5px" class="">
+        </center>
+<br>
 		<div class="omenu" onclick="fillt('formula');" style="margin-top:38px;">Írd be! <span class="keyhint">0</span></div>
 
 	<div id="alapmuveletek" class="otitle"><div>Alapműveletek</div></div>
@@ -73,14 +75,13 @@ TAPCALK 6 redesign
         <div class="omenu" onclick="fillt('happy');">Boldog számok</div>
 
 	<div id="geometria" class="otitle"><div>Geometria</div></div>
-		<div class="omenu" onclick="fillt('sintg');">Szögfüggvények (sin) <span class="keyhint">S</span></div>
+		<div class="omenu" onclick="fillt('sintg');">Szögfüggvények (sin) Triangles <span class="keyhint">S</span></div>
         <div class="omenu" onclick="pageScroll();">Geometriai rajzoló</div>
-<!--		<div class="omenu">háromszög magassága</div>
-		<div class="omenu">háromszög területe</div>
-		<div class="omenu">pitagoras tétel</div>
-		<div class="omenu">kör kerülete</div>
-		<div class="omenu">kör területe</div>
-		-->
+		<div class="omenu">2D Négyszögek</div>
+		<div class="omenu">2D Egyéb objektumok</div>
+		<div class="omenu">Koordinátageometria</div>
+		<div class="omenu">3D objektumok</div>
+
 	<div id="atlag" class="otitle"><div>Átlagok</div></div>
         <div class="omenu" onclick="fillt('stat');">Statisztika</div>
 
@@ -113,27 +114,31 @@ TAPCALK 6 redesign
 
 	<br><br>
 
-        <!--div class="floatbox fbx-blue" style="padding:5px;color:#DDD;margin:10px;" onclick="about();"><center >Tapcalk 5.1</center><br>Készítette: rontap<br> Kattints ide további információkért és műveletekért.</div>-->
+        <div class="floatbox" onclick="about();">
+            <center >Tapcalk 6 Design Edition</center><br>created by: rontap<br> Click here for more information.
+        </div>
 
 	</container>
 
 
 </div>
 
-    <!--div class="floatbox fbx-white fbx-fixed fbx-message " id="aboluter" style=""><h1 class="ubi">A Tapcalk Névjegye</h1>
-        <table class="norjsx">
-    <tr><td>Készítette:</td><td> Tatai Áron</td><td> (rontap)</td></tr>
-    <tr><td>Geocalk:</td><td> Bálint Bence</td><td> (DeeSnow97)</td></tr>
-    <tr><td>Segédkezett:</td><td> Börcsök Barnabás</td><td> (bobarna)</td></tr>
-	<tr><td>Magyarosította:</td><td> Földi Dániel</td><td> (DaniFoldi)</td></tr>
+    <div class="floatbox fbx-white fbx-fixed fbx-message " id="aboluter" style="color:#222;background:#f1f1f1;border:1px solid #455A64;">
+        <h1 class="covered grey-dark" style="margin:-16px -16px 15px -16px;padding-bottom:20px;">about tapcalk 6 </h1>
+        TC6 <b>design update, using NXT.JS. <br>Started in 2017 September as  part of RTS-NXT</b>
+        <hr><table style="color:#444;">
+    <tr><td>Created By:</td><td> Aron Tatai</td><td> (rontap)</td></tr>
+    <tr><td>Translation:</td><td> Aron Tatai</td><td> (rontap)</td></tr>
+    <tr><td>Geocalk:</td><td> Bence Balint</td><td> (DeeSnow97)</td></tr>
+    <tr><td>Contributed:</td><td> Barnabas Borcsok</td><td> (bobarna)</td></tr>
             </table>
-     <br>Köszönet továbbá Kamubá-nak és Twinky-nek. <br>
-        <br>
+     <br>Thanks for Kamuba, Twinky, Daniel Foldi and Csikos-Nagy Mate for testing this software.<br>
+       
         <hr>
-        A gyorsbillentyűk a Ctrl és az Alt billentyűk egyidejű lenyomásával tekinthetőek meg.
-        <br>
-    Készül 2012 Szeptember 9.-e óta. <a href="ver.html#tc" class="l">Verziótörténet</a>   <br>
-    </div-->
+        Quick action shortcuts can be Viewed by pressing Ctrl+Alt
+        <hr>
+    In developement since 2012 September. | <a href="ver.html#tc" class="l">Version history</a>   <br>
+    </div>
 
     <style>
 
@@ -184,7 +189,7 @@ TAPCALK 6 redesign
 	<div id="euclidean" ondragstart="return false">
 	</div>
 
-</comment>
+
 
 <div id="primeListGrid" style="display:none;">
 		<checkbox checked="true" id="ulammegjel" onclick="showmeit();changeChBox(this);">Show Numbers</checkbox>
@@ -202,12 +207,10 @@ TAPCALK 6 redesign
 </div>
 
 
-	<!--@RJSX alert()-->
 
      <div id="blacker" class="mute" onclick="about();"></div>
-
+        <script src="allaboutnumber.js"></script>
 		<script src="tapcalkUi.js"></script>
-
 <script src="../NXTJS/design-input.js" type="text/javascript"></script>
 
 

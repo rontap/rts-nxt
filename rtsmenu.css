@@ -42,7 +42,7 @@
         }
         article {
             margin: 50px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0px 2px 4px #AAA;
             transition:all .2s;
             cursor: pointer;
@@ -73,7 +73,7 @@
           font-size: 67px;
           text-align: center;
           vertical-align: -20px;
-          padding-top: 40px;
+          padding-top: 36px;
           padding-bottom: 0px;
         }
         @keyframes show {
@@ -119,22 +119,26 @@
         }
 
         .delta {
-            margin: 5px -25px -25px -25px;
+            margin: 5px -25px -25px -20px;
             padding: 20px;
             background: #00796B;
             color: white;
             float: left;
-            height: 107px;
-            margin-top: -103px;
-            width: 107px;
+            height: 101px;
+            margin-top: -98px;
+            width: 96px;
         }
 
         nav {
+            top:0; right:0;
+            background:var(--primary);
+            position:absolute;
             text-align: center;
-            max-width: 450px;
+            left:0;
             margin: 0 auto;
-            padding: 50px 20px 20px 20px;
+            padding: 40px 20px 0px 20px;
             font-family: 'Montserrat', sans-serif;
+            color:white;
         }
 
         #buts {
@@ -167,6 +171,7 @@
             margin: 15px 5px;
             border-radius: 4px;
             transition: all .2s;
+            color:white;
         }
 
         #closeicon:hover,
@@ -178,7 +183,7 @@
 
         #linkBack {
             transition: all .4s;
-            z-index: -1;
+            z-index: 2;
         }
 
         #linkBack,
@@ -187,12 +192,12 @@
             top: 0;
             left: 0px;
             right: 0px;
-            padding: 0 15px;
-            background: #EEE;
+            height: 73px;
+            background: var(--primary);
         }
 
         #linkHome {
-            top: 50px;
+            top: 20px;
             position: absolute;
             background: transparent;
             text-align: left;
@@ -226,18 +231,46 @@
         #linkClose>span {
                left: 120px;
                 position: fixed;
-                margin-top: 19px;
+                margin-top: 47px;
         }
         #linkBack span:active {
             box-shadow: none;
         }
+
+        input.holo#search, body input.holo#search:hover {
+        padding:13px !important;
+        background:var(--light-primary) !important;
+        border:none !important;
+        width: 80%;
+        max-width: 700px;
+        min-width: 200px;
+        display: block;
+        margin-top:-19px;
+        font-size:20px;
+            margin-left: -38px;
+        color:black;
+            margin:0 auto;
+            margin-top:-63px;
+                background: white !important;
+    box-shadow: 0px 3px 4px var(--dark-primary);
+    opacity: .9;
+        
+    }
+    input.holo::placeholder {
+        color:#444;
+        font-style: italic;
+    }
+    body input.holo#search:active  , body input.holo#search:focus {
+        box-shadow: 0px 0px 4px #222;
+        opacity: 1;
+    }
 
         h1 {
             font-size: 32px;
         }
 
         #homeicon {
-            color: #444;
+            color: #fff;
             cursor: pointer;
         }
         /*errors*/
@@ -269,6 +302,9 @@
             position: absolute;
             left: 15px;
             height: 21px;
+            top:180px;
+                width: 36px;
+    padding-left: 3px;
         }
         switch[checked="true"] {
             background: #444;
@@ -276,3 +312,149 @@
         switch {
             background: #1E88E5;
         }
+
+/**/
+body.search #linkBack {
+    transition: all .4s;
+    background:var(--dark-primary);
+}
+body.search #searchResults {
+    max-height:700px;
+    padding-bottom: 30px;
+    opacity: 1;
+}
+#searchResults {
+    overflow: hidden;
+    z-index: 9;
+    position: fixed;
+    top:72px;
+    left:0; right:0;
+    background:white;
+    max-height:50px;
+    opacity:0;
+    box-shadow: 0px 2px 5px #888;
+    transition: opacity .4s, max-height .2s;
+}
+#searchResults div {
+        max-width: 600px;
+    margin: 10px auto;
+    padding:2px 20px;
+    border-radius: 4px;
+    color:#111;
+    transition: all .2s;
+}
+#searchResults div:hover,  #searchResults div.on{
+    background: var(--dark-primary);
+    cursor: pointer;
+    color:White;
+}
+#searchResults div i {
+    transition: all .2s;
+        vertical-align: -4px;
+    margin-right: 10px;
+    font-size:20px;
+    color:#444;
+    
+    
+}
+#socMedia span i {
+        text-align: center;
+    font-size: 30px;
+    display: block;
+    padding-bottom: 10px;
+}
+#socMedia span:hover i {
+    color:white !important;
+}
+#searchResults div:hover i, #searchResults div.on i {
+    color:white !important;
+}
+#searchResults b.imp {
+    font-family: 'Montserrat';
+    text-transform: uppercase;
+        max-width: 600px;
+    margin: 25px auto 30px auto;
+    display: block;
+    font-size: 12px;
+    color: #444;
+    
+}
+#socMedia {
+    max-width: 600px;
+    display: block;
+    margin:0 auto;
+    
+}
+#socMedia>span {
+    display: inline-block;
+    padding:20px;
+    border-radius: 6px;
+    transition: .2s;
+    border:2px solid white;
+}
+#socMedia>span:hover {
+    background: var(--primary);
+    border:2px solid var(--primary);
+    color:White !important;
+}
+#socMedia>span.on {
+    border:2px solid var(--primary);
+}
+#socMedia>span>span {
+    display: block;
+}
+
+.mont-imp {
+    font-family: 'Montserrat';
+    font-weight: bold;
+    font-style: normal;
+    opacity: .8;
+    
+}
+
+body.viewSettings #siteView {
+    display: none;
+}
+body.viewSettings #settingsView {
+    display: block;
+}
+body #settingsView {
+    display: none;
+}
+toggle {
+    display: inline-block;
+    padding:5px;
+    cursor: pointer;
+    vertical-align: -9px;
+}
+toggle::before {
+       content: '';
+    display: block;
+    width: 40px;
+    height: 10px;
+    background: #bbb    ;
+    border-radius: 5px;
+    transition: all .2s;
+}
+toggle::after {
+   content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #48f;
+    background: var(--dark-primary);
+    border-radius: 10px;
+    margin-top: -15px;
+    margin-left:-1px;
+    transition:all .2s;
+    box-shadow: 0px 2px 2px #999;
+}
+toggle.on::before {
+    background: #999;
+}
+toggle:hover::after {
+    box-shadow: 0px 2px 4px #888;
+}
+toggle.on::after {
+    margin-left:21px;
+}

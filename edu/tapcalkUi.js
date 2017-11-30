@@ -28,13 +28,13 @@
 function about() {
     if (!isopened)
     {
- $('#aboluter').addClass("on")  ;
- $("#blacker").removeClass("mute");
+ $('#aboluter').classList.add("on")  ;
+ $("#blacker").classList.remove("mute");
         isopened=true;
     }
     else {
- $('#aboluter').removeClass("on")  ;
- $("#blacker").addClass("mute");
+ $('#aboluter').classList.remove("on")  ;
+ $("#blacker").classList.add("mute");
          isopened=false;
     }
 }

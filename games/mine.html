@@ -17,7 +17,7 @@
 	<header>
 		<div>Games</div></header>
         <span id="pageTitle">Minesweeper Ultimate</span>
-	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
 </nav>
     
     
@@ -44,7 +44,11 @@
             <tr><td>Bombs:</td>
                  <td><input type="number" id="newb" min="0" max=""  class="short non-expand" value="5"> </td>
            </tr>     
+          
         </TABLE>  <hr>
+            Difficulty:<br>
+             <status value="40" block id="diffShow"></status>
+            <br>
            <button real onclick="newgame();">New Game</button>
         </div>
     </div>
@@ -81,6 +85,7 @@
 :root {
     --primary:#673AB7;
     --dark-primary :#512DA8; 
+    --light-primary:#5C6BC0;
 }
     
 @import url(http://fonts.googleapis.com/css?family=Audiowide);
@@ -93,16 +98,17 @@
     }
     
     #jatekter tr td {
+        background: white;
         font-family: 'Audiowide';
         width: 50px;
         height: 50px;
         text-align:center;
         transition:background .4s, border .2s;
-        border: 3px solid transparent;
+        border: 2px solid transparent;
     }
     #jatekter tr td:hover {
         cursor: pointer;
-        border:3px solid #DDD;
+        border:2px solid #DDD;
     }
     holder {
            max-width: 800px;
@@ -139,12 +145,22 @@ height: 52px;
 
     }
 </style>
-    
-<hr>
-    
+ <script>
+     function updateHardness() {
+         xw = Number(newv.value );
+         xh = Number(newh.value );
+         xb = Number(newb.value );
+         $('#diffShow').setSwitchData(  Math.round((xb*2 /( xw*xh) )*100  ))
+     }
+     newv.onchange = function() { updateHardness() ; }
+     newh.onchange = function() { updateHardness() ; }
+     newb.onchange = function() { updateHardness() ; }
+</script>   
+
  <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
  <script src="mine.js" type="text/javascript"></script>
  <script src="../NXTJS/design.js" type="text/javascript"></script>
+ <script src="../NXTJS/design-input.js" type="text/javascript"></script>
     
 </BODY>
 </HTML>
