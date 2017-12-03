@@ -1,4 +1,4 @@
-//JS EMCASCRIPT 5 Additions
+//JS EMCASCRIPT 5/6 Additions
 
 //GNU GPL v3 Licence
 
@@ -41,7 +41,7 @@ Array.prototype.last = function() {
 //-----------------MATHEMATIC-OPERATIONS---------------------------
 //-----------------------------------------------------------------
 
-Math.spread = function(call /*array*/)
+Math.spread = /*returns number*/ function(/*array*/ call)
 {
    let avg = Math.avg(call);
    let temp = []
@@ -51,21 +51,21 @@ Math.spread = function(call /*array*/)
    return Math.sqrt(Math.sum(temp)/(temp.length));
 }
 
-Math.sum = function(call /*array*/) {
+Math.sum = function(/*array*/ call ) {
     let temp=0;
     for (i=0; i<call.length;i++) {
         temp+=Number(call[i]);
     }
     return temp;
 }
-Math.avg = function(call /*array*/) {
+Math.avg = function(/*array*/ call ) {
     let a=0;
     for (let i=0; i<call.length;i++) {
         a+=call[i];
     }
     return Math.round(a/call.length);
 }
-Math.prime = function(call /*single number*/) {
+Math.prime = /*returns array*/ function(/*number*/ call) {
   let divide=[];
   for (let q = 2; q < Math.sqrt(call) + 1; q++) {
       if (call % q == 0) divide.push(q);
@@ -73,19 +73,31 @@ Math.prime = function(call /*single number*/) {
   return divide; /*array of dividers, all of them*/
 }
 
-Math.isPrime = function(call /*single number*/) {
+Math.isPrime = /*returns boolean*/ function(/*number*/ call) {
   if (Math.prime(call).length==0) return true;
   else return false;
+
 }
-Math.randInt = function(upTo /*int*/) {
+Math.randInt = function(/*number*/ upTo) {
   return Math.floor(Math.random()*upTo);
+}
+
+Math.factorial = function(number /*int*/, serialise) { /*factorisation*/
+  if (typeof serialise === 'undefined')     return Math.factorial(number,number);
+  else if (serialise>1)                     return Math.factorial(number*(--serialise),serialise);
+  else if (number!=0)                       return number
+  else                                      return 1
+}
+
+Math.choose = function( n , k ) { /* permutation, n under k*/
+  if (k>n) throw 'NXT.JS RangeError: in (n choose k) , n must be >= than k';  //fancy error handling
+  return ( Math.factorial(n) / ( Math.factorial(k) * Math.factorial(n-k) ) )
 }
 
 Number.prototype.pad = function() {/*padding number for dates and stuff*/
   if (this<10) return String("0"+this);
   else return String(this);
 }
-
 
 //-----------------------------------------------------------------
 //-----------------COLOR-GENERATION--------------------------------
@@ -209,7 +221,7 @@ if (localStorage.nxtDataStore==undefined) {
     localStorage.nxtDataStore = JSON.stringify(temp);
 }
 var nxt = {
-  build : 1401, 
+  build : 1325,
 
   openMenu : function(call) {
     $$('#NineDotMenu')[0].classList.add("on");
@@ -233,6 +245,13 @@ var nxt = {
    setStore : function(elem, to) {
       nxt.internalNXTStorage[elem] = to;
       localStorage.nxtDataStore = JSON.stringify(nxt.internalNXTStorage);
+   },
+   setNormalisation : function(call) {
+     let temp = [];
+     for ( i=0 ; i<call.length ; i++ ) {
+       if (temp.indexOf(call[i])==-1) temp.push( call[i] );
+     }
+     return temp;
    }
 
 }

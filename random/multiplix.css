@@ -1,6 +1,7 @@
 :root {
     --primary:#EC407A;
     --dark-primary:#E91E63;
+    --light-primary:#F48FB1;
 }
 
 nav header {
@@ -33,7 +34,7 @@ position:fixed;
 left:0px;
 width:300px;
 background:white;
- top:80px; bottom:0;
+ top:70px; bottom:0;
 border-right:1px solid #AAA;
 }
 #userNamesHolder {
@@ -75,7 +76,7 @@ right: 0%;
   opacity:1;
  position:fixed;
  width:30%;
- top:0; bottom:0; background:#e5e5e5;
+ top:70px; bottom:0; background:#e5e5e5;
 
  z-index: 99;
 }
@@ -103,19 +104,19 @@ border-color:#EC407A !important;
   border-color:#48F;
 }
 #snippets div#snippetHeader {
- background: #E91E63;
- height: 105px;
+
+ height: 95px;
     margin-top: -25px;
 }
 .menuItem {
 max-width: 200px;
 margin: 0 auto;
-padding-top:30px;
+padding-top:35px;
 text-transform: uppercase;
 font-family: 'Montserrat', sans-serif;
 text-align:center;
 font-size:13px;
-
+zoom:.9;
 }
 .menuItem>span {
  padding:7px 11px;
@@ -141,6 +142,11 @@ border-radius: 4px 0px 0px 4px;
 border:2px solid #FFA726;
 border-radius: 0px 4px 4px 0px;
 margin-left:-4px;
+}
+.menuItem switch {
+        position: fixed;
+    top: 4px;
+    right: 290px;
 }
 
 #userSpace {

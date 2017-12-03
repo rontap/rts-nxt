@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
       <script src="NXTJS/jsplus.js" type="text/javascript"></script>
+      <script src="NXTJS/sets.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="NXTJS/input-design.css">
     <link rel="stylesheet" href="NXTJS/elements-design.css">
@@ -25,10 +26,10 @@
 
     <div id="linkBack">
         <i class="material-icons" id="closeicon" onclick="goBack();">close</i>
-        
+
         <input type class="holo" id="search" placeholder="Search RTS and the Web..." onclick="setTimeout( ()=>$('body').classList.add('search') , 10 );" onkeyup="updateTextSearch(event);" autocomplete="off">
-        
-        
+
+
     </div>
 
     <nav>
@@ -36,12 +37,12 @@
             <i class="material-icons" id="homeicon" >filter_frames</i>
             <span>Go to Welcome Page</span>
         </div>
-        
+
         <br />
         <h1>RonTap Sites Main Menu</h1>
 
-            
-    
+
+
     <div id="linkClose">
 
         <switch checked="true" id="menuSwitch" onmouseup="$('body').classList.toggle('viewSettings');">
@@ -55,26 +56,26 @@
 
          </nav>
 <div id="searchResults">
-       <span id="searchResultsList"><center><br><i>Start typing...</i></center></span>  
-    
+       <span id="searchResultsList"><center><br><i>Start typing...</i></center></span>
+
     <br>
-    <span id="socMedia"> <b class="imp"  style="margin-bottom:0px;">Search in the Web and other engines</b> 
-    
-        <span onclick="location.href='https://www.google.com/search?q=' + encodeURI(search.value)"> 
+    <span id="socMedia"> <b class="imp"  style="margin-bottom:0px;">Search in the Web and other engines</b>
+
+        <span onclick="location.href='https://www.google.com/search?q=' + encodeURI(search.value)">
                 <i style="color:#48f;"class="material-icons">search</i> <span>Google</span> </span>
-        <span onclick="location.href='explore/wiki.php?q=https://en.wikipedia.org/w/index.php?search=' + encodeURI(search.value)"> 
+        <span onclick="location.href='explore/wiki.php?q=https://en.wikipedia.org/w/index.php?search=' + encodeURI(search.value)">
                 <i style="color:#444;"class="mont-imp">W</i> <span>Wikipedia</span> </span>
-        <span onclick="location.href='https://www.youtube.com/results?search_query=' + encodeURI(search.value) "> 
+        <span onclick="location.href='https://www.youtube.com/results?search_query=' + encodeURI(search.value) ">
                 <i style="color:#f00;"class="mont-imp">Y</i> <span>Youtube</span> </span>
-        <span> 
+        <span>
                 <i style="color:#55acee;"class="mont-imp">T</i> <span>Twitter</span> </span>
-        <span onclick="location.href='https://web.archive.org/web/*/' + encodeURI(search.value)"> 
+        <span onclick="location.href='https://web.archive.org/web/*/' + encodeURI(search.value)">
                 <i style="color:#ff6600;"class="mont-imp">A</i> <span>Web archive</span> </span>
-        
-    
+
+
     </span>
     </div>
-    
+
     <div id="errorholder">
         <div id="errorcontainer">
             <div id="e404">
@@ -188,7 +189,7 @@
             $('#errorholder').style.display="block";
             $('#e'+location.hash.slice(1,9)).style.display="block";
         }
-        
+
         $('body').addClass('viewSettings');
     </script>
 </body>
