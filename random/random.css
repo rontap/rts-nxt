@@ -5,6 +5,7 @@ header { width:300px !important;}
 :root {
     --primary:#FFA726;
     --dark-primary :#FF9800; 
+    --light-primary:#FFCC80;
 }
 #splash h1 {
         

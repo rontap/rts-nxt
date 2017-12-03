@@ -4,73 +4,182 @@
 <script src="../api/note.js"></script>
 <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
-	
-	
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 <body >
 <nav id="mnav">
-	.4
+	<div id="title">MEK:READER
+		<i class="material-icons" id="arr_back">arrow_backward</i>
+	</div>
 	<div onclick=location.search=''><!--POWER MEK --></div>
-	|
-	<button>go back</button>
-	<button onclick="goUp();">go up</button>
-	|
-	<button onclick="$('html, body').animate({scrollTop: '0px'}, 800);">scroll top</button>
-	<button onclick="chapter(-1);">last chapter</button>
-	<button onclick="chapter(1);">next chapter</button>
-	<input type="number" style="width:50px;" id="currChapter" value="0">
-	|
-	<input type="checkbox" label="NightMode"
-		   onchange="$('body').toggleClass('night');"
-		   >NightMode
-	|
-	<button onclick="makefav();alert('Added to Favourites!')">add to favourites</button>
-	<select id="favs">
-		<option>favourites</option>
-	</select>
-	<button onclick='alert("clearing all favourites");localStorage.removeItem("MEKfav");location.reload()'>X</button>
-	|
-	<button onclick="makestat();">stat</button>
-	|
-	<button onclick="">search MEK</button>
+
+
+	<!--button onclick="goUp();">go up</button--->
+
+	<input class="holo" placeholder="navigate in power MEK">
+	<button onclick="$('html, body').animate({scrollTop: '0px'}, 800);"  id="upChap"><i class="material-icons">vertical_align_top</i></button>
+	<button onclick="chapter(-1);" id="prevChap"><i class="material-icons">arrow_upward</i></button>
+	<button onclick="chapter(1);" id="nextChap"><i class="material-icons">arrow_downward</i></button>
+	<input type="number" id="currChapter" value="0">
+
+	<switch checked="true" onmouseup="$('body').classList.toggle('night');" id="lightSwitch"><span>Light Mode</span><span>Night Mode</span></switch>
+
+
+	<!--button onclick="">search MEK</button-->
 </nav>
-	
-	
+
+<div id="favbar">
+	favourites
+	<!--button onclick="makefav();alert('Added to Favourites!')" id="addStar">add to favourites</button-->
+	<select id="favs">
+		<option>favourites: </option>
+	</select>
+	<button onclick='alert("clearing all favourites");localStorage.removeItem("MEKfav");location.reload()' id="clearStar">remove</button>
+	<!--button real onclick="makestat();" style="margin-left:42px;">show statistics</button-->
+
+
+	<i class="material-icons fab h1-connect-fab" style="background: #607d8b;    color: white;    margin-top: -27px;">star</i>
+</div>
+
 <footer>
-	<div id="progressbar" data="0"></div>
-	<div id="progressbar-fill" ></div>
+	<status value="100" block=""><div></div></status>
+
+	<i id="expandBtn" class="material-icons">keyboard_arrow_up</i>
 </footer>
 <aside></aside>
 
 <style>
+#expandBtn {
+	margin-top: -29px;
+margin-left: 790px;
+color: #222;
+}
+status {
+	    width: 200px;
+}
+#lightSwitch {
+	margin-top:0;
+	margin-left:130px;
+	position:absolute;
+	padding: 6px 15px;
+}
+input.holo {
+margin-top: -40px !important;
+	position: absolute;
+border: none !important;
+width: 80%;
+max-width: 700px;
+min-width: 400px;
+display: block;
+font-size: 17px;
+padding:10px !important;
+margin-left: -38px;
+color: black;
+    right: 5px;
+background: white !important;
+box-shadow: 0px 3px 4px var(--darker-primary);
+opacity: .9;
+left:560px;
+}
+
+
+#arr_back { position: absolute;
+    border-radius: 4px;
+    border: 1px solid #8D6E63;
+    width: 25px;
+    left: 187px;
+    display: block;
+    top: 5px;
+
+}
+#title {
+	display: inline-block;
+	background:red;
+	padding: 18px 17px 18px 18px;
+	margin:-10px;
+	background: #8D6E63;
+}
+#clearStar {
+	background:#ddd;
+	border-radius: 4px;
+	color:#444;
+	border:none;
+	padding: 5px;
+	text-align:center;
+	display: inline-block;
+	margin-left:10px;
+}
+#favs {
+
+	height: 60px;
+border: none;
+border-bottom: 2px solid #607d8b;
+}
+#favbar {
+	position:absolute;
+
+		padding:0 40px;
+	background:white;
+	top:60px;
+	height:60px;
+	left:0; right:0;
+}
+:root {
+	--dark-primary:#795548 !important;
+	--primary:#8D6E63 !important;
+	--darker-primary: #5D4037 !important;
+}
+#prevChap, #nextChap, #currChapter, #upChap {
+	margin-left: calc( 50% - 530px);
+	position:fixed;
+	left:30px;
+	top:200px;
+	background:#f1f1f1;
+	border-radius: 4px;
+	border:none;
+	border:1px solid #bbb;
+}
+#currChapter {
+  top:255px;
+	width:61px;
+	text-align: center;
+}
+#nextChap {
+	top:287px;
+}
+#upChap {
+	bottom:14px;
+	top:auto;
+}
 	#progressbar {
-	height:30px;
+	height:20px;
 		width:160px;
 		border:1px solid rgba(50,50,50,.6);
-	
+
 	}
 	#progressbar::after {
 	    content: attr(data) '%';
     position: absolute;
-    margin-top: 5px;
+    margin-top: 0px;
     color: white;
     font-size: 14px;
     margin-left: 120px;
     z-index: 99;
-    text-shadow: 2px 0px 0px #222;
+    text-shadow: 0px 0px 1px #999;
 	}
 	#progressbar-fill {
 
-			background-image:linear-gradient(45deg,transparent 25%, rgba(50,50,50,.6) 25%,rgba(50,50,50,.6) 50%,transparent 50%,transparent 75%,rgba(50,50,50,.6) 75%,rgba(50,50,50,.6));
-		    background-size: 20px 20px;
+			background:#666;
 		position:absolute;
-		margin-top:-31px;
-		height:30px;
+		margin-top:-21px;
+		height:20px;
 		width:0px;
 		border-right:1px solid rgba(50,50,50,.6);
 	}
 	CONTAINER, CONTAINER a, CONTAINER table {
-	transition:.4s;	
+	transition:.4s;
 	}
 	CONTAINER, aside {
 		font-family: 'PT Serif', serif;
@@ -90,35 +199,41 @@
 	}
 	nav, footer {
 	position:fixed;
-	left:0; 
-	background:#795548;
+	left:0;
+	background:white;
 	height:30px;
-    font-family: 'PT Sans', sans-serif;
+
 	padding:10px;
+	border-top:1px solid #ddd;
 	}
 	nav {
 		 top:0;right:0;
+		 box-shadow:0px 2px 4px #666;
+		 padding-top:10px !important;
+
 	}
 	footer {
-	left:0; 
-		bottom:0; height:30px;	background:#48F;
-		margin:10px;
+	left:calc(50% - 425px);
+	width:830px;
+		bottom:0; height:25px;	background:#48F;
 		min-width:165px;
-		opacity:0.7;
-		width:165px;
+		opacity:0.98 !important;
 		transition:.2s;
+	background:white;
+	}
+	footer#expandBtn {
+
 	}
 	footer:hover {
-	opacity:1;	
-		width:50%;
-		min-width:600px;
+	opacity:1;
+
 	}
-	
+
 	nav div {
-	color:white;	
+	color:white;
 		font-size:20px;
 		display:inline-block;
-		
+
 	}
 	.glow {
 		transition:.4s;
@@ -134,16 +249,16 @@
 	}
 	/*night mode*/
 	.night {
-	
+
 	}
 	.night CONTAINER {
 
-		background:#444;		
-		color:#ddd;	
+		background:#444;
+		color:#ddd;
 	}
 	.night CONTAINER table * {
-		
-		color:#ddd;	
+
+		color:#ddd;
 	}
 	.night CONTAINER a {
 		color:#aaa;
@@ -154,10 +269,19 @@
 	.night {
 		background:#444;
 	}
+	CONTAINER {
+		margin-top:170px !important;
+		font-family: 'Open Sans', sans-serif;
+		padding:25px;
+		background:#f1f1f1;
+	}
+	body {
+		background:#ddd !important;
+	}
 </style>
 <script>
-//navigation code 
-	
+//navigation code
+
 
 console.log('hello');
 	function makestat() {
@@ -177,13 +301,13 @@ console.log('hello');
 	$('#favs').change(function(){
 		location.search=favs.options[favs.selectedIndex].value;
 	});
-	
+
 	favourites ={a:[]};
 	if ( localStorage.MEKfav !== undefined ) {
 			favourites.a=JSON.parse(localStorage.MEKfav);
 		for ( i=0; i< favourites.a.length ;i++) {
 				favs.innerHTML+="<option value="+
-					favourites.a[i][0]+">" + 
+					favourites.a[i][0]+">" +
 					favourites.a[i][1] + "</option>"
 		}
 	}
@@ -192,29 +316,29 @@ console.log('hello');
 		favs.innerHTML+="<option value="+
 			favourites.a[favourites.a.length-1][0]+">" +
 			favourites.a[favourites.a.length-1][1] + "</options>";
-		
+
 		localStorage.MEKfav=JSON.stringify(favourites.a);
 	}
-	
-	
+
+
 	//go up
 	function goUp() {
 	var text = location.search	;
 	if ( 0>(text=location.search.search('//'))) 	{
 		output = location.search.slice(
-			3 ,location.search.lastIndexOf('/') 
+			3 ,location.search.lastIndexOf('/')
 			)
 	}
 	else {
 		output = location.search.slice(
-			3 ,location.search.lastIndexOf('//') 
+			3 ,location.search.lastIndexOf('//')
 			)
 	}
-		
+
 	location.href="mek.php?q="	+ output
 	}
-	
-	
+
+
 </script>
 
 <CONTAINER >
@@ -226,19 +350,19 @@ console.log('hello');
 	$dom->loadHTML($html);
 	$body = "";
 	foreach($dom->getElementsByTagName("body")->item(0)->childNodes as $child) {
-		
-		
-		
+
+
+
 		$body .= $dom->saveHTML($child);
 	}
 	echo $body;
 ?>
 </CONTAINER>
-	
+
 <meta charset="UTF-8">
 <script>
-//removing	
-	
+//removing
+	$$ = function(call) {return document.querySelectorAll(call)};
 	function removeStyles(el) {
     el.removeAttribute('style');
 
@@ -249,59 +373,60 @@ console.log('hello');
                 removeStyles(el.childNodes[child]);
         }
     }
-   
+
 }
 	$('img[src]').each(function(){
 				$(this).attr('src', 'http://mek.oszk.hu/'+ location.search.slice(2,Infinity) + '/' +$(this).attr('src'));
-			})	
+			})
 
 
-	$("img").error(function () { 
-		$(this).hide(); 
+	$("img").error(function () {
+		$(this).hide();
 	});
 	$('a[href]').each(function(){
 		if ( $(this).attr('href').search('#')<0)
 		{
-	
-		$(this).attr('href', 'mek.php?q=' 
-		 + location.search.slice(3,Infinity) 	
-		 + '/' 
+
+		$(this).attr('href', 'mek.php?q='
+		 + location.search.slice(3,Infinity)
+		 + '/'
 		 +$(this).attr('href'));
 	}
 	else if ( $(this).attr('href').search('#')>0 ){
 		console.log(this);
-		alert();
+		//alert();
 		$(this).attr('href', 'mek.php?q='  +$(this).attr('href'));
 	}
-	
-        })	
+
+        })
 	$('form[action]').each(function(){
             $(this).attr('action', 'mek.php?q='+$(this).attr('action'));
-        })	
+        })
 
-	
+
 	//SCROLL
 	document.onscroll = function(){
-		
+
 			a=offsetChecker(scrollY);
 			chapterCurrent=a;
 			console.log(a);
 			currChapter.value=chapterCurrent;
 			var at= (document.body.scrollTop +658)/ document.body.offsetHeight ;
-			$('#progressbar-fill').css('width', 160 * at +'px');
-		$('#progressbar').attr('data', Math.round(100* at) );
+			console.log(at);
+			$('#progressbar-fill').setSwitchData(at);
+		//$('#progressbar').setAttribute('data', Math.round(100* at) );
 		//$('html, body').animate({scrollTop: chapterOffset[a]-60+'px'}, 100);
-		
+
 	};
 	function offsetChecker(call) {
-		
+
 		for (var i=0; i<chapterNumbers; i++) {
 			if 	(chapterOffset[i]>call) return i;
-		}	
+		}
 	}
-	
+
 	//CHAPTER
-	chapterNumbers=$('p[align="center"],h3').length;
+	chapterNumbers=$('p[align="center"]').length;
 	chapterOffset=[];
 	chapterCurrent=0;
 	secI=0;
@@ -312,20 +437,20 @@ console.log('hello');
 		secI++;
 	}
 
-		
+
 	function chapter(call) {
 		chapterCurrent+=call;
 		var temp= chapterOffset[chapterCurrent];
-		$('html, body').animate({scrollTop: temp-60+'px'}, 100);
-		
+		$('html, body').animate({scrollTop: temp-50+'px'}, 100);
+
 	}
-	//epic text selector 
+	//epic text selector
 	$('container').click(function(){
 		$('container span').removeClass('glow');
 	});
-							
+
 	$('container').dblclick(function(){
-		$('container span').removeClass('glow');
+		$('container span').classList.remove('glow');
 		sel=window.getSelection().toString();
 		if (sel.slice(sel.length-1,Infinity)==' ') {
 			sel=sel.slice(0,sel.length-1);
@@ -337,10 +462,17 @@ console.log('hello');
 			endPosition=sel.length;
 			console.log(startPosition,endPosition);
 			$(selObj[i]).html(
-					$(selObj[i]).html().slice(0,startPosition) + '<span class="glow">' + 
+					$(selObj[i]).html().slice(0,startPosition) + '<span class="glow">' +
 					$(selObj[i]).html().slice(startPosition,startPosition+endPosition) + '</span>' +
-					$(selObj[i]).html().slice(startPosition+endPosition,Infinity)					
-				)			
-		}	
+					$(selObj[i]).html().slice(startPosition+endPosition,Infinity)
+				)
+		}
 		});
 </script>
+
+
+<link rel="stylesheet" href="../NXTJS/elements-design.css">
+<link rel="stylesheet" href="../NXTJS/design.css">
+<link rel="stylesheet" href="../NXTJS/input-design.css">
+<link rel="stylesheet" href="../NXTJS/mobile.css">
+<script src="../NXTJS/design-input.js" type="text/javascript"></script>

@@ -5,7 +5,7 @@
         <div>WIKI</div>
           <span></span>
       </nav>
-      
+
       <style>
       nav {
           height:50px;
@@ -26,7 +26,7 @@
             padding: 5px;
             padding-left: 60px;
               transition: all .4s;
-			     
+
           }
           nav.on {
               background:#48F;
@@ -42,7 +42,7 @@
               color:white;
               font-weight: 200;
               opacity: 0;
-            
+
                 font-size: 30px;
               transition:all .4s;
           }
@@ -50,12 +50,11 @@
   </template>
 </polymer-element>
 
-    <polymer-element name="mw-bottom-navigator" noscript>
-      <template>
+
           <footer>
-          <div class="fc">FOCUS</div>														  <div class="fc" onclick="linkstoggle();" id="fc_linkson">LINKS ON</div> 
-			<div class="fc" id="night-toogle" onclick="$('body').toggleClass('night');$(this).toggleClass('on');">NIGHT MODE</div> 
-          </footer>
+          <div class="fc">FOCUS</div>														  <div class="fc" onclick="linkstoggle();" id="fc_linkson">LINKS ON</div>
+			<div class="fc" id="night-toogle" onclick="$('body').toggleClass('night');$(this).toggleClass('on');">NIGHT MODE</div>
+</footer>
 
           <style>
               footer {
@@ -65,10 +64,10 @@
               left:0px;
               right:0px;
               background:white;
-              border-top:1px solid #ddd;  
+              border-top:1px solid #ddd;
               }
               .fc {
-				  
+
                   display: inline-block;
                   padding: 5px 10px;
 				  margin-left:-5px;
@@ -82,6 +81,9 @@
                   background:#48f;
                   color:white;
               }
+
+
+
           </style>
           <script>
 
@@ -96,18 +98,18 @@ console.log('hllo');
     areLinksToggled=false;
      function linkstoggle() {
          if (!areLinksToggled)
-         {        
+         {
           $('html /deep/ #fc_linkson').addClass('on');
           $('html /deep/ #fc_linkson').html("LINKS OFF");
          areLinksToggled=true;
              $('body').addClass('focus_links');
          }
-         else {        
+         else {
           $('html /deep/ #fc_linkson').removeClass('on');
-          $('html /deep/ #fc_linkson').html("LINKS ON");  
+          $('html /deep/ #fc_linkson').html("LINKS ON");
              areLinksToggled=false;
              $('body').removeClass('focus_links');
          }
       }
-    
+
 </script>

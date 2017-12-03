@@ -139,8 +139,9 @@ function switchStopper() {
 function lookAtTheStopper() {
   currentDate = new Date().getTime();
   elapsedTime = currentDate - startTimeStopper;
-  $$('#stopHolder status div')[0].style.width=Math.floor((elapsedTime%(3600*1000)/1000)/60)/60*100 + "%";
-  $$('#stopHolder status div')[1].style.width=Math.floor((elapsedTime%(60*1000)/1000))/60*100 + "%";
+    
+  $$('#stopHolder status')[0].setSwitchData(Math.floor((elapsedTime%(3600*1000)/1000)/60)/60*100);
+  $$('#stopHolder status')[1].setSwitchData(Math.floor((elapsedTime%(60*1000)/1000))/60*100);
 
   $('#timerCurrent').innerHTML=Math.floor(elapsedTime/(3600*1000)/1000) + ':' + Math.floor((elapsedTime%(3600*1000)/1000)/60) + ':' + Math.floor((elapsedTime%(60*1000)/1000));
 
@@ -151,8 +152,8 @@ function resetStopper() {
   elapsedTime=0; startTimeStopper=0;
   isStopperOn=false;
   $("#stopHolder .h1-connect-fab").innerHTML="timer";
-  $$('#stopHolder status div')[0].style.width="0px";
-  $$('#stopHolder status div')[1].style.width="0px";
+  $$('#stopHolder status')[0].setSwitchData(0);
+  $$('#stopHolder status')[1].setSwitchData(0);
 }
 
 function roundStopper() {

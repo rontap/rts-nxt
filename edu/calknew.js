@@ -209,7 +209,7 @@ switch (c)
 				break;
 	case 'pi' : tfill.innerHTML='Pi<br>értéke: 3.14159265359<br>Használata a Tapcalkban: =PI';break;
 	case 'formula' :
-				tfill.innerHTML='<h1 class="covered red-antigene" >formula beírása.</h1> Az = kötelező az elejére!<br>'+input1+'<br>'+output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" >formula beírása.</h1><br> Az = kötelező az elejére!<br>'+input1+'<br>'+output1;
 				ino1.style.width="250px";
 				ino1.placeholder="=2*5+(4/8)";
 				tfill.innerHTML+='<br>Jelenleg támogatott függvények:<br>=PI<br>=E<br>(szám)! <br>=SQRT2<br>=RANDOM (szám közvetlen utána)<br>=RANDF (szám közvetlen utána)';
@@ -226,19 +226,19 @@ switch (c)
 				tfill.innerHTML=valtkod;
 				break;
 	case 'lkkt':
-				tfill.innerHTML='<h1 class="covered red-antigene" >LKKT: Legkisebb Közös Többszörös</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" ><br>LKKT: Legkisebb Közös Többszörös</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
 				break;
 	case 'lnko':
-				tfill.innerHTML='<h1 class="covered red-antigene" >LNKO: Legnagyobb Közös Osztó</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
+				tfill.innerHTML='<h1 class="covered red-antigene" ><br>LNKO: Legnagyobb Közös Osztó</h1>1. szám: ' + input1 + "<br><br>2. szám: " +input2 + '<br>'+ output1;
 				break;
     case 'stat' :
-                tfill.innerHTML="<h1 class='covered red-antigene' >Statisztika</h1><p>Ebbe a mezőbe, az adatokat VESSZŐVEL elválasztva kell beírni. A tizedesvessző helyett tizedespont van.</p><br><textarea class='inp-text' placeholder='2,3,9,3.1415' id='area'></textarea>"+output1;
+                tfill.innerHTML="<h1 class='covered red-antigene' ><br>Statisztika</h1><p>Ebbe a mezőbe, az adatokat VESSZŐVEL elválasztva kell beírni. A tizedesvessző helyett tizedespont van.</p><br><textarea class='inp-text' placeholder='2,3,9,3.1415' id='area'></textarea>"+output1;
                 break;
     case 'happy' :
-                tfill.innerHTML='<h1 class="covered red-antigene" >Boldog-boldogtalan számok</h1>'+input1+"<br>"+output1;
+                tfill.innerHTML='<h1 class="covered red-antigene" ><br>Boldog-boldogtalan számok</h1>'+input1+"<br>"+output1;
         break;
     case 'romai' :
-                tfill.innerHTML='<h1 class="covered red-antigene" >Átváltás római számokra és vissza</h1>'+
+                tfill.innerHTML='<h1 class="covered red-antigene" ><br>Átváltás római számokra és vissza</h1>'+
                     input1+'<br><br><input type="radio" name="witch" value="ar" id="egy" checked>Arabról  Rómaira<br><input type="radio" name="witch" value="ra">Rómairól Arabra<br>'+output1;
                 validatenumber=false;
 }//switch-c
