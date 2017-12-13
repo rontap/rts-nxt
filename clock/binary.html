@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
 <!--2015. created by rontap -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../NXTJS/sole-design.css" rel="stylesheet">
-    <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
-
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="../NXTJS/sole-design.css" rel="stylesheet">
+      <link href="../NXTJS/elements-design.css" rel="stylesheet">
+      <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 </head>
 <body>
     <div id="linkBack" >
@@ -50,9 +50,48 @@
     </div>
 </container>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+<div id="bottomNav">
+<toggle onclick="this.classList.toggle('on');$('body').classList.toggle('night');" id="nm"> </toggle> Night Mode
+&nbsp; &nbsp; &nbsp;
+<toggle onclick="this.classList.toggle('on');$('body').classList.toggle('sq');" id="sq"> </toggle> Square Mode
+</div>
+
 <style>
+body.sq  container div span  {
+  border-radius: 0px !important;
+
+  border:1px solid #666;
+}
+container {
+  box-shadow:none !important;
+}
+body.night container div span {
+  background:#222;
+}
+body.night {
+  background:#222;
+  color:white;
+  transition:all .4s;
+}
+body.night #nm::after, body.night #sq::after{
+      box-shadow: 0px 2px 2px black;
+      background:#48f;
+}
+
+
+#bottomNav {
+  position:fixed;
+  bottom:0;
+  padding:20px;
+  border-top:1px solid #ddd;
+  right:0;
+  left:0;
+}
+:root {
+  --dark-primary:#444;
+}
+
+
     container div.a0 span,container div.a1 span { border-color: #48F ;}
     container div.a0 span.on, container div.a1 span.on  {background: #48F;}
 
@@ -87,6 +126,9 @@ container div span {
 s=[];
 t=new Date();
 //console.log(t.getHours());
+
+    //i am sorry - past aron
+    //fuck you - future aron
     s[0]=Number( String( t.getHours()  ).slice(0,1) ).toString(2);
     	if (s[0].length<2) {s[0]='0'+s[0];}
     s[1]=Number( String( t.getHours()  ).slice(1,2) ).toString(2);
@@ -104,17 +146,18 @@ t=new Date();
 
         for (k=5;k>=0;k--) {
           // console.log(s[i][k]);
-            if (s[i][k]==1) $('.a'+i+' .b'+k).addClass('on');
-            else $('.a'+i+' .b'+k).removeClass('on');
+
+          try {
+            if (s[i][k]==1) $('.a'+i+' .b'+k).classList.add('on');
+            else $('.a'+i+' .b'+k).classList.remove('on');
+          } catch(e) {}
         }
 
     }
-    console.log(s);
-
     }
     setInterval( function() {
         sg();
-    },1000);
+    },200);
 </script>
 <style>
 

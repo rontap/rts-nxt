@@ -5,13 +5,17 @@
 //Created by Aron Tatai, 2017
 //base for all RONTAP - NXTJS applications.
 
-'use strict';
+//-----------------NXT-JS-MAIN-CONFIG------------------------------
+
+'use strict';					//we use strict so everything is clear and no unexpected errors
+const nxtjsBuildNumber = 1431;  //build number for modules
+
 
 //-----------------------------------------------------------------
 //-----------------BASE-PROTOTYPE-EXTENSIONS-----------------------
 //-----------------------------------------------------------------
 
-
+//DOM interaction like JQuery
 var $    = (call)    =>  document.querySelector(call);
 var $$   = (call)    =>  document.querySelectorAll(call);
 
@@ -19,8 +23,21 @@ NodeList.prototype.indexOf = function(element) {
     return [...this].indexOf(element);
 }
 
-Array.prototype.max = function(){  return Math.max(...this); }
-Array.prototype.min = function(){  return Math.min(...this); }
+//toggle DOM interaction within nxt
+var $DOMInteraction = function (call) {
+	if (call) {
+		$    = (call)    =>  document.querySelector(call)
+		$$   = (call)    =>  document.querySelectorAll(call)
+	}
+	else {
+	    $ = function(){ throw 'DOM Interaction is turned off'; }
+	   $$ = $ ;
+	}
+}
+
+Array.prototype.max = function()  {    return Math.max(...this);    }
+Array.prototype.min = function()  {    return Math.min(...this);    }
+Array.prototype.last = function() {    return this[this.length-1];  }
 
 Array.prototype.shuffle = function() { //shuffle the array compleately
 	for (let i = this.length - 1; i > 0; i--) {
@@ -30,44 +47,50 @@ Array.prototype.shuffle = function() { //shuffle the array compleately
 	return this;
 }
 Array.prototype.isSame = function() {
+  //this is not perfect. when all elements are false or 0, this will fail. please do not use
   return !!this.reduce(function(a, b){ return (a === b) ? a : NaN; });
 }
-Array.prototype.last = function() {
-    return this[this.length-1];
-}
+
+
+//JS is loosely typed, but this will not stop us from checking types...
+  Array.prototype.type = "Array";
+ String.prototype.type = "String";
+Boolean.prototype.type = "Boolean";
+ Number.prototype.type = "Number";
+ Object.prototype.type = "Object";
+
 
 
 //-----------------------------------------------------------------
 //-----------------MATHEMATIC-OPERATIONS---------------------------
 //-----------------------------------------------------------------
 
-Math.spread = /*returns number*/ function(/*array*/ call)
+Math.spread =  function(/*array*/ call)
 {
    let avg = Math.avg(call);
    let temp = []
    for (i=0;i<call.length;i++) {
        temp[i]=Math.pow(call[i]-avg,2);
    }
-   return Math.sqrt(Math.sum(temp)/(temp.length));
+   return /*number*/ Math.sqrt(Math.sum(temp)/(temp.length));
 }
 
 Math.sum = function(/*array*/ call ) {
-    let temp=0;
-    for (i=0; i<call.length;i++) {
-        temp+=Number(call[i]);
-    }
-    return temp;
+    return call.reduce((acc,curr) => acc+curr , 0);
+}
+Math.product = function(/*array*/ call ) {
+    return call.reduce((acc,curr) => acc*curr , 1);
 }
 Math.avg = function(/*array*/ call ) {
     let a=0;
     for (let i=0; i<call.length;i++) {
         a+=call[i];
     }
-    return Math.round(a/call.length);
+    return /*number*/ Math.round(a/call.length);
 }
 Math.prime = /*returns array*/ function(/*number*/ call) {
   let divide=[];
-  for (let q = 2; q < Math.sqrt(call) + 1; q++) {
+  for (let q = 2; q < (call / 2); q++) {
       if (call % q == 0) divide.push(q);
   }
   return divide; /*array of dividers, all of them*/
@@ -94,7 +117,7 @@ Math.choose = function( n , k ) { /* permutation, n under k*/
   return ( Math.factorial(n) / ( Math.factorial(k) * Math.factorial(n-k) ) )
 }
 
-Number.prototype.pad = function() {/*padding number for dates and stuff*/
+Number.prototype.pad = function() { /*padding number for dates and stuff*/
   if (this<10) return String("0"+this);
   else return String(this);
 }
@@ -149,7 +172,7 @@ function $_GET(args) {
                 }
                 return arr;
             },
-            'length' : function () { return location.hash.split("=").length }
+            'length' : function () { return location.hash.split("=").length }  //returns the length of arguments. to be used with arguumentList to loop
         }
     }
 
@@ -161,10 +184,10 @@ function $_GET(args) {
 
 String.prototype.stat = function(call) {
    switch (call) {
-      case  'LengthNoSpace' :
+      case  'LengthNoSpace' :	//how long is this without spaces
          return this.length-this.split(" ").length;
 
-      case  'wc' :
+      case  'wc' :	//word count
          return this.split(/\s+/).length;
 
       case 'letters' : //sort the letters
@@ -182,14 +205,14 @@ String.prototype.stat = function(call) {
                else                                    letterCount[index]++;
            }
        }
-       return [letterCount,letterStore];
+       return [ letterCount , letterStore ];
 
-      case 'letterMax' :    //     get the most freq. letter from the index of the most used letter
+      case 'letterMax' :    //     get the most  freq. letter from the index of the most used letter
        text=this.stat('letters');
        return text[1][ text[0].indexOf( text[0].max() ) ]
 
 
-      case 'letterMin'  :   //     get the most freq. letter from the index of the most used letter
+      case 'letterMin'  :   //     get the least freq. letter from the index of the most used letter
        text=this.stat('letters');
        return text[1][ text[0].indexOf( text[0].min() ) ]
 
@@ -221,12 +244,38 @@ if (localStorage.nxtDataStore==undefined) {
     localStorage.nxtDataStore = JSON.stringify(temp);
 }
 var nxt = {
-  build : 1325,
+  build : nxtjsBuildNumber,
+  modules : ["core"],
+  //loading JS packages
+  require : function(url) {
+    console.info("[NXTJS][PACKAGES] loading module "+url);
+    if ( $$('script[src="'+url+'"]').length==0 ) {  //do not import twice if already defined
+      let script = document.createElement('script');
+      script.src = url;
+      $('head').appendChild(script);    //appending new script
+      nxt.modules.push(url.slice(0,url.length-3));
+      return true;
+    }
+    else return false;
+  },
+  requireCSS : function(url) {
+    console.info("[NXTJS][PACKAGES] loading CSS "+url);
+    if ( $$('style[href="'+url+'"]').length==0 ) {  //do not import twice if already defined
+      let style = document.createElement('style');
+      style.href = url;
+      style.rel="stylesheet";
+      $('head').appendChild(style);    //appending new script
+      return true;
+    }
+    else return false;
+  },
+  notify : function() { nxt.require("design-notifications.js");  nxt.requireCSS("elements-design.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
+
 
   openMenu : function(call) {
     $$('#NineDotMenu')[0].classList.add("on");
+    $$('body')[0].classList.add("NineDotMenuTransition");
       setTimeout(function() {
-
         location.href=call+"rtsmenu.html"
       },550)
   },
@@ -237,7 +286,7 @@ var nxt = {
    },
 
    internalNXTStorage : JSON.parse(localStorage.nxtDataStore),
-   //this is strictly READ ONLY
+   //this is strictly READ ONLY. use getStore and setStore.
 
    getStore : function(elem){
      return nxt.internalNXTStorage[elem];
@@ -246,7 +295,7 @@ var nxt = {
       nxt.internalNXTStorage[elem] = to;
       localStorage.nxtDataStore = JSON.stringify(nxt.internalNXTStorage);
    },
-   setNormalisation : function(call) {
+   setNormalisation : function(call) { //extended by sets
      let temp = [];
      for ( i=0 ; i<call.length ; i++ ) {
        if (temp.indexOf(call[i])==-1) temp.push( call[i] );
@@ -258,4 +307,4 @@ var nxt = {
 
 //-----------------------------------------------------------------
 //-----------------KEYBOARD-CONTROL--------------------------------
-//-----------------------------------------------------------------
+//------------------------------------postponed--------------------

@@ -18,7 +18,9 @@
                 --dark-primary: #1976D2;
                 --light-primary: #BBDEFB;
             }
-
+            article img {
+                opacity: 0;
+            }
     </style>
 </head>
 
@@ -190,7 +192,8 @@
             $('#e'+location.hash.slice(1,9)).style.display="block";
         }
 
-        $('body').addClass('viewSettings');
+        //$('body').('viewSettings');
+        tcx = {packages:[]};
     </script>
 </body>
 <script>

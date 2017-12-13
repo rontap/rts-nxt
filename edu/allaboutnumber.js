@@ -1,8 +1,8 @@
 // dual-connection to tapcalk and API
 // TAPCALK EXPRESS
-// forked from calknew.js 
+// forked from calknew.js
+tcx.packages.push("allaboutnumber");
 
-tcx = {};
 tcx.tellMe = function(call) {
     in1 = call;
     althist = true;
@@ -11,9 +11,9 @@ tcx.tellMe = function(call) {
     console.log('storySTART' + in1);
     kim = 'The number <b>' + in1 + '</b> is ';
     //prs prtl
-    if (in1 % 2 == 0)    kim += 'even ';   
+    if (in1 % 2 == 0)    kim += 'even ';
     else                kim += 'odd '
-    
+
         //besorolás
     if (Math.floor(in1) == in1) { //egész
         if (in1 == 0) {
@@ -52,7 +52,7 @@ tcx.tellMe = function(call) {
         kim += ' The numbers Square Root is ' + Math.round(Math.sqrt(in1)) + ' . ';
     }
     kim += ' The root of the number is ' + in1 * in1 + ' .<br>';
-    
+
     //fakt
     if (pesz) {
         fakt = 1;
@@ -102,7 +102,7 @@ tcx.tellMe = function(call) {
     }
     console.log(kim);
     return kim;
-    
+
 }
 
 Math.tellMe = function(call) {

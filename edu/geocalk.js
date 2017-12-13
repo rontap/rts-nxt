@@ -1,3 +1,5 @@
+//this is the work of DeeSnow97 for tapcalk.
+
 var canvasid;//="euclidean";
 var canvas;//=document.getElementById(canvasid);
 var context;//=canvas.getContext("2d");
@@ -433,7 +435,7 @@ function selectPoint(X,Y)
 function showLine(X,Y)
 {
 	p={'x':X,'y':Y};
-	linePoint=-1; 
+	linePoint=-1;
 	for(i=0;i<points.length;i++)
 	{
 		dx=(points[i].x-X);
@@ -455,12 +457,12 @@ function drawLine(num)
 	if(num=="pre")
 	{
 		line=preline;
-		context.strokeStyle='#bbbbbb';
+		context.strokeStyle='#ddd';
 	}
 	else
 	{
 		line=lines[num];
-		context.strokeStyle='#999999';
+		context.strokeStyle='#aaa';
 	}
 	context.beginPath();
 	context.moveTo(0,line.b);
@@ -520,7 +522,7 @@ function drawCircle(num)
 function showCircle(X,Y)
 {
 	p={'x':X,'y':Y};
-	linePoint=-1; 
+	linePoint=-1;
 	for(i=0;i<points.length;i++)
 	{
 		dx=(points[i].x-X);

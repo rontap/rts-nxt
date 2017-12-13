@@ -11,9 +11,9 @@ y2state=1;
 curr=0;
 mat300=['4DB6AC','BA68C8','E57373','4DD0E1','FFD54F','8D6E63'];
 mat600=['00897B','8E24AA','E53935','00ACC1','FFB300','6D4C41'];
-    
+
 function $(call) { return document.querySelectorAll(call) } ;
-    
+
 koltseg=[1,1300,742000];
 koltseg_nev=['Forint','Big Mac Menü','Orbán Viktor vagyona']
 vagyon = {
@@ -44,7 +44,7 @@ function init() {
 ticktime=0;
 function tick() {
 	ticktime++;
-	
+
 	for (i=0;i<guys.length;i++) {
 		var sep = ",";
 		base=Math.floor((y2s*(Math.pow(60,y2state-1))*( vagyon[guys[i]] - elozo_ev[guys[i]] )*ticktime)*1000*(1/2));
@@ -76,7 +76,7 @@ function Comma(amount) {
 	}
 	if(n.length > 0) { a.unshift(n); }
 	n = a.join(delimiter);
-	amount = n; 
+	amount = n;
 	amount = minus + amount;
 	return amount;
 }
@@ -85,17 +85,17 @@ function Comma(amount) {
 
 <style>
 article:hover span:nth-child(3), article:focus span:nth-child(3){
-opacity:1;	
+opacity:1;
 margin-top:5px;
 }
 article:hover span:nth-child(4) {
-transition:.5s;	
+transition:.5s;
 margin-top:5px;
 }
 
 article span:nth-child(3),article span:nth-child(4) {
 opacity:0;
-transition:.4s;	
+transition:.4s;
 margin-top:0px;
 }
 
@@ -114,14 +114,14 @@ article {
 article:hover {
 	box-shadow:0px 2px 7px #888;
 }
-body { padding:0; margin:0; 
+body { padding:0; margin:0;
 	font-family: 'Roboto', sans-serif;
 	max-width:800px;
 	margin:0 auto;
 	background:linear-gradient(#ECEFF1, white);
 	}
-	
-	
+
+
 article span {
 	padding:0px 10px; display:block;
 	color:#222;
@@ -164,6 +164,7 @@ text-align:justify;
 
 
 </style>
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="NXTJS/sole-design.css" rel="stylesheet">
     <script src="NXTJS/jsplus.js" type="text/javascript"></script>
@@ -180,7 +181,7 @@ text-align:justify;
 <h1>Mennyivel lesz gazdagabb a Magyar?</h1>
 <p>
 Örömmel értesültünk a Gazdag és a Befolyásos magyarok 2016-2017<wbr> közötti gazdagodásáról.<br>
-Itt leosztva látható az egyes emberek gazdagodása valós időben.<wbr> 
+Itt leosztva látható az egyes emberek gazdagodása valós időben.<wbr>
 A könnyebb megértés jegyében más fizetőeszközöket is ki lehet választani<wbr> alább.
 
 </p>
@@ -199,46 +200,46 @@ A könnyebb megértés jegyében más fizetőeszközöket is ki lehet választan
 
 </nav>
 
-	
+
 <article>
 	<h1>Orbán Viktor</h1>
 	<span>Magyarország miniszterelnöke</span>
 	<span></span><span></span>
 	<img src="">
-<div class="delta"></div> 
+<div class="delta"></div>
 </article>
 <article>
 	<h1>Csányi Sándor</h1>
 	<span>OTP vezérigazgatója</span>
 	<span></span><span></span>
 	<img src="">
-	<div class="delta"></div> 
+	<div class="delta"></div>
 </article>
 <article>
 	<h1>Mészáros Lőrinc</h1>
 	<span>Gázszerelő</span>
 	<span></span><span></span>
 	<img src="">
-<div class="delta"></div> 
+<div class="delta"></div>
 </article><article>
 	<h1>Simicska Lajos</h1>
 	<span>Számkivetett</span>
 	<span></span><span></span>
 	<img src="">
-<div class="delta"></div> 
+<div class="delta"></div>
 </article><article>
 	<h1>Soros György</h1>
 	<span>Az ördög maga</span>
 	<span></span><span></span>
 	<img src="">
-<div class="delta"></div> 
+<div class="delta"></div>
 </article>
 </article><article>
 	<h1>Bill Gates</h1>
 	<span>Leggazdagabb ember a Földön</span>
 	<span></span><span></span>
 	<img src="">
-<div class="delta"></div> 
+<div class="delta"></div>
 </article>
 
 <script>

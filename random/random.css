@@ -4,12 +4,12 @@ header { width:300px !important;}
 
 :root {
     --primary:#FFA726;
-    --dark-primary :#FF9800; 
+    --dark-primary :#FF9800;
     --light-primary:#FFCC80;
 }
 #splash h1 {
-        
-    
+
+
     text-align: right;
 }
 holder {
@@ -121,4 +121,58 @@ background:blue;
   transition:all .2s;
   display: block;
 margin-top: -12px;
+}
+
+
+/*settings for languages*/
+#languageHeader {
+  position:fixed;
+  width: 800px;
+left: 300px;
+right: 0;
+top:10px;
+transition:all 0s;
+}
+#languages {
+  margin-top:400px;
+}
+#languages  table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  display: block;
+    margin: 0px -25px;
+    padding: 25px;
+}
+#languages  table  tr {
+  padding:10px 5px;
+  transition:all .2s;
+
+}
+#languages tbody {
+  display: block;
+  margin: -10px -25px;
+}
+#languages  table  tr:hover {
+  background:#eee;
+
+}
+#langGraph {
+  background:#ddd;
+  margin-top:30px;
+  height:30px;
+}
+#langGraph span {
+  display: inline-block;
+  height:30px;
+  background:#1e88e5;
+  text-align:center;
+  overflow: hidden;
+  transition:all .2s;
+  width: 0px;
+  color:white;
+  font-size:22px;
+  }
+
+#g_l2 {
+  background:#03a9f4 !important;
 }

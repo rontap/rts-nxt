@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-    
+
     <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+
     <script src="primes.js" type="text/javascript"></script>
     <script src="calknew.js" type="text/javascript"></script>
-    
+
     <link rel="stylesheet" href="tapcalk.css">
     <link rel="stylesheet" href="tapcalkUi.css">
     <link rel="stylesheet" href="../NXTJS/design.css">
@@ -40,16 +41,6 @@
 
 <div id="tnav">
 
-
-
-	<!--Developer version 37b<br>
-	4.4.7<br>-->
-	<!--
-TAPCALK 6 redesign
-
-
-	<!--a class="l" href="../rontap/ver.html#tc">4.7.5</a-->
-<!--this.classList.toggle('o-expanded')-->
 		<container id="tco" class="sidebar" onclick="">
 		<center id="kero" style="width: 284.40000000000003px;">
             <input placeholder="Keresés..." onkeyup="kutat(kera.value)" id="kera" style="width: 73%;margin-left: -5px" class="">
@@ -62,7 +53,7 @@ TAPCALK 6 redesign
 
 		<div class="omenu" onclick="fillt('hatv_');">Gyökvonás & Hatványozás</div>
 		<div class="omenu" onclick="fillt('besz');">Kiemelés és Beszorzás <span class="keyhint">5</span></div>
-		<div class="omenu" onclick="fillt('toa');">Tömeges Összeadás <span class="keyhint">6</span></div>
+		<div class="omenu" onclick="fillt('toa');">Szumma és produktum<span class="keyhint">6</span></div>
 		<div class="omenu" onclick="fillt('fakt');">Faktoriális <span class="keyhint">F</span></div>
 
 	<div id="sorozatok" class="otitle"><div>Sorozatok</div></div>
@@ -71,12 +62,11 @@ TAPCALK 6 redesign
 		<div class="omenu" onclick="fillt('gorbe');">Görbe sorozatok</div>
 		<div class="omenu" onclick="fillt('fibo');">Fibonacci számsor</div>
 		<div class="omenu" onclick="fillt('negyzet');">Négyzetszámok</div>
-		<div class="omenu" onclick="fillt('spin');">Spinkvantmszámok</div>
-        <div class="omenu" onclick="fillt('happy');">Boldog számok</div>
+    <div class="omenu" onclick="fillt('happy');">Boldog számok</div>
 
 	<div id="geometria" class="otitle"><div>Geometria</div></div>
 		<div class="omenu" onclick="fillt('sintg');">Szögfüggvények (sin) Triangles <span class="keyhint">S</span></div>
-        <div class="omenu" onclick="pageScroll();">Geometriai rajzoló</div>
+    <div class="omenu" onclick="location.href='euclidean.html'">Geometriai rajzoló <i class="material-icons">open_in_new</i> </div>
 		<div class="omenu">2D Négyszögek</div>
 		<div class="omenu">2D Egyéb objektumok</div>
 		<div class="omenu">Koordinátageometria</div>
@@ -84,8 +74,7 @@ TAPCALK 6 redesign
 
 	<div id="atlag" class="otitle"><div>Átlagok</div></div>
         <div class="omenu" onclick="fillt('stat');">Statisztika</div>
-
-		<div class="omenu" onclick="fillt('atl_');">Közepek (HaMiSaN)</div>
+        <div class="omenu" onclick="fillt('atl_');">Közepek (HaMiSaN)</div>
 
 
 	<div id="primszamok" class="otitle"><div>Prímszámok</div></div>
@@ -96,11 +85,11 @@ TAPCALK 6 redesign
 		<div class="omenu" onclick="fillt('lnko');">Legnagyobb Közös Osztó</div>
 
 	<div id="atvaltas" class="otitle"><div>Atváltások</div></div>
-		<div class="omenu" onclick="fillt('atv');">Mértékegység átváltás</div>
+		    <div class="omenu" onclick="fillt('atv');">Mértékegység átváltás</div>
         <div class="omenu" onclick="fillt('romai');">Római-arab szám átváltás</div>
+        <div class="omenu" onclick="fillt('szamrend');">Számrendszerek <span class="keyhint">A</span></div>
+	<!--div id="szamrendszerek" class="otitle"><div>Számrendszerek</div></div-->
 
-	<div id="szamrendszerek" class="otitle"><div>Számrendszerek</div></div>
-		<div class="omenu" onclick="fillt('szamrend');">Átváltás <span class="keyhint">A</span></div>
 
 	<div id="oth" class="otitle"><div>Egyéb</div></div>
 		<div class="omenu" onclick="fillt('mesel');">Mindent a számról <span class="keyhint">9</span></div>
@@ -108,8 +97,8 @@ TAPCALK 6 redesign
 		<div class="omenu" onclick="fillt('kamat');">Kamatszámító</div>
 		<div class="omenu" onclick="fillt('masodfok');">Másodfok</div>
 		<div class="omenu" onclick="fillt('pir');">Pireneusi számok</div>
-		<div class="omenu" onclick="fillt('pi'); ">π (pi)</div>
-		<div class="omenu">√2 (gyök kettő)</div>
+		<div class="omenu" onclick="fillt('pi'); ">Constants (π & √2)</div>
+    <div class="omenu" onclick="fillt('spin');">Spinkvantmszámok</div>
 
 
 	<br><br>
@@ -133,7 +122,7 @@ TAPCALK 6 redesign
     <tr><td>Contributed:</td><td> Barnabas Borcsok</td><td> (bobarna)</td></tr>
             </table>
      <br>Thanks for Kamuba, Twinky, Daniel Foldi and Csikos-Nagy Mate for testing this software.<br>
-       
+
         <hr>
         Quick action shortcuts can be Viewed by pressing Ctrl+Alt
         <hr>
@@ -144,8 +133,9 @@ TAPCALK 6 redesign
 
     </style>
 
-	<button class="btn-b mainbtn" id="calkbtn" onclick="calkr()" onselectstart="return false" >Számold</button>
-    <button class="btn-g mainbtn" id="graphbtn" onclick="gochart()" onselectstart="return false">Grafikon</button>
+    <i class="fab material-icons blue-antigene" id="mainFab" onclick="calkr()">send</i>
+	<!--button class="btn-b mainbtn" id="calkbtn" onclick="calkr()" onselectstart="return false" >Számold</button-->
+    <i class="fab-small material-icons mainbtn" id="graphbtn"  onselectstart="return false" onclick="$('body').classList.toggle('moreInfoOn');">insert_chart</i>
 
 	<div id="tmain" onresize="alert(yo);">
         <!--img src="dc.png" id="dc" draggable ondragstart="goresizeblocks(event)" ondrag="resizeblocks(event)" mousedown="e.originalEvent.preventDefault();" ondragend="$('div').removeClass('resize');    "-->
@@ -169,7 +159,15 @@ TAPCALK 6 redesign
 	  <div id="tfill2" class="card"></div>
 	</div>
 		<div id="treganwser"></div>
+    <div id="graphDrawer">
+      <i class="material-icons" onclick="$('body').classList.toggle('moreInfoOn');">keyboard_arrow_up</i>
+      more info & graphs
 
+    </div>
+    <div id="graphInformationText">
+
+
+    </div>
 
 	<div id="histh">
 		<div class="otitle"><div>Számok</div></div>
@@ -200,7 +198,7 @@ TAPCALK 6 redesign
 
 		<style>
 		#tbl tr td {
-				-webkit-transition:all .4s;
+				transition:all .4s;
 				text-align: center;
 		}
 		</style>
@@ -209,11 +207,15 @@ TAPCALK 6 redesign
 
 
      <div id="blacker" class="mute" onclick="about();"></div>
-        <script src="allaboutnumber.js"></script>
-		<script src="tapcalkUi.js"></script>
-<script src="../NXTJS/design-input.js" type="text/javascript"></script>
 
+        <!--TAPCALK 6 express MODULES-->
+        <script src="allaboutnumber.js" ></script>
+        <script src="serial.js" tcx-module></script>
+        <script src="sets.js" tcx-module nxt-module></script>
+        <script src="conversion.js"></script>
 
-<link rel="stylesheet" href="../NXTJS/mobile.css">
-	<script type="text/javascript" src="encode.js"></script>
+		  <script src="tapcalkUi.js"></script>
+      <script src="../NXTJS/design-input.js" type="text/javascript"></script>
+      <link rel="stylesheet" href="../NXTJS/mobile.css">
+
 </script></body></html>

@@ -1,11 +1,22 @@
-<meta charset="utf-8"> 
+<meta charset="utf-8">
 <!--round clock made by rontap  2015 -->
 
 <head>
     <meta charset="utf-8">
-<!--2015. created by rontap -->
+    <title>Round Clock NXT</title>
+<!--
+
+v1    2015. created by rontap (timer, stopper, clock and wecker)
+
+v2.0  2017 added to NXT packeges
+v2.1  JQuery removed
+v2.2  night mode added
+
+-->
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../NXTJS/sole-design.css" rel="stylesheet">
+    <link href="../NXTJS/elements-design.css" rel="stylesheet">
     <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 
 </head>
@@ -15,8 +26,8 @@
         <span  onclick="location.href='../random.html'">Go back to rontap Tools.</span>
         <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
     </div>
-    
-    
+
+
 
 <div id="holder">
     <div id="main">&nbsp;</div>
@@ -24,7 +35,36 @@
     <div id="min">&nbsp;</div>
      <div id="sec">&nbsp;</div>
 </div>
+
+<div id="bottomNav">
+<toggle onclick="this.classList.toggle('on');$('body').classList.toggle('night');" > </toggle> Night Mode
+</div>
+
 <style>
+body.night {
+  background:#222;
+  color:white;
+  transition:all .4s;
+}
+body.night toggle::after{
+      box-shadow: 0px 2px 2px black;
+      background:#48f;
+}
+body.night #sec::before {
+  background:#eee;
+}
+body.night button {
+  background:#ddd !important;
+    box-shadow: 0px 2px 2px black;
+}
+#bottomNav {
+  position:fixed;
+  bottom:0;
+  padding:20px;
+}
+:root {
+  --dark-primary:#444;
+}
     #holder {
         margin: 100px auto;
         width:300px;
@@ -56,7 +96,7 @@
         margin-top:-320px;
         margin-left:135px;
         transition: all .4s;
-    } 
+    }
     .inedit #hrs::before,.inedit   #min::before,.inedit  #sec::before {
         background:red;
          width: 10px;
@@ -91,6 +131,8 @@
          border:1px solid #ddd;
          padding:15px;
          margin:10px;
+         border-radius: 4px;
+         cursor: pointer;
      }
     div input {
         padding:10px 5px;
@@ -102,82 +144,83 @@
     }
 #inputs { transition:all .2s; opacity:0;}
 .inedit #inputs { opacity:1;}
-    #st { background:#48F;  
-        border:1px solid #48f; 
+    #st { background:#48F;
+        border:1px solid #48f;
         vertical-align: 2;
-        padding: 14px; 
+        padding: 14px;
         color:white;
     }
 </style>
 <audio id="pinger">
   <source src="ping.mp3" type="audio/mpeg">
 </audio>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+
 
 <script>
     ist=true;
     function time() {
-         $('body').removeClass('inedit timerup');
+         $('body').classList.remove('inedit');
+         $('body').classList.remove('timerup');
         ist=true;
         a= new Date();
         h=a.getHours();
         m=a.getMinutes();
         s=a.getSeconds();
-        $('#hrs').css('transform','rotate('+(h/12)*360+'deg)');
-        $('#min').css('transform','rotate('+(m/60)*360+'deg)');
-        $('#sec').css('transform','rotate('+(s/60)*360+'deg)');
-        
+        $('#hrs').style.transform='rotate('+(h/12)*360+'deg)';
+        $('#min').style.transform='rotate('+(m/60)*360+'deg)';
+        $('#sec').style.transform='rotate('+(s/60)*360+'deg)';
+
         setTimeout(function(){
             if(ist) time();
         },1000)
     }
     time();
     function edit() {
-        $('body').toggleClass('inedit');
+        $('body').classList.toggle('inedit');
         ist=false;
     }
     function start() {
-        $('body').removeClass('inedit timerup');
-        ist=false; 
+      $('body').classList.remove('inedit');
+      $('body').classList.remove('timerup');
+        ist=false;
         setTimeout(function(){
             ist=false;
              sh=0; sm=0; ss=0;
             realstart();
-            
+
         },1000);
     }
     function realstart() {
-         
+
          ss++;
          if (ss>=60) { ss=0; sm++; }
          if (sm>=60) { sm=0; sh++; }
-        $('#hrs').css('transform','rotate('+(sh/12)*360+'deg)');
-        $('#min').css('transform','rotate('+(sm/60)*360+'deg)');
-        $('#sec').css('transform','rotate('+(ss/60)*360+'deg)');
+         $('#hrs').style.transform='rotate('+(sh/12)*360+'deg)';
+         $('#min').style.transform='rotate('+(sm/60)*360+'deg)';
+         $('#sec').style.transform='rotate('+(ss/60)*360+'deg)';
          setTimeout(function(){
              if (!ist) realstart();
         },1000)
     }
     function go(gh,gm,gs) {
-       $('body').toggleClass('inedit');
-        $('body').removeClass('timerup');
+       $('body').classList.toggle('inedit');
+        $('body').classList.remove('timerup');
         timer(gh,gm,gs);
     }
     function timer(gh,gm,gs) {
          gs--;
         if (gs+gm+gh<0) {
-            $('body').addClass('timerup');
+            $('body').classList.add('timerup');
             pinger.currentTime = 0;
             pinger.play() ;
         }
         else {
          if (gs<0) { gs=60; gm--; }
          if (gm<0) { gm=60; gh--; }
-        $('#hrs').css('transform','rotate('+(gh/12)*360+'deg)');
-        $('#min').css('transform','rotate('+(gm/60)*360+'deg)');
-        $('#sec').css('transform','rotate('+(gs/60)*360+'deg)');
-         
+         $('#hrs').style.transform='rotate('+(gh/12)*360+'deg)';
+         $('#min').style.transform='rotate('+(gm/60)*360+'deg)';
+         $('#sec').style.transform='rotate('+(gs/60)*360+'deg)';
+
          setTimeout(function(){
              if (!ist) timer(gh,gm,gs);
              console.log(gs);
@@ -200,4 +243,3 @@
 </div>
 
 <cl-hd></cl-hd>
-

@@ -254,7 +254,7 @@
                 background: white !important;
     box-shadow: 0px 3px 4px var(--dark-primary);
     opacity: .9;
-        
+
     }
     input.holo::placeholder {
         color:#444;
@@ -354,8 +354,8 @@ body.search #searchResults {
     margin-right: 10px;
     font-size:20px;
     color:#444;
-    
-    
+
+
 }
 #socMedia span i {
         text-align: center;
@@ -377,13 +377,13 @@ body.search #searchResults {
     display: block;
     font-size: 12px;
     color: #444;
-    
+
 }
 #socMedia {
     max-width: 600px;
     display: block;
     margin:0 auto;
-    
+
 }
 #socMedia>span {
     display: inline-block;
@@ -409,7 +409,7 @@ body.search #searchResults {
     font-weight: bold;
     font-style: normal;
     opacity: .8;
-    
+
 }
 
 body.viewSettings #siteView {
@@ -420,41 +420,4 @@ body.viewSettings #settingsView {
 }
 body #settingsView {
     display: none;
-}
-toggle {
-    display: inline-block;
-    padding:5px;
-    cursor: pointer;
-    vertical-align: -9px;
-}
-toggle::before {
-       content: '';
-    display: block;
-    width: 40px;
-    height: 10px;
-    background: #bbb    ;
-    border-radius: 5px;
-    transition: all .2s;
-}
-toggle::after {
-   content: '';
-    display: block;
-    width: 20px;
-    height: 20px;
-    background: #48f;
-    background: var(--dark-primary);
-    border-radius: 10px;
-    margin-top: -15px;
-    margin-left:-1px;
-    transition:all .2s;
-    box-shadow: 0px 2px 2px #999;
-}
-toggle.on::before {
-    background: #999;
-}
-toggle:hover::after {
-    box-shadow: 0px 2px 4px #888;
-}
-toggle.on::after {
-    margin-left:21px;
 }

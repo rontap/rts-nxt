@@ -16,24 +16,22 @@ opened=false; //settings
 
 function setLang(code)
 {
-        switch (code)
-        {
-        case 'en' : lang=['days of the year','month','day','day of the week','hour','minute','second'];
-         break;
-        case 'ge' : lang=['Tagen des Jahres','Monat','Tag','Tag der Woche','Stunde','Minute','Sekunde'];
-         break;
-        case 'hu': lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;		 
-	 break;
-	case 'bg' : lang=['']
-	 break;
-		case 'none' : lang=['','','','','','',''];
-         break;
-		
-        default: lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;
+        switch (code)  {
+	        case 'en' : lang=['days of the year','month','day','day of the week','hour','minute','second'];
+	         break;
+	        case 'ge' : lang=['Tagen des Jahres','Monat','Tag','Tag der Woche','Stunde','Minute','Sekunde'];
+	         break;
+	        case 'hu': lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;
+		 			break;
+						case 'bg' : lang=['']
+		 			break;
+					case 'none' : lang=['','','','','','',''];
+	         break;
+	        default: lang=['év napja','hó','nap','hét napja','óra','perc','másodperc'] ;
         }
         for (i=0;i<lang.length;i++)
         {
-        $$(".mutato")[i].innerHTML=lang[i];
+        	$$(".mutato")[i].innerHTML=lang[i];
         }
 		localStorage.lang = code;
 }
@@ -53,10 +51,10 @@ function time() {
         set('y',(day/365)*100);
         set('mo',((datum.getMonth()+1)/12)*100);
         set('d',(datum.getDate()/31)*100);
-    
+
         if (datum.getDay()==0)  set('w',100);
         else                    set('w',(datum.getDay()/7)*100)
-               
+
         set('h',(datum.getHours()/24)*100+(datum.getMinutes()/60)*4.1)
         set('m',((datum.getMinutes()/60)*100)+(datum.getSeconds()/40))
         set('s',(datum.getSeconds()/60)*100)
@@ -70,7 +68,7 @@ function time() {
         m_.innerHTML=datum.getMinutes();
         s_.innerHTML=datum.getSeconds();
 
-        ho=["január", "január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "november","december"]
+        ho=["január", "január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "november","december"];
 
         tit=datum.getHours() + ":" + datum.getMinutes() + ":" + datum.getSeconds() + " " + datum.getDate() + "-" + ho[datum.getMonth()] + "-" + datum.getFullYear();
 
@@ -88,10 +86,10 @@ time();
 rti=0;
     function rtp()
     {
-          if (rti<255)   rti++; 
-          else           rti=0; 
+          if (rti<255)   rti++;
+          else           rti=0;
           setTheme(rti)
-          setTimeout(      
+          setTimeout(
             function(){rtp()}
             ,500
             );
@@ -101,7 +99,7 @@ function setTheme(call)
         if (!isNaN(call))
         {
        setUI('hsl('+call+', 20%,15%)','hsl('+call+', 35%,25%)','hsl('+call+', 50%,35%)','hsl('+call+', 60%,45%)','hsl('+call+', 70%,55%)','hsl('+call+', 80%,60%)','hsl('+call+', 90%,65%)');
-        
+
         }
         else {
         switch (call)
@@ -122,7 +120,7 @@ function rand()
 r=Math.floor(Math.random()*255);
 g=Math.floor(Math.random()*255);
 b=Math.floor(Math.random()*255);
-return 'rgb(' + r + ',' + g + ',' + b + ')' 
+return 'rgb(' + r + ',' + g + ',' + b + ')'
 }
 function setUI(aw,bw,cw,dw,ew,fw,gw)
 {
@@ -136,14 +134,12 @@ function setUI(aw,bw,cw,dw,ew,fw,gw)
 }
 
 function settingso() {
-    if (opened)
-    {
-        
+    if (opened)  {
         setTimeout(function(){
         settings.classList.add('on');
         },50);
         opened=false;
-        
+
     }
     else {
         //settings.style.display="none";
@@ -165,3 +161,5 @@ csikocskak.onclick = function ()
     return false;     // cancel default menu
 }
 settingso();
+
+setTimeout( () => nxt.notify("#open",8000) , 100);

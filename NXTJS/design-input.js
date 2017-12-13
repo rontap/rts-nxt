@@ -2,6 +2,9 @@
 
 
 //checkbox loopbacks
+
+nxt.parseDocument = function() {
+
   for (let checkboxI=0; checkboxI<$$('checkbox').length;checkboxI++) {
  $$('checkbox')[checkboxI].innerHTML=  '<i class="material-icons"></i>'+$$('checkbox')[checkboxI].innerHTML;
  $$('checkbox')[checkboxI].onclick=function(){changeChBox(this)};
@@ -22,7 +25,7 @@ for (let switchI=0; switchI<$$('switch').length;switchI++) {
 }
 
 Node.prototype.setSwitchData = function(call) {
-    
+
     if (this.tagName=="STATUS") {
         if (call>100) call=100;
         if (call<0)   call=0;
@@ -62,28 +65,30 @@ function changeChBox(call) {
  }
 }
 
+
+}
 function changeRadio(call) {
 
    if (Boolean(call.getAttribute('disabled')!='true')) {
-     if (Boolean(call.getAttribute('checked')=='false')) {       
-       
+     if (Boolean(call.getAttribute('checked')=='false')) {
+
        nameSpace = call.getAttribute('name');
-         
+
        for (let cri = 0 ; cri < $$('radio[name="'+nameSpace+'"').length; cri++)
            {
              $$('radio[name="'+nameSpace+'"')[cri].setAttribute('checked','false');
-             $$('radio[name="'+nameSpace+'"')[cri].children[0].innerText='radio_button_unchecked';  
+             $$('radio[name="'+nameSpace+'"')[cri].children[0].innerText='radio_button_unchecked';
                console.log($$('radio[name="'+nameSpace+'"')[cri]);
            }
        call.setAttribute('checked','true');
        call.children[0].innerText='radio_button_checked';
      }
        else {
-          
+
            call.setAttribute('checked','false');
            call.children[0].innerText='radio_button_unchecked';
      }
-       
+
 
  }
 }
@@ -98,4 +103,4 @@ function changeSwitch(call) {
 }
 
 
-
+nxt.parseDocument();

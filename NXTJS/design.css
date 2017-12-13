@@ -1,4 +1,4 @@
-/* NXT full page design */ 
+/* NXT full page design */
 /* required:
  * jsplux.js
  * design.js
@@ -8,7 +8,10 @@
 /* UI DESIGN */
 :root {
     --primary: #3F51B5;
-    --dark-primary :#28358E; 
+    --dark-primary :#28358E;
+}
+body {
+  background: #eee;
 }
 header {
     background: var(--primary);
@@ -29,7 +32,7 @@ nav header {
     left: 0;
     width: 250px;
     font-size: 30px;
-    height: 70px;
+    height: 60px;
     z-index: 99;
     animation: scrollIn .2s;
 }
@@ -42,14 +45,14 @@ header span {
 nav {
     font-family: 'Montserrat', sans-serif;
     background: var(--dark-primary);
-    height: 40px;
-    padding-top: 30px;
+    height: 35px;
+    padding-top: 25px;
     display: block;
     color: #FEFEFE;
     z-index: 9;
     letter-spacing: 1px;
     opacity: 1;
-    
+
 }
 nav , [app-drag] , #linkBack {
     -webkit-app-region: drag;
@@ -58,14 +61,16 @@ holder * {
     -webkit-app-region: no-drag;
 }
 nav.fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 2px 3px #aaa;
 }
 
 nav header div {
-    padding-top: 15px;
+    padding-top: 10px;
+    font-weight: bold;
 }
 
 holder > container.on,
@@ -85,11 +90,11 @@ container.sidebar {
     position: fixed;
     width: 299px;
     bottom: 0;
-    top: 20px;
+    top: 10px;
     left: 0;
     margin-left: 1px;
     overflow-y: scroll;
-    background: #e5e5e5;
+    background: white;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     margin: none !important;
@@ -185,12 +190,12 @@ container.sidebar {
 
 
 #pageTitle {
-    display: block;
-    font-size: 30px;
-    margin-left: 350px;
-    margin-top: -15px;
-    text-transform: uppercase;
-    transition: .2s;
+  display: block;
+  font-size: 24px;
+  margin-left: 350px;
+  margin-top: -12px;
+  text-transform: uppercase;
+  transition: .2s;
 }
 
 /*material icons*/
@@ -244,7 +249,7 @@ container.sidebar {
 #NineDotMenu {
     position: fixed;
     color: white;
-    top: 7px;
+    top: 1px;
     z-index: 99;
     font-size: 32px;
     right: 7px;
@@ -259,8 +264,11 @@ container.sidebar {
     top: 100%;
     z-index: 99;
     height: 100%;
+    opacity: 1 !important;
+    border-top: 140px solid #2196F3;
     background: linear-gradient(#EEE, white);
     animation: NineDotMenuUp .6s;
+    animation-fill-mode: forwards;
 }
 
 #NineDotMenu.on::before {
@@ -269,12 +277,15 @@ container.sidebar {
     left: 0;
     right: 0;
     top: 0;
-    z-index: 97;
+    z-index: 97 !important;
     height: 100%;
     opacity: 0;
     background: #444;
     border-radius: 0px !important;
     animation: NineDotMenuBlack .6s;
+}
+body.NineDotMenuTransition .sidebar {
+  opacity: 0 !important;
 }
 
 .ctrls-l , .ctrls-x , .ctrls-m{
@@ -293,7 +304,7 @@ container.sidebar {
     right:140px;
 }
 .ctrls-m {
-    right:200px;   
+    right:200px;
 }
 .ctrls-l:hover , .ctrls-x:hover , .ctrls-m:hover  {
     background:var(--light-primary);
@@ -322,7 +333,7 @@ container.sidebar {
 
 body.full-covered-active nav {
    height:300px;
-   
+
    z-index: -1;
 }
 body.full-covered-active holder > div:not(#splash).on {

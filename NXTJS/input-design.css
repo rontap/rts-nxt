@@ -3,7 +3,7 @@
 *[float] , *[flr] { float:right;}
 /*REGURAL INPUT*/
 
-/* NXT input type design */ 
+/* NXT input type design */
 /* required, auto loading:
  * elements-design.css
 */
@@ -11,7 +11,7 @@
 
 /*----------------------------------------------------------------------------*/
 /*text inputs*/
-input:not([type="range"]):not([type="file"]) {
+input:not([type="range"]):not([type="file"]):not([type="checkbox"]) {
 	padding:5px;
 	margin:0px 5px;
 	border:1px solid #A1A1A1;
@@ -21,7 +21,7 @@ input:not([type="range"]):not([type="file"]) {
 	 outline: none;
 	transition:all .2s;
 }
-input:not([type="range"]):not([type="file"]):hover , input.active {
+input:not([type="range"]):not([type="file"]):not([type="checkbox"]):hover , input.active {
 	background:#FFF;
 	box-shadow: 0px 1px 1px #DDD;
 	width:140px;
@@ -86,6 +86,12 @@ input[type=range] {
 
     width: 150px;
 
+}
+input[type=checkbox][nxt] {
+display:none;
+}
+label[nxt] {
+	transition:.4s;
 }
 input[type=range]::-webkit-slider-runnable-track {
     width: 300px;
@@ -221,7 +227,7 @@ button[real] {
     border: none;
     transition:all .2s;
     outline:none;
-    
+
 }
 button:hover, button:focus {
      box-shadow: 0px 2px 7px #666;
@@ -237,19 +243,26 @@ button:active {
 
 
 .sidebar::-webkit-scrollbar {
-    width: 1em;
+    width:10px;
+border-top: 4px solid white;
 }
- 
+
 .sidebar::-webkit-scrollbar-track {
   cursor:col-resize;
-   
+
+
 }
 .sidebar::-webkit-scrollbar-track-piece:start {
-    background:#999;
+    background:#fff;
 }
 .sidebar::-webkit-scrollbar-thumb {
-  outline: 1px solid slategrey;
-   background:#666;
+
+   background:#999;
+	 padding: 10px 0px;
+	 border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar {
+	border:none !important;
 }
 
 
@@ -263,7 +276,7 @@ body::-webkit-scrollbar {
 }
 *::-webkit-scrollbar-track {
   cursor:col-resize;
- 
+
 }
 *::-webkit-scrollbar-track-piece:start {
     background:#BBB;
@@ -274,7 +287,7 @@ body::-webkit-scrollbar {
 
 }
 *::-webkit-scrollbar-thumb:active {
-   
+
    background:#48F;
 }
 

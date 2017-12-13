@@ -1,12 +1,14 @@
-/* NXT elements design */ 
+/* NXT elements design */
 /* required: none.     */
+/* tied to: colors.css */
 
 /*cards, chips, modal windows and other elements*/
 
 
-/* FONT AND BASE */
+/* FONT , BASE ICONS AND COLORS*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&subset=latin-ext');
+@import url('colors.css');
 
 body {
     margin: 0;
@@ -329,4 +331,79 @@ holder h1.expand.covered {
 }
 .color-wrapper.divided2 div:last-child{
    margin-left:0;
+}
+
+
+/* TOAST NOTIFICATIONS */
+toast {
+    position: fixed;
+    right: 15px;
+    bottom:-100px;
+    opacity: 0;
+    background:#263238;
+    color:#CFD8DC;
+    padding:10px 15px;
+    border-radius: 4px;
+    border:1px solid #222;
+    font-family: 'Montserrat';
+    box-shadow: 0px 3px 4px #CFD8DC;
+    z-index: 95;
+    transition:all .4s;
+}
+toast.on {
+  bottom:15px;
+  opacity: 1;
+}
+toast action {
+    text-transform: uppercase;
+    font-size:13px;
+    font-weight: bold;
+    color:#2196F3;
+    margin-left:10px;
+    vertical-align: 1px;
+    cursor: pointer;
+}
+toast action[error]   { color:#F44336; }
+toast action[warning] { color:#FF9800; }
+toast action[info]    { color:#B0BEC5; }
+
+
+
+/*TOGGLE*/
+toggle {
+    display: inline-block;
+    padding:5px;
+    cursor: pointer;
+    vertical-align: -9px;
+}
+toggle::before {
+       content: '';
+    display: block;
+    width: 40px;
+    height: 10px;
+    background: #bbb    ;
+    border-radius: 5px;
+    transition: all .2s;
+}
+toggle::after {
+   content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: #48f;
+    background: var(--dark-primary);
+    border-radius: 10px;
+    margin-top: -15px;
+    margin-left:-1px;
+    transition:all .2s;
+    box-shadow: 0px 2px 2px #999;
+}
+toggle.on::before {
+    background: #999;
+}
+toggle:hover::after {
+    box-shadow: 0px 2px 4px #888;
+}
+toggle.on::after {
+    margin-left:21px;
 }

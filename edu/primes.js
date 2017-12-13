@@ -1,3 +1,11 @@
+/**
+ * Legacy Intersting prime number simulation
+ * Introduced to Tapcalk in 6 D
+ * CC-BY-NC Licence
+ * @author: rontap
+ *
+ * description: see wikipedia article
+ **/
 
     function tbld(call) {
 

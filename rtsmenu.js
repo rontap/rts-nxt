@@ -1,24 +1,32 @@
     
 searchMe = [
-    ['get random text generator password security','tools.html#rpt','build','Password Generators'],
-    ['set music player vlc sound playlist media','tools.html#clock','album','Music Players'],
-    ['get color colour swatch random generator','tools.html#clock','invert_colors', "Random Color Generator"],
-    ['set hour clock timer stopwatch','tools.html#clock','alarm','Clocks'],
-    ['text editor format word write','tools.html#te','format_color_text','Text Editor'],
-    ['text notes editor save word idea write','tools/noteio.html','border_color','Note IO'],
-    ['text edit multiple send email idea unique write','tools/multiplix.html','format_shapes','Mulitplix'],
-    ['habits track multiple idea unique write task note','tools.html#habits','playlist_add_check','Habits'],
-    ['meause habit change quit smoking unique counter','tools/smoke.html','smoke_free','Quit Smoking'],
+    ['get random text generator password security','random.html#rpt','build','Password Generators'],
+    ['set music player vlc sound playlist media','random.html#music','album','Music Players'],
+    ['get color colour swatch random generator','random.html#clock','invert_colors', "Random Color Generator"],
+    ['set hour clock timer stopwatch','random.html#clock','alarm','Clocks'],
+    ['text editor format word write','random.html#te','format_color_text','Text Editor'],
+    ['text notes editor save word idea write','random/noteio.html','border_color','Note IO'],
+    ['text edit multiple send email idea unique write','random/multiplix.html','format_shapes','Mulitplix'],
+    ['habits track multiple idea unique write task note','random.html#habits','playlist_add_check','Habits'],
+    ['meause habit change quit smoking unique counter','random/smoke.html','smoke_free','Quit Smoking'],
     
     ['time timeflow clock color screensaver','clock/clock.html','query_builder','Timeflow Clock for Background'],
     ['time binary fancy clock hourglass','clock/binary.html','query_builder','Binary Clock'],
     ['timer round stopper fancy clock hourglass wecker wake stopwatch','clock/round.html','query_builder','Round Clock Stopper, Watch'],
     ['mek oszk parser explorer reader text literature redesign','explore/mek.php','book','MEK Explorer '],
     ['wikipedia parser explorer read redesign learn','explore/mek.php','domain','RE:WIKI Wikipedia'],
+
+    ['tapcalk caluclator numbers maths','edu/tapcalk.html','view_carousel','TapCalk 6'],
+
+    ['games play simulation superfarmer','games/superfarmer/main.html','recent_actors','Super Farmer Simulation'],
+    ['games play card speed fun','games/speed/main.html','credit_card','Speed Card Game'],
+    ['games play color reaction fun','games/colorize/index.html','gamepad','Color Game'],
+
     
 ];
     
     searchCurrSelected=0;
+    searchResultsPrevelance=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 function updateTextSearch(e) {
     keywords = search.value.split(" ");
     searchResultsList.innerHTML="";
@@ -34,8 +42,8 @@ function updateTextSearch(e) {
         for (j=0; j<searchMe.length; j++) {
             
             if ( 0 <= searchMe[j][0].indexOf(keywords[i]) ) {
-                
-                searchResultsList.innerHTML+="<div onmousemove='csSs("+(searchResultCount++)+");'><i class='material-icons'>"+searchMe[j][2]+"</i>"+searchMe[j][3]+"</div>";
+                searchResultsPrevelance[j]++;
+                searchResultsList.innerHTML+="<div onclick='location.href=\" "+searchMe[j][1]+" \"' onmousemove='csSs("+(searchResultCount++)+");'><i class='material-icons'>"+searchMe[j][2]+"</i>"+searchMe[j][3]+"</div>";
             }
         }
     }

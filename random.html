@@ -2,7 +2,7 @@
 <html lang="">
 <head>
 	<title>NXT RANDOM 3</title>
-
+	<meta charset="UTF-8">
 	<script src="NXTJS/jsplus.js" type="text/javascript"></script>
 
   <link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
@@ -13,6 +13,7 @@
 	<script src="random/coloring.js" type="text/javascript"></script>
 	<script src="random/music.js" type="text/javascript"></script>
 	<script src="random/count.class.js" type="text/javascript"></script>
+	<script src="random/langs.js" type="text/javascript"></script>
 
   <link rel="stylesheet" href="NXTJS/elements-design.css">
 	<link rel="stylesheet" href="NXTJS/design.css">
@@ -58,6 +59,7 @@
 		<div class="otitle"><div>Generators</div></div>
 		<div class="omenu">Random Password & Text</div>
 		<div class="omenu">Color Tools</div>
+		<div class="omenu">Languages</div>
     <div class="omenu" onmouseup="location.href='random/smoke.html'">Quit Smoking<i class="material-icons">open_in_new</i></div>
 
 		<div class="otitle"><div>File</div></div>
@@ -181,7 +183,7 @@
 				    <checkbox>Numbers</checkbox>
 					<checkbox>Uppercase</checkbox>
 					<checkbox>Special Chars.</checkbox>
-					<checkbox checked="true">Cyrill & Ext. Latin</checkbox>
+					<checkbox >Cyrill & Ext. Latin</checkbox>
 					<br><hr>
 					<div id="passwordOutput"></div>
 
@@ -199,6 +201,28 @@
 				<checkbox checked="true">Spaces</checkbox>
 				<checkbox>Sentences</checkbox>
 				<checkbox disabled="true">Special Chars.</checkbox>
+			</div>
+
+			<div class="card">
+				<h1 class="covered cyan">coin, dice and other random events</h1><br>
+				<!--sdiv class="content">
+					<div class="navigation">
+						<a>Eszperente Words</a>
+						<a>Vers</a>
+						<a>Throw Dice</a>
+						<a>Flip-a-Coin</a>
+					</div>
+					<div>
+							heyya
+					</div-->
+					<button real>Hello</button>
+					<button real>Hello</button>
+					<button real>Hello</button>
+					<button real>Hello</button>
+					<button real>Hello</button>
+
+
+				</div>
 			</div>
 
 		</div>
@@ -222,6 +246,25 @@
 				<div id="colorResults"></div>
 			</div>
 		</div>
+
+
+		<div >
+			<div class="card" id="languageHeader">
+					<br>Check out which languages are spoken today most widely. You can add multiple languages, to check how much of the world's popultaion you could have a conversation with.<br>
+					The list is not complete. All numbers are estimates in millions and only the 100 most widely spoken is included.<br>
+					<b>L1 speaker</b> is someone who knows the language as good as a mother-thounge speaker, or is one (C2 level).<br>
+					<b>L2 speaker</b> is someone who has learnt the language, but knows it reasonably well (B1+ level)<br><br>
+					<div id="langGraph">
+							<span id="g_l1">L1</span><span id="g_l2">L2</span>
+							<span id="g_l3"></span>
+						</div>
+						<br>
+			</div>
+
+
+				<div class="card" id="languages"></div>
+		</div>
+
 
 <container>yo mate</container>
 <div>
@@ -271,14 +314,16 @@
 
 	<script>
 counter = new Microcount();
-newUser(); //MULTIPLIX
+//newUser(); //MULTIPLIX
 
+docScrolled = 0;
 
         //to be ported to NXT
 
 window.document.onscroll = function(){
+	 docScrolled = window.scrollY;
    console.log(window.scrollY);
-   if ((window.scrollY<200)&&($('body').classList.contains('full-covered-active'))){
+  /* if ((window.scrollY<200)&&($('body').classList.contains('full-covered-active'))){
       $$('.covered.expand')[0].style.backgroundPositionY='-'+window.scrollY/2+'px';
       $$('.covered.expand')[0].style.paddingTop=Math.floor(220-window.scrollY)+'px ';
       if (lastSelMenuItem==0)
@@ -288,8 +333,11 @@ window.document.onscroll = function(){
    }
    else {
 
-   }
-
+   }*/
+   if (lastSelMenuItem==12) {
+		 if (docScrolled>400) $('#languageHeader').style.top="-190px";
+		 else $('#languageHeader').style.top=(10-docScrolled/2)+"px";
+	 }
 }
 
 	</script>
@@ -310,10 +358,29 @@ window.document.onscroll = function(){
         setTimeout( function() {
 					$$('.omenu')[0].click();
 					$$('.covered.expand')[0].style.backgroundImage=$$('.covered.expand')[0].getAttribute('img');
-
-
+					languages.innerHTML=parseTable();
+					checkboxNxt();
 				} , 400) ;
     </script>
 </body>
-
+<style>
+	.content .navigation {
+		width:150px;
+		border-right:3px solid var(--dark-primary);
+		padding:10px;
+		margin-right:10px;
+		font-size:14px;
+		font-weight: 500;
+	}
+	.content .navigation a {
+		display: block;
+		font-family: 'Montserrat';
+		line-height: 20px;
+		text-align: right;
+		color:var(--dark-primary);
+	}
+	.content>div {
+		display: inline-block;
+	}
+</style>
 </html>
