@@ -3,7 +3,7 @@
 ## Ron Tap Sites NeXT - 5
 *Ported originally from version 4.3.2 of RTS4*
 
-**version 5.4 JELICOE (RC1) **
+**version 5.4 JELICOE (RC1)**
 
 ## Recent Changes
 ```
