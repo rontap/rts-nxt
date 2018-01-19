@@ -24,6 +24,37 @@ for (let switchI=0; switchI<$$('switch').length;switchI++) {
  $$('switch')[switchI].onclick=function(){changeSwitch(this)};
 }
 
+for (i = 0; i<$$('input[nxt]').length; i++) {
+  $$('label[nxt]')[i].onclick=function() {
+    if (this.checked) {this.innerHTML="check_box_outline_blank" ; this.checked=false; this.style.color="#222"; }
+    else  { this.innerHTML="check_box" ; this.checked=true; this.style.color="var(--primary)"; }
+  }
+}
+
+for (i=0; i<$$('selector').length; i++) {
+  
+  $$('selector')[i].onclick = function(call) {
+  console.log(call.path[1].tagName)
+  if (call.path[1].tagName=="SELECTOR") {
+         nth = $$('selector.active span').indexOf(call.target);
+            $('selector.active span.on').classList.remove('on');
+        call.target.classList.add('on');
+     }
+
+  }
+  $$('selector')[i].onmousedown = function(call) {
+     call.path[1].classList.add('active');
+  } 
+  $$('selector')[i].onmouseup = function(call) {
+     setTimeout(function(){
+         call.path[1].classList.remove('active');
+     },20)
+    
+  } 
+  
+}
+
+
 Node.prototype.setSwitchData = function(call) {
 
     if (this.tagName=="STATUS") {
@@ -66,7 +97,8 @@ function changeChBox(call) {
 }
 
 
-}
+}//parseDocument
+
 function changeRadio(call) {
 
    if (Boolean(call.getAttribute('disabled')!='true')) {

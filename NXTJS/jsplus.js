@@ -8,8 +8,8 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					//we use strict so everything is clear and no unexpected errors
-const nxtjsBuildNumber = 1431;  //build number for modules
-
+const nxtjs_proto_BuildNumber = 1530;  //build number for modules
+// use nxt.build instead.
 
 //-----------------------------------------------------------------
 //-----------------BASE-PROTOTYPE-EXTENSIONS-----------------------
@@ -19,21 +19,27 @@ const nxtjsBuildNumber = 1431;  //build number for modules
 var $    = (call)    =>  document.querySelector(call);
 var $$   = (call)    =>  document.querySelectorAll(call);
 
+//for some reason, NodeList didnt have an indexOf in its prototype.
 NodeList.prototype.indexOf = function(element) {
     return [...this].indexOf(element);
 }
 
-//toggle DOM interaction within nxt
+//toggle DOM interaction within nxt.
+//Used by high performance applications
 var $DOMInteraction = function (call) {
 	if (call) {
 		$    = (call)    =>  document.querySelector(call)
 		$$   = (call)    =>  document.querySelectorAll(call)
+    nxt.domInteraction = true;
 	}
 	else {
 	    $ = function(){ throw 'DOM Interaction is turned off'; }
 	   $$ = $ ;
+     nxt.domInteraction = false;
 	}
 }
+
+//-----------------ARRAY-PROTOTYPE-EXENSIONS-------------------------
 
 Array.prototype.max = function()  {    return Math.max(...this);    }
 Array.prototype.min = function()  {    return Math.min(...this);    }
@@ -68,7 +74,7 @@ Boolean.prototype.type = "Boolean";
 Math.spread =  function(/*array*/ call)
 {
    let avg = Math.avg(call);
-   let temp = []
+   let temp = [];
    for (i=0;i<call.length;i++) {
        temp[i]=Math.pow(call[i]-avg,2);
    }
@@ -145,7 +151,7 @@ class Color {                   //simple generation of colors. Finally
 
 //-----------------------------------------------------------------
 //-----------------JS-GET/from-PHP---------------------------------
-//------------------------------original-version-by-deesnow97------
+//---------------------original-version-co-written-with-deesnow97--
 
 function $_GET(args) {
     args = args || 'null' ; //args is only used for asking specific argument
@@ -176,6 +182,31 @@ function $_GET(args) {
         }
     }
 
+}
+function $_SET( locationCall , from , to ) {
+  args = args || 'null';
+  from = from.concat( nxt.jsgetFrom );
+  to = from.concat( nxt.jsgetTo );
+
+  if (args!=null) {
+    let parsedLocation="#";
+    $$('#NineDotMenu')[0].classList.add("on");
+    $$('body')[0].classList.add("NineDotMenuTransition");
+    for (i=0;i<from.length;i++) {
+      parsedLocation += from[i] + "=" +to[i] + "&";
+    }
+    setTimeout(function(){
+      location.href = locationCall + parsedLocation;
+    },200);
+  }
+  else {
+    return {
+      'add' : function(from,to) {
+          nxt.jsgetFrom = nxt.jsgetFrom.concat(from);
+          nxt.jsgetTo = nxt.jsgetTo.concat(to);
+      }
+    }
+  }
 }
 
 //-----------------------------------------------------------------
@@ -244,7 +275,9 @@ if (localStorage.nxtDataStore==undefined) {
     localStorage.nxtDataStore = JSON.stringify(temp);
 }
 var nxt = {
-  build : nxtjsBuildNumber,
+  jsgetFrom : [],
+  jsGetTo : [],
+  build : nxtjs_proto_BuildNumber,
   modules : ["core"],
   //loading JS packages
   require : function(url) {
@@ -302,8 +335,40 @@ var nxt = {
      }
      return temp;
    }
+,
+   //critial error settings, when parsing goes Wrong
+   die : function(message,title) {
+      var title = title || "";
+      var message = message || "";
+      document.writeln("<style>body {font-family:monospace;margin:60px;}</style><title>ParseError</title>")
+      document.writeln("<br><h1>NXT JS Runtime Error "+title+"</h1>");
+      document.writeln("The page cannot be parsed. Please reload or go back to the previous site.<br>");
+      document.writeln(message+"<hr><br>");
+      let a =  new Date().getTime();
+      document.writeln("nxt.js build version: " + nxt.build + "<br>Timestamp: " + a);
+      throw "NXT.JS Fatal Parse Error.";
+   },
+   dieFromVersion : function(ver) {
+      setTimeout(function() {nxt.die("Required version: "+ver ,": Incompatible module version") } , 100);
+   },
+   domInteraction : true,
+
+   //allowing <var is="" setups
+   timeCop : function() {
+     if ( nxt.domInteraction )
+       for (let i=0; i<$$("var").length;i++) {
+         if ( (window[ $$("var")[i].getAttribute("is") ] != undefined) )
+           $$("var")[i].innerHTML = window[ $$("var")[i].getAttribute("is") ];
+        }
+     setTimeout( () => nxt.timeCop() ,100);
+    }
+
 
 }
+
+
+//timecop for varables
+nxt.timeCop();
 
 //-----------------------------------------------------------------
 //-----------------KEYBOARD-CONTROL--------------------------------

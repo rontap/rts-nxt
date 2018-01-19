@@ -421,3 +421,14 @@ body.viewSettings #settingsView {
 body #settingsView {
     display: none;
 }
+#siteView , nav>h1, #menuSwitch{
+  opacity: 0;
+
+  animation:show 1s forwards;
+  animation-delay: .2s;
+
+}
+@keyframes show {
+  0% { opacity:0;}
+  100% { opacity:1;}
+}

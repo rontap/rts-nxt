@@ -5,6 +5,7 @@
 <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
 
+<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -44,7 +45,7 @@
 </div>
 
 <footer>
-	<status value="100" block=""><div></div></status>
+	<status value="100" block="" id="progressbar"><div></div></status>
 
 	<i id="expandBtn" class="material-icons">keyboard_arrow_up</i>
 </footer>
@@ -92,12 +93,13 @@ left:560px;
     left: 187px;
     display: block;
     top: 5px;
+		padding:10px;
 
 }
 #title {
 	display: inline-block;
 	background:red;
-	padding: 18px 17px 18px 18px;
+	padding: 16px 17px 15px 18px;
 	margin:-10px;
 	background: #8D6E63;
 }
@@ -122,7 +124,7 @@ border-bottom: 2px solid #607d8b;
 
 		padding:0 40px;
 	background:white;
-	top:60px;
+	top:50px;
 	height:60px;
 	left:0; right:0;
 }
@@ -143,7 +145,7 @@ border-bottom: 2px solid #607d8b;
 }
 #currChapter {
   top:255px;
-	width:61px;
+	width:62px;
 	text-align: center;
 }
 #nextChap {
@@ -153,31 +155,9 @@ border-bottom: 2px solid #607d8b;
 	bottom:14px;
 	top:auto;
 }
-	#progressbar {
-	height:20px;
-		width:160px;
-		border:1px solid rgba(50,50,50,.6);
-
-	}
-	#progressbar::after {
-	    content: attr(data) '%';
-    position: absolute;
-    margin-top: 0px;
-    color: white;
-    font-size: 14px;
-    margin-left: 120px;
-    z-index: 99;
-    text-shadow: 0px 0px 1px #999;
-	}
-	#progressbar-fill {
-
-			background:#666;
-		position:absolute;
-		margin-top:-21px;
-		height:20px;
-		width:0px;
-		border-right:1px solid rgba(50,50,50,.6);
-	}
+.night .fab {
+	    box-shadow: 0px 3px 4px #222 !important;
+}
 	CONTAINER, CONTAINER a, CONTAINER table {
 	transition:.4s;
 	}
@@ -205,6 +185,13 @@ border-bottom: 2px solid #607d8b;
 
 	padding:10px;
 	border-top:1px solid #ddd;
+	}
+	.night footer {
+		background:#222;
+		border-top:1px solid #666;
+	}
+	.night #expandBtn {
+		background:#ddd;
 	}
 	nav {
 		 top:0;right:0;
@@ -249,12 +236,18 @@ border-bottom: 2px solid #607d8b;
 	}
 	/*night mode*/
 	.night {
-
+			background:#444 !important;
 	}
 	.night CONTAINER {
-
-		background:#444;
+		    box-shadow: 0px 2px 4px #000 !important;
+		background:#222;
 		color:#ddd;
+	}
+	.night h3 * , .night center * {
+		color:#f1f1f1 !important;
+	}
+	.night nav  {
+		 box-shadow:0px 2px 4px #333;
 	}
 	.night CONTAINER table * {
 
@@ -278,6 +271,9 @@ border-bottom: 2px solid #607d8b;
 	body {
 		background:#ddd !important;
 	}
+	.dont-show-image {
+		display: none;
+	}
 </style>
 <script>
 //navigation code
@@ -298,9 +294,9 @@ console.log('hello');
 	}
 
 	//favourites
-	$('#favs').change(function(){
+	$('#favs').onchange = function(){
 		location.search=favs.options[favs.selectedIndex].value;
-	});
+	};
 
 	favourites ={a:[]};
 	if ( localStorage.MEKfav !== undefined ) {
@@ -344,7 +340,7 @@ console.log('hello');
 <CONTAINER >
 <?php
 
-	$html = file_get_contents('http://mek.oszk.hu/' .  $_GET['q'] );
+	$html = file_get_contents( $_GET['q'] );
 	libxml_use_internal_errors(true); //Prevents Warnings, remove if desired
 	$dom = new DOMDocument();
 	$dom->loadHTML($html);
@@ -358,7 +354,38 @@ console.log('hello');
 	echo $body;
 ?>
 </CONTAINER>
+<error-container>
+	<div class="card">
+<h1 class="covered large dgrey-500 expand" style="color:white;">Something Went Wrong</h1>
+<br>
+<p> The Page couldn't be rendered correctly! This is either due to incompatible website or a broken link.<br>
+	Sorry About that. Why not try some alternative links, that might work:<br>
 
+</p>
+
+<br>
+<hr>
+
+<details>
+  <summary>Error Details</summary>
+	<div id="error_placeholder">Unknown Error</div>
+</details>
+	</div>
+
+</error-container>
+<style>
+error-container {
+	display:none;
+	margin-top:150px;
+}
+error-container h1 {
+	padding-top:100px !important;
+	display:block;
+}
+.error_on_loading>nav>button ,.error_on_loading>nav>input  {
+	display: none !important;
+}
+</style>
 <meta charset="UTF-8">
 <script>
 //removing
@@ -375,6 +402,8 @@ console.log('hello');
     }
 
 }
+
+  try {
 	$('img[src]').each(function(){
 				$(this).attr('src', 'http://mek.oszk.hu/'+ location.search.slice(2,Infinity) + '/' +$(this).attr('src'));
 			})
@@ -383,37 +412,58 @@ console.log('hello');
 	$("img").error(function () {
 		$(this).hide();
 	});
-	$('a[href]').each(function(){
-		if ( $(this).attr('href').search('#')<0)
-		{
 
-		$(this).attr('href', 'mek.php?q='
-		 + location.search.slice(3,Infinity)
-		 + '/'
-		 +$(this).attr('href'));
-	}
-	else if ( $(this).attr('href').search('#')>0 ){
-		console.log(this);
-		//alert();
-		$(this).attr('href', 'mek.php?q='  +$(this).attr('href'));
-	}
 
-        })
+
+
+
+
 	$('form[action]').each(function(){
             $(this).attr('action', 'mek.php?q='+$(this).attr('action'));
         })
 
+}
 
+catch(e) {
+	console.log("JQUERY : ERROR : DISABLED PARTS");
+}
+//error handling
+if ($('container').innerHTML.search("HTTP/1.1 404")>0) {
+	$("error-container").style.display="block";
+	$("#error_placeholder").innerHTML=$("container").innerHTML
+	$("container").style.display="none";
+	$("body").classList.add("error_on_loading");
+}
+for (i=0; i<$$('a[href]').length;i++) {
+			if ( $$('a[href]')[i].getAttribute('href').search('#')<0)
+			{
+
+					$$('a[href]')[i].setAttribute('href', 'mek.php?q='
+					 + location.search.slice(3,Infinity)
+					 + '/'
+					 +$$('a[href]')[i].getAttribute('href'));
+		}
+		else if ($$('a[href]')[i].getAttribute('href').search('#')>0){
+			console.log(this);
+			//alert();
+			$$('a[href]')[i].setAttribute('href', 'mek.php?q='  +$$('a[href]')[i].href);
+		}
+}
+for (i=0; i<$$('img').length;i++) {
+	$$("img")[i].onerror = function() {
+		this.classList.add("dont-show-image");
+	}
+}
 	//SCROLL
 	document.onscroll = function(){
 
-			a=offsetChecker(scrollY);
-			chapterCurrent=a;
-			console.log(a);
+
+			chapterCurrent=offsetChecker($('body').scrollTop);
+
 			currChapter.value=chapterCurrent;
-			var at= (document.body.scrollTop +658)/ document.body.offsetHeight ;
+			var at= (document.body.scrollTop-100)/ document.body.offsetHeight ;
 			console.log(at);
-			$('#progressbar-fill').setSwitchData(at);
+			$('#progressbar').setSwitchData(Math.round(at*100));
 		//$('#progressbar').setAttribute('data', Math.round(100* at) );
 		//$('html, body').animate({scrollTop: chapterOffset[a]-60+'px'}, 100);
 
@@ -426,13 +476,13 @@ console.log('hello');
 	}
 
 	//CHAPTER
-	chapterNumbers=$('p[align="center"]').length;
+	chapterNumbers=$$('p[align="center"]').length + $$('center').length;
 	chapterOffset=[];
 	chapterCurrent=0;
 	secI=0;
 	for (var i=0;i<chapterNumbers;i++) {
 		// i = elemeents secI = elements we need.
-		chapterOffset[secI]=$($('p[align="center"],h3')[i]).offset().top	;
+		chapterOffset[secI]=$$('p[align="center"],h3')[i].offsetTop	;
 		if (chapterOffset[secI]-chapterOffset[secI-1]<100) secI--; //if two anchors are too close, we ignore
 		secI++;
 	}
@@ -440,10 +490,11 @@ console.log('hello');
 
 	function chapter(call) {
 		chapterCurrent+=call;
-		var temp= chapterOffset[chapterCurrent];
-		$('html, body').animate({scrollTop: temp-50+'px'}, 100);
+		let  temp= chapterOffset[chapterCurrent];
+		$('body').scrollTop=  temp-50;
 
 	}
+	try {
 	//epic text selector
 	$('container').click(function(){
 		$('container span').removeClass('glow');
@@ -468,6 +519,11 @@ console.log('hello');
 				)
 		}
 		});
+
+	}
+	catch (e) {
+		console.log("JQUERY : ERROR : XRAY")
+	}
 </script>
 
 

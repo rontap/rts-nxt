@@ -1,0 +1,220 @@
+<!--rontap NXT-->
+<html>
+<head>
+	<script src="../NXTJS/jsplus.js"></script>
+	<link  href="../NXTJS/sole-design.css" rel="stylesheet">
+	<link  href="../NXTJS/splash.css" rel="stylesheet">
+		<link  href="../NXTJS/elements-design.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans&amp:300,200,500;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta charset="UTF-8">
+<style>
+:root {
+	--primary:#795548 ;
+	--dark-primary:#4E342E ;
+}
+header span {
+  padding-top:130px;
+}
+.scroll450 header span e {
+  display: none;
+}
+</style>
+	</head>
+	<body>
+			<header app-drag>
+		  	<span><b>MEK-OSZK</b><br><e>BROWSER</e></span>
+		  </header>
+             <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+
+		  <nav>
+				Search and Read in the Hungarian National Online Book Library
+		  </nav>
+		<br>
+				<container>
+					<card class="title" style="background:#607D8B;text-align:center;font-size:20px;">
+							About this project
+					</card>
+					<card style="text-align:justify;padding:20px 50px;font-size:18px;text-indent:30px;background:#EEE;" no>
+						<p>
+							The Hungarian National corpus (referred to as <i>Magyar Elektronikus Könyvtár</i>, <b>MEK</b>) is the largest, freely available online Hungarian book collection.<br>
+							It includes international classics like 1984 and Hungarian must-reads such as <i>Köszivű ember Fiai</i>.<br>
+							<br>Sadly, the website's design is rather cluttered making navigation and searching hard. Additionally, features, which would increase readablity, such as night mode, font change and other features available in E-Book readers are missing.<br>
+							The aim of this software, is to re-render the UI of the <i>MEK</i>. It is fully compatible with any <i>.html</i>
+							file that is on the original website.<br><br>
+							In case of ideas, and found bugs, please contact AB@D.EU
+						</p>
+						<p>
+							</p>
+					</card>
+				</container>
+        <container>
+            <card class="title dgrey-900" >
+                Search in the Corpus
+            </card>
+						<i class="material-icons fab dgrey-500 h1-connect-fab" style="margin-top:-28px;" onclick="mekSearch();">search</i>
+            <input class="large-input" placeholder="search title..." id="search_title"><br>
+						<input class="large-input" placeholder="search author..." id="search_author">
+        </container>
+
+        <container>
+			<card class="title">
+			Games
+			</card>
+			<card onclick="location.href='games/colorize/index.html'">
+				<b>Color Game</b>
+				<span>A simple game for passing time and getting too much involved in matching colors.</span>
+			</card>
+			<card onclick="location.href='games/mine.html'">
+				<b>Mines</b>
+				<span>The copy of a well known game</span>
+			</card>
+			<card onclick="location.href='games/speed/index.html'">
+				<b>Speed</b>
+				<span>A famous reaction-based card game.</span>
+			</card>
+		</container>
+
+
+
+			<wide class="brown-500">
+				<cube><h1>JM</h1><span>Kőszivű Ember Fiai</span></cube>
+				<cube onclick="http://mek.oszk.hu/11600/11629/11629.htm"><h1>MZs</h1><span>Móricz: A bál<br>&nbsp;</span></cube>
+				<cube onclick="http://mek.oszk.hu/01000/01010/01010.htm"><h1>PS</h1><span>János Vitéz<br>&nbsp;</span></cube>
+				<cube onclick="http://mek.oszk.hu/00500/00588/html/versek01.htm"><h1>AE</h1><span>Ady: Új Versek</span></cube>
+				<cube onclick="http://mek.oszk.hu/00500/00588/html/versek03.htm"><h1>AE</h1><span>Ady: Az Illés Szekerén</span></cube>
+
+				<cube onclick="http://mek.oszk.hu/00900/00910/html/"><h1>MK</h1><span>Mikszáth: Fekete Város</span></cube>
+
+
+			</wide>
+
+
+	</div>
+		<style>
+		wide cube {
+			display: inline-block;
+			height: 100px;
+			color:white;
+			width:100px;
+			padding:50px;
+			transition:.3s all;
+			cursor:pointer;
+		}
+		wide cube:hover {
+			background:#eee;
+			color:#795548 !important;
+		}
+		wide cube h1 {
+			text-align:center;
+			font-size:33px;
+		}
+		wide {
+			text-align:center;
+			    overflow-y: scroll;
+			height:200px;
+			position:absolute;
+			left:0;
+			right:0;
+		}
+		.large-input {
+			outline:none;
+			margin-top:-30px;
+			border:none;
+			display:block;
+			padding:20px;
+			font-size:20px;
+		}
+			.blanholder {
+				font-size:18px;
+				display: inline-block;
+				margin:20px;
+				padding:40px 30px;
+				text-align:left;
+				border-radius: 4px;
+				border:1px solid #7986CB;
+				transition:all .2s;
+			}
+			.blanholder:hover {
+				background:#7986CB;
+				cursor: pointer;
+				box-shadow: 0px 0px 2px #999 inset;
+			}
+			#bottomFix  {
+				position: fixed;
+				left:0; right:0; bottom:0;
+				z-index: -1;
+				display: none;
+			}
+			#bottomHolder div{
+				display: inline-block;
+				width:calc(33.32% - 45px);
+				padding:40px 20px;
+				border-left:1px solid #DDD;
+				transition:all .3s;
+			}
+			#bottomHolder div:hover {
+				cursor: pointer;
+				background:#ddd;
+			}
+			#bottomHolder div::after {
+				content:'2';
+				position: absolute;
+				font-size: 72px;
+				font-family: 'Montserrat', sans-serif;
+				font-weight: bold;
+				margin-left: 70px;
+				margin-top: -47px;
+				/* margin-bottom: -20px; */
+				opacity: .7;
+				color:#283593;
+			}
+			#bottomHolder div:nth-child(2)::after {
+					content:'3';
+					color:#FFA726;
+			}
+			#bottomHolder div:last-child::after {
+					content:'4';
+					color:#4CAF50;
+			}
+            :root {
+                --light-primary:#7986CB  ;
+            }
+						@media (max-width:1100px) {
+							.scroll450 nav {
+								color:transparent;
+							}
+						}
+		</style>
+
+	</body>
+
+
+	<script>
+	var mekSearchWin;
+	  mekSearch = function() {
+			mekAuthor = encodeURI(search_author.value);
+			mekName = encodeURI(search_title.value);
+			mekSearchWin = window.open("search.php?gyujtemeny=&dc_creator="+mekAuthor+"&dc_title="+mekName+"&dc_subject=&mehet=KERESÉS","_blank","width=500,height=900")
+		}
+		window.onscroll = function() {
+			console.log(window.scrollY);
+			if (window.scrollY<220)
+				{
+			$('header span').style.paddingTop=130+window.scrollY/2;
+				}
+			if (window.scrollY>450)
+				{
+					$('body').classList.add('scroll450');
+				}
+			else {
+				$('body').classList.remove('scroll450');
+			}
+
+		}
+	</script>
+
+        <script src="../NXTJS/design.js"></script>
+</html>

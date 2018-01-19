@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<title>NXT.JS API</title>
+	<meta charset="UTF-8">
+	<script src="jsplus.js" type="text/javascript"></script>
+
+  <link rel="icon" href="icons/nxtjs.png" type="image/png">
+  <meta name="theme-color" content="#FF9800">
+
+
+	<script src="../edu/sets.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="elements-design.css">
+  <link rel="stylesheet" href="input-design.css">
+	<link rel="stylesheet" href="design.css">
+	<link rel="stylesheet" href="input-design.css">
+	<link rel="stylesheet" href="mobile.css">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+<nav class="fixed">
+	<header>
+		<i class="material-icons" onclick="$('body').classList.toggle('sidebarMinimised')">menu</i>
+		<div>NXT JS</div></header>
+  <span id="pageTitle">NXT.JS Showcase and about</span>
+
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
+</nav>
+
+<container class="sidebar" onclick="nxt.closeSidebar(event);">
+   <br>
+        <div class="omenu full-covered">Welcome</div>
+
+		<div class="otitle"><div>JS Extensions</div></div>
+		<div class="omenu">JSPlus</div>
+		<div class="omenu">TapCalk Express</div>
+
+		
+
+        <div class="otitle"><div>Design Modules</div></div>
+        <div class="omenu">Customisation</div>
+        <div class="omenu">Design Showcase</div>
+        <div class="omenu">Modules</div>
+        <div class="omenu">Material Resources</div>
+        
+		<div class="otitle"><div>Installing</div></div>
+		<div class="omenu" onclick="">Downloads <i class="material-icons">open_in_new</i></div>
+
+   
+
+		
+</container>
+
+
+<holder>
+
+        <div class="card">
+            <h1 class=" ">Extending JS with tools</h1>
+            <p justify padded>
+                JavaScript is awesome, but even with EMCAScript 6, it lacks many, easy-to-implement but super useful functions.<br>
+                JSPlus aims to exend JS in a quiet, yet powerful way.<br>
+                It provides partial replacement to the outdated and slow JQuery libraries, ex. <span monospace>$( css );</span><br>
+                It adds shuffeling, mixing arrays and numbers, can generate and transpose colors and provides stats for strings. 
+                Additionally, it implements a PHP <span monospace>$_GET</span> style URL reader and writer; making easier to use less and less PHP and improving compatiblity.<br>
+                It provides a modern, yet cross compatible modular system. Parts of NXT.JS that have not been linked initially, can be used later, on-demand, making initial website load quicker, especially on slow netowks. 
+
+            </p><br><br>
+
+            <h1 class="covered cyan-500 continued" style="color:white">HTML elements with material design</h1>
+            <h2 class="covered black-300 subtitle">home baked material design</h2><br>
+            <p justify padded>
+                NXT.JS provides simple to implement, lightweight material design elements.<br>The main focus is minimising the required code on the website, while maintaing a balance with understandability.<br>
+                Some parts need the <span monospace>design-input.js</span> file to parse them into their <i>final form</i>.<br><br>
+                The API is extremely fast and modular, a typical websites loads under 250ms in a desktop connection, and under 3000ms in a poor 3G connection.<br>
+                
+            </p>
+        </div>
+        <div>
+                <div class="card">
+                        <h1 class="black-800 covered">NXT.JS guide</h1>
+                        <h2 class="black-400 covered subtitle"></h2>
+                </div>
+                <div class="card">
+                        <h1 class="black-800 covered">DOM manipulation</h1>
+                        <br><br>
+
+                        in NXT.JS, you can acces a single element with <code>$</code>, mostly used for accessing id-s and in smaller websites<br>
+                        <code>$$</code>, however works like the JQuery $, returning an array of the found Nodes.<br>
+                        Examples can be seen below:<br><br>
+                        
+                        <code nxt><br>
+                            $("#id"); //single item selected<br>
+                            $("h1.sure .one").style;<br>
+                            $("div").innerHTML=""; //replacing innerHTML<br><br>
+
+                            $$("div")[5].innerHTML=""; //replacing the 5th div's innerHTML<br>
+                            $$("span>div:not(.on)")[i].style.classList.remove("list"); <br>//removing a class of elements, in a for cycle<br><br>
+                            $$("code").indexOf( NodeElement ); <br>//checking the index of NodeElement in the code NodeList<br><br>
+
+                        </code nxt><br>
+                        Resource-heavy websites, which update the DOM quickly, can bottleneck the usability and the framerate.<br>
+                        NXT.JS provides a simple kill-switch for accessing and manipulating dom<br><br>
+                        <code nxt><br>
+                            $("#id"); //single item selected<br>
+                            $DOMInteraction(false);<br>
+                            $("#id2"); //throws Error, doesnt change mode<br>
+                            $DOMInteraction(false); //turning interaction back on<br><br>
+                        </code>
+                        </div>
+                    <div class="card">
+                            <h1 class="black-800 covered">prototype JS</h1>
+                        <h2 class="cyan-400 covered subtitle">
+                                Extending prototypes of arrays and strings
+                          </h2>
+                        NXT.JS provides an extended and self-explanatory prototype library<br>
+                        These include:<br>
+
+                        <h3>Arrays</h3>
+                        <code>
+                        <li>[].max() //returns the maximum in an array</li>
+                        <li>[].min()</li>
+                        <li>[].last()</li>
+                        <li>[].shuffle() //returns a shuffled array</li>
+                        <li>[].isSame() //returns boolean, whether elements are same</li>
+                        
+                        </code>
+                        <h3>Math</h3>
+                        <code>
+                        <li>Math.spread( Array ); //returns the spread of elements in an array</li>
+                        <li>Math.sum( Array ); //returns the sum of all elements in an array</li>
+                        <li>Math.product( Array ); //returns the product (all items multiplied together)</li>
+                        <li>Math.avg( Array ); //returns the average </li>
+                        <li>Math.prime( Number ); //returns all numbers that divide the given number</li>
+                        <li>Math.isPrime( Array ); //returns boolean, whether the given number is a prime</li>
+                        <li>Math.randInt( Number ); //random Integer up to the given number</li>
+                        <li>Math.choose( n , k ); //permutation, returns the n-choose-k of n and k (both numbers)</li>
+                    </code>
+                      <h3>Typing</h3>
+                        JS is a weakly typed language, however sometimes it is neccesary for strict type control.
+                        <span monospace>a typeof x </span>  is not satisfactory, as it can only differenciate between Objects, Primitives and special cases.<br>
+                        in JSPlus, the prototype is extended with a type variable.<br>
+                        <code nxt> <br>
+                                var a = "hello";<br>
+                                a.type; //String <br><br>
+
+                                var daysSinceAccident = 0 ;<br>
+                                (daysSinceAccident).type //Number <br><br>
+                                
+                                var1 = false;  //.type = Boolean <br>
+                                var2 = "0";    //.type = String <br>
+                                var3 = 0;      //.type = Number<br><br>
+                            </code>                
+                </div>
+                <div class="card">
+                        <h1 class="black-800 covered">PHP GET in JS</h1>
+                    <h2 class="cyan-400 covered subtitle">$_GET acces and use</h2>
+                
+                <br>
+                Read more about PHP's $_GET parameter <a href="http://php.net/manual/en/reserved.variables.get.php" nxt>here</a> . <br>
+                This feaute makes cross-site communication easier, and makes sharability better (because it is not stored in localStorage)<br>
+                This is a near 1:1 feature implementation for the $_GET variable extensively used by PHP. It is cross-compatible with that,
+                although accessing in NXT.JS is different.<br>
+                    <code nxt><br>
+                        //Example page with header: abc.html#a=5&joy=freude%20schonen%20gotterfunken&is=false<br>
+                        $_GET("is"); //returns the value of element: false<br>
+                        $_GET("joy"); //returns the URI decoded string "freude schonen gotterfunken"<br><br>
+                        $_GET().argumentList(); //returns array of arguments : [ "a" , "joy" , "is"];<br>
+                        $_GET().length() // returns the length of arguments. Same as $_GET().argumentList().length;<br><br>
+                    </code>
+                In developement: <span monospace>$_SET()</span> for jumping and navigation trough sites.
+            </div>
+        </div>
+        <div>
+               <center>under construction</center>
+        </div>
+        <div>
+            <div class="card">
+                <h1 class="black-800 covered">configurate colors</h1>
+                <h2 class="black-400 covered subtitle"></h2>
+                <br>
+                See the Modules part for the exact code to use these elements<br>
+                Check the effect these changes have on the Design Showcase!<br>
+                <h2>Configure Colors</h2>
+                Primary Color: <input type="color"  class="non-expand" onchange='$("html").style.setProperty("--primary",this.value);console.log(this.value);'>
+                Secondary Color: <input type="color"  class="non-expand" onchange='$("html").style.setProperty("--dark-primary",this.value);console.log(this.value);'>
+                <br><br>
+                Three in-buildt color CSS variables are:
+                <span monospace>--primary --dark-primary --light-primary</span><br>
+                Which are used as the default colors of most elements.<br>
+                They are advised to follow the material scheme in the following way:<br>
+                <span monospace>
+                    primary: material 500<br>
+                    dark-primary: material 700<br>
+                    light-primary: material 300
+                </span>
+            </div>
+      </div>            
+        <div>
+            
+            <div class="card">
+                    <h1 class="black-800 covered">input fields and buttons</h1>
+                    <div class="black-300 covered subtitle " monospace>requires: input-design.css</div>
+                    <br>
+                    Classic Input Fields<br><br>
+                    <input>
+                    <input type="number" class="non-expand" placeholder=".non-expand number">
+                    <input disabled placeholder="disabled"><br><br>
+                    <input type="color" value="444"  class="non-expand">
+                    <input class="short" placeholder=".short">
+                    <input class="short non-expand" placeholder=".short.non-expand"><br><br>
+
+                    Range (using HTML5, only available in Chrome)<br>
+                    <input type="range" min="0" value="55" max="255" ><br><br>
+
+                    Buttons<br><br>
+
+                    <button real>[real] button</button>&nbsp;&nbsp;
+                    <button real class="blue">send <i class="material-icons">send</i></button>&nbsp;&nbsp;
+                    <button real disabled class="orange-500">+[disabled] disabled</button><br><br>
+
+                    FABs (Floating Primary Action Buttons)<br><br>
+                    <i class="material-icons fab" style="color:white;" >play_arrow</i>&nbsp;&nbsp;
+                    <i class="material-icons fab green" style="color:white;" >language</i>&nbsp;&nbsp;
+                    <i class="material-icons fab-small red" style="color:white;" >close</i>
+            </div>
+            <div class="card">
+                    <h1 class="black-800 covered">togglers</h1>
+
+                    <div class="black-300 covered subtitle " monospace>requires: design-input.js & elements-design.css & input-design.css</div>
+                    <br>
+                    A/B Switch: Toggle for two options, of views. Used for mixing different elements.<br>
+                    <switch checked="true"><span>Default Option</span><span>Alternate option</span></switch><br><br>
+
+                    On/Off Checkbox: Used if checking whether to include something in a list, mixin. Used for mixing in same-type elements.<br>
+                    <checkbox checked="true">Use PC Language</checkbox>
+                    <checkbox disabled="true" checked="false">Use LoL Language</checkbox><br><br>
+
+                    Traditional Checkbox: Used in list elements. Advised over 3+ of same-kind elements.<br>
+                    <input type="checkbox" name="lang20" nxt="">
+                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label> 
+                    <span style="    vertical-align: 6px;">Text Here</span><br>
+
+                    <input type="checkbox" name="lang20" nxt="">
+                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label> 
+                    <span style="    vertical-align: 6px;">Text Here As well</span><br><br>
+
+                    Toggle: Used when toggling setting or view. Used for same-type elements. No more than 5 should be used.<br><br>
+                    <toggle onclick="this.classList.toggle('on');" id="nm"> </toggle> Setting <br><br>
+                    <toggle onclick="" disabled> </toggle> Disabled Setting<br><br>
+
+                    Radio Button: Selecting one of same-king elemnts.<br>
+                    <radio  name="tema" checked="true">Element A</radio>
+                    <radio  name="tema" >Element B</radio>
+                    <radio  name="tema" >Element C</radio><br><br>
+
+                    Scale Selector: Select rating/class, other short same-type element.<br><br>
+                    <selector selected="2">
+                            <span>None</span>
+                            <span class="on">6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                            <span>11</span>
+                            <span>Max</span>
+                    </selector>
+
+                         <br><br>
+
+                    Icon Switchers: For specific tasks<br><br>
+                    <i class="material-icons importantIcon" onclick="this.classList.toggle('on');">shuffle</i> &nbsp;&nbsp;
+                    <i class="material-icons importantIcon" onclick="this.classList.toggle('on');">language</i><br><br>
+                </div>
+                <div class="card">
+                    <h1 class="black-800 covered">notifications & toasts</h1>
+                    <div class="black-300 covered subtitle " monospace>requires: design-notifications.js & elements-design.css </div>
+                    Notification Toasts:<br> 
+                    <button flat onclick="nxt.notify('#open')">DEFAULT</button> 
+                    <button flat onclick="nxt.notify('#open2')">WITH OPTION</button> 
+                    <button flat onclick="nxt.notify('#open3',4000)">MULTIPLE OPTIONS</button><br><br>
+
+                    Alert windows and dialoges:<br>
+                    <button flat>DEFAULT</button> <button flat>WITH OPTIONS</button> <button flat>WITH IMAGES</button> <button flat>WITH COLORS</button><br><br>
+                    <br>
+
+                    <toast id="open" onclick="">
+                        Hey There! I am a toast!
+                    </toast>
+                    <toast id="open2" onclick="">
+                        Hey There! Your emails got deleted!
+                        <action>UNDO</action>
+                    </toast> 
+                    <toast id="open3" onclick="">
+                        Hey There! Your emails got deleted!
+                        <action warning>REVERT</action>
+                        <action error>cleanse</action>
+                    </toast> 
+
+
+                </div>
+        </div>
+        <div>
+            <div class="card">
+                    <h1 class="covered cyan-700" style="color:White">JS and CSS Modules</h1>
+                    <h2 class="covered subtitle cyan-300">Requirement Tree</h2><br>
+                    <table nxt>
+                        <tr>
+                            <th>Module</th>
+                            <th>Requires</th>
+                            <th>Used for</th>
+                        </tr>
+                        <tr>
+                            <td>jsplus.js</td><td>None</td><td>JS Extensions</td>
+                        </tr>
+                        <tr>
+                            <td>design-input.js + input-design.css</td><td>jsplus.js</td><td>Input fields and render</td>
+                        </tr>
+                        <tr>
+                            <td>design.js + design.css</td><td>jsplus.js, elements-design.css</td><td>Default page design and render</td>
+                        </tr>
+                        <tr>
+                            <td>sole-design.css</td><td>None</td><td>basic version of design.css<br>For standalone applications</td>
+                        </tr>
+                        <tr>
+                            <td>splash.css</td><td>sole-design.css <br><i>conflicts with design.js</i></td><td>Splash screen page design</td>
+                        </tr>
+                        <tr>
+                            <td>mobile.css</td><td>design.css <br><i>conflicts with splash.css</i></td><td>Mobile support</td>
+                        </tr>
+                        <tr>
+                                <td>design-notifications.js</td><td><i>can be loaded as jsplus.js module</i><br>elements-design.css<br></td><td>Notifications</td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h1 class="covered cyan-700" style="color:White">Dependencies</h1>
+                <h2 class="covered subtitle cyan-300">Packages, fonts and misc. used by NXT JS for its design</h2>
+                
+                <h2>Fonts</h2>
+                <p>
+                    Several fonts are used by NXT.JS to ensure an appealing look.<br>
+                    <li><b>Montserrat</b> used for titles, headers and important, short texts.</li>
+                    <li><b>Open Sans</b> used for all kind of text. all styles imported.</li>
+                    <li><b>Material Icons Font</b> used for fonts, applied using i.material-icons. Not included by default, but advised to do so.</li>
+                </p>
+                <h2>Design</h2>
+                <p justify>
+                    NXT.JS follows the material design principles outlined <a href="#" nxt>here</a>. <br>
+                    However, it is not a 100% implementation of its concepts, as material design has mainly been developed for mobile apps and later<wbr> modified to be web compatible as well.<br>
+                    If you want a one-on-one material design, use JSPlus with <a href="https://getmdl.io/" nxt>Material Light</a>.    
+                            </p>
+            </div>
+        </div>
+        <div>
+            <center>Soon</center>
+        </div>
+</holder>
+
+	<script>
+counter = new Microcount();
+//newUser(); //MULTIPLIX
+
+docScrolled = 0;
+
+        //to be ported to NXT
+
+window.document.onscroll = function(){
+	 docScrolled = window.scrollY;
+   console.log(window.scrollY);
+  /* if ((window.scrollY<200)&&($('body').classList.contains('full-covered-active'))){
+      $$('.covered.expand')[0].style.backgroundPositionY='-'+window.scrollY/2+'px';
+      $$('.covered.expand')[0].style.paddingTop=Math.floor(220-window.scrollY)+'px ';
+      if (lastSelMenuItem==0)
+         $$('.covered.expand')[0].parentNode.parentNode.style.marginTop=Math.floor(window.scrollY/2)+120+'px ';
+      $$('.covered.expand')[0].style.backgroundImage=$$('.covered.expand')[0].getAttribute('img');
+      $('nav.fixed').style.height=300-Math.floor(window.scrollY/2)+'px';
+   }
+   else {
+
+   }*/
+   if (lastSelMenuItem==12) {
+		 if (docScrolled>400) $('#languageHeader').style.top="-190px";
+		 else $('#languageHeader').style.top=(10-docScrolled/2)+"px";
+	 }
+}
+
+	</script>
+	<script src="design.js" type="text/javascript"></script>
+	<script src="design-input.js" type="text/javascript"></script>
+
+    <script>
+        function trigger(call) { //expandable method
+      console.log(call.classList)
+      if (call.classList.contains('full-covered')>0) {
+         $('body').classList.add('full-covered-active');
+      }
+      else {
+         $('body').classList.remove('full-covered-active');
+      }
+   }
+
+        
+    </script>
+    <style>
+        holder>* {
+    display: none !important;
+}
+holder>*.on {
+    display: block !important;
+}
+        holder {
+            margin-left:300px;
+            margin-top:120px;
+            display: block;
+        }
+    .sidebar {
+     margin-bottom:0 !important;   
+        
+    }
+    header { width:300px !important;}
+
+
+:root {
+    --primary:#00BCD4;
+    --dark-primary :#0097A7;
+    --light-primary:#4DD0E1;
+}
+    </style>
+</body>
+
+</html>

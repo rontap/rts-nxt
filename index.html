@@ -2,139 +2,35 @@
 <html>
 <head>
 	<script src="NXTJS/jsplus.js"></script>
-	<link href="NXTJS/sole-design.css" rel="stylesheet">
+	<link  href="NXTJS/sole-design.css" rel="stylesheet">
+	<link  href="NXTJS/splash.css" rel="stylesheet">
 
     <link rel="icon" href="NXTJS/icons/favicon.png" type="image/png">
-
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Open+Sans&amp:300,200,500;subset=latin-ext" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-	<meta charset="UTF-8">
-	<style>
-		body {
-			margin:0;
-			padding:0;
-			background:#FEFEFE;
-			font-family: 'Open Sans', sans-serif;
-		}
-		header {
-			 background: #3F51B5;
-			 background: #3F51B5;
-			 width:100%;
-			 height:450px;
-			 font-family: 'Montserrat', sans-serif;
-			 text-align: center;
-			 vertical-align: middle;
-			 color:white;
-			 font-size: 75px;
-		}
-		header span {
-			display: block;
-		      padding-top: 179px;
-		}
-		nav {
-			font-family: 'Montserrat', sans-serif;
-			background:#283593;
-			height:50px;
-			padding-top: 30px;
-			display: block;
-			color:#FEFEFE;
-			text-align: center;
-			letter-spacing: 1px;
-		}
-		container {
-			display: block;
-			margin: 50px auto;
-			max-width: 800px;
-			 box-shadow: 0px 2px 4px #999;
-			transition:all .4s;
-			border-radius: 0px 0px 3px 3px;
-		}
-		container:hover {
-			box-shadow: 0px 2px 8px #777;
-		}
-		card {
-			display: block;
-
-			padding: 20px;
-			    background: #FAFAFA;
-    transition: all .2s;
-		}
-
-		card:hover {
-			 background:#DDD;
-			cursor: pointer;
-		}
-		card:not([no]) b {
-			display: block;
-			font-weight: 500;
-			font-family: 'Montserrat', sans-serif;
-		}
-			card.title {
-			    color: white;
-				background: #3F51B5;
-				border-radius: 3px 3px 0px 0px;
-				border:none;
-				font-family: 'Montserrat', sans-serif;
-		}
-
-		.scroll450>header {
-			position: fixed;
-			top:0; left:0; width:250px;
-			font-size:30px;
-			height: 80px;
-			z-index: 99;
-			animation:scrollIn .2s;
-		}
-		header.small {
-			height:300px;
-		}
-		@keyframes scrollIn {
-			0% {left:-250px;}
-			100% {left:0px;}
-		}
-		.scroll450>header span {
-			padding-top:20 !important;
-		}
-		.scroll450  nav {
-			position: fixed;
-			top:0; left:0; right:0;
-		}
-		.scroll450 {
-			margin-top:530px;
-		}
-		#dotnet {
-			display: none;
-			    position: fixed;
-    bottom: -20px;
-    z-index: 99;
-    left: calc(50% - 10px );
-    border-radius: 20px;
-    border: 1px solid #444;
-    transform: rotate(90deg);
-			background:rgba(240,240,240,0.9);
-		}
-		#dotnet span {
-			border-radius: 100%;
-			display: block;
-			width:15px;
-			height:15px;
-			overflow: hidden;
-			color:transparent;
-			background: red;
-			margin: 3px;
-		}
-
-	</style>
+	  <meta charset="UTF-8">
+<style>
+:root {
+	--primary: #3F51B5;
+	--dark-primary:#283593;
+}
+header {
+  animation: scrollShow 1.2s;
+}
+container {
+  animation:opacitIn 1.7s;
+}
+nav {
+  animation:saturate 1.2s;
+}
+</style>
 	</head>
 	<body>
 			<header app-drag>
 		  	<span><b>RONTAP</b> - NXT</span>
 		  </header>
-
              <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
-
 
 		  <nav>
 				A new generation of apps and websites by Aron
@@ -189,21 +85,6 @@
 				<span>A famous reaction-based card game.</span>
 			</card>
 		</container>
-		<container >
-			<card class="title" style="background:#FFA726;">
-			Simulation
-			</card>
-			<card onclick="location.href='SuperFarmer/'">
-				<b>Hyper Farmer Game and AI</b>
-				<span>A game originally as a role-play game, transformed into a mad simulator and AI testing software.</span>
-			</card>
-			<card onclick="location.href='cigi.html'">
-				<b>DoNotSmoke</b>
-				<span>A simple timer for those quitting</span>
-			</card>
-
-			
-		</container>
 		<container>
 
 
@@ -215,9 +96,9 @@
 				<b>RE:WIKI</b>
 				<span>A PHP based website; changing Wikipedia design for a clener, more readable version! | <i>Under construction</i></span>
 			</card>
-            <card onclick="location.href='money.html'">
-				<b>MEK.OSK</b>
-				<span>Read the hungarian public Library easier and better! | <i>Hungarian only</i></span>
+            <card onclick="location.href='explore/mek.html'">
+				<b>OSZK-MEK</b>
+				<span>Read the hungarian public Library easier and better! | <i>Text is Hungarian only</i></span>
 			</card>
 		</container>
 
@@ -226,7 +107,7 @@
 			Other Projects & Search
 			</card>
             <card onclick="location.href='rtsmenu.html'">
-                <center><b>Check out the search of index here</b></center>
+                <center><b>Check out the search of index <i>here</i></b></center>
             </card>
 		</container>
 
@@ -353,6 +234,6 @@
 			}
 		}
 	</script>
-        
+
         <script src="NXTJS/design.js"></script>
 </html>

@@ -5,8 +5,8 @@
 	<meta charset="UTF-8">
 	<script src="NXTJS/jsplus.js" type="text/javascript"></script>
 
-  <link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
-  <meta name="theme-color" content="#FF9800">
+	<link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
+	<meta name="theme-color" content="#FF9800">
 
 	<script src="random/text.io.js" type="text/javascript"></script>
 
@@ -15,18 +15,17 @@
 	<script src="random/count.class.js" type="text/javascript"></script>
 	<script src="random/langs.js" type="text/javascript"></script>
 
-  <link rel="stylesheet" href="NXTJS/elements-design.css">
+	<script src="edu/sets.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="NXTJS/elements-design.css">
 	<link rel="stylesheet" href="NXTJS/design.css">
 	<link rel="stylesheet" href="NXTJS/input-design.css">
 	<link rel="stylesheet" href="NXTJS/mobile.css">
 
-
 	<link rel="stylesheet" href="random/music.css">
 	<link rel="stylesheet" href="random/random.css">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -86,7 +85,10 @@
 
 		<div>
 			<div class="card" id="">
-				<h1 class="covered grey-dark">Text Editor</h1>
+				<h1 class="covered grey-dark">markdown Text Editor
+
+					<switch checked="true" style="float:right;margin-top:-5px;" onmouseup="MDTextSwitch()"><span>Edit</span><span>View</span></switch>
+				</h1>
 				<div class="toolbar">
 						<i class="material-icons" onclick="document.execCommand('undo', false, null);">undo</i>
 						<i class="material-icons" onclick="document.execCommand('redo', false, null);">redo</i>
@@ -100,15 +102,44 @@
 				<div class="textarea fill-card" contenteditable="true" onkeyup="updateTextStats();" id="mainText">
 					noss
 				</div>
-				<switch checked="true"><span>Text On Much Larger</span><span>Text Off</span></switch>
-				<switch checked="true"><span>Text On Much Larger</span><span>Setting Off</span></switch>
-				<switch checked="true"><span>Uranos</span><span>Saturn</span></switch>
+				<div id="mainMDText"></div>
+
+				<script>
+				var isMDTextOn = false;
+				var MDTextHolder;
+				function MDTextSwitch() {
+					if (isMDTextOn) {
+						$('#mainText').innerHTML = MDTextHolder;
+						isMDTextOn = false;
+						$('#mainText').style.display="block";
+						$('#mainMDText').style.display="none";
+					}
+					else {
+						MDTextHolder = $('#mainText').innerText;
+						var converter = new showdown.Converter(),
+						text      = MDTextHolder;
+						html    = converter.makeHtml(text);
+						console.log(html,"-",$('#mainText').innerHTML);
+						$('#mainMDText').innerHTML   = html;
+						isMDTextOn = true;
+						$('#mainText').style.display="none";
+						$('#mainMDText').style.display="block";
+						
+				
+					}
+				}
+				</script>
+				
 
 				<br />
 				<hr />
 				<div id="textStats" style="color:#444;font-size:16px;">
 						<i>Start Typing and you will see stats here</i>
 				</div>
+
+				
+					
+					
 			</div>
 		</div>
 
@@ -356,7 +387,7 @@ window.document.onscroll = function(){
    }
 
         setTimeout( function() {
-					$$('.omenu')[0].click();
+					
 					$$('.covered.expand')[0].style.backgroundImage=$$('.covered.expand')[0].getAttribute('img');
 					languages.innerHTML=parseTable();
 					checkboxNxt();
@@ -383,4 +414,6 @@ window.document.onscroll = function(){
 		display: inline-block;
 	}
 </style>
+
+<script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
 </html>

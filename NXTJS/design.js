@@ -1,3 +1,5 @@
+if ( nxt.build < 1520) nxt.dieFromVersion(1600); 
+
 setTimeout(function(){
 
 
@@ -20,8 +22,9 @@ for (i=0;i<$$('.omenu').length;i++)
 
        $('#pageTitle').innerHTML=$$('.omenu')[lastSelMenuItem].innerHTML;
        $('#pageTitle').style.opacity=1;
+       location.hash="l="+lastSelMenuItem;
+    },200 );
 
-    },300 );
 
   }
 }
@@ -29,15 +32,31 @@ for (i=0;i<$$('.omenu').length;i++)
 
 if (nxt.getStore("desktopMode")) {
 
-$('nav').innerHTML+='<i class="ctrls-l material-icons" onClick=nodew.toggleFullscreen();>crop_square</i>';
-$('nav').innerHTML+='<i class="ctrls-x material-icons " onClick="window.close()">close</i>';
-$('nav').innerHTML+='<i class="ctrls-m material-icons " onClick="nodew.minimize()">keyboard_arrow_down</i>';
+$('nav').innerHTML+='<i class="ctrls-l material-icons" onClick=history.back();>arrow_right</i>';
+$('nav').innerHTML+='<i class="ctrls-x material-icons " onClick="history.forward()">arrow_left</i>';
+$('nav').innerHTML+='<i class="ctrls-m material-icons " onClick="location.reload()">reload</i>';
 
 try {var nodew = nw.Window.get();
 }
 catch (e) {}
 
 }
+
+
+setTimeout(function(){
+  let getArgs =  new Sets($_GET().argumentList()) ;
+  console.log(getArgs);
+  if (getArgs.includes("l")) {
+
+    let nth = Number( $_GET("l") );
+     $$('.omenu')[nth].click();
+
+  }
+  else {
+    $$('.omenu')[0].click();
+  }
+
+},100);
 
 
 },100);

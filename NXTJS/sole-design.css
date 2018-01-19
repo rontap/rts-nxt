@@ -34,7 +34,7 @@ holder * {
     right:140px;
 }
 .ctrls-m {
-    right:200px;   
+    right:200px;
 }
 
 #linkBack span {
@@ -95,6 +95,7 @@ right: 0px;
     top: 100%;
     z-index: 99;
     height: 100%;
+    border-top: 140px solid #2196F3;
     background: linear-gradient(#EEE, white);
     animation: NineDotMenuUp .6s forwards;
 }

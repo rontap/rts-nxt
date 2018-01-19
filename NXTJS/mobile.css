@@ -25,7 +25,7 @@ nav header i.material-icons {
   display: inline-block !important;
     position: fixed;
     left: 10px;
-    top: 10px;
+
     font-size: 34px;
     color:white;
 }
@@ -44,14 +44,14 @@ nav header i.material-icons {
   margin-left:80px;
   transition:all .4s;
   font-size:20px;
-  padding-top:7px;
+  padding-top:2px;
   height:30px;
   overflow: hidden;
 }
    holder > container.on, holder > div.on {
 
-   }   
-   
+   }
+
 
 }/*only screen and*/
 @media (min-width:900px) and (max-width:1200px) {
