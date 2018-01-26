@@ -18,7 +18,9 @@ const nxtjs_proto_BuildNumber = 1530;  //build number for modules
 //DOM interaction like JQuery
 var $    = (call)    =>  document.querySelector(call);
 var $$   = (call)    =>  document.querySelectorAll(call);
-
+Node.prototype.$$ = function (query) {
+  return this.querySelectorAll(query);
+};
 //for some reason, NodeList didnt have an indexOf in its prototype.
 NodeList.prototype.indexOf = function(element) {
     return [...this].indexOf(element);
@@ -64,7 +66,6 @@ Array.prototype.isSame = function() {
 Boolean.prototype.type = "Boolean";
  Number.prototype.type = "Number";
  Object.prototype.type = "Object";
-
 
 
 //-----------------------------------------------------------------
@@ -302,6 +303,8 @@ var nxt = {
     }
     else return false;
   },
+
+  // examples
   notify : function() { nxt.require("design-notifications.js");  nxt.requireCSS("elements-design.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
 
 

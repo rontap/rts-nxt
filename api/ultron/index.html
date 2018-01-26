@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<!-- WELCOME TO MINESWEEPER. -->
+<HTML>
+<HEAD>
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../NXTJS/elements-design.css">
+	<link rel="stylesheet" href="../../NXTJS/design.css">
+	<link rel="stylesheet" href="../../NXTJS/input-design.css">
+    <link rel="stylesheet" href="../../NXTJS/mobile.css">
+
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</HEAD>
+<BODY id="body" class="full-covered-active">
+<nav class="fixed">
+	<header>
+		<div>Ultron</div></header>
+        <span id="pageTitle">URL Shortener</span>
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
+</nav>
+
+
+<holder>
+
+    <div id="main">
+        <div class="card" style="" id="mainSwitch">
+            <switch checked="true">
+                    <span>Create New URL</span>
+                    <span>Open URL</span>
+                </switch>
+            </div>
+        <div class="card" id="new">
+            <h1 class="covered">Create a Short URL</h1><br>
+            <i class="material-icons h1-connect-fab red-600 fab" style="color:white;" id="linkgen" onclick="shortURLComplete();">link</i>
+
+                   <input id="long_url" nxt placeholder="paste long url here" style="width:350px;"><br><br>
+
+                   <input id="custom_url" nxt placeholder="custom short url (optional)" style="width:158px;">
+                   <input id="acc_key" nxt placeholder="secret key (for editing)" style="width:158px;border-bottom-color:var(--light-primary) !important;">
+
+                   <br><br>
+     </div>
+     <div class="card" id="share">
+            <h1 class="covered">Share a Short URL</h1><br>
+
+            <input nxt placeholder="" style="width:350px;" flr id="newshort"> <br><br><br><br>
+            <div flr>
+                    Secret Key for later editing: <span id="newkey" monospace>Nothing Here</span>
+            </div>
+           </div>
+
+    </div>
+
+    <br>
+
+    <br>
+
+
+<div id="c"></div>
+
+
+</holder>
+
+<toast id="open" onclick="">
+        Error: <var is="errormessage">Unkown Error</var>
+        <action  ><var is="errorcode"></var></action>
+
+</toast>
+
+
+    <br>
+<script type="text/javascript">
+
+</script>
+<style>
+body {
+  background:#f1f1f1;
+}
+    .tooltip {
+        display: inline-block;
+        font-size:13px;
+    }
+    #share {
+        position: absolute;
+    margin-top: -287px;
+    margin-left: calc(50% - 225px);
+
+    overflow:hidden;
+    z-index: -1;
+    height:202px;
+
+    background:#ddd;
+
+    }
+   h1 {
+       text-shadow:none !important;
+       text-align:center;
+   }
+    body input[nxt]:not([type="range"]):not([type="file"]):not([type="checkbox"]) {
+        border:none !important;
+        width:180px;
+        padding:10px;
+        border-bottom:3px solid var(--primary) !important;
+        background:transparent !important;
+        border-radius: 0px;
+        box-shadow:none;
+    }
+    .card {
+        max-width:400px;
+
+    }
+    #linkgen {
+        color: white;
+    margin-top: 0px;
+    position: absolute;
+    right: calc(50% - 252px);
+    box-shadow: 0px 3px 4px #444;
+    margin-top: 10px;
+    }
+#mainSwitch {
+    background:transparent;box-shadow:none;margin-bottom:-40px;padding:0px;
+}
+:root {
+    --primary:#607D8B;
+    --dark-primary :#455A64;
+    --light-primary:#90A4AE;
+}
+#main {
+    margin-top:115px;
+}
+#mainSwitch switch {
+    margin-left: -25px;
+}
+#new {
+
+    margin-left:calc(50% - 225px);
+}
+.urlShared #new {
+    margin-left:calc(50% - 450px);
+    transition:all .2s;
+    z-index: 2;
+
+}
+.urlShared #share {
+    z-index: 1;
+    margin-left:calc(50% - 5px);
+    width:400px;
+    box-shadow: 0 1px 3px #999 inset;
+    opacity: 1;
+}
+.urlShared .card {
+    z-index: 3;
+
+}
+.urlShared #linkgen {
+    right: calc(50% - 26px);
+    transition:all .2s;
+    z-index: 9;
+}
+var {
+    font-style:normal;
+}
+</style>
+
+
+ <script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
+
+ <script src="../../NXTJS/design.js" type="text/javascript"></script>
+ <script src="../../NXTJS/design-input.js" type="text/javascript"></script>
+ <script src="../../NXTJS/design-notifications.js" type="text/javascript"></script>
+
+ <script>
+     function shortURLComplete() {
+        $('body').classList.add('urlShared');
+        shortURL(  custom_url.value,long_url.value, acc_key.value);
+     }
+ function shortURL(from,to,acckey) {
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+
+            result = this.responseText;
+            console.log(result);
+            result=JSON.parse(result);
+
+            if (result.code == 0) {
+                $('#newshort').value = result.url;
+                $('#newkey').innerHTML = result.key;
+            }
+           else {
+               errormessage = result.message;
+               errorcode ="Error code " +  result.code;
+               nxt.notify('#open',5000);
+           }
+            console.log(result);
+
+    };
+    if (!isNaN(from)) str = Number(from);
+    parsedText = "url.php?from=" + from + "&to="+ to + "&key="+ acckey;
+    console.log(parsedText)
+    xmlhttp.open("GET",parsedText , true);
+    xmlhttp.send();
+     return false;
+}
+
+
+ </script>
+</BODY>
+</HTML>

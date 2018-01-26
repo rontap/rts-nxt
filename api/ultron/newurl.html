@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+    body {
+        padding:20px;
+        background:#eee;
+        font-family: monospace;
+        color:#222;
+        max-width: 800px;
+    }
+    input, span, body, button {
+        margin:5px;
+    }
+    input:not([type]) {
+        width:200px;
+    }
+    #open {
+
+    vertical-align: top;
+    }
+    div:not([not]) {
+        border:2px solid #444;
+        padding:7px;
+        display: inline-block;
+        background:#fff;
+    }
+    b {
+        color:black;
+    }
+    body>div:last-child {
+        display: none !important;
+        opacity:0 !important;
+        bottom:-90px !important;
+    }
+    </style>
+<script>
+    console.log("reloaded" + Math.random());
+function showHint(str1,str2,str3) {
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+
+                document.getElementById("txtHint").innerHTML = this.responseText;
+                console.log(this.readyState,this.status);
+
+        };
+        if (!isNaN(str1)) str = Number(str1);
+        parsedText = "url.php?from=" + str1 + "&to="+ str2 + "&key="+ str3;
+        console.log(parsedText)
+        xmlhttp.open("GET",parsedText , true);
+        xmlhttp.send();
+         return false;
+}
+</script>
+</head>
+<body>
+
+<h1 style="background:#eee;position:fixed;top:-20px;padding:20px;left:10px;right:0;">
+    Ultron Light Test Interface
+</h1>
+
+<br><br><br><br>
+
+<div>
+        URL Shortening<br><br>
+<input id="from" placeholder="from  (optional)"><br>
+<input id="to" placeholder="to"><br>
+<input id="acc_key" placeholder="acc_key (for changing only)"><br>
+<button onclick="showHint(from.value,to.value,acc_key.value)">create</button>
+</div>
+<div id="open">
+    Open from Short URL<br><br>
+    url.php?q=<input id="goto"><br><br>
+    <input style="    vertical-align: -3px;"type="checkbox" id="cb"> open in dev mode<br><br>
+    <button onclick='gotofn();'>open</button>
+</div>
+<br><br><br>
+<a href="index.html">user-friendly version</a> | version 3 | CC BY-NC Licence
+<br><hr><br>
+<h2>Parameters</h2>
+<b>from:</b><br> at least 4 characters. If a number is input, it will generate an <i>n</i> long random text as access URL.<br>
+<b>to:</b><br> website you want to point to.<br>
+<b>acc_key:</b><br> acces key you get when you create the URL. You can only change the URL pointer later if you have this key. This Key changes when you change the URL later.
+<br><br><hr><br>
+Response:
+<span id="txtHint"></span>
+<div not></div>
+<br><hr><br>
+<h2>API Information</h2>
+
+    <br>
+     <b>Sending data flags</b><br>
+
+      for redirecting:<br>
+      q=[FROM_LINK] <br><br>
+
+      for setting new link:<br>
+      from=[FROM_LINK] long URL<br>
+      to=[TO_LINK] associate to the smaller URL<br>
+      key=[ACCES_KEY] only used if you want to modify an already created short URL <br><br>
+
+      additional flags:<br>
+      devmode doesnt automatically forward <br>
+
+      <br>
+      <b>Return codes</b><br>
+      0 = succesfull operation, URL available<br>
+      1 = not enugh parameters<br>
+      2 = fatal file IO error<br>
+      3 = succesfully deleted [not used]<br>
+      4 = [not currently used] <br>
+      9 = invalid acces key<br>
+      <br>
+      <b>Return values</b> a string to be parsed to a JSON object<br>
+      message: set only if unsuccesfull operation. Contains error message<br>
+      overlap: overwriting an already estabilised link<br>
+      key: the acces key generated<br>
+      url: the short url assigned, generated or given originally<br>
+
+<script>
+function gotofn() {
+    includetext="";
+    if (cb.checked) includetext="&devmode=";
+    window.open("url.php?q="+goto.value + includetext , "_blank");
+}
+
+</script>
+</body>
+</html>

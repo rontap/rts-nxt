@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="random/random.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 </head>
 
@@ -176,6 +177,8 @@
     party.level = 1; //tba later
     party.ui = true; //showing party and other icons
     party.probs = 1; //probability of color change
+    party.isGuided = true;
+    party.runTimeIndex = 1; //how many times the program has been looped
 
     party.update = function() {
         if (party.allowed) {
@@ -196,8 +199,13 @@
         }
 
         setTimeout(function(){
-            party.update();
-        },party.timeout / Math.sqrt(party.level)) ;
+            
+            
+            if (party.isGuided) party.parseMode();
+
+            party.runTimeIndex++;
+            party.update(); //callback
+        }, party.timeout / Math.sqrt(party.level)) ;
     }
 
     party.setBG = function(element, colorCall) {
@@ -229,6 +237,9 @@
     }
 
     party.setHR = function(amount) {
+
+        if (amount=="*") return false;
+
         let percentile = window.innerHeight / amount ;
         let i = 0;
         $("hrs").innerHTML="";
@@ -237,19 +248,102 @@
         } while (i++ < amount)
         party.bglist = i;
     }
+    party.parseMode = function() {
+            party.timeout = Math.abs( parser.record[ party.runTimeIndex ].time -   parser.record[ party.runTimeIndex -1].time);
+
+            if (parser.record[ party.runTimeIndex ].theme!="*") 
+                party.theme = parser.record[ party.runTimeIndex ].theme;
+
+            party.setHR(parser.record[ party.runTimeIndex ].bars || 1 ); 
+            console.log(parser.record[ party.runTimeIndex ], party.runTimeIndex);
+            $('#currElement').innerHTML=String(party.runTimeIndex).padStart(2).replace(/\s/g,"&nbsp;");
+            
+    }
+
+
     window.onresize = function() {
         party.setHR(party.bglist);
     }
     window.onkeydown = function(event) {
         console.log(event);
         if (event.code == "Space") party.allowed=false;
+        if (event.key == "Control") parser.reg();
         
     }
     window.onkeyup = function() {
         if (event.code == "Space") party.allowed=true;
     }
-    setTimeout(function(){
-        $('div:last-child:not(.ok)').style.display='none'
+    try {setTimeout(function(){
+       // $('div:last-child:not(.ok)').style.display='none'
     },100);
+}
+finally {
+    console.log('not on 000');
+};
+   
     </script>
+
+    <div id="debug">
+        <b>#No| Time&nbsp;  . Dur &nbsp;| Stamp | Bars Theme TR?</b>
+        <br>
+        <div id="debugInfo">Press CTRL to record a frame<br>
+                Adjust settings Later
+
+        </div>
+    
+        <br>
+        <div id="debugSet">
+            
+           
+            <span id="currElement">###</span>
+            <span onclick="party.runTimeIndex=1;">reset</span>
+            URL:
+            <span onclick="toURL()">update</span>/<span onclick="location.hash=''">flsuh</span>
+            
+        </div>
+    </div>
+    <style>
+        #debug b {
+            position: fixed;
+         background: white;
+
+        }
+         #debugSet {
+             background:white;
+         }
+         #debug span {
+             padding:0 5px;
+             background:#eee;
+             display: inline-block;
+             min-width: 25px;
+         }
+         #debug span:hover {
+            font-weight: bold;
+            background:white;
+         }
+
+         #debug span:focus {
+            outline-style: solid;
+            outline-color: #444;
+            outline-width: 1px;
+            outline-offset: 1px ;
+         }
+    #debug {
+        position:fixed;
+        top:20px;
+        left:20px;
+        width:280px;
+        height:200px;
+        overflow-y:scroll;
+        background:#ddd;
+        overflow-x:hidden;
+        font-family: monospace;
+        font-size:10px;
+        opacity: .8;
+    }
+    #debug:hover {
+        opacity:1;
+    }
+    </style>
 </body>
+<script src="projectx.parser.js" type="text/javascript"></script>

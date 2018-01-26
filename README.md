@@ -3,26 +3,16 @@
 ## Ron Tap Sites NXT - 5
 *Ported originally from version 4.3.2 of RTS4*
 
-**version 5.5 ARCHER**
+**version 5.5.3 ARCHER**
 
 ## Recent Changes
 ```
-(+) tapcalk icon added
-(+) added mek.html for explaining mek, and search.php for searching and exploring the MEK.OSZK archive, with popup
-(*) MEK.OSZK partially works again, migrating from unplugged JQuery code
-(+) added more searchable elements to rtsmenu.html
-(+) random/text editor is now working, with MarkDown dependency
-(*) standalone desktop app now using SFX archive
-(+) rontapparty X added!
---- NXT.JS Updates (1530)
-(*) version 2 of colors.css with material design colors
-(*) material icons now tied to NXT.JS
-(+) design additions: links, table, code, button[flat],
-(*) disabled elements for toggle, link, input, button
-(+) submenus can be linked using $_GET-s l parameter, $_SET basic support
-(+) partial documentation an complete showcase of NXT.JS functions!
-(+) added basic support for React-like var-s, and die
-(+) separated the splash screen document css to its own stylesheet
+(+) RTS Menu redesigned.
+(+) rontapparty X music capture Beta Added.
+(+) ULTRON link shortener added. Two design sites available, one for developers and one for general use.
+
+--- NXT.JS Updates (1540)
+(+) Node prototype property added: .$$
 ```
 
 ## General Changes
@@ -33,6 +23,7 @@
 
  (+) Added most of RTS3&3 Projects
  (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
+ (+) MEK works again. added mek.html for explaining mek, and search.php for searching and exploring the MEK.OSZK archive, with popup
 
 ```
 ## Roadmap

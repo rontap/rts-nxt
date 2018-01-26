@@ -73,3 +73,10 @@ function updateTextSearch(e) {
         searchCurrSelected=e;
         $$('#searchResults div')[searchCurrSelected].classList.add('on');
     }
+
+    document.onscroll = function(event) {
+        if ($('html').scrollTop>87) a = 87; 
+        else a = $('html').scrollTop
+
+        $('nav').style.top = -a + "px";
+    }

@@ -3,6 +3,7 @@
 <html onclick="$('body').classList.remove('search');">
 
 <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
@@ -14,25 +15,33 @@
     <link rel="stylesheet" href="rtsmenu.css">
     <style>
         :root {
-                --primary : #2196F3;
-                --dark-primary: #1976D2;
+                --primary : #f1f1f1;
+                --dark-primary: #1E88E5;
                 --light-primary: #BBDEFB;
             }
             article img {
                 opacity: 0;
+            }
+            #siteView, body {
+                transition:0s !important;
+                background:#333 !important;
+            }
+            @media  (max-width:500px) {
+                nav h1 {
+                    font-size:25px;
+                    padding-bottom: 10px;
+    padding-top: 7px;
+                }
+                article {
+                    margin:20px;
+                }
             }
     </style>
 </head>
 
 <body >
 
-    <div id="linkBack">
-        <i class="material-icons" id="closeicon" onclick="goBack();">close</i>
-
-        <input type class="holo" id="search" placeholder="Search RTS and the Web..." onclick="setTimeout( ()=>$('body').classList.add('search') , 10 );" onkeyup="updateTextSearch(event);" autocomplete="off">
-
-
-    </div>
+    
 
     <nav>
         <div id="linkHome" onclick="go('index.html')">
@@ -44,7 +53,13 @@
         <h1>RonTap Sites Main Menu</h1>
 
 
-
+        <div id="linkBack">
+            <i class="material-icons" id="closeicon" onclick="goBack();">close</i>
+    
+            <input type class="newholo" id="search" placeholder="Search RTS and the Web..." onclick="setTimeout( ()=>$('body').classList.add('search') , 10 );" onkeyup="updateTextSearch(event);" autocomplete="off">
+    
+    
+        </div>
     <div id="linkClose">
 
         <switch checked="true" id="menuSwitch" onmouseup="$('body').classList.toggle('viewSettings');">
@@ -98,7 +113,7 @@
 
     <div id="siteView">
       <article onclick="go('index.html')">
-          <h1>website index</h1>
+          <h1>Website Index</h1>
           <span>information about me and this website</span>
           <img src="">
           <div class="delta material-icons">home</div>
@@ -106,52 +121,78 @@
 
 
     <article onclick="go('edu/tapcalk.html')">
-        <h1>TAPCALK 6</h1>
+        <h1  ol>TapCalk 6</h1>
         <span>simple calculator</span>
         <img src="">
         <div class="delta material-icons">functions</div>
     </article>
 
     <article onclick="go('random.html')">
-        <h1>TOOLS 3</h1>
+        <h1  ol>Tools 3</h1>
         <span>everything  you need as a tool</span>
         <img src="">
         <div class="delta material-icons">shuffle</div>
     </article>
 
     <article>
-        <h1>Clocks</h1>
+        <h1 ol>Clocks</h1>
         <span>So it fills the screen</span>
         <img src="">
         <div class="delta  material-icons">slow_motion_video</div>
     </article>
 
-    <article>
-        <h1>NXT JS</h1>
+    <article onclick="go('NXTJS/showcase.html')">
+        <h1  ol>NXT JS</h1>
         <span>JavaScript API</span>
         <img src="">
         <div class="delta  material-icons">developer_board</div>
     </article>
 
-    <article>
-        <h1>Mine Game</h1>
+    <article onclick="go('games/mine.html')">
+        <h1>Mine<br>Game</h1>
         <span>An Amasing Game</span>
         <img src="">
         <div class="delta  material-icons">all_out</div>
     </article>
 
-    <article>
-        <h1>Speed Card Game Game</h1>
+    <article onclick="go('games/speed/speed.html')">
+        <h1>Speed Card Game</h1>
         <span>An Amasing Game</span>
         <img src="">
         <div class="delta material-icons">flip_to_front</div>
     </article>
 
-    <article>
-        <h1>Super Farmer Simulation</h1>
+    <article onclick="go('games/superfarmer/main.html')">
+        <h1>Super Farmer</h1>
         <span>boring simulation</span>
         <img src="">
         <div class="delta material-icons">blur_on</div>
+    </article>
+
+    <article onclick="go('explore/mek.html')">
+        <h1 >MEK-OSZK Reader</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">book</div>
+    </article>
+    <article onclick="go('explore/wiki.php')">
+        <h1>Wikipedia Redesign</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">public</div>
+    </article>
+    <article onclick="go('multiplix.html')">
+        <h1  ol>Multiplix</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">send</div>
+    </article>
+
+    <article onclick="go('projectx.html')" >
+        <h1  ol>Project X</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">lightbulb_outline</div>
     </article>
 </div siteview>
 <div id="settingsView" class="card">
@@ -165,8 +206,8 @@
 </div>
     <script>
 
-        mat300 = ['42A5F5','5c6bc0', 'ffd54f', 'E57373', '666', '673AB7','673AB7','90A4AE'];
-        mat600 = ['1E88E5','283593', 'FFA726', 'E53935', '444', '512DA8','512DA8', '607D8B'];
+        mat300 = ['42A5F5','5c6bc0', 'ffd54f', 'E57373', '4DD0E1', '673AB7','673AB7','90A4AE','A1887F','42A5F5','F06292','999'];
+        mat600 = ['1E88E5','283593', 'FFA726', 'E53935', '00ACC1', '512DA8','512DA8', '607D8B','6D4C41','1E88E5','D81B60','666'];
 
 
         for (i = 0; i < mat300.length ; i++) {
@@ -202,6 +243,10 @@
 
         //$('body').('viewSettings');
         tcx = {packages:[]};
+
+        setTimeout(function(){
+            $$('div').last().style.display="none";
+        },100)
     </script>
 </body>
 <script>

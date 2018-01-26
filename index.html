@@ -233,6 +233,9 @@ nav {
 				$('#bottomFix').style.display="none";
 			}
 		}
+		if (location.hash.length > 0 ) {
+			location.href="api/ultron/url.php?q=" + location.hash.slice(1,Infinity);
+		}
 	</script>
 
         <script src="NXTJS/design.js"></script>
