@@ -3,56 +3,63 @@
     --dark-primary:#673AB7;
 }
 holder[central] {
-    margin-left:165px;
+    margin-left: 110px;
 }
 holder {
     display: block;
-    margin: 10px;
-    padding:10px;
+    /* margin: 10px; */
+    /* padding:10px; */
+    height: 135px;
 }
 holder>card , holder>div{
-    padding:20px 20px;
-    vertical-align: middle;
+    margin:10px;
+    /* vertical-align: -32px; */
     display:inline-block;
-    border:1px solid #DDD;
-    height: 80px;
-    width:70px;
     text-align:center;
-    font-size:30px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
+    font-size: 132px;
+    font-weight: 500;
     transition:.1s;
+    height: 140px;
 }
 holder>*:hover {
-    background:#ddd;
-    border:1px solid #999;
     cursor: pointer;
 }
 holder>div {
-    background:#DDD;
+
     font-size:18px;
 }
+holder.ai-cards card {
+    color:rgb(117, 38, 38);
+    opacity:.8;
+}
 holder.placed-center div {
-  background:#48F;
-  color:white;
+  text-shadow:0px 0px 3px #999;
+  color:#673AB7;
 }
 holder.move card {
-  border:1px solid #F84;
+  color:#F84;
+
 }
 holder card.placed {
- background:#ddd;
+ color:#ddd;
+ text-shadow:0px 0px 2px #ddd;
+}
+[user] card {
+  color: #222;
 }
 div[splash] {
-    border:1px solid #48F;
+    color:#48F;
+    font-size:128px;
 }
 div[splash]:hover {
-    background:#aaa;
+    text-shadow:0px 1px 2px #222;
 }
 body {
     user-select:none;
 }
 #cardUp {
     margin-top:100px;
+    height: 449px;
     width:745px;
     animation:slideCardUp .4s;
     animation-delay: .2s;
@@ -65,4 +72,12 @@ body {
 
     0% { opacity: 0; margin-top: 140px; }
     100%{opacity: 1; margin-top:100px; }
+}
+#touch {
+  display: none;/*TEMP*/
+  position:fixed;
+  top:350px;
+  left:20px;
+  color:black;
+  z-index: 100;
 }

@@ -1,0 +1,63 @@
+
+<title>Is Adam Napping Right Now?</title>
+<style>
+img {
+
+}
+* {
+  font-family: cursive;
+    text-align: center;
+}
+</style>
+
+<script src="../NXTJS/jsplus.js"></script>
+<br>
+<h1>Is Adam Napping Right Now?</h1><br>
+<h2>There is a <var is="a">95%</var> chance that Adam is napping.</h2> 
+<br><br>
+
+
+<var-for times="1">
+  <div>
+    <h2>Hello</h2>
+    <span><var for="start"></var></span><br>
+    Name:
+    <span><var for="str"></var></span>
+  </div>
+
+</var-for>
+
+<script>
+  a= Math.floor( Math.random()*1000)/10 +  "%";
+
+  Element.prototype.appendAfter = function (element) {
+  element.parentNode.insertBefore(this, element.nextSibling);
+},false;
+Node.prototype.$$ = function (query) {
+  return this.querySelectorAll(query);
+};
+  timeCop = function() {
+     if ( nxt.domInteraction )
+       for (let i=0; i<$$("var-for").length;i++) {
+          let copy =  Number($$("var-for")[i].getAttribute("times")) ;
+          let str = '';
+          for (let j=0; j<copy; j++) {  
+            str+=$$("var-for")[i].innerHTML;
+          }
+          for (let j=0; j<copy; j++) {          
+              elem = $$( "var-for")[i].$$("var");         
+              for (let nodeI = 0; nodeI<elem.length; nodeI++) {
+                console.log(  window[ elem[nodeI].getAttribute("for")  ][j])
+                elem[nodeI].innerHTML =  window[ elem[nodeI].getAttribute("for")  ][j] ;
+              }
+          }
+        // if ( (window[ $$("var")[i].getAttribute("is") ] != undefined) )
+        //   $$("var")[i].innerHTML = window[ $$("var")[i].getAttribute("is") ];
+        }
+     setTimeout( () => timeCop() ,100);
+    }
+    
+    start=[0,3,4,5,6,2];
+    str= new Array('Albert','Tom','fRichard','Helena');
+    timeCop();
+  </script>

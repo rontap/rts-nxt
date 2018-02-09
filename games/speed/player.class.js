@@ -1,21 +1,23 @@
 class Player {
-
-    constructor(asd,against) {
-        this.name = asd;
+    //constructing a player, having cards and actions.
+    constructor(playername,against) {
+        this.name = playername;     //ID or name of enemy
         this.cards = shuffleCardDeck();
         this.frontCards = [,,,,,]; //array of 4
-        this.frontCardsStacked = [1,1,1,1,1];
+        this.frontCardsStacked = [1,1,1,1,1];   //[5]
         this.centralDeckNo = Players.length;
-        this.against=against;
+        this.against=against; //plays agains
+        this.hangs=false; //if cannot place card% used by AI automatically
     }
 
     placeFrontCard(where) {  //pakli to előtted
-        //TBA error when you rdont have enugh cards
+
         if (this.cards.length > 0) {
           this.frontCardsStacked[ where ] = 1;
           this.frontCards[ where ] = this.cards.pop();
         }
         else if ( ! this.frontCards.isSame() ) {
+          // if you haven't got any cards left, it will place a [-]
           this.frontCards[ where ] = "-";
           this.frontCardsStacked[ where ] = 0;
         }
@@ -36,11 +38,18 @@ class Player {
         // moving one item from cards to No element of centralDeck
         if ( this.cards.length > 0) {
           centralDeck[ this.centralDeckNo ].push( this.cards.pop() );
+          //drawing from own card deck
+        }
+        else if ( Players[this.against].cards.length > 0){
+          centralDeck[ this.centralDeckNo ].push( Players[this.against].cards.pop() );
+          //if one user doesnt have any cards, it will draw from the other player.
         }
         else {
-          centralDeck[ this.centralDeckNo ].push( Players[this.against]);
+          centralDeck[ this.centralDeckNo ].push( centralDeck[ this.centralDeckNo ].shift() );
+          //if neither users have any cards. shifts one from the beginning to the first ones.
         }
     }
+
     stackCards(first,second) {
         this.frontCardsStacked[first] += this.frontCardsStacked[second];
         this.placeFrontCard(second);

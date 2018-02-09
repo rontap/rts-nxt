@@ -67,6 +67,9 @@ class Sets {
     this.get = temp;
     return this.normalise();
   }
+  diff(set /*type set or array*/) {
+    ///?
+  }
 
 
 

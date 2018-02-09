@@ -176,14 +176,15 @@
 
                   jatekter.getElementsByTagName('tr')[i].getElementsByTagName('td')[j].style.background="#F22";
                    if (jatekter.getElementsByTagName('tr')[i].getElementsByTagName('td')[j].innerHTML!='<img src="flag.png" width="20px">')
-                   {
+                   { //if you lose the game
+                   nxt.notify('#youDied',10000);
                    jatekter.getElementsByTagName('tr')[i].getElementsByTagName('td')[j].innerHTML="<img src='fuse-bomb.png' width='20px'>";
                    jatekter.getElementsByTagName('tr')[i].getElementsByTagName('td')[j].style.background="red";
                    }
                }
             }
         }
-        rtt.toggle();
+
         endgame = true;
 
         //again();
@@ -204,7 +205,8 @@
     }
       if (win && endgame === false) {
 
-          alert('Gratulálunk! Megnyerted a játékot! \n Időd:' + time.innerHTML + '.');
+          //alert('Gratulálunk! Megnyerted a játékot! \n Időd:' + time.innerHTML + '.');
+          nxt.notify("#youWin");
           clearInterval(idotelik);
         for (i=0;i<g_h;i++)
         {

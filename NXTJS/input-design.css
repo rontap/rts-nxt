@@ -2,7 +2,7 @@
 
 *[block] { display: block; }
 *[in-block] { display: inline-block; }
-*[float] , *[flr] { float:right;}
+*[float] , *[flr] {float:right;text-align: right;}
 *[monospace] {font-family:monospace; font-size:15px;}
 *[justify] { text-align:justify; }
 *[padded] { padding-right:60px;}

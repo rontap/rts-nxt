@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					//we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1530;  //build number for modules
+const nxtjs_proto_BuildNumber = 1600;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -35,7 +35,7 @@ var $DOMInteraction = function (call) {
     nxt.domInteraction = true;
 	}
 	else {
-	    $ = function(){ throw 'DOM Interaction is turned off'; }
+	    $ = function(){ throw 'NXT.JS Feature Off: DOM Interaction is turned off'; }
 	   $$ = $ ;
      nxt.domInteraction = false;
 	}
@@ -71,6 +71,9 @@ Boolean.prototype.type = "Boolean";
 //-----------------------------------------------------------------
 //-----------------MATHEMATIC-OPERATIONS---------------------------
 //-----------------------------------------------------------------
+
+const Inf = Infinity;
+
 
 Math.spread =  function(/*array*/ call)
 {
@@ -333,9 +336,9 @@ var nxt = {
    },
    setNormalisation : function(call) { //extended by sets
      let temp = [];
-     for ( i=0 ; i<call.length ; i++ ) {
+     for (var i=0 ; i<call.length ; i++ ) {
        if (temp.indexOf(call[i])==-1) temp.push( call[i] );
-     }
+     } //very hard...........................................
      return temp;
    }
 ,
@@ -360,8 +363,13 @@ var nxt = {
    timeCop : function() {
      if ( nxt.domInteraction )
        for (let i=0; i<$$("var").length;i++) {
-         if ( (window[ $$("var")[i].getAttribute("is") ] != undefined) )
-           $$("var")[i].innerHTML = window[ $$("var")[i].getAttribute("is") ];
+         let allow = true;
+
+           try {
+             $$("var")[i].innerHTML = eval( $$("var")[i].getAttribute("is") );
+           }
+           catch(e) {}
+
         }
      setTimeout( () => nxt.timeCop() ,100);
     }

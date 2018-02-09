@@ -179,8 +179,14 @@
     party.probs = 1; //probability of color change
     party.isGuided = true;
     party.runTimeIndex = 1; //how many times the program has been looped
+    party.videoStartTime = 0;
+    party.videoURL = "Phe5rl2je3k";
 
     party.update = function() {
+        if (party.runTimeIndex<2) { 
+            player.seekTo( party.videoStartTime ,true ); 
+            if (!(party.isGuided)) $('body').classList.add('nodev');
+        }
         if (party.allowed) {
             if ( party.theme=="random" ) {
                 for (i=0; i<party.bglist; i++)
@@ -287,7 +293,7 @@ finally {
         <b>#No| Time&nbsp;  . Dur &nbsp;| Stamp | Bars Theme TR?</b>
         <br>
         <div id="debugInfo">Press CTRL to record a frame<br>
-                Adjust settings Later
+                Adjust settings Later<br>
 
         </div>
     
@@ -296,13 +302,69 @@ finally {
             
            
             <span id="currElement">###</span>
-            <span onclick="party.runTimeIndex=1;">reset</span>
+            <span onclick="party.runTimeIndex=1;player.stopVideo();">reset</span>
             URL:
             <span onclick="toURL()">update</span>/<span onclick="location.hash=''">flsuh</span>
             
         </div>
+
+
+       
     </div>
+    <div id="player"></div>
+    <div id="playersetup">
+        <b>Video Settings</b><br>
+        <span onblur="party.videoURL=this.innerHTML" contenteditable style="width:100px">_o-XIryB2gg</span> video URL ID<br>
+        <span onblur="party.videoStartTime=Number(this.innerHTML)" contenteditable>0</span> video start time<br>
+    </div>
+    <script>
+            // 2. This code loads the IFrame Player API code asynchronously.
+            var tag = document.createElement('script');
+      
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      
+            // 3. This function creates an <iframe> (and YouTube player)
+            //    after the API code downloads.
+            var player;
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                height: '200',
+                width: '200',
+                videoId: party.videoURL,
+                suggestedQuality: 'small',
+                events: {
+                  'onReady': onPlayerReady,
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+            }
+            function onPlayerReady(event) {
+
+           }
+            // 4. The API will call this function when the video player is ready.
+
+            function onPlayerStateChange(event) {
+                
+              
+            }
+
+           
+            function stopVideo() {
+              player.stopVideo();
+            }
+          </script>
+
+
     <style>
+        #player, #playersetup {
+            position:fixed;
+            top:250px;
+            left:20px;
+            opacity:.7;
+        }
+        
         #debug b {
             position: fixed;
          background: white;
@@ -311,13 +373,13 @@ finally {
          #debugSet {
              background:white;
          }
-         #debug span {
+         #debug span, #playersetup span {
              padding:0 5px;
              background:#eee;
              display: inline-block;
              min-width: 25px;
          }
-         #debug span:hover {
+         #debug span:hover, #playersetup span  {
             font-weight: bold;
             background:white;
          }
@@ -328,7 +390,7 @@ finally {
             outline-width: 1px;
             outline-offset: 1px ;
          }
-    #debug {
+    #debug ,  #playersetup   {
         position:fixed;
         top:20px;
         left:20px;
@@ -341,9 +403,16 @@ finally {
         font-size:10px;
         opacity: .8;
     }
-    #debug:hover {
+    #debug:hover , #playersetup:hover{
         opacity:1;
     }
+    #playersetup {
+            top:500px;
+            height:50px !important;
+        }
+        .nodev #debug , .nodev #playersetup, .nodev #player {
+            display: none;
+        }
     </style>
 </body>
 <script src="projectx.parser.js" type="text/javascript"></script>

@@ -1,4 +1,4 @@
-
+#RTS-NXT HTACCES
 RewriteEngine On
 RewriteRule ^/?url/(.*)$ /api/ultron/url.php?q=$1 [L,R=301]
 

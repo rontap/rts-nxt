@@ -8,18 +8,23 @@
 	<link rel="stylesheet" href="../../NXTJS/design.css">
 	<link rel="stylesheet" href="../../NXTJS/input-design.css">
     <link rel="stylesheet" href="../../NXTJS/mobile.css">
-
+    <title>Ultron URL Shortener</title>
 
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </HEAD>
-<BODY id="body" class="full-covered-active">
+<body id="body" class="full-covered-active toast-desktop" c>
 <nav class="fixed">
 	<header>
 		<div>Ultron</div></header>
         <span id="pageTitle">URL Shortener</span>
-	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
+    <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../../rtsmenu.html');">apps</i>
+    <div id="additional-icons">
+            <i class="material-icons" title="More info about this">info</i>
+            <i class="material-icons" title="Open Developer Edition" onclick="location.href='newurl.html'">developer_board</i>
+    </div>
+    
 </nav>
 
 
@@ -46,8 +51,10 @@
      <div class="card" id="share">
             <h1 class="covered">Share a Short URL</h1><br>
 
-            <input nxt placeholder="" style="width:350px;" flr id="newshort"> <br><br><br><br>
+            <input nxt placeholder="" style="width:350px;" flr id="newshort"> <br><br><br>
             <div flr>
+                    The link will redirect to: <span id="url" monospace style="font-size:12px">Nothing Here</span>
+                <br>
                     Secret Key for later editing: <span id="newkey" monospace>Nothing Here</span>
             </div>
            </div>
@@ -56,16 +63,14 @@
 
     <br>
 
-    <br>
-
-
+   
 <div id="c"></div>
 
 
 </holder>
 
 <toast id="open" onclick="">
-        Error: <var is="errormessage">Unkown Error</var>
+        Error: <var is="errormessage" >Unkown Error</var>
         <action  ><var is="errorcode"></var></action>
 
 </toast>
@@ -144,6 +149,12 @@ body {
     z-index: 2;
 
 }
+.urlShared #mainSwitch {
+    text-align: center;
+} 
+.urlShared #mainSwitch switch {
+    margin-left: 0px;
+}
 .urlShared #share {
     z-index: 1;
     margin-left:calc(50% - 5px);
@@ -187,7 +198,8 @@ var {
             result=JSON.parse(result);
 
             if (result.code == 0) {
-                $('#newshort').value = result.url;
+                $('#newshort').value = location.origin + "/url/" + result.url;
+                $('#url').innerHTML = $("#long_url").value ;
                 $('#newkey').innerHTML = result.key;
             }
            else {

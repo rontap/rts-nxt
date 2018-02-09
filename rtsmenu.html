@@ -41,10 +41,10 @@
 
 <body >
 
-    
+
 
     <nav>
-        <div id="linkHome" onclick="go('index.html')">
+        <div id="linkHome" onclick="go('../index.html')">
             <i class="material-icons" id="homeicon" >filter_frames</i>
             <span>Go to Welcome Page</span>
         </div>
@@ -55,10 +55,10 @@
 
         <div id="linkBack">
             <i class="material-icons" id="closeicon" onclick="goBack();">close</i>
-    
+
             <input type class="newholo" id="search" placeholder="Search RTS and the Web..." onclick="setTimeout( ()=>$('body').classList.add('search') , 10 );" onkeyup="updateTextSearch(event);" autocomplete="off">
-    
-    
+
+
         </div>
     <div id="linkClose">
 
@@ -134,13 +134,39 @@
         <div class="delta material-icons">shuffle</div>
     </article>
 
-    <article>
-        <h1 ol>Clocks</h1>
+    <article onclick="$('#clockinfo').classList.add('on');" >
+        <h1 ol>Clocks...</h1>
         <span>So it fills the screen</span>
         <img src="">
         <div class="delta  material-icons">slow_motion_video</div>
     </article>
+    <div  id="clockinfo">
+        <article  onclick="go('clock/binary.html')">
+            <h1 ol>Binary Clock</h1>
+            <span>So it fills the screen</span>
+            <img src="">
+            <div class="delta  material-icons" style="color:#444;">slow_motion_video</div>
+        </article>
+        <article  onclick="go('clock/clock.html')">
+            <h1>Timeflow Clock</h1>
+            <span>So it fills the screen</span>
+            <img src="">
+            <div class="delta  material-icons" style="color:#444;">access_time</div>
+        </article>
+        <article  onclick="go('clock/round.html')">
+            <h1 ol>Round Clock</h1>
+            <span>So it fills the screen</span>
+            <img src="">
+            <div class="delta  material-icons" style="color:#444;">timelapse</div>
+        </article>
+        <article  onclick="go('clock/time.html')">
+            <h1 ol>Color Clock</h1>
+            <span>So it fills the screen</span>
+            <img src="">
+            <div class="delta  material-icons" style="color:#444;">timer</div>
+        </article>
 
+    </div>
     <article onclick="go('NXTJS/showcase.html')">
         <h1  ol>NXT JS</h1>
         <span>JavaScript API</span>
@@ -194,20 +220,27 @@
         <img src="">
         <div class="delta material-icons">lightbulb_outline</div>
     </article>
+
+    <article onclick="go('api/ultron/')" >
+            <h1 >URL Shortener</h1>
+            <span>boring simulation</span>
+            <img src="">
+            <div class="delta material-icons">link</div>
+        </article>
 </div siteview>
 <div id="settingsView" class="card">
-    <h1 class="covered grey-dark" style="margin:-20px -15px 0px -15px;">Settings</h1>
+    <h1 class="covered red-500" style="color:white;">Settings</h1>
     <br>
     <table>
     <tr><td><br>Dark Mode </td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
     <tr><td><br>Mobile Mode </td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
     <tr><td><br>Desktop Window Mode &nbsp;</td><td><br><toggle onclick="this.classList.toggle('on');"> </toggle><br></td></tr>
-        </table>
+        </table><br><br>
 </div>
     <script>
 
-        mat300 = ['42A5F5','5c6bc0', 'ffd54f', 'E57373', '4DD0E1', '673AB7','673AB7','90A4AE','A1887F','42A5F5','F06292','999'];
-        mat600 = ['1E88E5','283593', 'FFA726', 'E53935', '00ACC1', '512DA8','512DA8', '607D8B','6D4C41','1E88E5','D81B60','666'];
+        mat300 = ['42A5F5','5c6bc0', 'ffd54f', 'E57373', 'ddd','ddd','ddd','ddd','4DD0E1', '673AB7','673AB7','90A4AE','A1887F','42A5F5','F06292','999','E57373'];
+        mat600 = ['1E88E5','283593', 'FFA726', 'E53935', 'eee','eee','eee','eee','00ACC1', '512DA8','512DA8', '607D8B','6D4C41','1E88E5','D81B60','666','E53935'];
 
 
         for (i = 0; i < mat300.length ; i++) {
@@ -249,6 +282,38 @@
         },100)
     </script>
 </body>
+
+<style>
+    #clockinfo {
+        max-height: 0px;
+        transition: max-height .4s;
+        background: rgb(51, 51, 51);
+        border: 1px solid #bbb;
+        margin: -1px;
+        border-radius: 5px;
+        opacity: 0;
+        overflow: hidden;
+        background:#494949;
+        box-shadow:0px 0px 4px #222 inset;
+    }
+    #clockinfo.on {
+        max-height: 600px;
+        opacity:1;
+    }
+    #clockinfo.on::before {
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid #aaa;
+        display: block;
+        position: absolute;
+        content:'';
+
+        margin-top: -10px;
+    right: calc(50% - 317px);
+    }
+    </style>
 <script>
 
 </script>

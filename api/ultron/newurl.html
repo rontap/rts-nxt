@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>Ultron URL / Developer</title>
     <meta charset="UTF-8">
     <style>
     body {
@@ -57,7 +58,7 @@ function showHint(str1,str2,str3) {
 <body>
 
 <h1 style="background:#eee;position:fixed;top:-20px;padding:20px;left:10px;right:0;">
-    Ultron Light Test Interface
+    Ultron Developer Interface
 </h1>
 
 <br><br><br><br>
@@ -76,7 +77,10 @@ function showHint(str1,str2,str3) {
     <button onclick='gotofn();'>open</button>
 </div>
 <br><br><br>
-<a href="index.html">user-friendly version</a> | version 3 | CC BY-NC Licence
+<a href="index.html">user-friendly version</a> | version 4<i></i> | CC BY-NC Licence |
+<a href="ultronV4.zip">download source code</a> | <a href="http://rontap.netne.net">RTS index</a>
+ | <a href="admin.php">admin panel</a><br>
+ Download previous versions:  <a href="ultronV3R.zip">V3 Release</a>
 <br><hr><br>
 <h2>Parameters</h2>
 <b>from:</b><br> at least 4 characters. If a number is input, it will generate an <i>n</i> long random text as access URL.<br>
@@ -88,36 +92,42 @@ Response:
 <div not></div>
 <br><hr><br>
 <h2>API Information</h2>
-
-    <br>
-     <b>Sending data flags</b><br>
+    Data is stored in a JSON file, URLS are protected from editing by requiring a key, that is a salted MD5 of the long URL. <br>An MD5d version of the key is stored in the JSON for comparation.
+    <br><a href="url.json">Example syntax</a> of the JSON file.
+    <br><br>
+     <b>Sending GET</b> to url.php<br>
 
       for redirecting:<br>
-      q=[FROM_LINK] <br><br>
+      > q=[FROM_LINK] will redirect you to the data stored inside<br><br>
 
       for setting new link:<br>
-      from=[FROM_LINK] long URL<br>
-      to=[TO_LINK] associate to the smaller URL<br>
-      key=[ACCES_KEY] only used if you want to modify an already created short URL <br><br>
+      > from=[FROM_LINK] long URL<br>
+      > to=[TO_LINK] associate to the smaller URL<br>
+      > key=[ACCES_KEY] only used if you want to modify an already created short URL <br><br>
 
       additional flags:<br>
-      devmode doesnt automatically forward <br>
+      > devmode doesnt automatically forward <br>
 
       <br>
-      <b>Return codes</b><br>
+      <b>Return codes</b> via AJAX or opening PHP file<br>
       0 = succesfull operation, URL available<br>
-      1 = not enugh parameters<br>
+      1 = not enough parameters<br>
       2 = fatal file IO error<br>
-      3 = succesfully deleted [not used]<br>
-      4 = [not currently used] <br>
+      3 = custom URL too short<br>
+      4 = invalid JSON format <br>
       9 = invalid acces key<br>
       <br>
-      <b>Return values</b> a string to be parsed to a JSON object<br>
+      <b>Return values</b> the PHP returns a string to be parsed to a JSON object<br>
       message: set only if unsuccesfull operation. Contains error message<br>
-      overlap: overwriting an already estabilised link<br>
+      overlap: Boolean, overwriting an already estabilised link<br>
       key: the acces key generated<br>
       url: the short url assigned, generated or given originally<br>
-
+      code: See above<br>
+    <br>
+        <b>.htaccess</b><br>
+      if the contents of the .htaccess file is included in the root directory of the webserver,<br> the folder <i>url/[SOMETHING]</i> (in the root of the directory)
+      <br>will always redirect to <i>ultron/url.php?q=[SOMETHING]</i> <br>
+      These settings can be changed in the .htacces file.
 <script>
 function gotofn() {
     includetext="";

@@ -42,11 +42,11 @@ container,
 }
 container:hover,
 .card {
-    box-shadow: 0px 2px 8px #777;
+    /* box-shadow: 0px 2px 8px #777; */
 }
 
 .card {
-    padding: 15px;
+    /* padding: 15px; */
 }
 
 .chip {
@@ -156,6 +156,7 @@ hr {
 .fab,
 .fab-small {
     padding: 17px;
+    text-align: right;
     border-radius: 100%;
     box-shadow: 0px 3px 4px #999;
     background: var(--dark-primary);
@@ -175,8 +176,8 @@ hr {
 .h1-connect-fab {
     position: relative;
     margin-top: -22px;
-    margin-left: calc(90% - 24px)/*in order to not overflow*/
-    ;
+    margin-left: calc(90% - 24px)/*in order to not overflow;
+     */;
 }
 
 .h1-connect-fab-small {
@@ -353,8 +354,10 @@ toast {
 toast.on {
   bottom:15px;
   opacity: 1;
+  margin: 0 auto;
+
 }
-toast action {
+toast action *, toast action {
     text-transform: uppercase;
     font-size:13px;
     font-weight: bold;
@@ -368,7 +371,13 @@ toast action[warning] { color:#FF9800; }
 toast action[info]    { color:#B0BEC5; }
 
 
-
+body.toast-desktop toast {
+    margin: 0 auto;
+    padding: 16px;
+    margin-bottom: -25px !important;
+    left: calc(40% - 120px) !important;
+    right: calc(40% - 120px) !important;
+}
 /*TOGGLE*/
 toggle {
     display: inline-block;
@@ -400,10 +409,10 @@ toggle::after {
 }
 toggle[disabled]::after {
     background:#666;
-} 
+}
 toggle[disabled]::before {
     background:#ccc;
-} 
+}
 toggle.on::before {
     background: #999;
 }
@@ -426,7 +435,7 @@ table[nxt] {
 }
 table[nxt] tr:first-child {
     border-radius: 4px;
-   
+
 }
 table[nxt] tr td {
     border:1px solid #ddd;
@@ -445,4 +454,12 @@ code[nxt] {
     padding:5px;
     display: block;
     padding-left:30px;
+}
+
+/**/
+#additional-icons {
+    position: absolute;
+    margin-top:-36px;
+    right:70px;
+    font-size:32px;
 }

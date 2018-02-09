@@ -17,7 +17,7 @@
 
 	<script src="edu/sets.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="NXTJS/elements-design.css">
+	<link rel="stylesheet" href="NXTJS/elements-design.css">
 	<link rel="stylesheet" href="NXTJS/design.css">
 	<link rel="stylesheet" href="NXTJS/input-design.css">
 	<link rel="stylesheet" href="NXTJS/mobile.css">
@@ -59,6 +59,7 @@
 		<div class="omenu">Random Password & Text</div>
 		<div class="omenu">Color Tools</div>
 		<div class="omenu">Languages</div>
+		<div class="omenu">Grouping</div>
     <div class="omenu" onmouseup="location.href='random/smoke.html'">Quit Smoking<i class="material-icons">open_in_new</i></div>
 
 		<div class="otitle"><div>File</div></div>
@@ -124,12 +125,12 @@
 						isMDTextOn = true;
 						$('#mainText').style.display="none";
 						$('#mainMDText').style.display="block";
-						
-				
+
+
 					}
 				}
 				</script>
-				
+
 
 				<br />
 				<hr />
@@ -137,14 +138,14 @@
 						<i>Start Typing and you will see stats here</i>
 				</div>
 
-				
-					
-					
+
+
+
 			</div>
 		</div>
 
 
-		<container class="card"><br>Small Tools in developement<br>Please return later!</container>
+		<container ><br>Small Tools in developement<br>Please return later!<br><br>To add: Statistics, info and more.</container>
 		<div>
 			<div class="card" id="habitHolder">
 				<h1 class="covered green-antigene">Count Your habits</h1>
@@ -201,7 +202,7 @@
 
 		<div>
 				<div class="card" id="passwordHolder">
-					<h1 class="covered yellow-antigene">Set Randomised Password</h1>
+					<h1 class="covered cyan-500">Set Randomised Password</h1>
 					<i class="material-icons fab h1-connect-fab" onClick="generateAllPwd(Number($('#passwordCharCount').value),Number($('#passwordCount').value))">fingerprint</i>
 
 					<br /><br />
@@ -221,7 +222,7 @@
 				</div>
 
 			<div class="card">
-				<h1 class="covered orange-antigene">Random Text & Numbers</h1>
+				<h1 class="covered cyan">Random Text & Numbers</h1>
 				<i class="material-icons fab h1-connect-fab" >graphic_eq</i>
 				<br /><br />
 				<input placeholder="Length" type="number" min="0">
@@ -235,7 +236,7 @@
 			</div>
 
 			<div class="card">
-				<h1 class="covered cyan">coin, dice and other random events</h1><br>
+				<h1 class="covered cyan-600">other random events</h1>
 				<!--sdiv class="content">
 					<div class="navigation">
 						<a>Eszperente Words</a>
@@ -246,11 +247,34 @@
 					<div>
 							heyya
 					</div-->
-					<button real>Hello</button>
-					<button real>Hello</button>
-					<button real>Hello</button>
-					<button real>Hello</button>
-					<button real>Hello</button>
+				<div class="covered subtitle cyan-400 buttons" >
+					<button  flat>Flip-a-Coin</button>
+					<button  flat>Throw Dice</button>
+					<button  flat>Rock-Paper-Scissors</button>
+
+
+				</div>
+				<style>
+				.covered.subtitle.buttons {
+					padding:0px;
+				}
+				.covered.subtitle.buttons>button[flat] {
+					padding:15px;
+					border-radius:0px;
+					background:transparent;
+					color:white;
+					border-bottom:3px solid transparent;
+
+				}
+				.covered.subtitle.buttons>button[flat]:hover {
+					border-bottom:3px solid rgba(255,255,255,.9);
+					background:rgba(255,255,255,.2);
+				}
+				.covered.subtitle.buttons>button[flat]:not(:first-child) {
+					margin:0 -4px;
+				}
+
+				</style>
 
 
 				</div>
@@ -296,7 +320,9 @@
 				<div class="card" id="languages"></div>
 		</div>
 
-
+<container>Grouping in developement.<br><br>
+	Clone of: <a href="http://ago.comeze.com/group/index.html" nxt>project with ago</a>
+</container>
 <container>yo mate</container>
 <div>
 	<div class="card card-2x1" id="musicPlayer">
@@ -387,7 +413,7 @@ window.document.onscroll = function(){
    }
 
         setTimeout( function() {
-					
+
 					$$('.covered.expand')[0].style.backgroundImage=$$('.covered.expand')[0].getAttribute('img');
 					languages.innerHTML=parseTable();
 					checkboxNxt();

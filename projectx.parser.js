@@ -29,7 +29,7 @@ parser.reg = function() {
         //this time: current time minus starting time minus time of the last one
     }
     console.log( currTimeStap - party.initialTimestamp, parser.record.last().time );
-    parser.update();
+    parser.appendOne();
 }
 
 parser.update = function() {
@@ -45,9 +45,20 @@ parser.update = function() {
         +"<br>" ;
 
     }
-    debug.scrollTop=99999
+   
 }
-
+parser.appendOne = function() {
+    i = parser.record.length
+    el = parser.record.last();
+        $('#debugInfo').innerHTML+= String(i).padStart(3).replace(/\s/g,"&nbsp;")
+        + ' - ' + String(Math.round(el.time/100)/10).padStart(4).replace(/\s/g,"&nbsp;")
+         + " . " + String((el.time - parser.record[i-1].time) ).padStart(4).replace(/\s/g,"&nbsp;")
+        + " | <span onblur='parser.record["+i+"].time=Number(this.innerHTML);console.log(this.innerHTML)' contenteditable>"+ el.time + "</span> "
+        + " | <span onblur='parser.record["+i+"].bars=Number(this.innerHTML);console.log(this.innerHTML)' contenteditable>"+ el.bars + "</span> "
+        + " | <span onblur='parser.record["+i+"].theme=this.innerHTML;console.log(this.innerHTML)' contenteditable>"+ el.theme + "</span> "
+        +"<br>" ;
+        debug.scrollTop=99999;
+}
 
 if ( $_GET().length() >= 2 ) {
     parser.record = JSON.parse(atob( $_GET("q")) ) ;
