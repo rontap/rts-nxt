@@ -33,7 +33,7 @@ Array.prototype.last = function() {
 function clickCard(user, nthCard, aiTest) {
     aiTest = aiTest ? undefined : false;  //used if you want to test with an AI
     if (Players[user].frontCards[nthCard]=='-') return false;
-    //do not place 
+    //do not place
 
     //decides whether you can place a certain card from your card dock to the to a specific part of the playzone
     if ( [1,12].indexOf(Math.abs( standardCards.indexOf(centralDeck[0].last()) - standardCards.indexOf(Players[user].frontCards[nthCard]) ) ) >= 0 )   {
@@ -129,6 +129,7 @@ function keyBoardControl(e) {
     $$('holder[user]')[0].classList.add('move');
     $$('holder[user] toggle')[0].classList.add('on');
     playerHangs[0]=true;
+    
 
   }
   if (e.code == "ControlRight" ||(e.key =="u") || (e.code == "AI-SHIFT-1")) {

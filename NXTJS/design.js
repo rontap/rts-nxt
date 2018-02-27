@@ -1,5 +1,13 @@
-if ( nxt.build < 1520) nxt.dieFromVersion(1600); 
+//NXT MATERIAL BASE NAVIGATION DESIGN
 
+//GNU GPL v3 Licence
+
+
+nxt.modules.push("design.js");
+
+if ( nxt.build < 1620) nxt.dieFromVersion(1620);
+
+//waiting for everything to get
 setTimeout(function(){
 
 
@@ -8,13 +16,19 @@ lastSelMenuItem=0;
 for (i=0;i<$$('.omenu').length;i++)
 {
   $$('.omenu')[i].onclick=function(){
-
-
-    $$('.omenu')[lastSelMenuItem].classList.remove('on');
-    $$('holder>*')[lastSelMenuItem].classList.remove('on');
+      
+    //for each menu element, we create an onclick
+      $$('.omenu')[lastSelMenuItem].classList.remove('on'); //removing knob
+    $$('holder>*')[lastSelMenuItem].classList.remove('on'); //removing actual card
     this.classList.add('on');
     lastSelMenuItem=$$('.omenu').indexOf(this);
-    $$('holder>*')[lastSelMenuItem].classList.add('on');
+    try {
+      $$('holder>*')[lastSelMenuItem].classList.add('on');
+    }
+    catch(e) { //if you want to open an element which doesnt exist.
+      //TBA notification
+      nxt.die(e);
+    }
      $('#pageTitle').style.opacity=0
 
     trigger(this);
@@ -29,37 +43,29 @@ for (i=0;i<$$('.omenu').length;i++)
   }
 }
 
-
+// supporting standalone desktop mode
 if (nxt.getStore("desktopMode")) {
+    //adding navigational icons
+    $('nav').innerHTML+='<i class="ctrls-l material-icons" onClick=history.back();>arrow_left</i>';
+    $('nav').innerHTML+='<i class="ctrls-x material-icons " onClick="history.forward()">arrow_right</i>';
+    $('nav').innerHTML+='<i class="ctrls-m material-icons " onClick="location.reload()">replay</i>';
 
-$('nav').innerHTML+='<i class="ctrls-l material-icons" onClick=history.back();>arrow_right</i>';
-$('nav').innerHTML+='<i class="ctrls-x material-icons " onClick="history.forward()">arrow_left</i>';
-$('nav').innerHTML+='<i class="ctrls-m material-icons " onClick="location.reload()">reload</i>';
-
-try {var nodew = nw.Window.get();
-}
-catch (e) {}
-
+    try {var nodew = nw.Window.get();}
+    catch (e) {}
 }
 
 
+//jumping between locations
 setTimeout(function(){
   let getArgs =  new Sets($_GET().argumentList()) ;
-  console.log(getArgs);
-  if (getArgs.includes("l")) {
-
-    let nth = Number( $_GET("l") );
-     $$('.omenu')[nth].click();
-
-  }
-  else {
+  if (getArgs.includes("l")) 
+    $$('.omenu')[ Number( $_GET("l") ) ].click(); 
+  else 
     $$('.omenu')[0].click();
-  }
-
 },100);
 
 
-},100);
+},100); //main wait
 
 
 

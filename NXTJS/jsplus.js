@@ -2,13 +2,13 @@
 
 //GNU GPL v3 Licence
 
-//Created by Aron Tatai, 2017
+//Created by Aron Tatai, 2017/2018
 //base for all RONTAP - NXTJS applications.
 
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
-'use strict';					//we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1600;  //build number for modules
+'use strict';					       //we use strict so everything is clear and no unexpected errors
+const nxtjs_proto_BuildNumber = 1700;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -18,12 +18,22 @@ const nxtjs_proto_BuildNumber = 1600;  //build number for modules
 //DOM interaction like JQuery
 var $    = (call)    =>  document.querySelector(call);
 var $$   = (call)    =>  document.querySelectorAll(call);
+
 Node.prototype.$$ = function (query) {
   return this.querySelectorAll(query);
 };
+
 //for some reason, NodeList didnt have an indexOf in its prototype.
 NodeList.prototype.indexOf = function(element) {
     return [...this].indexOf(element);
+}
+
+//implementing JQuery-style attribute set and get.
+Element.prototype.attr = function(check, to) {
+    if (to == undefined)
+        return this.getAttribute(check);
+
+    return this.setAttribute(check,to);
 }
 
 //toggle DOM interaction within nxt.
@@ -43,6 +53,7 @@ var $DOMInteraction = function (call) {
 
 //-----------------ARRAY-PROTOTYPE-EXENSIONS-------------------------
 
+//quick extensions 
 Array.prototype.max = function()  {    return Math.max(...this);    }
 Array.prototype.min = function()  {    return Math.min(...this);    }
 Array.prototype.last = function() {    return this[this.length-1];  }
@@ -55,8 +66,9 @@ Array.prototype.shuffle = function() { //shuffle the array compleately
 	return this;
 }
 Array.prototype.isSame = function() {
-  //this is not perfect. when all elements are false or 0, this will fail. please do not use
-  return !!this.reduce(function(a, b){ return (a === b) ? a : NaN; });
+  //this is not perfect. when all elements are false or 0, this will fail.
+  //useful for checking whether even one element is valid/on.
+  return !!this.reduce((a, b) => (a === b) ? a : NaN );
 }
 
 
@@ -72,6 +84,7 @@ Boolean.prototype.type = "Boolean";
 //-----------------MATHEMATIC-OPERATIONS---------------------------
 //-----------------------------------------------------------------
 
+//supporting RTS4
 const Inf = Infinity;
 
 
@@ -144,7 +157,8 @@ class Color {                   //simple generation of colors. Finally
      if (b!=undefined) this.b=Number(b); else this.b = Math.floor(Math.random()*255);
 
      this.rgb="rgb(" + this.r + ',' + this.g + ',' + this.b + ')';
-     this.hex='#'+this.r.toString(16)+this.g.toString(16)+this.b.toString(16)
+     this.hex='#'+this.r.toString(16)+this.g.toString(16)+this.b.toString(16);
+      
      //whether to add BLACK = true or WHITE = false  text color
      if ((this.r+this.g+this.b)>360) this.shade=false;
      else this.shade=true;
@@ -187,6 +201,8 @@ function $_GET(args) {
     }
 
 }
+/* code to be reset and removed - and integrated back to $_GET - b1700
+
 function $_SET( locationCall , from , to ) {
   args = args || 'null';
   from = from.concat( nxt.jsgetFrom );
@@ -212,6 +228,8 @@ function $_SET( locationCall , from , to ) {
     }
   }
 }
+*/
+var $_SET = ()=> false;
 
 //-----------------------------------------------------------------
 //-----------------STRING-STATISTICS-------------------------------
@@ -219,18 +237,20 @@ function $_SET( locationCall , from , to ) {
 
 String.prototype.stat = function(call) {
    switch (call) {
-      case  'LengthNoSpace' :	//how long is this without spaces
+       case  'LNS' :
+       case  'LengthNoSpace' :	//how long is this without spaces
          return this.length-this.split(" ").length;
 
+      case  'WC' :       
       case  'wc' :	//word count
          return this.split(/\s+/).length;
 
       case 'letters' : //sort the letters
-       a=this.toLowerCase();
-       letterStore=[];//where we store the actual letters
-       letterCount=[];//where we store those
+       let a=this.toLowerCase();
+       var letterStore=[];//where we store the actual letters
+       var letterCount=[];//where we store those
        for (i=0;i<a.length;i++) {
-           index=letterStore.indexOf(a[i]);//to save power, we calculate this here
+           let index=letterStore.indexOf(a[i]);//to save power, we calculate this here
            if (index<0) { //if not
                letterStore[letterStore.length]=a[i];
                letterCount[letterCount.length]=1;
@@ -242,18 +262,20 @@ String.prototype.stat = function(call) {
        }
        return [ letterCount , letterStore ];
 
+      case 'max' :
       case 'letterMax' :    //     get the most  freq. letter from the index of the most used letter
-       text=this.stat('letters');
-       return text[1][ text[0].indexOf( text[0].max() ) ]
+       var textLM=this.stat('letters');
+       return textLM[1][ textLM[0].indexOf( textLM[0].max() ) ]
 
 
       case 'letterMin'  :   //     get the least freq. letter from the index of the most used letter
-       text=this.stat('letters');
-       return text[1][ text[0].indexOf( text[0].min() ) ]
+       var textLN=this.stat('letters');
+       return textLN[1][ textLN[0].indexOf( textLN[0].min() ) ]
 
       case 'letterSort' :
-       text=this.stat('letters');
-       output=[[],[]];
+      case 'sort' :
+       let text=this.stat('letters');
+       let output=[[],[]];
        for (let xi=0;xi<text[0].length;xi++)
            {
                 output[0][output[0].length] = text[0][ text[0].indexOf( text[0].max() ) ]
@@ -271,6 +293,7 @@ String.prototype.stat = function(call) {
 //-----------------------------------------------------------------
 
 if (localStorage.nxtDataStore==undefined) {
+    //setting default nxtjs storage values
     let temp = {
       nightMode : false,
       desktopMode : false,
@@ -278,28 +301,31 @@ if (localStorage.nxtDataStore==undefined) {
     }
     localStorage.nxtDataStore = JSON.stringify(temp);
 }
+
+//defining main variable
 var nxt = {
   jsgetFrom : [],
   jsGetTo : [],
   build : nxtjs_proto_BuildNumber,
   modules : ["core"],
+  location : "NXTJS/", //default location, can be overwritten
   //loading JS packages
-  require : function(url) {
+  requireJS : function(url) {
     console.info("[NXTJS][PACKAGES] loading module "+url);
-    if ( $$('script[src="'+url+'"]').length==0 ) {  //do not import twice if already defined
+    if ( nxt.modules.indexOf(url)<0 ) {  //do not import twice if already defined
       let script = document.createElement('script');
-      script.src = url;
+      script.src = nxt.location+url;
       $('head').appendChild(script);    //appending new script
-      nxt.modules.push(url.slice(0,url.length-3));
+      nxt.modules.push(url);
       return true;
     }
     else return false;
   },
   requireCSS : function(url) {
     console.info("[NXTJS][PACKAGES] loading CSS "+url);
-    if ( $$('style[href="'+url+'"]').length==0 ) {  //do not import twice if already defined
+    if ( nxt.modules.indexOf(url)<0 ) {  //do not import twice if already defined
       let style = document.createElement('style');
-      style.href = url;
+      style.href = nxt.location+url;
       style.rel="stylesheet";
       $('head').appendChild(style);    //appending new script
       return true;
@@ -308,7 +334,7 @@ var nxt = {
   },
 
   // examples
-  notify : function() { nxt.require("design-notifications.js");  nxt.requireCSS("elements-design.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
+  notify : function() { nxt.requireJS("design-notifications.js");  nxt.requireCSS("elements-design.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
 
 
   openMenu : function(call) {
@@ -349,9 +375,10 @@ var nxt = {
       document.writeln("<style>body {font-family:monospace;margin:60px;}</style><title>ParseError</title>")
       document.writeln("<br><h1>NXT JS Runtime Error "+title+"</h1>");
       document.writeln("The page cannot be parsed. Please reload or go back to the previous site.<br>");
-      document.writeln(message+"<hr><br>");
+      document.writeln("<b>Message:</b> "+message+"<hr><br>");
       let a =  new Date().getTime();
       document.writeln("nxt.js build version: " + nxt.build + "<br>Timestamp: " + a);
+      document.writeln("<br><br>Please report this error  to: aron.tatai@gmail.com");
       throw "NXT.JS Fatal Parse Error.";
    },
    dieFromVersion : function(ver) {
@@ -360,8 +387,9 @@ var nxt = {
    domInteraction : true,
 
    //allowing <var is="" setups
+   timeCopSwitch : false , 
    timeCop : function() {
-     if ( nxt.domInteraction )
+     if ( nxt.domInteraction && nxt.timeCopSwitch )
        for (let i=0; i<$$("var").length;i++) {
          let allow = true;
 

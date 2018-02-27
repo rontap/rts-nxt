@@ -39,15 +39,29 @@ body {
   background: #eee;
 }
 header {
-    background: var(--primary);
+    background: rgba(255,255,255,1);
     width: 100%;
     height: 450px;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     vertical-align: middle;
-    color: white;
+    color: #444;
     font-size: 75px;
     transition: left .4s, color .7s;
+    border-bottom: 1px solid #aaa;
+}
+header[transparent] {
+    /*for standalone apps, old style*/
+    background:var(--primary) !important;
+    border:none !important;
+    box-shadow:none !important;
+    /* width: 200px; */
+    color:white !important;
+    /* margin: 10px; */
+    /* border-radius: 8px; */
+    /* border: 2px solid rgba(255,255,255,.4) !important; */
+    background: #FFFFFF22 !important;
+    box-shadow: 0px 0px 3px #222 inset !important;
 }
 
 nav header {
@@ -56,9 +70,10 @@ nav header {
     left: 0;
     width: 250px;
     font-size: 30px;
-    height: 60px;
+    height: 59px;
     z-index: 99;
     animation: scrollIn .2s;
+    box-shadow: 0px 3px 4px #444;
 }
 
 header span {
@@ -69,14 +84,13 @@ header span {
 nav {
     font-family: 'Montserrat', sans-serif;
     background: var(--dark-primary);
-    height: 35px;
+    height: 104px;
     padding-top: 25px;
     display: block;
     color: #FEFEFE;
-    z-index: 9;
+    z-index: 0;
     letter-spacing: 1px;
     opacity: 1;
-
 }
 nav , [app-drag] , #linkBack {
     -webkit-app-region: drag;
@@ -88,6 +102,7 @@ nav.fixed {
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
   right: 0;
   box-shadow: 0px 2px 3px #aaa;
 }
@@ -101,6 +116,8 @@ holder > container.on,
 holder > div.on {
     animation-delay: .3s;
     animation: slideUpCard .4s;
+    animation-fill-mode: forwards;
+    z-index: 99;
 }
 
 holder {
@@ -136,7 +153,7 @@ container.sidebar {
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     margin: none !important;
-   z-index: 10;
+    z-index: 10;
 }
 
 
@@ -193,16 +210,21 @@ container.sidebar {
     box-shadow: none;
     padding: 30px 5px;
 }
-
+#tfill2 {
+  display:none;
+}
 #tfill,
 .card, #tfill2 {
     opacity: 1;
+    /* width: 805px; */
     margin: 50px auto;
     padding: 10px 25px 25px 25px;
-    max-width: 800px;
+    max-width: 750px;
     box-shadow: 0 1px 3px #999;
     background: white;
-    border-radius: 0px 0px 2px 2px;
+    border-radius: 4px 4px 2px 2px;
+    /* max-width: 600px; */
+    min-height: 0;
 }
 
 .sidebar .omenu::before {
@@ -233,6 +255,7 @@ container.sidebar {
   margin-top: -12px;
   text-transform: uppercase;
   transition: .2s;
+  text-align: center;
 }
 
 /*material icons*/
@@ -244,7 +267,7 @@ container.sidebar {
     }
     100% {
         opacity: 1;
-        margin-top: 3px;
+        margin-top: -40px;
     }
 }
 
@@ -260,11 +283,11 @@ container.sidebar {
 @keyframes slideUpCard {
     0% {
         opacity: 0.2;
-        margin-top: 150px;
+        margin-top: 100px;
     }
     100% {
         opacity: 1;
-        margin-top: 120px;
+        margin-top: 20px;
     }
 }
 
@@ -329,7 +352,7 @@ body.NineDotMenuTransition .sidebar {
     display: block !important;
     -webkit-app-region: no-drag;
     position: fixed;
-    top: 10px;
+    top: 8px;
     right: 80px;
     color: white;
     padding: 10px;

@@ -71,15 +71,7 @@ margin:7px 21px 7px 21px !important;
 margin:15px;
 
 }
-#snippets {
-right: 0%;
-  opacity:1;
- position:fixed;
- width:30%;
- top:100px; bottom:30px;
- border-left:3px solid var(--dark-primary);
- z-index: 99;
-}
+#snippets {right: 0%;opacity:1;position:fixed;width:30%;top: 75px;bottom: 15px;border-left:3px solid var(--dark-primary);z-index: 99;}
 #snippets textinput, #userCurrText textinput  {
 display: block;
 margin:30px;
@@ -175,6 +167,7 @@ font-size: 20px;
 #userCurrText {
   padding:40px 60px 80px 60px;
   height:600px;
+  margin-top: -82px;
 }
 #snippetTextareaHolder {
   min-height:50px;

@@ -189,13 +189,7 @@ font-family: 'PT Sans', sans-serif;
         margin:0 auto;
         width:1000px;
     }
-    #asGard input {
-        border:none;
-        border-bottom:2px solid #48F;
-        backgrond:white;
-        padding:15px;
-        margin:0;
-    }
+   
 	p {
 	    line-height: 1.4	;
 		    text-align: justify;

@@ -91,14 +91,24 @@ function slideup() {
 	return {"x":event.pageX-canvas.offsetLeft,"y":event.pageY-canvas.offsetTop};
 }
 
+var isGraphOn = false;
 function graphis(call) {
     if (call)
     {
-        $(".mainbtn").classList.add("on");
+         isGraphOn = true;
+         reloadGraphFrame();
     }
     else {
         $(".mainbtn").classList.remove("on");
+        isGraphOn = false;
     }
+}
+function reloadGraphFrame() {
+   $("#graph_iframe").src="null";
+        
+        setTimeout( function(){ 
+            $("#graph_iframe").src="tapcalkgraph.html#"+chart;
+        },250); 
 }
 
 isSideBarOn=false;
@@ -208,42 +218,7 @@ function mapler() {//hinttörlés
 
 tapcalk= {};
 
-tapcalk.set = function() {
-infopanel.style.top="100%"
-infopanel.style.opacity="0";
-histh.style.top="100%"
-histh.style.opacity="0";
-tco.style.width="0"
-tco.style.opacity="0";
-tmain.style.left="15%";
-tmain.style.height="auto"
-tmain.style.bottom="0";
 
-setTimeout(function(){
-	histh.style.display="none";
-	infopanel.style.display="none";
-	tco.style.display="none";
-},500)
-return 'set';
-}
-
-tapcalk.unset = function() {
-
-	histh.style.display="block";
-	infopanel.style.display="block";
-	tco.style.display="block";
-setTimeout(function(){
-infopanel.style.top="60%"
-infopanel.style.opacity="1";
-histh.style.top="60%"
-histh.style.opacity="1";
-tco.style.width="25%"
-tco.style.opacity="1";
-tmain.style.left="40.5%";
-tmain.style.height="60%";
-},100);
-return 'set';
-}
 /*$.each($('.omenu'), function(i, el){//animation
     $(el).css({'opacity':0.1});
     setTimeout(function(){

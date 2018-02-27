@@ -1,3 +1,6 @@
+.indigo-500 {
+    color:White !important;
+}
 .outputtext {
     line-height: 23px;
 }
@@ -90,8 +93,14 @@ input:active {}
     border: none;
 }
 
-
-
+#infopanel,
+#histh {
+    display: none;
+}
+.moreInfoOn #infopanel,
+.moreInfoOn #histh {
+    display: block;
+}
 @media (min-width:1600px) {
     #tco,
     .sidebar {

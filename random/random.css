@@ -3,9 +3,9 @@ header { width:300px !important;}
 
 
 :root {
-    --primary:#FFA726;
+    --primary: #FF9800;
     --dark-primary :#FF9800;
-    --light-primary:#FFCC80;
+    --light-primary: #FF9800;
 }
 #splash h1 {
 
@@ -14,7 +14,7 @@ header { width:300px !important;}
 }
 holder {
   display: block;
-  margin-top:120px;
+  margin-top: 60px;
   margin-left:300px;
   transition: opacity .15s, margin-left .4s;
 }
@@ -134,7 +134,7 @@ top:10px;
 transition:all 0s;
 }
 #languages {
-  margin-top:400px;
+  margin-top: 455px;
 }
 #languages  table {
   border-spacing: 0px;

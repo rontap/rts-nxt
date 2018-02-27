@@ -4,20 +4,26 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version:*
 
-**5.6 ACHILLES**
+**5.6.5 ACHILLES**
 
 ## Recent Changes
 ```
-(+) RTS Menu cloock submenus added
-(+) rontapparty X music capture Pre-Release Added and project updated
-(+) ULTRON link shortener updated with Admin panel. 
-(+) Speeed 1.0 released!
-(+) Mine Updated to be fully NXT compatible
-
---- NXT.JS Updates (1600)
-(+) New Toast options (center)
-(+) Support for additional toolbar icons
-(*) var is="" now evaulates objects
+(+) NEW NOTES application in developement with ago, Wireframe ready
+(*) MAJOR Design change, more coherent and part of Material Design
+(+) Tapcalk design changed significantly (work in progress), language updated partially
+(*) rontapparty X music capture Pre-Release Added and project updated
+(*) ULTRON link shortener updated to V4 everywhere
+(+) PlusOne added
+(+) SMALL.tools added to random, JS files exploded
+ 
+--- NXT.JS Updates (1700)
+(+) comments added, code made more readable
+(+) New Input style [nxt]
+(+) Element.attr added
+(*) $_SET temporarly disabled, TB replaced in $_GET
+(*) corrected errors in String prototype stats
+(+) introduced nxt.location, making requires available from everywhere
+(*) require is quicker now
 ```
 
 ## General Changes

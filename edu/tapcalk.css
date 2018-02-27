@@ -21,8 +21,8 @@
 }
 #moreinfo_icon {
     position: fixed;
-    right: 250px;
-    top: 8px;
+    right: 7px;
+    top: 70px;
     font-size: 32px;
     cursor: pointer;
 }
@@ -81,13 +81,13 @@
     top: 14px;
 }
 */
-#graphbtn {position: fixed;
+#graphbtn {
+    position: fixed;
     bottom: 30px;
     z-index: 99;
     color: white;
-    right: 357px;
-
-    background: #00796B;
+    right: 168px;
+    background: #9C27B0;
 }
 
 @keyframes showitem {
@@ -162,18 +162,27 @@
 }
 
 #kero {
-    position: fixed;
-    top: 20px;
-    width: 200px !important;
-    margin-left: 28px;
-    margin-top: 58px;
-
+    /* position: fixed; */
+    /* top: 20px; */
+    /* width: 200px !important; */
+    /* margin-left: 28px; */
+    /* margin-top: 58px; */
+    border: 0px;
+    margin-left: -6px;
+    width: 278px;
 }
 
 #kera {
     box-shadow: 0px 3px 8px #DDD;
     font-size: 18px;
     opacity: .9;
+    display: block;
+    margin-right: -15px;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 13px;
+    /* margin-left: 0px; */
 }
 
 #kera:hover {
@@ -198,7 +207,7 @@ r {
 
 #infopanel,
 #histh {
-    position: fixed;
+    /* position: fixed; */
     overflow: hidden;
     background: #e5e5e5;
     color: #222;
@@ -206,12 +215,21 @@ r {
 
 #infopanel {
 
-    right: 0px;
-    width: 300px;
-    top: calc(40%);
-    bottom: 0;
-    overflow: hidden;
-    background: #e5e5e5;
+/* right: 0px; */
+
+width: 300px;
+
+position: absolute;
+
+bottom: 0;
+
+overflow: hidden;
+
+background: #e5e5e5;
+
+top: 0;
+
+left: 698px;
 }
 
 #infopanell {
@@ -222,12 +240,19 @@ r {
 
 #histh {
 
-    right: 0px;
-    width: 300px;
-    top: 70px;
-    margin-top: 0;
+left: 400px;
 
-    height: calc(40% - 70px);
+position: absolute;
+
+/* margin: 20px; */
+
+width: 300px;
+
+top: 0px;
+
+margin-top: 0;
+
+height: 300px;
 }
 
 #hist hr {
@@ -287,16 +312,17 @@ container.sidebar {
     left: 300px;
     right: 0;
     overflow-y: scroll;
-    top: 80px;
-    right: 300px;
+    top: 10px;
+    right: 0px;
     bottom: 50px;
+    overflow: auto;
 }
 #graphDrawer {
   position: fixed;
-  left:300px;
+  left: 300px;
   border-top:1px solid #ddd;
   background:white;
-  right:300px;
+  right: 0px;
   height:20px;
   padding:15px;
   bottom: 0;
@@ -319,20 +345,22 @@ body.moreInfoOn #graphDrawer>i {
 }
 body.moreInfoOn #graphDrawer{
   bottom:300px;
-  padding:30px 15px 30px 50px;
-  height:30px;
-  box-shadow: 0px -2px 4px #aaa;
-  background:#00796B;
+  padding: 15px 15px 20px 50px;
+  height: 15px;
+  /* box-shadow: 0px -1px 1px #999; */
+  background: #9C27B0;
   color:white;
 }
 body.moreInfoOn #graphbtn {
   bottom:328px;
   box-shadow: none;
-  color:#00796B;
+  color: #9C27B0;
   background:white;
-  bottom: 321px;
-  border: 7px solid #009688;
-  right: 350px;
+  bottom: 309px;
+  /* border: 7px solid #009688; */
+  right: 174px;
+  padding: 10px !important;
+  box-shadow: 0px 1px 3px #222 inset;
 }
 
 body.sideBar #graphDrawer {
@@ -348,19 +376,23 @@ body.moreInfoOn #graphInformationText {
   position: fixed;
   left:300px;
   background:white;
-  right:300px;
-  height:280px;
+  /* right:300px; */
+  height: 268px;
   padding:15px;
   bottom: 0;
   padding-left:50px;
 }
+#tfill2 h1 {
+  background:#eee;
+  border-top:1px solid #ddd;
+}
 #mainFab {
   position: absolute;
-  top:40px;
+  top: 98px;
   z-index: 99;
-  right: 350px;
-    background:#009688;
-  box-shadow: 0px 3px 4px #666;
+  right: 163px;
+  background: #9C27B0;
+  box-shadow: 0px 1px 3px #444;
 }
 #tfill h1:first-child,
 #tfill2 h1:first-child {
@@ -457,7 +489,9 @@ body.moreInfoOn #graphInformationText {
     color: #000;
 
 }
-
+.moreInfoOn #tmain {
+    bottom: 348px !important;
+}
 #tmain textarea {
     border-radius: 0px;
     width: 100%;

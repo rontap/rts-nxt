@@ -1,0 +1,105 @@
+	.color-wrapper {
+			background:var(--primary);
+			transition:all .2s;
+		}
+		.color-wrapper:hover {
+			background:var(--light-primary);
+			cursor:pointer;
+		}
+		.center, [center] {
+			text-align:center;
+		}
+		.card-wrapper {
+			margin:10px -25px -25px -25px;
+		}
+		input.long {
+			width:220px !important;
+		}
+		.sidebar button {
+			margin: 13px;
+	    margin-right: 3px;
+		}
+		#pageTitle {
+			display:none;
+		}
+h1:focus {
+	background:#E8F5E9 !important;
+	outline:none;
+}
+		.overlay #content {
+			background:#eee;
+			color:#999;
+			box-shadow:0px 0px 5px #eee;
+			cursor:pointer;
+		}
+		.overlay .info.on {
+			max-height:400px;
+			padding: 10px 30px;
+		}
+		.info {
+			background:white;
+			position:absolute;
+			max-height:0px;
+			overflow:hidden;
+			display:block;
+			margin:-23px -25px;
+			width: 741px;
+			    margin-top: 59px;
+transition:all .4s;
+padding:0 30px;
+border-bottom:1px solid #444;
+		}
+
+		#content {
+			min-height:400px;
+			max-height:900px;
+			resize:vertical;
+			overflow-y: auto;
+			overflow-x:hidden;
+			outline:none;
+			padding:22px;
+			margin:-22px;
+			transition:all .4s;
+			width:100%;
+		}
+    .toolbar {
+      background:#f1f1f1;
+      color:#444;
+    }
+    .toolbar span[separator] {
+      background: #aaa;
+    }
+    .toolbar .material-icons{
+      color:#444;
+    }
+    .toolbar .material-icons:hover{
+     background:var(--primary);
+     color:white;
+    }
+        body h1.white-text {
+            color:white !important;
+        }
+        holder>* {
+    display: none !important;
+}
+holder>*.on {
+    display: block !important;
+}
+        holder {
+            margin-left:300px;
+            margin-top:59px;
+            display: block;
+        }
+    .sidebar {
+     margin-bottom:0 !important;
+
+    }
+    header { width:300px !important;}
+
+
+:root {
+    --primary:#4CAF50;
+    --dark-primary :#388E3C;
+    --light-primary:#81C784;
+}
+    

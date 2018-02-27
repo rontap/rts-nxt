@@ -19,15 +19,14 @@ holder {
   100% {opacity:1; margin-top:80px;}
 }
 container.sidebar {
-  margin-top:52px;
+  margin-top: 50px;
 }
 nav header i.material-icons {
   display: inline-block !important;
-    position: fixed;
-    left: 10px;
-
-    font-size: 34px;
-    color:white;
+  position: fixed;
+  left: 4px;
+  font-size: 34px;
+  color: #444;
 }
 .sidebarMinimised container.sidebar {
   left:-300px;
@@ -86,18 +85,17 @@ nav header i.material-icons {
        content: "";
        position: fixed;
        opacity:0;
-
        transition:opacity .4s;
      }
      body:not(.sidebarMinimised) container.sidebar::after {
-       content: "";
+       content: " ";
        display: block;
        position: fixed;
        background: #333;
-       opacity: 0.5;
+       opacity: .5;
        z-index: 95;
        left: 300px;
-       animation:wait .8s;
+       /* animation:wait .8s; */
      }
 }
 @keyframes wait {

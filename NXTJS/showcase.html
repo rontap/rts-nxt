@@ -30,7 +30,7 @@
 		<div>NXT JS</div></header>
   <span id="pageTitle">NXT.JS Showcase and about</span>
 
-	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
 </nav>
 
 <container class="sidebar" onclick="nxt.closeSidebar(event);">
@@ -83,11 +83,11 @@
         </div>
         <div>
                 <div class="card">
-                        <h1 class="black-800 covered">NXT.JS guide</h1>
+                        <h1 class=" covered">NXT.JS guide</h1>
                         <h2 class="black-400 covered subtitle"></h2>
                 </div>
                 <div class="card">
-                        <h1 class="black-800 covered">DOM manipulation</h1>
+                        <h1 class=" covered">DOM manipulation</h1>
                         <br><br>
 
                         in NXT.JS, you can acces a single element with <code>$</code>, mostly used for accessing id-s and in smaller websites<br>
@@ -114,7 +114,7 @@
                         </code>
                         </div>
                     <div class="card">
-                            <h1 class="black-800 covered">prototype JS</h1>
+                            <h1 class="black-800 covered white-text">prototype JS</h1>
                         <h2 class="cyan-400 covered subtitle">
                                 Extending prototypes of arrays and strings
                           </h2>
@@ -181,7 +181,7 @@
         </div>
         <div>
             <div class="card">
-                <h1 class="black-800 covered">configurate colors</h1>
+                <h1 class=" covered">configurate colors</h1>
                 <h2 class="black-400 covered subtitle"></h2>
                 <br>
                 See the Modules part for the exact code to use these elements<br>
@@ -410,6 +410,9 @@ window.document.onscroll = function(){
         
     </script>
     <style>
+        body h1.white-text {
+            color:white !important;
+        }
         holder>* {
     display: none !important;
 }
@@ -418,7 +421,7 @@ holder>*.on {
 }
         holder {
             margin-left:300px;
-            margin-top:120px;
+            margin-top:59px;
             display: block;
         }
     .sidebar {

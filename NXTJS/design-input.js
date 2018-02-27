@@ -1,10 +1,20 @@
+//NXT JS MATERIAL DESIGN ELEMENT HANDLING
+
+//Created by Aron Tatai, 2017/2018
+
+//requires: jsplus.js
+//          input-design.css is
 
 
+nxt.modules.push("design-input.js");
+
+//-----------------MATERIAL-PARSING------------------------------
 
 //checkbox loopbacks
 
 nxt.parseDocument = function() {
 
+//parsing checkboxes
   for (let checkboxI=0; checkboxI<$$('checkbox').length;checkboxI++) {
  $$('checkbox')[checkboxI].innerHTML=  '<i class="material-icons"></i>'+$$('checkbox')[checkboxI].innerHTML;
  $$('checkbox')[checkboxI].onclick=function(){changeChBox(this)};
@@ -12,6 +22,7 @@ nxt.parseDocument = function() {
  changeChBox($$('checkbox')[checkboxI]);
 }
 
+//parsing radiobuttons
   for (let radioI=0; radioI<$$('radio').length;radioI++) {
  $$('radio')[radioI].innerHTML=  '<i class="material-icons"></i>'+$$('radio')[radioI].innerHTML;
  $$('radio')[radioI].onmouseup=function(){changeRadio(this)};
@@ -19,7 +30,7 @@ nxt.parseDocument = function() {
  changeRadio($$('radio')[radioI]);
 }
 
-
+//parsing switches
 for (let switchI=0; switchI<$$('switch').length;switchI++) {
  $$('switch')[switchI].onclick=function(){changeSwitch(this)};
 }
@@ -31,8 +42,10 @@ for (i = 0; i<$$('input[nxt]').length; i++) {
   }
 }
 
+    
+    //selector parsing
 for (i=0; i<$$('selector').length; i++) {
-  
+
   $$('selector')[i].onclick = function(call) {
   console.log(call.path[1].tagName)
   if (call.path[1].tagName=="SELECTOR") {
@@ -54,7 +67,7 @@ for (i=0; i<$$('selector').length; i++) {
   
 }
 
-
+// adding the possibility to switch STATUS data
 Node.prototype.setSwitchData = function(call) {
 
     if (this.tagName=="STATUS") {
@@ -127,12 +140,13 @@ function changeRadio(call) {
 
 
 function changeSwitch(call) {
-   if (Boolean(call.getAttribute('disabled')!='true')) {
-     if (Boolean(call.getAttribute('checked')=='true'))
-                 call.setAttribute('checked','false');
-     else        call.setAttribute('checked','true');
+   // A-B Switch
+   if (Boolean(call.attr('disabled')!='true')) {
+     if (Boolean(call.attr('checked')=='true'))
+                 call.attr('checked','false');
+     else        call.attr('checked','true');
  }
 }
 
-
+//parsing everything
 nxt.parseDocument();

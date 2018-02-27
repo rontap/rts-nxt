@@ -33,7 +33,7 @@ container,
     display: block;
     margin: 50px auto;
     max-width: 800px;
-    box-shadow: 0px 2px 4px #999;
+    box-shadow: 0px 2px 4px #888;
     transition: all .4s;
     border-radius: 0px 0px 3px 3px;
 }
@@ -195,9 +195,11 @@ h1.continued {
 .card h1.covered , h1.covered{
     margin: -10px -25px;
     color: #222;
-    padding: 20px;
+    padding: 15px 20px;
     border-radius: 4px 4px 0px 0px;
+    background: white;
     text-shadow: 0px 1px 1px #666;
+    border-bottom: 1px solid #aaa;
 }
 holder h1.expand.covered {
                background-size: 100%;
@@ -228,12 +230,12 @@ holder h1.expand.covered {
 
 .cyan-antigene {
     background: #ff5722;
-    color: white !important;
+    /* color: white !important; */
 }
 
 .green-antigene ,.yellow {
     background: #FF9800;
-   color:white !important;
+    /* color:white !important; */
 }
 
 .green-antigene-300,.yellow-300 {
@@ -248,7 +250,7 @@ holder h1.expand.covered {
 
 .green-antigene {
     background: #4CAF50;
-    color: white !important;
+    /* color: white !important; */
 }
 
 .red {
