@@ -51,7 +51,7 @@ input[disabled]:not([type="range"]):not([type="file"]):not([type="checkbox"]):ho
 /*NEW STYLE INPIUT */
 input[nxt]:not([type="range"]):not([type="file"]):not([type="checkbox"]) {
     border: none !important;
-    width: 180px;
+    width: 180px !important;
     padding: 10px;
     border-bottom: 3px solid var(--primary) !important;
     background: transparent !important;

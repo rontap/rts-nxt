@@ -1,0 +1,3 @@
+#disabling access to outside users
+deny from all
+ErrorDocument 403 "<h1>Notes++ Forbidden</h1>You are not allowed to access this file/directory.<br><hr>Use the main API interface instead."

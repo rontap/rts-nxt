@@ -1,0 +1,38 @@
+ @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
+
+.theme-dark site {
+    background:#333;
+    color:#eee;
+}
+ body:not(.scrolled).theme-dark h1::before {
+    border-bottom: 1px solid #000;
+}
+.theme-dark nav {
+    color:#222;
+} 
+
+.serif content h1,.serif  footer,.serif  #pertitle,.serif h2, .serif container {
+    	    font-family: 'Montserrat', sans-serif !important;
+
+    	}
+   	
+ .serif  p   { font-family:	'Open Sans', sans-serif !important;}
+ 
+ @import url('https://fonts.googleapis.com/css?family=Inconsolata:400,700&subset=latin-ext');
+ 
+
+.mono content h1,.mono  footer,.mono  #pertitle,.mono h2 , .mono container{
+    	  font-family: 'Inconsolata', monospace !important;
+
+
+    	}
+   	
+ .mono  p   { font-family: 'Inconsolata', monospace !important;
+}
+ 
+.mono cite::before {
+        margin-left: -51px;
+}
+.serif cite::before {
+        margin-left: -49px;
+}

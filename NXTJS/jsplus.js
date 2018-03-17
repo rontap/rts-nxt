@@ -53,7 +53,7 @@ var $DOMInteraction = function (call) {
 
 //-----------------ARRAY-PROTOTYPE-EXENSIONS-------------------------
 
-//quick extensions 
+//quick extensions
 Array.prototype.max = function()  {    return Math.max(...this);    }
 Array.prototype.min = function()  {    return Math.min(...this);    }
 Array.prototype.last = function() {    return this[this.length-1];  }
@@ -70,6 +70,7 @@ Array.prototype.isSame = function() {
   //useful for checking whether even one element is valid/on.
   return !!this.reduce((a, b) => (a === b) ? a : NaN );
 }
+
 
 
 //JS is loosely typed, but this will not stop us from checking types...
@@ -134,6 +135,10 @@ Math.factorial = function(number /*int*/, serialise) { /*factorisation*/
   else if (number!=0)                       return number
   else                                      return 1
 }
+Math.fibonacci = function(n) {/*charioteer*/
+  if (n<3) return 1;
+  else return (Math.fibonacc(n-1) + Math.fibonacci(n-2));
+}
 
 Math.choose = function( n , k ) { /* permutation, n under k*/
   if (k>n) throw 'NXT.JS RangeError: in (n choose k) , n must be >= than k';  //fancy error handling
@@ -158,7 +163,7 @@ class Color {                   //simple generation of colors. Finally
 
      this.rgb="rgb(" + this.r + ',' + this.g + ',' + this.b + ')';
      this.hex='#'+this.r.toString(16)+this.g.toString(16)+this.b.toString(16);
-      
+
      //whether to add BLACK = true or WHITE = false  text color
      if ((this.r+this.g+this.b)>360) this.shade=false;
      else this.shade=true;
@@ -241,7 +246,7 @@ String.prototype.stat = function(call) {
        case  'LengthNoSpace' :	//how long is this without spaces
          return this.length-this.split(" ").length;
 
-      case  'WC' :       
+      case  'WC' :
       case  'wc' :	//word count
          return this.split(/\s+/).length;
 
@@ -387,7 +392,7 @@ var nxt = {
    domInteraction : true,
 
    //allowing <var is="" setups
-   timeCopSwitch : false , 
+   timeCopSwitch : false ,
    timeCop : function() {
      if ( nxt.domInteraction && nxt.timeCopSwitch )
        for (let i=0; i<$$("var").length;i++) {

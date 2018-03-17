@@ -12,7 +12,7 @@ body .red-100 { background:#FFCDD2 !important ;}
 body .red-200 { background:#EF9A9A !important ;}
 body .red-300 { background:#E57373 !important ;}
 body .red-400 { background:#EF5350 !important ;}
-body .red-500 ,body .red { background:#F44336 !important ;}
+body .red-500 ,body .red {background:#F44336 !important;}
 body .red-600 { background:#E53935 !important ;}
 body .red-700 { background:#D32F2F !important ;}
 body .red-800 { background:#C62828 !important ;}
@@ -102,7 +102,7 @@ body .orange-100 { background:#FFE0B2 !important ;}
 body .orange-200 { background:#FFCC80 !important ;}
 body .orange-300 { background:#FFB74D !important ;}
 body .orange-400 { background:#FFA726 !important ;}
-body .orange-500 { background:#FF9800 !important ;}
+body .orange-500, .orange { background:#FF9800 !important ;}
 body .orange-600 { background:#FB8C00 !important ;}
 body .orange-700 { background:#F57C00 !important ;}
 body .orange-800 { background:#EF6C00 !important ;}
@@ -112,7 +112,7 @@ body .brown-100 { background:#D7CCC8 !important ;}
 body .brown-200 { background:#BCAAA4 !important ;}
 body .brown-300 { background:#A1887F !important ;}
 body .brown-400 { background:#8D6E63 !important ;}
-body .brown-500 { background:#795548 !important ;}
+body .brown-500, .brown { background:#795548 !important ;}
 body .brown-600 { background:#6D4C41 !important ;}
 body .brown-700 { background:#5D4037 !important ;}
 body .brown-800 { background:#4E342E !important ;}
@@ -122,7 +122,7 @@ body .dgrey-100 { background:#CFD8DC !important ;}
 body .dgrey-200 { background:#B0BEC5 !important ;}
 body .dgrey-300 { background:#90A4AE !important ;}
 body .dgrey-400 { background:#78909C !important ;}
-body .dgrey-500 { background:#607D8B !important ;}
+body .dgrey-500  ,.dark-grey{ background:#607D8B !important ;}
 body .dgrey-600 { background:#546E7A !important ;}
 body .dgrey-700 { background:#455A64 !important ;}
 body .dgrey-800 { background:#37474F !important ;}

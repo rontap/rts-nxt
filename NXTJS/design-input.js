@@ -35,14 +35,14 @@ for (let switchI=0; switchI<$$('switch').length;switchI++) {
  $$('switch')[switchI].onclick=function(){changeSwitch(this)};
 }
 
-for (i = 0; i<$$('input[nxt]').length; i++) {
+//checkboxes
+for (i = 0; i<$$('input[nxt][type="checkbox"]').length; i++) {
   $$('label[nxt]')[i].onclick=function() {
     if (this.checked) {this.innerHTML="check_box_outline_blank" ; this.checked=false; this.style.color="#222"; }
     else  { this.innerHTML="check_box" ; this.checked=true; this.style.color="var(--primary)"; }
   }
 }
 
-    
     //selector parsing
 for (i=0; i<$$('selector').length; i++) {
 
@@ -57,14 +57,14 @@ for (i=0; i<$$('selector').length; i++) {
   }
   $$('selector')[i].onmousedown = function(call) {
      call.path[1].classList.add('active');
-  } 
+  }
   $$('selector')[i].onmouseup = function(call) {
      setTimeout(function(){
          call.path[1].classList.remove('active');
      },20)
-    
-  } 
-  
+
+  }
+
 }
 
 // adding the possibility to switch STATUS data

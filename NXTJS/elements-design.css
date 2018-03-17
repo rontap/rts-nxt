@@ -10,15 +10,27 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500&subset=latin-ext');
 @import url('colors.css');
 
+
+/* Defining Z-indexes */
+:root {
+  --z-1:0px 2px 2px #999;
+}
+
+.bg-primary          {  background:var(--primary)       !important;   }
+.color-primary       {  color:     var(--primary)       !important;   }
+.bg-dark-primary     {  background:var(--dark-primary)  !important;   }
+.color-dark-primary  {  color:     var(--dark-primary)  !important;   }
+.bg-light-primary    {  background:var(--light-primary) !important;   }
+.color-light-primary {  color:     var(--light-primary) !important;   }
+
 body {
     margin: 0;
     padding: 0;
-    background: #FEFEFE;
+    /* background: #FEFEFE; */
     font-family: 'Open Sans', sans-serif;
 }
 
-h1,
-h2 {
+h1, h2 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
 }
@@ -28,27 +40,19 @@ small {
     color:#333;
 }
 
-container,
-.card {
+container, .card {
     display: block;
     margin: 50px auto;
     max-width: 800px;
     box-shadow: 0px 2px 4px #888;
     transition: all .4s;
-    border-radius: 0px 0px 3px 3px;
+    border-radius: 4px 4px 3px 3px;
 }
 .full-covered-active .card {
     border-radius: 5px 5px 3px 3px;
 }
-container:hover,
-.card {
-    /* box-shadow: 0px 2px 8px #777; */
-}
 
-.card {
-    /* padding: 15px; */
-}
-
+/* CHIP -> To be changed */
 .chip {
     display: block;
     padding: 20px;
@@ -144,10 +148,13 @@ hr {
     padding: 10px;
 }
 
-.importantIcon.material-icons.on {
+.importantIcon.on {
     background: var(--primary);
     border: 1px solid #999;
     color: white;
+}
+.importantIcon.material-icons:not([class~="-"]):not(.on) {
+  background: transparent !important;
 }
 
 
@@ -215,63 +222,6 @@ holder h1.expand.covered {
     color: #222;
 }
 
-.yellow-antigene {
-    background: #00acc1/*cyan600*/
-    ;
-}
-
-.orange-antigene {
-    background: #009688;
-}
-
-.red-antigene , .green{
-    background: #4caf50;
-}
-
-.cyan-antigene {
-    background: #ff5722;
-    /* color: white !important; */
-}
-
-.green-antigene ,.yellow {
-    background: #FF9800;
-    /* color:white !important; */
-}
-
-.green-antigene-300,.yellow-300 {
-    background: #FFD54F !important;
-}
-
-.grey-dark {
-    background: #455A64 !important;
-    color: white !important;
-
-}
-
-.green-antigene {
-    background: #4CAF50;
-    /* color: white !important; */
-}
-
-.red {
-    background: #F44336;
-    color: #F1F1F1 !important;
-}
-.white {
-    background:white;
-    color:#444 !important;
-}
-.indigo {
-   background: #283593;
-   color: white !important;
-}
-.red-300 {
-    background: #E57373 !important ;
-    color: #222 !important;
-}
-.blue-antigene {
-    color: white ! important;
-}
 .fab.white {
    color:#222;
    background:white;
@@ -282,6 +232,7 @@ holder h1.expand.covered {
     background:#2196F3;
     color:white !important;
 }
+
 /*toolbar*/
 .toolbar {
     user-select: none;
@@ -359,7 +310,7 @@ toast.on {
   margin: 0 auto;
 
 }
-toast action *, toast action {
+toast action *, toast action , dialog[nxt] action button {
     text-transform: uppercase;
     font-size:13px;
     font-weight: bold;
@@ -368,9 +319,10 @@ toast action *, toast action {
     vertical-align: 1px;
     cursor: pointer;
 }
-toast action[error]   { color:#F44336; }
-toast action[warning] { color:#FF9800; }
-toast action[info]    { color:#B0BEC5; }
+toast action[error]   , dialog[nxt] action button[error]   { color:#F44336; }
+toast action[warning] , dialog[nxt] action button[warning] { color:#FF9800; }
+toast action[info]    , dialog[nxt] action button[info]    { color:#B0BEC5; }
+toast action[default]    , dialog[nxt] action button[default]    { color:#666; }
 
 
 body.toast-desktop toast {
@@ -380,6 +332,7 @@ body.toast-desktop toast {
     left: calc(40% - 120px) !important;
     right: calc(40% - 120px) !important;
 }
+
 /*TOGGLE*/
 toggle {
     display: inline-block;
@@ -458,10 +411,133 @@ code[nxt] {
     padding-left:30px;
 }
 
-/**/
-#additional-icons {
-    position: absolute;
-    margin-top:-36px;
-    right:70px;
-    font-size:32px;
+
+/* =================================
+ * == <chip> material design =======
+ * == Challanger =================== */
+
+/* Material design CHIPS, different from .chip */
+/* added in challanger. */
+chip>i {
+  font-family: 'Montserrat';
+}
+
+chip>i, chip>i.material-icons {
+  text-decoration: none;
+  font-style: normal;
+
+  color: white;
+  margin: -11px;
+  width: 29px;
+  height: 23px;
+  display: inline-block;
+  border-radius: 100%;
+  vertical-align: 1px;
+  text-align: center;
+  padding:0px;
+  padding-top: 6px;
+  margin-top: -7px;
+  margin-right: 5px;
+}
+chip>i.material-icons {
+  font-size: 17px;
+  vertical-align: -3px;
+}
+
+chip {
+  display: inline-block;
+  background:#ddd;
+  border-radius: 20px;
+  padding:5px 10px;
+  font-size:13px;
+  color:#111;
+  border:1px solid transparent;
+  cursor: alias;
+  transition:all .2s;
+}
+chip:hover {
+  background:#eee;
+
+}
+chip:active {
+border:1px solid #ccc;
+    cursor: pointer;
+    user-select: none;
+    box-shadow:0px 0px 2px #ccc inset;
+}
+chip[close] {
+  padding-right:30px;
+}
+/*closable chips require design-input.js*/
+chip[close]::after {
+      content: 'close';
+      font-family: 'Material Icons';
+      display: inline-block;
+      border-radius: 100%;
+      background: red;
+      margin-left: 8px;
+      padding: 1px;
+      position: absolute;
+      text-align: center;
+      color: #eee;
+      background: #aaa;
+      margin-top: 1px;
+      font-size: 13px;
+      transition: all .2s;
+}
+chip[close]:hover::after {
+  background: #999;
+  cursor:pointer;
+}
+
+/*DIALOG*/
+dialog[nxt][open] {
+    border:none;
+    border-radius: 4px 4px 2px 2px;
+    box-shadow:var(--z-1);
+    width: 500px;
+}
+dialog[nxt] div {
+  padding:10px;
+  max-height: 260px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+dialog[nxt][open][narrow] {  width: 350px;  }
+dialog[nxt][open][wide] {    width: 650px;  }
+
+dialog[nxt][open] action {
+  margin:-16px;
+  margin-top:15px;
+  padding:5px 10px ;
+  border-top:1px solid #ccc;
+  display: block;
+}
+dialog[nxt][open] action[color] * {
+  color:white !important;
+}
+dialog[nxt][open] action[color] {
+  border:none;
+}
+dialog[nxt][open] action button {
+  border:none;
+  background:transparent;
+  padding:10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition:all .2s;
+  outline:none;
+}
+dialog[nxt][open] action button:hover {
+  background:#CCCCCC99;
+}
+dialog[nxt][open] h1 {
+  margin: -16px;
+  margin-bottom: 10px;
+  font-size:28px;
+  text-transform: none;
+  text-shadow:none !important;
+}
+dialog::backdrop  {
+  transition:.2s all;
 }

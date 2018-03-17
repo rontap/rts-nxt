@@ -1,0 +1,178 @@
+
+header { width:300px !important;}
+
+
+:root {
+    --primary: #FF9800;
+    --dark-primary :#FF9800;
+    --light-primary: #FF9800;
+}
+#splash h1 {
+
+
+    text-align: right;
+}
+holder {
+  display: block;
+  margin-top: 60px;
+  margin-left:300px;
+  transition: opacity .15s, margin-left .4s;
+}
+holder>* {
+  display: none !important;
+
+}
+holder>*.on {
+  display: block !important;
+
+}
+.sidebar { margin-bottom:0px;}
+button[real] {
+  background:#F57C00;
+}
+container container {
+padding:10px;
+}
+#colorResult {/*this is the main box*/
+float:right;
+margin-top: -120px;
+padding:50px;
+text-shadow: 1px 1px 1px  #444;
+}
+#colorResults * {
+display: inline-block;
+margin:10px;
+border:1px solid #888;
+box-shadow: none;
+}
+#colorResults *:last-child {
+animation:showUp .4s;
+}
+.colorResults {
+transition: all .2s;
+background: rgb(55, 140, 133);
+border-radius: 4px;
+padding: 20px 30px;
+font-family: monospace;
+
+font-size:16px;
+border:1px solid #666;
+box-shadow:0px 2px 2px  #AAA;
+
+}
+.colorResults:hover {
+cursor:pointer;
+box-shadow:0px 2px 4px  #666;
+}
+.colorResults:active {
+box-shadow:0px 2px 4px  #666 inset;
+}
+
+#timerCurrent {
+text-align: center;
+font-size:20px;
+font-weight: bold;
+color:white;
+background: #00acc1;
+
+}
+#stopperRounds div {
+padding:10px;
+margin:10px;
+width:110px;
+font-family: monospace;
+text-align:center;
+display: inline-block;
+box-shadow: none;
+background: #FFCC80;
+}
+#stopperRounds div:first-child {
+background:#FF9800;
+}
+#stopperRounds div:nth-child(2), #stopperRounds div:nth-child(3),#stopperRounds div:nth-child(4) {
+background:#FFA726;
+}
+.otitle:first-child div {
+ background:#1E88E5;
+}
+input input {
+background:blue;
+}
+/*habit counter */
+#habitHolder {
+  user-select:none;
+}
+#habitHolder section div:hover span:last-child {
+  opacity:1;
+}
+#habitHolder section div span:last-child i {
+  transition: all .2s;
+  border-radius: 5px;
+}
+#habitHolder section div span:last-child i:hover {
+  background:#81C784;
+}
+#habitHolder section div span:first-child {
+  padding:25px 50% 25px 0px;
+}
+#habitHolder section div span:last-child {
+  float:right;
+  opacity: 0;
+  transition:all .2s;
+  display: block;
+margin-top: -12px;
+}
+
+
+/*settings for languages*/
+#languageHeader {
+  position:fixed;
+  width: 800px;
+left: 300px;
+right: 0;
+top:10px;
+transition:all 0s;
+}
+#languages {
+  margin-top: 455px;
+}
+#languages  table {
+  border-spacing: 0px;
+  border-collapse: separate;
+  display: block;
+    margin: 0px -25px;
+    padding: 25px;
+}
+#languages  table  tr {
+  padding:10px 5px;
+  transition:all .2s;
+
+}
+#languages tbody {
+  display: block;
+  margin: -10px -25px;
+}
+#languages  table  tr:hover {
+  background:#eee;
+
+}
+#langGraph {
+  background:#ddd;
+  margin-top:30px;
+  height:30px;
+}
+#langGraph span {
+  display: inline-block;
+  height:30px;
+  background:#1e88e5;
+  text-align:center;
+  overflow: hidden;
+  transition:all .2s;
+  width: 0px;
+  color:white;
+  font-size:22px;
+  }
+
+#g_l2 {
+  background:#03a9f4 !important;
+}

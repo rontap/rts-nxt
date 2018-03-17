@@ -3,8 +3,7 @@
 // ----------------------------------
 
 function save() {
-		 $("#saveIcon").innerHTML="radio_button_checked";
-		  $("#saveIcon").style.color="#4CAF50";
+		
 	}
 function openDialoge(call) {
 
@@ -25,4 +24,13 @@ function closeDialoge() {
 	$("#DStats").classList.remove('on');
 	$("#DFork").classList.remove('on');
 	return false;
+}
+
+function noteKeyDown() {
+	$("#saveIcon").innerHTML="radio_button_unchecked";
+	$("#saveIcon").style.color="#444";
+}
+
+function newNoteScreen() {
+	$$('.omenu')[2].onclick()
 }

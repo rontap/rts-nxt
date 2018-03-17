@@ -7,13 +7,15 @@
 
 /* offline material design icons */
 /* fallback */
+@import url('mobile.css');
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
     src: url(material-icons.woff2) format('woff2');
   }
-  
+
+
   .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -76,7 +78,7 @@ nav header {
     box-shadow: 0px 3px 4px #444;
 }
 
-header span {
+header>span {
     display: block;
     padding-top: 179px;
 }
@@ -154,6 +156,7 @@ container.sidebar {
     font-weight: 300;
     margin: none !important;
     z-index: 10;
+     border-radius:0px;
 }
 
 
@@ -210,7 +213,7 @@ container.sidebar {
     box-shadow: none;
     padding: 30px 5px;
 }
-#tfill2 {
+#tfill2 { /*Tapcalk6 compatibility*/
   display:none;
 }
 #tfill,
@@ -251,11 +254,19 @@ container.sidebar {
 #pageTitle {
   display: block;
   font-size: 24px;
-  margin-left: 350px;
+  /* margin-left: 350px; */
   margin-top: -12px;
   text-transform: uppercase;
   transition: .2s;
   text-align: center;
+}
+
+/*for top nav*/
+#additional-icons {
+    position: absolute;
+    margin-top:-36px;
+    right:70px;
+    font-size:32px;
 }
 
 /*material icons*/
@@ -272,12 +283,8 @@ container.sidebar {
 }
 
 @keyframes showUp {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% {        opacity: 0;    }
+    100% {      opacity: 1;    }
 }
 
 @keyframes slideUpCard {
@@ -291,21 +298,7 @@ container.sidebar {
     }
 }
 
-
-
-.websiteThemeBlue nav,
-.websiteThemeBlue .toolbar,
-.websiteThemeBlue .omenu:hover,
-.websiteThemeBlue switch[checked="true"],
-.blue-antigene {
-    background: #1E88E5;
-
-}
-
-.websiteThemeBlue header {
-    background: #42A5F5;
-}
-
+/* RTS NXT integration*/
 #NineDotMenu {
     position: fixed;
     color: white;
@@ -325,7 +318,7 @@ container.sidebar {
     z-index: 99;
     height: 100%;
     opacity: 1 !important;
-    border-top: 140px solid #2196F3;
+    border-top: 140px solid transparent;
     background: linear-gradient(#EEE, white);
     animation: NineDotMenuUp .6s;
     animation-fill-mode: forwards;

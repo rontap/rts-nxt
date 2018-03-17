@@ -1,12 +1,29 @@
 
 
 <body id="body">
-<meta charset="UTF-8">
-<script src="http://code.jquery.com/jquery-latest.min.js"
-        type="text/javascript"></script>
-<center ><div id="sf">Time is:</div >
+  <head>
+  <meta nxt version="challanger"  build="1710">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&amp;subset=latin-ext" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta charset="UTF-8">
+  <link rel="icon" href="../NXTJS/icons/index.png" type="image/png">
+<link href="../NXTJS/sole-design.css" rel="stylesheet">
+  <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"
+          type="text/javascript"></script>
+        </head>
+
+        <div id="linkBack" >
+                <i class="material-icons"  onclick="location.href='../random.html'">arrow_back</i>
+                <span  onclick="location.href='../random.html'">Go back to rontap Tools.</span>
+                <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+        </div>
+<center ><div id="sf">Time is</div >
 <p id="pp">
-<a class="l"onClick="say()">About</a> <a class="l" onClick="stopper();">Stopper</a> <img src="x.png" height="15px" onClick="pp.innerHTML='';">
+<a class="l"onClick="say()">About</a> | <a class="l" onClick="stopper();">Stopper</a> | <span onclick="$('body').classList.add('hideo')">Hide Text</span>
 </p>
 
 </center>
@@ -14,11 +31,11 @@
 
 <script>
 var time;
-
+var ora = 0;
 ktm=false;
 ppsave=pp.innerHTML;
 var time = new Date();
-    
+
 function timewrite() {
 
 hour=(time.getHours()*10)+15;
@@ -33,20 +50,20 @@ if (ktm==false)
 }
 timewrite();
 function say() {
-pp.innerHTML='Time is color.'
+pp.innerHTML='Time is color, represented in RGB.<br> Red is Hour, G is Minute and B is Second. 0 is black,<br> and the color increases in strenght.<br>'
 }
 
 function stopper() {
 	ktm=true;
     datum = new Date();
-    
-    
+
+
 	hour=(datum.getHours() *10)+15;
     mins=(datum.getMinutes()*4)+15;
-    secs=(datum.getSeconds()*4)+15;	
+    secs=(datum.getSeconds()*4)+15;
 
-	 
-	ts = new Color(hour,mins,secs).rgb ; 
+
+	ts = new Color(hour,mins,secs).rgb ;
 	body.style.background=ts;
 	//alert();
 	ktm=true;
@@ -59,20 +76,27 @@ function stopper() {
 <style>
 #sf{
 
-
+text-transform: uppercase;
+font-weight: bold;
 font-size:5em;
 margin-top:20%;
-
+text-shadow:0px 0px 1px #999;
 }
 body {
--webkit-transition:background 5s;
-font-family: 'Ubuntu', sans-serif;
+transition:background 3s;
+font-family:'Montserrat';
 }
 p {
 
 margin:auto;
-margin-top:20%;
+position:fixed;
+bottom:10px;
+left:0;right:0;
 
 }
- @import url(http://fonts.googleapis.com/css?family=Ubuntu);
+ .hideo * {
+   transition:all 1s;
+   color:transparent !important;
+   text-shadow:0px 0px 0px transparent !important;
+ }
 </style>

@@ -10,12 +10,12 @@
 
 
 	<script src="../edu/sets.js" type="text/javascript"></script>
-
+  <link rel="stylesheet" href="design.css">
   <link rel="stylesheet" href="elements-design.css">
   <link rel="stylesheet" href="input-design.css">
-	<link rel="stylesheet" href="design.css">
+
 	<link rel="stylesheet" href="input-design.css">
-	<link rel="stylesheet" href="mobile.css">
+
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,20 +41,20 @@
 		<div class="omenu">JSPlus</div>
 		<div class="omenu">TapCalk Express</div>
 
-		
+
 
         <div class="otitle"><div>Design Modules</div></div>
         <div class="omenu">Customisation</div>
         <div class="omenu">Design Showcase</div>
         <div class="omenu">Modules</div>
         <div class="omenu">Material Resources</div>
-        
+
 		<div class="otitle"><div>Installing</div></div>
 		<div class="omenu" onclick="">Downloads <i class="material-icons">open_in_new</i></div>
 
-   
 
-		
+
+
 </container>
 
 
@@ -66,9 +66,9 @@
                 JavaScript is awesome, but even with EMCAScript 6, it lacks many, easy-to-implement but super useful functions.<br>
                 JSPlus aims to exend JS in a quiet, yet powerful way.<br>
                 It provides partial replacement to the outdated and slow JQuery libraries, ex. <span monospace>$( css );</span><br>
-                It adds shuffeling, mixing arrays and numbers, can generate and transpose colors and provides stats for strings. 
+                It adds shuffeling, mixing arrays and numbers, can generate and transpose colors and provides stats for strings.
                 Additionally, it implements a PHP <span monospace>$_GET</span> style URL reader and writer; making easier to use less and less PHP and improving compatiblity.<br>
-                It provides a modern, yet cross compatible modular system. Parts of NXT.JS that have not been linked initially, can be used later, on-demand, making initial website load quicker, especially on slow netowks. 
+                It provides a modern, yet cross compatible modular system. Parts of NXT.JS that have not been linked initially, can be used later, on-demand, making initial website load quicker, especially on slow netowks.
 
             </p><br><br>
 
@@ -78,7 +78,7 @@
                 NXT.JS provides simple to implement, lightweight material design elements.<br>The main focus is minimising the required code on the website, while maintaing a balance with understandability.<br>
                 Some parts need the <span monospace>design-input.js</span> file to parse them into their <i>final form</i>.<br><br>
                 The API is extremely fast and modular, a typical websites loads under 250ms in a desktop connection, and under 3000ms in a poor 3G connection.<br>
-                
+
             </p>
         </div>
         <div>
@@ -93,7 +93,7 @@
                         in NXT.JS, you can acces a single element with <code>$</code>, mostly used for accessing id-s and in smaller websites<br>
                         <code>$$</code>, however works like the JQuery $, returning an array of the found Nodes.<br>
                         Examples can be seen below:<br><br>
-                        
+
                         <code nxt><br>
                             $("#id"); //single item selected<br>
                             $("h1.sure .one").style;<br>
@@ -128,7 +128,7 @@
                         <li>[].last()</li>
                         <li>[].shuffle() //returns a shuffled array</li>
                         <li>[].isSame() //returns boolean, whether elements are same</li>
-                        
+
                         </code>
                         <h3>Math</h3>
                         <code>
@@ -151,16 +151,16 @@
 
                                 var daysSinceAccident = 0 ;<br>
                                 (daysSinceAccident).type //Number <br><br>
-                                
+
                                 var1 = false;  //.type = Boolean <br>
                                 var2 = "0";    //.type = String <br>
                                 var3 = 0;      //.type = Number<br><br>
-                            </code>                
+                            </code>
                 </div>
                 <div class="card">
                         <h1 class="black-800 covered">PHP GET in JS</h1>
                     <h2 class="cyan-400 covered subtitle">$_GET acces and use</h2>
-                
+
                 <br>
                 Read more about PHP's $_GET parameter <a href="http://php.net/manual/en/reserved.variables.get.php" nxt>here</a> . <br>
                 This feaute makes cross-site communication easier, and makes sharability better (because it is not stored in localStorage)<br>
@@ -200,9 +200,9 @@
                     light-primary: material 300
                 </span>
             </div>
-      </div>            
+      </div>
         <div>
-            
+
             <div class="card">
                     <h1 class="black-800 covered">input fields and buttons</h1>
                     <div class="black-300 covered subtitle " monospace>requires: input-design.css</div>
@@ -214,7 +214,8 @@
                     <input type="color" value="444"  class="non-expand">
                     <input class="short" placeholder=".short">
                     <input class="short non-expand" placeholder=".short.non-expand"><br><br>
-
+										<input nxt placeholder="material-style [nxt]" >
+										<br><br>
                     Range (using HTML5, only available in Chrome)<br>
                     <input type="range" min="0" value="55" max="255" ><br><br>
 
@@ -243,11 +244,11 @@
 
                     Traditional Checkbox: Used in list elements. Advised over 3+ of same-kind elements.<br>
                     <input type="checkbox" name="lang20" nxt="">
-                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label> 
+                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label>
                     <span style="    vertical-align: 6px;">Text Here</span><br>
 
                     <input type="checkbox" name="lang20" nxt="">
-                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label> 
+                    <label nxt="" for="lang20" class="material-icons">check_box_outline_blank</label>
                     <span style="    vertical-align: 6px;">Text Here As well</span><br><br>
 
                     Toggle: Used when toggling setting or view. Used for same-type elements. No more than 5 should be used.<br><br>
@@ -257,7 +258,9 @@
                     Radio Button: Selecting one of same-king elemnts.<br>
                     <radio  name="tema" checked="true">Element A</radio>
                     <radio  name="tema" >Element B</radio>
-                    <radio  name="tema" >Element C</radio><br><br>
+                    <radio  name="tema" >Element C</radio>
+										<radio  name="tema" disabled="true" >Disabled Element</radio>
+										<br><br>
 
                     Scale Selector: Select rating/class, other short same-type element.<br><br>
                     <selector selected="2">
@@ -275,18 +278,35 @@
 
                     Icon Switchers: For specific tasks<br><br>
                     <i class="material-icons importantIcon" onclick="this.classList.toggle('on');">shuffle</i> &nbsp;&nbsp;
-                    <i class="material-icons importantIcon" onclick="this.classList.toggle('on');">language</i><br><br>
+                    <i class="material-icons importantIcon" onclick="this.classList.toggle('on');">language</i> &nbsp;&nbsp;
+										<i class="material-icons importantIcon red-500" custom onclick="this.classList.toggle('on');">fingerprint</i>
+
+										<br><br>
+										<br>
+										<i>New in Challanger</i>: Chips<br><br>
+										<chip><i class="black-700">H</i>Germany</chip>
+										<chip><i class="red-500">S</i>Mother Russia</chip>
+										<chip><i class="indigo-500">M</i>Baguette</chip><br><br>
+
+										<chip close><i class="black-700 material-icons " >local_drink</i>Beer</chip>
+										<chip><i class="red-500 material-icons">face</i>Vodka</chip>
+										<chip close><i class="indigo-500 material-icons">local_bar</i>Wine</chip>
+
                 </div>
                 <div class="card">
                     <h1 class="black-800 covered">notifications & toasts</h1>
                     <div class="black-300 covered subtitle " monospace>requires: design-notifications.js & elements-design.css </div>
-                    Notification Toasts:<br> 
-                    <button flat onclick="nxt.notify('#open')">DEFAULT</button> 
-                    <button flat onclick="nxt.notify('#open2')">WITH OPTION</button> 
+                    Notification Toasts:<br>
+										<input type="checkbox" onclick="$('body').classList.toggle('toast-desktop')">toggle center notification<br><br>
+                    <button flat onclick="nxt.notify('#open')">DEFAULT</button>
+                    <button flat onclick="nxt.notify('#open2')">WITH OPTION</button>
                     <button flat onclick="nxt.notify('#open3',4000)">MULTIPLE OPTIONS</button><br><br>
 
                     Alert windows and dialoges:<br>
-                    <button flat>DEFAULT</button> <button flat>WITH OPTIONS</button> <button flat>WITH IMAGES</button> <button flat>WITH COLORS</button><br><br>
+										<button flat onclick="something.showModal();">DEFAULT</button>
+                    <button flat onclick="other.showModal();">DEFAULT W/ INK</button>
+										<button flat onclick="selectL.showModal();">WITH OPTIONS</button>
+										<button flat>NEW EMAIL TEMPLATE</button> 
                     <br>
 
                     <toast id="open" onclick="">
@@ -295,12 +315,12 @@
                     <toast id="open2" onclick="">
                         Hey There! Your emails got deleted!
                         <action>UNDO</action>
-                    </toast> 
+                    </toast>
                     <toast id="open3" onclick="">
                         Hey There! Your emails got deleted!
                         <action warning>REVERT</action>
                         <action error>cleanse</action>
-                    </toast> 
+                    </toast>
 
 
                 </div>
@@ -343,7 +363,7 @@
             <div class="card">
                 <h1 class="covered cyan-700" style="color:White">Dependencies</h1>
                 <h2 class="covered subtitle cyan-300">Packages, fonts and misc. used by NXT JS for its design</h2>
-                
+
                 <h2>Fonts</h2>
                 <p>
                     Several fonts are used by NXT.JS to ensure an appealing look.<br>
@@ -355,7 +375,7 @@
                 <p justify>
                     NXT.JS follows the material design principles outlined <a href="#" nxt>here</a>. <br>
                     However, it is not a 100% implementation of its concepts, as material design has mainly been developed for mobile apps and later<wbr> modified to be web compatible as well.<br>
-                    If you want a one-on-one material design, use JSPlus with <a href="https://getmdl.io/" nxt>Material Light</a>.    
+                    If you want a one-on-one material design, use JSPlus with <a href="https://getmdl.io/" nxt>Material Light</a>.
                             </p>
             </div>
         </div>
@@ -363,6 +383,57 @@
             <center>Soon</center>
         </div>
 </holder>
+
+<dialog id="selectL" nxt narrow>
+  <h1 class=" covered">Select your Ruler</h1>
+  <radio checked name="pol">Donald Trump</radio><br>
+  <radio name="pol">Hillary Clinton</radio><br>
+  <radio name="pol">Barack Obama</radio><br>
+  <radio name="pol">George Insidejob Bush</radio><br>
+  <radio disabled="true" name="pol">George Soros</radio>
+  <action>
+    <button  onclick="selectL.close();">SAVE</button>
+    <button flr default in-block onclick="selectL.close();">default</button>
+  </action>
+</dialog>
+
+<dialog id="other" nxt >
+  <h1 class=" covered">This Simple</h1>
+  <div justify>
+    Lorem Ipsum <br>
+
+    While in the first decades of this tariff zone the trains were steam-drawn,
+		 and even after the electrification of large parts of the network,
+		  a number of lines remained under steam, today the term S-Bahn is used in Berlin
+			only for those lines and trains with third-rail electrical power transmission and the special Berlin S-Bahn loading gauge.
+			The third unique technical feature of the Berlin S-Bahn, the automated mechanical train control,
+			is being phased out and replaced by a communications-based train control system, but which again is specific to the Berlin S-Bahn.
+    <br>
+
+  </div>
+  <action color class="indigo-500">
+    <button >OKAY</button>
+    <button warning>BRUH</button>
+    <button flr in-block onclick="other.close();">hide</button>
+  </action>
+</dialog>
+
+<dialog id="something" nxt >
+  <h1 class=" covered">Terms Of Service</h1>
+  <div>
+    Lorem Ipsum <br>
+    Dolor Sit amet<br>
+    Welcome To Night Vale<br>
+		You hereby accept to give me your soul and life.
+    <br>
+
+  </div>
+  <action>
+    <button class="color-primary">OKAY</button>
+    <button >BRUH</button>
+    <button flr in-block onclick="something.close();">hide</button>
+  </action>
+</dialog>
 
 	<script>
 counter = new Microcount();
@@ -407,7 +478,7 @@ window.document.onscroll = function(){
       }
    }
 
-        
+
     </script>
     <style>
         body h1.white-text {
@@ -425,8 +496,8 @@ holder>*.on {
             display: block;
         }
     .sidebar {
-     margin-bottom:0 !important;   
-        
+     margin-bottom:0 !important;
+
     }
     header { width:300px !important;}
 
@@ -437,6 +508,9 @@ holder>*.on {
     --light-primary:#4DD0E1;
 }
     </style>
+		<script>
+			nxt.location="";
+		</script>
 </body>
 
 </html>

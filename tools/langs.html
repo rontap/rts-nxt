@@ -1,0 +1,228 @@
+
+             
+    
+                
+ <div class="away">
+   
+    <fab></fab>
+<h1>Nyelvek</h1>
+    <div class="card away" id="lang_fixtop">
+        Az emberiség mekkora részével tudsz beszélni?<br>
+        Jelöld be egyszerűen a nyelveket, amiket ismersz, és megmutatjuk,<br> hogy az emberiség hány %-át értenéd meg!
+        <br>
+        <div class="fab red" onclick="checksw()" style="opacity: 1;" id='mainfab'>
+                <core-icon icon="check" style="height: 24px; width: 24px;">
+            <svg viewBox="0 0 24 24" height="100%" width="100%" preserveAspectRatio="xMidYMid meet" fit="" style="pointer-events: none; display: block;"><g><path d="M19,13h-6v6h-2v-6H5v-2h6V5h2v6h6V13z" ></path></g></svg>
+            </core-icon>           
+            <paper-ripple class="circle recenteringTouch" fit=""></paper-ripple>
+            
+        </div>
+        <table>
+            <tr>
+                <td>Anyanyelv</td>
+                <td id="hv">0%</td>
+                <td id="hvdata">0</td>
+            </tr>
+            <tr>
+                <td>Összes beszélő</td>
+                <td id="hv2" style="color:#666;">0%</td>
+                <td id="hvdata2" style="color:#666;">0</td>
+            </tr>
+        </table>
+        
+        <div id="GWSchart_div"></div>
+        
+       
+        <paper-input id="st" onkeyup="doit();" label="keresés..." style="width:150px;"></paper-input> 
+       
+       
+    </div>
+
+    <table id="sum"></table>
+    <script src="random/langs.js"></script>
+    <script>
+        console.log('[LONGer] Loaded');
+        ssum = 5754.0;
+        ssum2 = 1281.5;
+
+        checkstate=false;
+        function checksw() {
+            if (checkstate) {checknone();checkstate=false;}
+            else {checkall();checkstate=true;}
+        }
+        function checkall() {
+            $("paper-checkbox").each(function () {
+                this.checked = true;
+                
+                $($('#sum tr.xrt')[this.id.slice(2, 9)]).css('background', '#22b94f');
+                dev += Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[4].innerHTML);
+                dev2 += Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[5].innerHTML);
+                
+            });
+            dev=ssum;        
+            hv.innerHTML ="100%";
+            dev2=ssum+ssum2; 
+            hv2.innerHTML="100%";
+            //drawChart(dev,dev2,ssum+ssum2-dev-dev2); 
+            hvdata.innerHTML = Math.round(dev)+' millió fő' ;
+            hvdata2.innerHTML = Math.round(dev2 + dev)+' millió fő';
+        };
+
+        function checknone() {
+            fabpath.setAttribute('points')="19,6.4 17.6,5 12,10.6 6.4,5 5,6.4 10.6,12 5,17.6 6.4,19 12,13.4 17.6,19 19,17.6 13.4,12 "
+            $("paper-checkbox").each(function () {
+                this.checked = false;
+                
+                $($('#sum tr')[this.id.slice(2, 9)]).css('background', 'white');
+                dev -= Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[4].innerHTML);
+                dev2 -= Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[5].innerHTML);
+               
+            })
+             dev=0;         hv.innerHTML ="0%";
+             dev2=0;        hv2.innerHTML="0%";
+            //drawChart(dev,dev2,ssum+ssum2-dev-dev2); 
+            hvdata.innerHTML = Math.round(dev)+' millió fő' ;
+            hvdata2.innerHTML = Math.round(dev2 + dev)+' millió fő';
+        };
+
+        function init() {
+            sumh = '';
+                sumh+='<tr ><th></th><th>#</th><th>Név</th><th>Saját név</th><th>L1</th><th>L2</th>';
+            for (i = 0; i < a.length; i = i + 5) {
+                sumh += '<tr class="xrt"><td><paper-checkbox  id="cb' + (i / 5) + '"></paper-checkbox></td><td >' + a[i] + '</td>' + '<td class="origname">' + a[i + 1] + '</td>' + '<td>' + a[i + 2] + '</td>' + '<td>' + a[i + 3] + '</td>' + '<td>' + a[i + 4] + '</td>' + '</tr>'
+
+            }
+            sum.innerHTML = sumh;
+        }
+        init();
+
+        function doit() {
+           setTimeout(function(){
+            call=st.inputValue;
+            console.log(st.value);
+            for (i = 0; i < a.length / 5; i++) {
+                if ($('.origname')[i].innerHTML.toLowerCase().indexOf(call.toLowerCase()) < 0) {
+
+                    $($('#sum tr.xrt')[i]).css('display', 'none');
+                } else {
+                    $($('#sum tr.xrt')[i]).css('display', 'inherit');
+                }
+
+            }
+        },100);
+        }
+        dev = 0;
+        dev2 = 0;
+        $("paper-checkbox").change(function () {
+            //x=$('table tr')[this.id.slice(2,9)]
+            if (this.checked) {
+                $($('#sum tr.xrt')[this.id.slice(2, 9)]).css('background', '#48f');
+                $($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName('td')[0]).css('background', '#f1f1f1');
+                dev += Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[4].innerHTML);
+                dev2 += Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[5].innerHTML);
+            } else {
+                $($('#sum tr.xrt')[this.id.slice(2, 9)]).css('background', '#f1f1f1');
+                dev -= Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[4].innerHTML);
+                dev2 -= Number($('#sum tr.xrt')[this.id.slice(2, 9)].getElementsByTagName("td")[5].innerHTML);
+            }
+            summarise();
+        })
+
+        function summarise() {
+            hv.innerHTML = Math.round((dev / ssum) * 10000) / 100 + "%";
+            hv2.innerHTML = Math.round(((dev2 + dev) / (ssum2 + ssum)) * 10000) / 100 + "%";
+            hvdata.innerHTML = Math.round(dev)+' millió fő' ;
+            hvdata2.innerHTML = Math.round(dev2 + dev)+' millió fő';
+            GWSdrawChart(dev,dev2,ssum+ssum2-dev-dev2); 
+        }
+        
+        $('html /deep/ #mainContainer')[1].onscroll=function(){cchack(this.scrollTop)};
+        //this is kinda important
+        function cchack(call) {
+            if (call>95) { $('#lang_fixtop').addClass('fixtop');}
+            else { $('#lang_fixtop').removeClass('fixtop');}
+        }
+    </script>
+    <style>
+        /*2DO : MINIMALISED*/
+        #lang_fixtop.fixtop {
+            
+        position: fixed;
+        top: 59px;
+        left: 250px;
+        right: -4px;
+        z-index: 1;
+        }
+        .fixtop #GWSchart_div{
+            top: 0;
+        }
+        table {
+            border-spacing: 0px;
+            
+        }
+table tr {
+            transition: all 1s;
+        }
+        table tr td {
+            padding: 10px;
+        }
+        #fix {
+            position: fixed;
+            top: 65px;
+            left: 18%;
+            right: 0;
+            background:#fff;
+            padding: 10px 10px 0 10px;
+            box-shadow: 0 5px 12px #AAA;
+            height: 180px;
+            z-index:1;
+            margin-left:-4px;
+        }
+        #sum {
+            margin-top: 20px;
+        }
+        #chart_div {
+         position: fixed;
+            right:0;
+            top:0;
+        }
+        paper-checkbox {
+            z-index: -1 !important;
+        }
+        #GWSchart_div {
+            display: inline-block;
+position: absolute;
+top: 90px;
+margin-left: 550px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        
+        setTimeout(function(){
+                  //
+                 
+                  
+            },1500);
+        function GWSdrawChart(l1,l2,l3) {
+console.log('hello')
+                    var GWSdata = new google.visualization.DataTable();
+                    GWSdata.addColumn('string', 'Topping');
+                    GWSdata.addColumn('number', 'Slices');
+                    GWSdata.addRows([
+                      ['Anyanyelvű (L1)', Number(l1)],
+                      ['Tanult (L2)', Number(l2)],
+                      ['Nem beszéli', Number(l3)], 
+   
+                    ]);
+                        
+
+                    var GWSoptions = {'title':'',
+                                   'width':300,
+                                   'height':200,
+                        colors: ['#48f','#5d94e6','#999']};
+                    var GWSchart = new google.visualization.PieChart(document.getElementById('GWSchart_div'));
+                    GWSchart.draw(GWSdata, GWSoptions);
+                  }
+                </script>
+</div>    

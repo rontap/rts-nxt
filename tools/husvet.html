@@ -1,0 +1,268 @@
+<!DOCTYPE HTML>
+<html>
+
+<!-- KEDVES ÉRDEKLŐDŐ
+     Ez egy nagyon régi projekt, 2014-ben készült el egy óra alatt, és csak most lett publikálva, lásd
+     a ronda kód lentebb.
+     Ha szeretnéd felhasználni a kódot vagy a megvalósítást, megteheted, de meg kell jelölnöd engem mint forrás.
+     http://rontap.netne.net
+     
+     KELLEMES HÚSVÉTOT
+-->
+<head>
+    <title>Húsvét</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 50px 10%;
+            color: #222;
+            background: #f1f1f1;
+        }
+
+        #s2 span:last-child {
+            animation: show .4s;
+        }
+
+        @keyframes show {
+            0%   {  opacity: 0; }
+            100% {  opacity: 1; }
+        }
+
+        input {
+            zoom: 2;
+        }
+
+        button {
+            background: rgb(228, 238, 255);
+            border-radius: 4px;
+            box-shadow: 0px 2px 4px #999;
+            border: none;
+            border-bottom: 1px solid #444;
+            margin: 15px;
+            padding: 20px 30px;
+            cursor: pointer;
+            transition: .2s;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+
+        button:hover,
+        button:active {
+            background: #48F;
+            color: white;
+        }
+
+        #nob {
+            background: rgb(255, 228, 228);
+        }
+
+        #nob:hover {
+            background: rgb(255, 48, 48);
+        }
+
+        #s5 input {
+            margin: 4px;
+            vertical-align: -4;
+        }
+
+        #ajandek,
+        #locsolas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            font-size: 26px;
+            background: white;
+            text-align: center;
+            padding: 70px;
+            cursor: wait;
+            display: none;
+        }
+
+        #prgbr {
+            position: fixed;
+            bottom: 0;
+            height: 20px;
+            left: 0;
+            background: #f84;
+        }
+
+        #s5,
+        #s4,
+        #s5,
+        #s6 {
+            display: none;
+        }
+
+        small {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-align: center;
+            opacity: 0;
+            transition: 2s;
+            padding: 20px;
+            color: #444 !important;
+            display: none;
+        }
+
+        #buttons {
+            opacity: 0;
+            transition: .6s;
+            text-align: center;
+        }
+
+        small a {
+            color: #444 !important;
+        }
+
+    </style>
+
+    <h1 id="s1">
+        Kedves <span id="nev">XY</span>!
+    </h1>
+    <h1 id="s2">
+    </h1>
+    <div id="buttons">
+        <button onclick="locsolas.style.display='block';s4.style.display='block'; progress();buttons.style.display='none';s2.style.display='none';">szabad</button>
+        <button onclick="level()" id="nob">nem</button>
+    </div>
+    <div id="locsolas">Locsolás folyamatban...</div>
+    <div id="ajandek">Ajándék küldése folyamatban folyamatban...</div>
+    <div id="prgbr">&nbsp;</div>
+
+    <h1 id="s4">
+        Kérjük válaszd ki hogy mit kapok!
+        <br>
+        <div id="cfield" onclick="s5.style.display='block';">
+
+        </div>
+    </h1>
+    <div id="s5">
+        <h3>Figyelj az egészségemre.</h3><br>
+        <input type="checkbox">Nem eszek tojást<br>
+        <input type="checkbox">Nem eszek csokit<br>
+        <input type="checkbox">Nem iszok vizet<br>
+        <input type="checkbox">Nem eszek cukrot<br>
+        <input type="checkbox">Nem veszek levegőt<br>
+
+        <button onclick="ajandek.style.display='block';progress();s6.style.display='block';s5.style.display='none';s4.style.display='none';setTimeout(function(){el.style.opacity='1'},4000);el.style.display='block';">rendben</button>
+    </div>
+
+    <h1 id="s6">
+        Kellemes Húsvéti ünnepeket!
+    </h1>
+
+    <script>
+        /* VERSION 2.0 - updated in 2018 for NXT ACHILLES
+         * removed -webkit- prefixed
+         * removed some bad puns
+         * old 99BIT encoding replaced by ATOB
+         * urls updated
+        
+        */
+        // VERSION 1.0 - original release in around 2014
+
+        function decode(msg) {
+            return atob(msg);
+        }
+
+        function encode(msg) {
+            return btoa(msg);
+        }
+        if (location.hash != "") {
+            nev.innerHTML = decode(location.hash.slice(1, Infinity));
+        } else {
+
+            var person = prompt("Kit szeretnél meglocsolni?", "");
+
+            if (person != null) {
+                alert('A most megváltozott TELJES webcímet küldd tovább neki!');
+                location.hash = '#' + encode(person);
+                location.reload();
+            }
+
+        }
+        anger = 0;
+
+        function level() {
+            if (anger == 0) {
+                s2.innerHTML += '<br><i><br> Kérlek, hadd locsoljalak meg! Olyan nehéz volt eljönni idáig.</i>'
+                nob.style.borderBottom = "2px solid #f44";
+                nob.onmouseover = function() {
+                    level()
+                };
+                anger++;
+            } else if (anger < 6) {
+                nob.style.position = "fixed";
+                nob.style.top = (Math.random() * 90 + 5) + '%'
+                nob.style.left = (Math.random() * 90 + 5) + '%'
+                anger++;
+            } else {
+                s2.innerHTML = "<h1> Ennyire azért nem szeretem a csokit. :(</h1> <button onclick='location.reload()'>Újrapróbálom...</button>";
+                buttons.style.display = "none";
+            }
+        }
+        //  if (location.hash!="") {
+
+        count = 0;
+        setTimeout(function() {
+            intv = setInterval(function() {
+
+                if (count >= mondoka.length - 1) {
+                    clearInterval(intv);
+                    buttons.style.opacity = 1;
+                }
+                s2.innerHTML += '<span>' + mondoka[count] + '</span>';
+                count++;
+            }, 500)
+        }, 250);
+
+        //  }
+        mondoka = ["Zöld", " erdőben", " jártam", '', ", kék", " ibolyát", " láttam", '', ", el akart", " hervadni", '', ", szabad-e", " locsolni?"];
+        ajandekok = ['Csokitojás', 'Hímestojás', 'Csokimikulás', 'Pénz', 'Főtt tojás'];
+
+        for (i = 0; i < ajandekok.length; i++) {
+            cfield.innerHTML += '<button>' + ajandekok[i] + '</button>';
+        }
+        loaded = 0;
+
+        function loadit() {
+            return Math.round(Math.random() * 10);
+        }
+
+        function progress() {
+            c = setInterval(function() {
+                prgbr.style.display = "block";
+                loaded += loadit();
+                console.log(loaded);
+                prgbr.style.width = loaded + '%';
+                if (loaded > 100) {
+                    clearInterval(c);
+                    prgbr.style.display = "none";
+                    locsolas.style.display = "none";
+                    ajandek.style.display = "none";
+                    loaded = 0;
+                }
+            }, 200)
+        }
+
+    </script>
+    <small id="el"><a href="http://rontap.netne.net">Made by Aron</a> | 2018 | <a onclick=" location.hash='';location.reload();">Saját készítése</a></small>
+
+    <!--gan-->
+
+    <script>
+       
+    </script>
+    </script>
+</body>
+
+</html>

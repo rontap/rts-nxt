@@ -1,0 +1,125 @@
+/* NXT contextmenu handling */
+/* required:
+ * jsplus.js
+ * ctxmenu.js
+ * elements-design.css
+*/
+
+/* CTX Element */
+
+#ctxElementHolder {
+    display: none;
+    position: fixed;
+    min-height:20px;
+    margin-top:-10px;
+   opacity:0;
+    border:1px solid #888;
+    background:#e5e5e5;
+    box-shadow:0px 1px #999 inset;
+    border-radius: 4px;
+    padding:5px;
+    transition:all .2s ease-out;
+   font-family: 'Montserrat', sans-serif;
+}
+#ctxElementHolder table {
+     min-width: 150px;
+     max-width:250px;
+   transition:0.2s;
+}
+#ctxElementHolder.on {
+    opacity:1;
+   margin-top:0;
+    animation:CtxSlideUp .3s;
+   transition:all .4s;
+}
+@keyframes CtxSlideUp {
+    0% {
+        opacity: 0;
+        margin-top: 20px;
+    }
+    100% {
+        opacity: 1;
+        margin-top: 0px;
+    }
+}
+#ctxElementHolder el {
+    display: block;
+    padding: 7px 2px;
+    border-radius: 3px;
+    transition:all .2s;
+}
+#ctxElementHolder el[back] {
+      border-bottom: 1px solid #999;
+     margin: -8px -8px 5px -8px;
+     border-radius: 0;
+     padding: 9px;
+}
+#ctxElementHolder tr:not(.ctx-element-countundefined) el {
+    padding: 16px 2px;
+}
+
+
+
+#ctxElementHolder el:hover {
+   background:#1E88E5;
+    color:white;
+    cursor: pointer;
+}
+#ctxElementHolder tr.ctx-element-countundefined el[icon] span {
+    padding-left:10px;
+
+}
+#ctxElementHolder tr.ctx-element-countundefined el:not([icon]) {
+    padding-left:35px;
+
+}
+
+#ctxElementHolder i.material-icons {
+    font-size: 16px;
+    padding:0px;
+padding-left: 7px;
+vertical-align: -3px;
+}
+#ctxElementHolder tr:not(.ctx-element-countundefined) i.material-icons {
+    padding-left: 0px;
+    padding-bottom:5px;
+    font-size:18px;
+}
+
+#ctxElementHolder list el {
+    display: inline-block;
+    text-align:center;
+    height:40px;
+}
+#ctxElementHolder list el span {
+    margin-top:5px;
+    display: inline-block;
+
+}
+#ctxElementHolder el[disabled="true"], #ctxElementHolder el[disabled="true"]:hover {
+    color:#444;
+    background:#DDD;
+    border: 1px solid #AAA;
+    cursor: not-allowed;
+}
+#ctxElementHolder list el i.material-icons{
+ display: inline-block;
+    padding-left:0;
+
+}
+.ctx-element-count2 td{
+    width:50%;
+}
+.ctx-element-count2 td{
+    width:33.3%;
+}
+.ctx-element-count2 td{
+    width:25%;
+}
+
+#ctxElementHolder tr:not(.ctx-element-countundefined) td {
+    text-align: center;
+}
+ #ctxElementHolder tr:not(.ctx-element-countundefined) td span {
+  display: block;
+}

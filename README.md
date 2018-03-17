@@ -1,29 +1,25 @@
 
 
-## Ron Tap Sites NXT - 5 
+## Ron Tap Sites NXT - 5
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version:*
 
-**5.6.5 ACHILLES**
+**5.7 CHALLENGER Preview**
 
 ## Recent Changes
 ```
-(+) NEW NOTES application in developement with ago, Wireframe ready
+(+) NEW NOTES++ application under construction,
 (*) MAJOR Design change, more coherent and part of Material Design
-(+) Tapcalk design changed significantly (work in progress), language updated partially
 (*) rontapparty X music capture Pre-Release Added and project updated
-(*) ULTRON link shortener updated to V4 everywhere
 (+) PlusOne added
-(+) SMALL.tools added to random, JS files exploded
- 
+(+) Husvet 2.0 Added
+(+) Random changed to tools, new RND app in development
+
 --- NXT.JS Updates (1700)
-(+) comments added, code made more readable
-(+) New Input style [nxt]
-(+) Element.attr added
 (*) $_SET temporarly disabled, TB replaced in $_GET
-(*) corrected errors in String prototype stats
 (+) introduced nxt.location, making requires available from everywhere
 (*) require is quicker now
+(+) CTXmenu, Chips and Dialogs Added
 ```
 
 ## General Changes
@@ -36,6 +32,7 @@
  (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
  (+) MEK works again. added mek.html for explaining mek, and search.php for searching and exploring the MEK.OSZK archive, with popup
  (+) Ultron URL Shortener added with admin panel.
+ (+) Notes++ and Counter with PHP support
 
 ```
 ## Roadmap
@@ -50,7 +47,7 @@
 
 ### EDUCATION
 * tapcalk 6 - advanced calculator _stage Design_
-* wiki - wikipedia processor 
+* wiki - wikipedia processor
 * MEK mek.oszk.hu reader **4.5 splash screen added, search added**  moved from web eaters
 * ~~kikerdezo_offline - advanced learning tool  **not included, 4.1.0, needs rewrite**~~
 
@@ -72,7 +69,7 @@
 
 ### RANDOM 3
 * timer and stopper
-* text editor and text analyser 
+* text editor and text analyser
 * note app
 * text and color generator
 * music player
@@ -104,7 +101,11 @@
 
 > 5.5.3 ARCHER _ultron_   18/01/26
 
-> 5.6 ACHILLES (RC2)
+> 5.6 ACHILLES (RC2) 9/02/28
+
+> 5.6.5 ACHILLES 18/02/28
+
+> 5.7 CHALLENGER (Preview) 18/03/17
 
 ### Upcoming versions
 Challanger, Charioteer (RC3), Conway, Underwood (NXT 2).

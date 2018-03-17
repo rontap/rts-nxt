@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<title>RONTAP PARTY X</title>
+	<meta charset="UTF-8">
+	<script src="NXTJS/jsplus.js" type="text/javascript"></script>
+
+	<link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
+	<meta name="theme-color" content="#FF9800">
+
+    <link rel="stylesheet" href="NXTJS/elements-design.css">
+	<link rel="stylesheet" href="NXTJS/design.css">
+	<link rel="stylesheet" href="NXTJS/input-design.css">
+	<link rel="stylesheet" href="NXTJS/mobile.css">
+
+	<link rel="stylesheet" href="random/music.css">
+	<link rel="stylesheet" href="random/random.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+</head>
+
+<style>
+    :root {
+        --primary:#444;
+        --dark-primary:#48f;
+    }
+    #NineDotMenu {
+        text-shadow:0px 1px 1px #666;
+        color:#222;
+    }
+    center {
+        font-family: 'Oswald';
+        font-weight: bold;
+        text-transform: uppercase;
+        margin:400px;
+        font-size:72px;
+        position: fixed;
+        left:calc(50% - 492px);
+        top: calc(50% - 492px);
+        text-shadow:0px 1px 1px #444;
+        cursor:progress;
+        transition:all .2;
+        border-bottom:12px solid black;
+    }
+    center:hover {
+        animation:voila 2s linear infinite alternate, ls 2.5s forwards ;
+    }
+    @keyframes voila {
+        0%   {color:red;        }
+        10%  {color:orange;     }
+        20%  {color:gold;       }
+        30%  {color:black;       }
+        40%  {color:yellowgreen;}
+        50%  {color:green;      }
+        60%  {color:cyan;       }
+        70%  {color:blue;       }
+        80%  {color:violet;     }
+        90%  {color:magenta;    } 
+        100% {color:indigo;     }
+
+        9%   {color:red;        }
+        19%  {color:orange;     }
+        39%  {color:black;       }
+        29%  {color:gold;       }
+        49%  {color:yellowgreen;}
+        59%  {color:green;      }
+        69%  {color:cyan;       }
+        79%  {color:blue;       }
+        89%  {color:violet;     }
+        99%  {color:magenta;    } 
+        100% {color:indigo;     }
+    }
+    @keyframes ls {
+        0% { letter-spacing: 0px; transform:rotateZ(0deg);}
+        100% { letter-spacing: 20px; left:calc(50% - 532px);}
+    }
+</style>
+<body>
+
+	
+
+	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
+
+
+    <center onclick="party.update();this.innerHTML='PARTY!'">
+        Start.
+    </center>
+
+    <hrs>
+        <hr>
+    </hrs>
+    <pivot> 
+        <div id="pivPoint" class="ok">&nbsp;</div>
+        <footer>
+                <toggle onclick="party.bnw();" id="bmwSwitch"> </toggle> Black and White | 
+                <toggle onclick="this.classList.toggle('on');$('hrs').classList.toggle('transon');" id="nm"> </toggle> Transition | 
+
+                <input type="range" min="1" value="1" max="15" style="width:60px;vertical-align: 4px;" onchange="party.setHR(this.value)"> Lines  | 
+                <input type="range" min="1" value="10" max="100" style="vertical-align: 4px;" onchange="party.timeout=this.value*10"> Speed
+        </footer>
+    </pivot>
+
+    <style>
+        hrs.transon hr {
+            transition:.2s linear;
+        }
+        hr {
+            position: fixed;
+            bottom: 0; top:0; right:0; left:0;
+            background:transparent;
+            border:none;
+            margin:0px;
+            height:100%;
+            z-index: -1;
+        }
+            #pivPoint {
+        width:10px;
+        height:10px;
+        border-radius:100%;
+                background:#999;
+                text-align:Center;
+                display:inline-block;
+                position: absolute;
+                left:calc(50% - 7px);
+                right:0;
+                margin-top: -22px;
+                border:1px solid #666;
+                cursor: help;
+                transition:all .2s;
+                
+    }
+        pivot {
+           display: block;
+            position:fixed;
+            bottom:-55px;
+            left:0;
+            right:0;
+            height:55px;
+            transition:all .2s;
+            border-top:6px solid transparent;
+        }
+        pivot:hover {
+            bottom:0px;
+        }
+        pivot:hover #pivPoint {
+      
+            margin-top: -5px;
+        }
+        footer {
+            height:55px;
+            padding-top:15px;
+            border-top:1px solid #999;
+            padding-left:20px;
+            color:#222;
+            background:white;
+        }
+        body {
+            display: block;
+            height:100%;
+            position:fixed;
+            top:0;
+            bottom:0;
+        }
+    </style>
+
+    <script>
+    party = {};
+    
+    party.timeout = 250; //set timeout config time;
+    party.allowed = true; //disable party
+    party.theme = "random";
+    party.bglist = 1;
+    party.level = 1;
+
+    party.update = function() {
+        if (party.allowed) {
+            if ( party.theme=="random" ) {
+                for (i=0; i<party.bglist; i++)
+                {
+                    party.setBG( $$("hr")[i] ,   new Color());
+                }
+            }
+            else if ( party.theme=="bmw" ) {
+                for (i=0; i<party.bglist; i++)
+                {
+                    rand = Math.randInt(2);
+                    if (rand) party.setBG( $$("hr")[i] ,   new Color(0,0,0));
+                    else      party.setBG( $$("hr")[i] ,   new Color(255,255,255));
+                }
+            }
+        }
+
+        setTimeout(function(){
+            party.update();
+        },party.timeout / Math.sqrt(party.level)) ;
+    }
+
+    party.setBG = function(element, colorCall) {
+        element.style.background=colorCall.rgb;
+    }
+
+    party.bnw = function() {
+        $("#bmwSwitch").classList.toggle('on');
+        if (party.theme == "bmw") {
+            party.theme="random";
+        }
+        else party.theme="bmw"
+    }
+
+    party.setHR = function(amount) {
+        let percentile = window.innerHeight / amount ;
+        let i = 0;
+        $("hrs").innerHTML="";
+        do {
+            $("hrs").innerHTML+="<hr style='margin-top:" + percentile*i + "px; height:" + percentile + "px;'>";
+        } while (i++ < amount)
+        party.bglist = i;
+    }
+    window.onresize = function() {
+        party.setHR(party.bglist);
+    }
+    window.onkeydown = function(event) {
+        console.log(event);
+        if (event.code == "Space") party.allowed=false;
+        else party.allowed=true;
+    }
+    window.onkeyup = function() {
+        party.allowed=true;
+    }
+    setTimeout(function(){
+        $('div:last-child:not(.ok)').style.display='none'
+    },100);
+    </script>
+</body>

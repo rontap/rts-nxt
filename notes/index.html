@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-	<title>Notes++ Wireframe</title>
+	<title>Notes++</title>
 	<meta charset="UTF-8">
 	<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 
@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#4CAF50">
 
 
-	<script src="../edu/sets.js" type="text/javascript"></script>
+	<script src="../NXTJS/sets.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="../NXTJS/elements-design.css">
     <link rel="stylesheet" href="../NXTJS/input-design.css">
@@ -20,6 +20,11 @@
 	<link rel="stylesheet" href="main.css">
  
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    	var {
+    		    font-style: normal;
+    	}
+    </style>
 </head>
 
 <body class="toast-desktop">
@@ -34,35 +39,18 @@
 
 <container class="sidebar" onclick="nxt.closeSidebar(event);">
 
-	 	<button real flr nxt>New Note </button>
+	 	<button real flr nxt onmouseup="newNoteScreen();">New / Open Note</button>
 		<br><br><br><br>
 		<div class="otitle"><div>My Notes</div></div>
 		<div class="omenu">Main Note Screen</div>
-		<div class="omenu">New Note Screen</div>
+
 <br>
 		<div class="otitle"><div>Shared Notes</div></div>
 		<div class="omenu">Welcome Screen</div>
-		<div class="omenu">Open Note Screen</div>
+		<div class="omenu" style="display:none">Open Note Screen</div>
 		<div class="otitle"><div>Information</div></div>
-		<div class="omenu">Settings</div>
-		<div class="omenu">About</div>
-        <!--div class="omenu full-covered">Welcome</div>
-
-		<div class="otitle"><div>JS Extensions</div></div>
-		<div class="omenu">JSPlus</div>
-		<div class="omenu">TapCalk Express</div>
-
-
-
-        <div class="otitle"><div>Design Modules</div></div>
-        <div class="omenu">Customisation</div>
-        <div class="omenu">Design Showcase</div>
-        <div class="omenu">Modules</div>
-        <div class="omenu">Material Resources</div>
-
-		<div class="otitle"><div>Installing</div></div>
-		<div class="omenu" onclick="">Downloads <i class="material-icons">open_in_new</i></div-->
-
+		<div class="omenu">Settings and About</div>
+	
 
 
 
@@ -71,23 +59,18 @@
 
 <holder>
   <div class="card on" id="mainNoteHolder">
-    <h1 class="covered" contenteditable>fancy title</h1>
+    <h1 class="covered" contenteditable id="noteTitle" placeholder="add fancy title...">fancy title</h1>
 
 		<div class="info" id="DShare">
 			<h2>Share</h2>
-			<table style="width:80%">
-					<tr><td>
-				
-				
-			</td>
-			<td >
-					<div flr>
-						<input nxt  class="non-expand" style="width:220px !important;" placeholder="Viewing is Disabled"> <br><br>
-						<input nxt  class="non-expand" style="width:220px !important; " value="?test=ab&C"> <br><br>
-					</div>
-				</td>
-			</tr>
-			</table>
+			
+						Link to Edit:<br>
+						<input nxt id="shareEdit" class="non-expand" style="width:220px !important;" placeholder="Viewing is Disabled"> <br><br>
+						
+						Link to View<br>
+						<input nxt id="shareView" class="non-expand" style="width:220px !important; " value="?test=ab&C"> <br><br>
+					
+			
 		</div>
 
 		<div class="info" id="DInfo">
@@ -124,10 +107,12 @@
 						<i class="material-icons" onclick="document.execCommand('redo', false, null);">redo</i>
 						<span separator=""></span>
 
- 						<i class="material-icons" onclick="">format_bold</i>
-            <i class="material-icons">format_italic</i>
-            <i class="material-icons">format_underline</i>
-
+			<span id="formatting">
+					<i class="material-icons" onclick="">format_bold</i>
+          			  <i class="material-icons">format_italic</i>
+          		  <i class="material-icons">format_underline</i>
+			</span>
+ 					
 						<span separator=""></span>
 						<i class="material-icons" onclick="openDialoge('#DStats')">timeline</i>
 
@@ -135,7 +120,7 @@
 							<i class="material-icons" onclick="openDialoge('#DInfo')">info</i>
 							<i class="material-icons" onclick="openDialoge('#DFork')">call_split</i>
               <i class="material-icons" onclick="openDialoge('#DShare')">share</i>
-              <i class="material-icons" onclick="save();" id="saveIcon">radio_button_unchecked</i>
+              <i class="material-icons" onclick="saveNote();" id="saveIcon">radio_button_unchecked</i>
             </span>
 
 				</div>
@@ -143,30 +128,13 @@
 
 
 
-			<div id="content" contenteditable onclick="closeDialoge()">
+			<div id="content" contenteditable onclick="closeDialoge()" onkeydown="noteKeyDown();" placeholder="Enter Notes Here..">
 			</div>
 
 			</content>
 
   </div>
-	<div class="card" id="new">
-		<h1 class="covered">New Note</h1>
 
-		<div class="stocked">
-		<br><br>
-		Your New Note will be created, its ID is 456<br><br>
-		<input nxt placeholder="Password" class="non-expand long">
-		<br><br>
-		<h2>Access Control</h2>
-		<toggle class="on" onclick="this.classList.toggle('on')"></toggle> Require Password<br><br>
-				<toggle onclick="this.classList.toggle('on')"></toggle>Allow Viewing without Password<br><br>
-
-	</div>
-
-		<div class="color-wrapper  card-wrapper white-text" real>
-			Create the Note<br>And start writing
-			<i class="material-icons fab white" style="margin-top:-28px;">forward</i>
-		</div>
 	</div>
 	<div class="card center">
 		<h1 class="covered center" >Welcome to notes++</h1>
@@ -179,7 +147,7 @@
 
 
 	<div class="card">
-		<h1 class="covered" >Open a Note</h1>
+		<h1 class="covered" >Open / Create new note</h1>
 		<br>
 		<p>
 			Paste the Invitation Link, and if you want to edit and it is set, enter the required password as well.<br>
@@ -187,13 +155,19 @@
 		</p>
 
 			<h2>Credentials</h2>
-			<input nxt class="long" placeholder="URL or Access Code"><br><br>
-			<input nxt class="long" placeholder="password"><br><br>
-			<div class="color-wrapper card-wrapper white-text" >
-
-				<b>Open Note</b>
+			<input nxt class="long" id="idUrl"     placeholder="URL or Access Code"><br><br>
+			<input nxt class="long" id="passwordUrl" placeholder="password"			 ><br>
+			
+				<br>
+				<h2>Access Control</h2>
+				<radio name="privacy_settings" date="public">Public</radio>
+				<radio name="privacy_settings" date="protected" checked="true">Protected</radio>
+				<radio name="privacy_settings" date="private">Private</radio>
+				<br><br>
+			
+			<div class="color-wrapper card-wrapper white-text" onclick="openNote();">
+				<b>Let's get into editng</b>
 				<i class="material-icons white fab" flr style="margin-top:-16px;">open_in_browser</i>
-
 			</div>
 
 	</div>
@@ -221,7 +195,8 @@
 </holder>
 
 <!-- NOTIFICATIONS -->
-<toast id="not_errr">Error: %ErrorMessage% <action red>Retry</action></toast>
+<toast id="not_err"> <var is="errorMsg">Unknown</var> <action flr warn>Retry</action></toast>
+
 <toast id="not_save">Saved.</toast>
 <toast id="not_fork">Succesfully Forked.</toast>
 <toast id="not_pass">Incorrect Password!</toast>
@@ -236,11 +211,13 @@
     <script src="ui.js" type="text/javascript"></script>
     <script src="request.js" type="text/javascript"></script>
     <script>
-
+		changeRadio($("radio[name='privacy_settings']"))
 
     </script>
     <style>
 	</style>
+	
+		<script src="request.js" type="text/javascript"></script>
 </body>
 
 </html>
