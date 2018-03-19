@@ -10,35 +10,51 @@
           }
           return $str;
     }
-// . +   += .=
+// ERROR CODES
+/*
+  0 - No Input $_GET
+  1 - Internal Reading Error
+  2 - Internal Writing Error
+  3 - Internal Corrupt File
+  4 - Internal Creating File Error
+  5 - Internal Type misMatch while Creating File
+  8 - User Error : Accessing Private Note with wrong password
+  9 - User Error : Writing Protected Note with wrong password
+
+
+*/
 
 //if we want to access sth
 if ( isset( $_GET['id'] ) ) {
-    
+
+    if ( !(isset($_GET["password"]))) { $_GET["password"]="";}
+    if ( !(isset($_GET["title"]))) { $_GET["title"]="";}
+    if ( !(isset($_GET["text"]))) { $_GET["text"]="";}
+
     //echo 'ID: <b>'.$_GET['id'] .'</b><br><br>';
     $_ID = 'files/' . $_GET['id'] . '.json';
     $password_md5 = md5( $_GET["id"] . $_GET['password']);
-    
-    
+
+
     if ( is_file($_ID) )
     {
         //if file exists
-        $pre_file = @fopen( $_ID , 'r' ) or die('{"error": "Error: Cannot Oead this file"}');
+        $pre_file = @fopen( $_ID , 'r' ) or die('{"error": "Error: Cannot Read this file"}');
         if (filesize($_ID)==0) {
             die('{"error": "Error: Error: Corrupt File"}');
         }
         $file = fread(  $pre_file , filesize($_ID) ) or die('{"error": "Error: Cannot Open this file"}');
         //echo $file;
         fclose($pre_file);
-        
-        //decoding 
+
+        //decoding
         $entries = json_decode($file);
         $entry_vars = get_object_vars($entries); //storing the retrieved JSON data
-        
+
         // =====================================
         // == CHECKING PRIVACY SETTINGS ========
         // =====================================
-        
+
 
         if ($_GET['title'] == '' && $_GET['text'] == '') { //just getting
             if ( $entry_vars['privacy'] != 'private' || $password_md5 == $entry_vars['password']) {
@@ -52,7 +68,7 @@ if ( isset( $_GET['id'] ) ) {
                 //echo 'Rewriting File..<br>';
                 $file_write = fopen( $_ID , 'w+' ) or die('{"error": "Error Opening file for writing"}');
                 //echo $file_write;
-                
+
                 // " \" \'  '
                 $_BASE_JSON_EDIT = '
                     {
@@ -65,14 +81,14 @@ if ( isset( $_GET['id'] ) ) {
                     echo ($_BASE_JSON_EDIT);
                 fwrite( $file_write , (string)$_BASE_JSON_EDIT ) or die('{"error": "Error Writing File. Type Mismatch?"}');
                 fclose( $file_write);
-                
-                
+
+
             } else {
                 echo '{"error": "Authentication Error! You need password to edit."}';
             }
         }
-        
-        echo  $entry_vars["id"];
+
+        //echo  $entry_vars["id"];
         //entry_vars["id"]
     }
     else {
@@ -87,26 +103,15 @@ if ( isset( $_GET['id'] ) ) {
         file_put_contents($_ID, $_BASE_JSON);
         echo $_BASE_JSON;
     }
-    
-    
-    
+
+
+
 // main.php?id=volo&password=file&title=file&text=file&privacy=protected
-    
+
 }
 else {
 ?>
-
-
-
 <?php
 }
 
-
-// M W C Model-json Wiew-html-js-css Control-php
-/*
-{ 
-csinálás, tartama, jelszó(md5)
-}
-*/
-//echo "<br><hr>Compiled w/o Errors.";
 ?>

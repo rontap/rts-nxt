@@ -2,7 +2,6 @@
 
 //GNU GPL v3 Licence
 
-
 nxt.modules.push("design.js");
 
 if ( nxt.build < 1620) nxt.dieFromVersion(1620);
@@ -16,7 +15,7 @@ lastSelMenuItem=0;
 for (i=0;i<$$('.omenu').length;i++)
 {
   $$('.omenu')[i].onclick=function(){
-      
+
     //for each menu element, we create an onclick
       $$('.omenu')[lastSelMenuItem].classList.remove('on'); //removing knob
     $$('holder>*')[lastSelMenuItem].classList.remove('on'); //removing actual card
@@ -36,7 +35,7 @@ for (i=0;i<$$('.omenu').length;i++)
 
        $('#pageTitle').innerHTML=$$('.omenu')[lastSelMenuItem].innerHTML;
        $('#pageTitle').style.opacity=1;
-       location.hash="l="+lastSelMenuItem;
+       // location.hash="l="+lastSelMenuItem; ->TEMPORARLY DISABLED [bugfix][tba]
     },200 );
 
 
@@ -58,9 +57,9 @@ if (nxt.getStore("desktopMode")) {
 //jumping between locations
 setTimeout(function(){
   let getArgs =  new Sets($_GET().argumentList()) ;
-  if (getArgs.includes("l")) 
-    $$('.omenu')[ Number( $_GET("l") ) ].click(); 
-  else 
+  if (getArgs.includes("l"))
+    $$('.omenu')[ Number( $_GET("l") ) ].click();
+  else
     $$('.omenu')[0].click();
 },100);
 

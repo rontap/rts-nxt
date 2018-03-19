@@ -4,8 +4,6 @@
 
 <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&amp;subset=latin-ext" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta charset="UTF-8">
      <link rel="icon" href="NXTJS/icons/index.png" type="image/png">
       <script src="NXTJS/jsplus.js" type="text/javascript"></script>
@@ -13,6 +11,7 @@
     <title>rontap sites NXT | Menu</title>
     <link rel="stylesheet" href="NXTJS/input-design.css">
     <link rel="stylesheet" href="NXTJS/elements-design.css">
+     <link rel="stylesheet" href="NXTJS/sole-design.css">
     <link rel="stylesheet" href="rtsmenu.css">
     <style>
         :root {
@@ -37,6 +36,37 @@
                     margin:20px;
                 }
             }
+        h1.head::before {
+            content:'';
+            position:absolute;
+            height:8px;
+            background:#eee;
+            width:150px;
+            margin-top:50px;
+            
+        }
+        h1.head {
+             text-align:left;
+            color:#eee;
+            margin-bottom:30px;
+            padding:0 50px;
+            font-size:38px;
+        }
+        #clearFix {
+            padding:5px;
+            position:absolute; left:0; right:0;
+            background:#eee;
+           
+        }
+        #clearFix h1{
+            color:#333;
+            
+    max-width: 710px;
+    margin: 19px auto;
+        }
+        #clearFix h1::before {
+            background:#333;
+        }
     </style>
 </head>
 
@@ -112,6 +142,8 @@
 
     <div id="divider" style="margin-top:200px;"></div>
 
+    <h1 class="head">TOOLS</h1>
+
     <div id="siteView">
       <article onclick="go('index.html')">
           <h1>Website Index</h1>
@@ -119,8 +151,8 @@
           <img src="">
           <div class="delta material-icons">home</div>
       </article>
-
-
+    
+   
     <article onclick="go('edu/tapcalk.html')">
         <h1  ol>TapCalk 6</h1>
         <span>simple calculator</span>
@@ -174,7 +206,27 @@
         <img src="">
         <div class="delta  material-icons">developer_board</div>
     </article>
+ <article onclick="go('explore/mek.html')">
+        <h1 >MEK-OSZK Reader</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">book</div>
+    </article>
+    <article onclick="go('explore/wiki.php')">
+        <h1>Wikipedia Redesign</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">public</div>
+    </article>
+    <article onclick="go('multiplix.html')">
+        <h1  ol>Multiplix</h1>
+        <span>boring simulation</span>
+        <img src="">
+        <div class="delta material-icons">send</div>
+    </article>
 
+   <h1 class="head">FUN THINGS</h1>
+   
     <article onclick="go('games/mine.html')">
         <h1>Mine<br>Game</h1>
         <span>An Amasing Game</span>
@@ -196,25 +248,7 @@
         <div class="delta material-icons">blur_on</div>
     </article>
 
-    <article onclick="go('explore/mek.html')">
-        <h1 >MEK-OSZK Reader</h1>
-        <span>boring simulation</span>
-        <img src="">
-        <div class="delta material-icons">book</div>
-    </article>
-    <article onclick="go('explore/wiki.php')">
-        <h1>Wikipedia Redesign</h1>
-        <span>boring simulation</span>
-        <img src="">
-        <div class="delta material-icons">public</div>
-    </article>
-    <article onclick="go('multiplix.html')">
-        <h1  ol>Multiplix</h1>
-        <span>boring simulation</span>
-        <img src="">
-        <div class="delta material-icons">send</div>
-    </article>
-
+   
     <article onclick="go('notes')">
         <h1  ol>Notes++</h1>
         <span>boring simulation</span>
@@ -229,12 +263,23 @@
         <div class="delta material-icons">lightbulb_outline</div>
     </article>
 
+   <h1 class="head">FOR DEVELOPERS</h1>
     <article onclick="go('api/ultron/')" >
             <h1 >URL Shortener</h1>
             <span>boring simulation</span>
             <img src="">
             <div class="delta material-icons">link</div>
         </article>
+    <div id="clearFix">
+         <h1 class="head">DOWNLOADS</h1>
+          <article onclick="go('api/ultron/')" >
+            <h1 >URL Shortener</h1>
+            <span>boring simulation</span>
+            <img src="">
+            <div class="delta material-icons">link</div>
+        </article>
+    </div>
+    
 </div siteview>
 <div id="settingsView" class="card">
     <h1 class="covered red-500" style="color:white;">Settings</h1>

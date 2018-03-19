@@ -1,7 +1,7 @@
 <html>
-    
+
 <head>
-	<title>Notes++</title>
+	<title>Cosmos | Reader</title>
 	<meta charset="UTF-8">
 	<script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 
@@ -11,12 +11,13 @@
 <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,400i,700&amp;subset=latin-ext" rel="stylesheet">
 	<script src="../NXTJS/sets.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="../NXTJS/elements-design.css">
+
     <link rel="stylesheet" href="../NXTJS/input-design.css">
 
 	<link rel="stylesheet" href="../NXTJS/input-design.css">
 	<link rel="stylesheet" href="../NXTJS/mobile.css">
 	<link rel="stylesheet" href="../NXTJS/sole-design.css">
+    <link rel="stylesheet" href="../NXTJS/elements-design.css">
 	<link rel="stylesheet" href="main.css">
  <link rel="stylesheet" href="themes.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +25,7 @@
     	var {
     		    font-style: normal;
     	}
-    	content h1, p, footer, header, #pertitle,h2 {
+    	content h1, p, footer, header, #pertitle,h2, loader * {
     	    font-family: 'PT Serif', serif !important;
 
     	}
@@ -52,13 +53,13 @@
     background: white;
     color: #222;
     bottom: 35px;
-    
+
     	}
     	dialog[open] ~ * ,  	dialog[open] ~ *::before {
-    	   
+
     	}
     	#font_div {
-    	        
+
     margin-top: -180px;
     margin-left: 150px;
     	}
@@ -70,8 +71,8 @@
     	    user-select:none;
     	}
     	/* THEME SETTINGS */
-    	
-    	.theme_dark 
+
+    	.theme_dark {}
     </style>
 </head>
 
@@ -98,27 +99,38 @@
              </div><br><br><br><br>
 
             <br>
-        
+
           </div>
           <action color="" class="indigo-500">
             <button onclick="other.close();">save</button>
-           
+
             <button flr="" in-block="" onclick="other.close();">restore defaults</button>
           </action>
         </dialog>
-    
-    
+        <dialog id="openNoteDialog" nxt >
+              <h1 class=" covered">Open Note from Notes++
+<i onclick="openNote(open_id.value,open_pw.value);openNoteDialog.close();" class="material-icons fab  blue-500 white-text" flr style="margin-top:20px;">open_in_browser</i>
+              </h1>
+              <br>
+              <input nxt id="open_id" placeholder="ID for Note"><br><br>
+              <input nxt id="open_pw" placeholder="password, if needed">
+
+              <br><br>
+        </dialog>
+
     <social>
-          <i class="material-icons fab">arrow_upward</i>
+          <i class="material-icons fab" id="up">arrow_upward</i>
     </social>
     <site>
     <nav simple>
+      <div id="read" {reading the document}> </div>
         <header>Cosmos</header>
         <div id="pertitle">Schiff</div>
         <div id="iconHolder">
             <i class="material-icons">bookmark_border</i>
             <i class="material-icons" onclick="other.showModal()">invert_colors</i>
-            <i class="material-icons" onclick="location.href='https://team-autism-rontap.c9users.io/notes/index.html#'+baseText">edit</i>
+            <i class="material-icons" onclick="location.href='http://localhost/notes/index.html#'+baseText">edit</i>
+              <i class="material-icons" onclick="openNoteDialog.showModal();">open_in_browser</i>
         </div>
     </nav>
     <content>
@@ -137,23 +149,27 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean luctus purus et aliquam auctor. Fusce dictum mi leo, vel hendrerit lorem maximus id. Quisque id lacus vitae odio condimentum consectetur. Pellentesque eu pulvinar eros, eu pretium ante. Phasellus et finibus risus. Suspendisse imperdiet justo sit amet arcu pretium, non sollicitudin mauris faucibus. Donec vitae pellentesque eros, vitae cursus magna. Vestibu</p> <p>lum nec urna ut felis consectetur tincidunt. Donec <h2>imperdiet metus eget orci varius, et consectetur est scelerisque</h2>. Nulla faci</p> <p>lisi. Curabitur posuere augue sit amet felis molestie posuere.\nPraesent tempor, orci non tincidunt placerat, elit purus ultrices dui, a volutpat libero urna sit amet lectus. Donec purus risus, lobortis vel egestas eu, auctor sit amet elit. Nam ullamcorper interdum urna et interdum. Nullam in nunc dignissim, mollis purus at, facilisis dui. Etiam id lacinia augue. Fusce ac lacus erat. Donec ultricies orci efficitur mi pharet</p> <p>ra, eget suscipit purus dictum. Morbi vel nulla a dui sodales hendrerit at eget massa. Morbi laoreet tortor a lacus cursus semper.\nMorbi eu risus eu erat convallis eleifend. Nunc euismod elit bibendum, pulvinar ex vitae, lobortis leo. Vivamus nec congue ante. Donec non elit nec nisl ultrices dictum vel imperdiet elit. Aliquam erat volutpat. Proin efficitur massa non ullamcorper varius. Integer euismod sed risus a maximus. Etiam eleifend quam tellus, sit amet suscipit diam egestas et. Integer consectetur, urna sit amet fermentum iaculis, metus risus fringilla justo, vitae laoreet velit ex vitae dolor. Proin quis ligula eu nunc consectetur cursus a at lectus. Vestibulum blandit lorem eros, sit amet mollis leo tempus quis. Phasellus imperdiet, tellus id egestas tempor, dolor elit malesuada diam, id luctus eros leo et libero. Maecenas non odio et augue aliquam pharetra sit amet et sem.\nNunc vehicula quam sit amet felis cursus venenatis. Sed at tellus vitae lacus sodales </p> <p>malesuada a vitae justo. Nullam eu turpis magna. Etiam vulputate ornare nisl, ut viverra justo lacinia ultrices. Maecenas interdum nulla non nulla tristique pulvinar et vitae purus. In nec orci sed dui dictum mattis eu consequat nibh. Pellentesque quis quam lacinia, ultricies justo ut, auctor tortor. Nunc eget eros consectetur, fringilla diam vitae, luctus purus. Etiam a massa massa. Nam pellentesque facilisis varius. Integer eget venenatis justo, sed s</p>
         </container>
     </content>
-    
-  
+
+
     <footer>
         Hello There
-      
+
     </footer>
+
     </site>
-    
+    <loader>
+        <b id="welcomer">Cosmos</b>
+    </loader>
+
     <style>
     #iconHolder {
-       
+
     margin-top: -57px;
     float: right;
     }
     site {
         background:white;
-        display:block;
+        display:none;
         margin-bottom:290px;
     }
     body {
@@ -163,7 +179,7 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
             height:40px;
             background:#eee;
             border-top:7px solid var(--primary);
-            
+
             padding:10px 15px;
             border-bottom:1px solid transparent;
             position:fixed;
@@ -176,7 +192,7 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
             border-bottom:1px solid #666;
                 box-shadow: 0px 1px 2px #aaa inset;
         }
-        nav[simple] header {
+        nav[simple] header, loader * {
                   font-size: 28px;
                 color: #222;
                 width: 150px !important;
@@ -187,9 +203,41 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
                 text-align: center;
                 font-weight: bold;
                 font-style:italic;
-               
+
                 font-weight: bold;
                 letter-spacing: -2px;
+
+        }
+        loader * {
+          display: block;
+          width:400px !important;
+          text-align: center;
+          margin:0 auto;
+          margin-top:100px;
+          font-size:84px !important;
+          color:#666;
+        }
+        loader.hide * {
+          opacity:0;
+          margin-top:30px;
+          transition:all .6s;
+        }
+          .scrolled #read {
+              top: 7px;
+              transition:top .2s;
+              color:transparent;
+          }
+       #read{
+          z-index:-1;
+          position: fixed;
+          background: #aaa;
+          left: 186px;
+          right: 200px;
+          top: -60px;
+          height: 59px;
+          opacity: .5;
+        }
+        nav:hover #read {
 
         }
         .scrolled nav[simple] header {
@@ -202,7 +250,7 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
             --light-primary:#81C784;
         }
         content, footer {
-           
+
             max-width:700px;
             margin:0 auto;
             display: block;
@@ -221,7 +269,7 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
         }
         footer {
             padding-top:60px;
-          
+
         }
         body:not(.scrolled) h1::before {
                 border-bottom: 1px solid #999;
@@ -233,11 +281,11 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
             transform:rotate(-3deg);
             left:-80px;
             right:-20px;
-               
+
             height: 250px;
             background:#eee;
             z-index:1;
-            
+
         }
         site h1::before {
             top: -25px;
@@ -263,12 +311,12 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
             background:var(--primary);
             color:#eee;
             z-index:-1;
-            
+
         }
         site h1 {
                 margin-top: 60px;
             font-size: 48px;
-           
+
             display: inline-block;
         }
         dialog, dialog::backdrop {
@@ -276,9 +324,9 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
         }
         dialog::backdrop {
             z-index:100;
-           
+
         }
-        
+
         em ,cite{
                 display: block;
     margin: 12px 60px 12px 0px;
@@ -299,23 +347,44 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
     margin-left: -36px;
     margin-top: -20px;
         }
+        #up {
+          display: none;
+        }
     </style>
     <script>
     zoomFactor = 0;
-    
+
     function changeZoom(call) {
         zoomFactor+=call;
         $('content').style.zoom= 1 + zoomFactor/10 ;
     }
-        
+
+
+
         $('body').onscroll = function() {
             if (document.body.scrollTop > 300) {
                 $('body').classList.add('scrolled');
+                DHeight = document.body.offsetHeight - 400;
+                CHeight = document.body.scrollTop;
+                $("#read").style.right = ((DHeight-CHeight)/DHeight)*100 + "%";
             }
             else {
                  $('body').classList.remove('scrolled');
             }
+
+
         }
+        document.fonts.ready.then( function() {
+          $('loader').classList.add('hide');
+           setTimeout(function(){
+             $('site').style.display="block";
+             $('#up').style.display="block";
+             $('loader').style.display="none";
+           },600);
+
+        })
+
+
     </script>
 </body>
 <script src="open_request.js" type="text/javascript"></script>

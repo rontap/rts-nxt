@@ -16,9 +16,9 @@
 	<link rel="stylesheet" href="../NXTJS/design.css">
 	<link rel="stylesheet" href="../NXTJS/input-design.css">
 	<link rel="stylesheet" href="../NXTJS/mobile.css">
-	
+
 	<link rel="stylesheet" href="main.css">
- 
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     	var {
@@ -50,7 +50,8 @@
 		<div class="omenu" style="display:none">Open Note Screen</div>
 		<div class="otitle"><div>Information</div></div>
 		<div class="omenu">Settings and About</div>
-	
+		<div class="omenu" style="display:none">Enter Psw screen</div>
+
 
 
 
@@ -63,14 +64,14 @@
 
 		<div class="info" id="DShare">
 			<h2>Share</h2>
-			
+
 						Link to Edit:<br>
 						<input nxt id="shareEdit" class="non-expand" style="width:220px !important;" placeholder="Viewing is Disabled"> <br><br>
-						
+
 						Link to View<br>
 						<input nxt id="shareView" class="non-expand" style="width:220px !important; " value="?test=ab&C"> <br><br>
-					
-			
+
+
 		</div>
 
 		<div class="info" id="DInfo">
@@ -112,7 +113,7 @@
           			  <i class="material-icons">format_italic</i>
           		  <i class="material-icons">format_underline</i>
 			</span>
- 					
+
 						<span separator=""></span>
 						<i class="material-icons" onclick="openDialoge('#DStats')">timeline</i>
 
@@ -157,16 +158,16 @@
 			<h2>Credentials</h2>
 			<input nxt class="long" id="idUrl"     placeholder="URL or Access Code"><br><br>
 			<input nxt class="long" id="passwordUrl" placeholder="password"			 ><br>
-			
+
 				<br>
 				<h2>Access Control</h2>
 				<radio name="privacy_settings" date="public">Public</radio>
 				<radio name="privacy_settings" date="protected" checked="true">Protected</radio>
 				<radio name="privacy_settings" date="private">Private</radio>
 				<br><br>
-			
+
 			<div class="color-wrapper card-wrapper white-text" onclick="openNote();">
-				<b>Let's get into editng</b>
+				<b>Let's get into editing!</b>
 				<i class="material-icons white fab" flr style="margin-top:-16px;">open_in_browser</i>
 			</div>
 
@@ -191,11 +192,31 @@
 		Created By rontap and Agoston Csehi.<br>
 		Copyright 2018
 	</div>
+
 </div>
+<div class="card">
+		<h1 class="covered">correct password needed!</h1><br>
+		Please enter the correct password!<br><br><br>
+		<input nxt id="pwd_c" placeholder="password" onkeyup="openNotePasswordUpdate(event.keyCode)"><br><br><br>
+		<div class="color-wrapper card-wrapper white-text blue-500" onclick="openNotePasswordUpdate(13);">
+			<b>Open note with Password</b>
+			<i class="material-icons white fab" flr style="margin-top:-16px;">security</i>
+		</div>
+</div>
+<script>
+function openNotePasswordUpdate(e) {
+	if (e == 13) {
+		passwordUrl.value = pwd_c.value;
+		openNote();
+	}
+}
+
+
+</script>
 </holder>
 
 <!-- NOTIFICATIONS -->
-<toast id="not_err"> <var is="errorMsg">Unknown</var> <action flr warn>Retry</action></toast>
+<toast id="not_err"> <span id="errorMsgHolder">Unknown</span> <action flr warn>Retry</action></toast>
 
 <toast id="not_save">Saved.</toast>
 <toast id="not_fork">Succesfully Forked.</toast>
@@ -207,7 +228,7 @@
 	<script src="../NXTJS/design.js" type="text/javascript"></script>
 	<script src="../NXTJS/design-input.js" type="text/javascript"></script>
     <script src="../NXTJS/design-notifications.js" type="text/javascript"></script>
-    
+
     <script src="ui.js" type="text/javascript"></script>
     <script src="request.js" type="text/javascript"></script>
     <script>
@@ -216,7 +237,7 @@
     </script>
     <style>
 	</style>
-	
+
 		<script src="request.js" type="text/javascript"></script>
 </body>
 

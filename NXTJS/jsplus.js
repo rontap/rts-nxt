@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					       //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1700;  //build number for modules
+const nxtjs_proto_BuildNumber = 1710;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------

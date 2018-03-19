@@ -50,14 +50,13 @@
         }
         article {
             zoom:1.2 !important;
-            margin: 30px;
+            margin: 29px;
             display:inline-block;
             padding: 10px;
             box-shadow: 0px 2px 4px #222;
             transition:all .2s;
             cursor: pointer;
             width:80px;
-
         }
 
         article:hover {
@@ -80,7 +79,7 @@
             position: absolute;
             font-size: 14px;
             width: 90px;
-            padding:7px;
+            padding: 7px;
             font-weight: normal;
             color:#222 !important;
             margin: 71px 0px 0px -10px !important;
@@ -89,7 +88,6 @@
             text-align:center;
             border-top:1px solid #444;
             border-radius: 0px 0px 2px 2px;
-            
         }
         article h1[ol] /*one liner*/
         {
