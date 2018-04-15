@@ -72,6 +72,30 @@
 </container>
 
 
+<dialog nxt id="habitRename">
+	<h1 class="covered">Rename Habit</h1>
+	<button real flr onclick="	habitRename.close();" class="dgrey-500" style="margin-left:20px;">Close</button>
+		<button real flr onclick="renameHabit();">Rename</button>
+
+	<span class="chip" nxt contenteditable id="newHabitName" style="margin:-10px -16px -17px -16px;" onkeydown="if (event.keyCode==13) {event.preventDefault();renameHabit();}">placeholder</span>
+	<script>
+			var currHabitOn = null;
+			function renameHabit() {
+					counter.names[currHabitOn] = newHabitName.innerHTML;
+					habitRename.close();
+					counter.refreshUI();
+			}
+		__counts = function(id) {
+					habitRename.showModal();
+					newHabitName.innerHTML = counter.names[id];
+					newHabitName.focus();
+					currHabitOn=id;
+			}
+	</script>
+
+</dialog>
+
+
 <holder>
    <div id="splash" class="on">
       <div class="card " on>
@@ -141,9 +165,6 @@
 				<div id="textStats" style="color:#444;font-size:16px;">
 						<i>Start Typing and you will see stats here</i>
 				</div>
-
-
-
 
 			</div>
 		</div>
@@ -363,21 +384,22 @@
 <container>
 
     <div class="card">
-    <h1 class="covered orange-500 white-text ">Create Groups</h1>
+
+    <h1 class="covered ">Create Groups</h1>
     <i class="material-icons fab h1-connect-fab indigo-500 white-text" onclick="distributeToGroups()">group</i>
 
 
-       <textarea placeholder="Enter Names seperated with comma (,)" class="fill-card" style="border-top:0px" id="groupHolder"></textarea>
+       <textarea placeholder="Enter Names seperated with comma (,)" class="fill-card" style="border-top:0px;padding-left:23px !important;width:760px;" id="groupHolder"></textarea>
     <br>
         Seperate them into groups of:
         <input class="short non-expand" value="2" type="number" id="groupNo"><br>
-        What to do with the remaining men:
+        What to do with the remaining subjects:
             <switch checked="false" id="groupOptions">
                 <span>new trunk group</span>
                 <span>distribute along groups</span>
             </switch>
         <br><hr>
-        <ol id="groupOutput" style="padding-left:15px !important;">
+        <ol id="groupOutput" style="padding-left:0px !important;">
         <i center>Output will be shown here.</i>
         </ol>
     <br><br><hr>
@@ -505,6 +527,9 @@ window.document.onscroll = function(){
 		display: inline-block;
 	}
 </style>
+
+
+
 
 <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
 </html>

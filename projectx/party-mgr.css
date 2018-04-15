@@ -1,0 +1,111 @@
+:root {
+    --primary:#444;
+    --dark-primary:#48f;
+}
+#NineDotMenu {
+    text-shadow:0px 1px 1px #666;
+    color:#222;
+}
+center {
+    font-family: 'Oswald';
+    font-weight: bold;
+    text-transform: uppercase;
+    margin:400px;
+    font-size:72px;
+    position: fixed;
+    left:calc(50% - 492px);
+    top: calc(50% - 492px);
+    text-shadow:0px 1px 1px #444;
+    cursor:progress;
+    transition:all .2;
+    border-bottom:12px solid black;
+}
+center:hover {
+    animation:voila 2s linear infinite alternate, ls 2.5s forwards ;
+}
+@keyframes voila {
+    0%   {color:red;        }
+    10%  {color:orange;     }
+    20%  {color:gold;       }
+    30%  {color:black;       }
+    40%  {color:yellowgreen;}
+    50%  {color:green;      }
+    60%  {color:cyan;       }
+    70%  {color:blue;       }
+    80%  {color:violet;     }
+    90%  {color:magenta;    }
+    100% {color:indigo;     }
+
+    9%   {color:red;        }
+    19%  {color:orange;     }
+    39%  {color:black;       }
+    29%  {color:gold;       }
+    49%  {color:yellowgreen;}
+    59%  {color:green;      }
+    69%  {color:cyan;       }
+    79%  {color:blue;       }
+    89%  {color:violet;     }
+    99%  {color:magenta;    }
+    100% {color:indigo;     }
+}
+@keyframes ls {
+    0% { letter-spacing: 0px; transform:rotateZ(0deg);}
+    100% { letter-spacing: 20px; left:calc(50% - 532px);}
+}
+
+/*SECOND PART*/
+#player, #playersetup {
+    position:fixed;
+    top:250px;
+    left:20px;
+    opacity:.7;
+}
+
+#debug b {
+    position: fixed;
+ background: white;
+
+}
+ #debugSet {
+     background:white;
+ }
+ #debug span, #playersetup span {
+     padding:0 5px;
+     background:#eee;
+     display: inline-block;
+     min-width: 25px;
+ }
+ #debug span:hover, #playersetup span  {
+    font-weight: bold;
+    background:white;
+ }
+
+ #debug span:focus {
+    outline-style: solid;
+    outline-color: #444;
+    outline-width: 1px;
+    outline-offset: 1px ;
+ }
+#debug ,  #playersetup   {
+position:fixed;
+top:20px;
+left:20px;
+width:280px;
+height:200px;
+overflow-y:scroll;
+background:#ddd;
+overflow-x:hidden;
+font-family: monospace;
+font-size:10px;
+opacity: .8;
+}
+#debug:hover , #playersetup:hover{
+opacity:1;
+}
+#playersetup {
+    top:500px;
+    height:100px !important;
+}
+.nodev #debug , .nodev #playersetup, .nodev #player {
+    display: none;
+}

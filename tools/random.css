@@ -110,7 +110,7 @@ background:blue;
   border-radius: 5px;
 }
 #habitHolder section div span:last-child i:hover {
-  background:#81C784;
+  background:var(--light-primary);
 }
 #habitHolder section div span:first-child {
   padding:25px 50% 25px 0px;
@@ -128,10 +128,10 @@ margin-top: -12px;
 #languageHeader {
   position:fixed;
   width: 800px;
-left: 300px;
-right: 0;
-top:10px;
-transition:all 0s;
+  left: 300px;
+  right: 0;
+  top: -56px;
+  transition:all 0s;
 }
 #languages {
   margin-top: 455px;

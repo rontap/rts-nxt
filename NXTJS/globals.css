@@ -1,0 +1,54 @@
+*[block] { display: block; }
+*[in-block] { display: inline-block; }
+*[float] , *[flr] {float:right;text-align: right;}
+*[monospace], mono {font-family:monospace; font-size:15px;}
+*[justify] { text-align:justify; }
+*[padded] { padding-right:60px;}
+
+/* SCROLLBARS */
+
+.sidebar::-webkit-scrollbar {
+    width:10px;
+border-top: 4px solid white;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  cursor:col-resize;
+
+
+}
+.sidebar::-webkit-scrollbar-track-piece:start {
+    background:#fff;
+}
+.sidebar::-webkit-scrollbar-thumb {
+   background:#999;
+	 padding: 10px 0px;
+	 border-radius: 10px;
+}
+.sidebar::-webkit-scrollbar {
+	border:none !important;
+}
+
+body::-webkit-scrollbar {
+    width: .9em;
+   border:1px solid #BBB;
+}
+ *::-webkit-scrollbar {
+    width: 10px;
+    border: 1px solid #3f51b5;
+}
+*::-webkit-scrollbar-track {
+  cursor:col-resize;
+
+}
+*::-webkit-scrollbar-track-piece:start {
+    background:#BBB;
+}
+*::-webkit-scrollbar-thumb {
+  outline: 1px solid slategrey;
+   background:#666;
+
+}
+*::-webkit-scrollbar-thumb:active {
+   background:#48F;
+}

@@ -125,17 +125,7 @@ function switchSideBar() {
 		$('#moreinfo_icon').innerHTML="info_outline";
 	}
 }
-/*$.each($('.omenu'), function(i, el){//animation
-    $(el).css({'opacity':0.1});
-    setTimeout(function(){
-       $(el).animate({
-        'opacity':.8
-       }, 150);
-    },10 + ( i * 100 ));
 
-}
-)
-;*/
 var map = [];
 onkeydown = onkeyup = function(e){
     e = e || event;
@@ -146,17 +136,17 @@ onkeydown = onkeyup = function(e){
     }
     if (map[17] && map[18] ) {
     	setTimeout(function(){
-    		   for (i=0;$(".keyhint").length>i;i++)
+    		   for (i=0;$$(".keyhint").length>i;i++)
 			    	{
-			    	$(".keyhint")[i].style.opacity=0.9;
+			    	$$(".keyhint")[i].style.opacity=0.9;
 			    	}
 
     	},100)
 
     	setTimeout(function(){
-    		   for (i=0;$(".keyhint").length>i;i++)
+    		   for (i=0;$$(".keyhint").length>i;i++)
 			    	{
-			    	$(".keyhint")[i].style.opacity=0;
+			    	$$(".keyhint")[i].style.opacity=0;
 			    	}
 
     	},4000)
@@ -219,17 +209,6 @@ function mapler() {//hinttörlés
 tapcalk= {};
 
 
-/*$.each($('.omenu'), function(i, el){//animation
-    $(el).css({'opacity':0.1});
-    setTimeout(function(){
-       $(el).animate({
-        'opacity':.8
-       }, 150);
-    },10 + ( i * 100 ));
-
-);*/
-
-
 
 function downloadcanvas() {
 
@@ -268,5 +247,4 @@ setTimeout(function(){
 
 },1200);
 
-console.log('UI.js')
-//PORT2
+console.log('TC/UI.js init');

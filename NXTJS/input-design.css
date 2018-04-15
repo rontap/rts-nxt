@@ -1,11 +1,4 @@
-
-
-*[block] { display: block; }
-*[in-block] { display: inline-block; }
-*[float] , *[flr] {float:right;text-align: right;}
-*[monospace], mono {font-family:monospace; font-size:15px;}
-*[justify] { text-align:justify; }
-*[padded] { padding-right:60px;}
+@import url('globals.css');
 /*REGULAR INPUT*/
 
 /* NXT input type design */
@@ -13,26 +6,28 @@
  * elements-design.css
 */
 
-
 /*----------------------------------------------------------------------------*/
 /*text inputs*/
 input:not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="submit"]) {
 	padding:5px;
 	margin:0px 5px;
-	border:1px solid #A1A1A1;
-	background:#F1F1F1;
+	border: 1px solid #bbb;
+	background: #F9F9F9;
 	border-radius: 3px;
 	width:100px;
-	 outline: none;
+	outline: none;
 	transition:all .2s;
 }
 input:not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="submit"]):hover , input.active {
 	background:#FFF;
-	box-shadow: 0px 1px 1px #DDD;
+	box-shadow: 0px 1px 1px #111;
 	width:140px;
 }
 input.non-expand, input.short:not(.non-expand):hover {
 	width:100px !important;
+}
+input.long {
+	width:170px !important;
 }
 input.short {
 	width:60px !important;
@@ -104,9 +99,7 @@ status * {
 /*CSS RANGE*/
 input[type=range] {
     -webkit-appearance: none;
-
     width: 150px;
-
 }
 input[type=checkbox][nxt] {
 display:none;
@@ -169,6 +162,13 @@ textarea ,.textarea {
 input[type=color] {
   height:17px;
 }
+
+/* SECONDARY */
+input[type=range][secondary]::-webkit-slider-thumb,input[type=range][secondary]::-webkit-slider-runnable-track  {
+	background:var(--secondary) !important;
+}
+
+
 /*----------------------------------------------------------------------------*/
 /*0 - 1 checkbox*/ /*multiselect radio*/
 checkbox .material-icons ,radio .material-icons {
@@ -238,10 +238,10 @@ switch[checked="false"] span:first-child , switch[checked="true"] span:last-chil
 
 /*----------------------------------------------------------------------------*/
 /*BUTTONS*/
-button[real], input[real] {
+button[real], input[real] , button[nxt]{
 	cursor:pointer;
     border-radius: 3px;
-    box-shadow: 0px 2px 5px #999;
+    box-shadow:0px  1px  2px #666 ;
     background: var(--dark-primary);
     color: white;
     font-family: 'Montserrat', sans-serif;
@@ -249,30 +249,30 @@ button[real], input[real] {
     font-weight: 300;
     padding: 10px 16px;
     border: none;
-    transition:all .2s;
+    transition:all .3s;
     outline:none;
 
 }
-button[real] .material-icons , input[real] .material-icons{
+button[real] .material-icons , input[real] .material-icons, button[nxt] .material-icons{
   padding: 0;
   font-size: 20px;
   margin: -2px -2px -4px 6px;
   padding-top: 0px;
   vertical-align: -5px;
 }
-button[disabled] {
+button[disabled][real] , button[disabled][nxt] {
   cursor: default;
-  box-shadow: 0px 2px 5px #999 !important;
+ box-shadow:0px  1px  2px #666 ;
 }
-button[real]:hover, button[real]:focus,, input[real]:hover {
-     box-shadow: 0px 2px 7px #666;
+button[real]:hover, input[real]:hover,button[nxt]:hover {
+    box-shadow:0px  2px  5px #666 ;
      background: var(--primary);
+		 transition:all .2s;
     cursor: pointer;
 }
-button[real]:active  , input[real]:active{
-    box-shadow: 0px 2px 5px #333 inset;
+button[real]:active  , input[real]:active, button[nxt]:active {
+    box-shadow: 0px 2px 3px #333 inset;
 }
-
 
 button[flat] {
   border:0px;
@@ -285,63 +285,97 @@ button[flat] {
   transition:.2s ;
 }
 button[flat]:hover {
-  background:rgba(200,200,200,.8);
-
+  background: #ff9800;
 }
 /*SCROLLBARS*/
 
-
-
-.sidebar::-webkit-scrollbar {
-    width:10px;
-border-top: 4px solid white;
+:root {
+	--bg: #2C2F33;
+  --dark-bg: #23272A;
+  --light-bg: #99AAB5;
 }
 
-.sidebar::-webkit-scrollbar-track {
-  cursor:col-resize;
-
-
+button[nxt] , label>div {
+	box-shadow:0px  1px  2px  #222 !important;
+	background:var(--bg);
+	border:1px solid var(--dark-bg);
+	padding:10px;
+	font-size:14px;
 }
-.sidebar::-webkit-scrollbar-track-piece:start {
-    background:#fff;
+button[nxt]:hover, label>div:hover {
+		background:var(--primary);
+		border:1px solid var(--bg);
 }
-.sidebar::-webkit-scrollbar-thumb {
-
-   background:#999;
-	 padding: 10px 0px;
-	 border-radius: 10px;
-}
-.sidebar::-webkit-scrollbar {
-	border:none !important;
+button[nxt]:active, label>div:active {
+	box-shadow:0px  1px  1px  #222 inset !important;
+	background:var(--primary);
 }
 
+/*-- GROUPING THINGS TOGETHER --*/
 
-body::-webkit-scrollbar {
-    width: .9em;
-   border:1px solid #BBB;
+group {
+	display: inline-block;
+	box-shadow:0px  1px  1px  #222 !important;
+	margin-left:20px;
 }
- *::-webkit-scrollbar {
-    width: 10px;
-   border:1px solid #BBB;
+group button[nxt], group * {
+	margin:0px -3px;
+	border-radius:0px !important;
+	box-shadow:0px 0px 0px black !important;
 }
-*::-webkit-scrollbar-track {
-  cursor:col-resize;
-
+group button[nxt]:first-child, group *:first-child{
+	border-top-left-radius: 3px !important;
+	border-bottom-left-radius: 3px !important;
 }
-*::-webkit-scrollbar-track-piece:start {
-    background:#BBB;
-}
-*::-webkit-scrollbar-thumb {
-  outline: 1px solid slategrey;
-   background:#666;
-
-}
-*::-webkit-scrollbar-thumb:active {
-
-   background:#48F;
+group button[nxt]:last-child, group *:last-child  {
+	border-top-right-radius: 3px !important;
+	border-bottom-right-radius:3px !important;
 }
 
+group[vertical]>* {
+	display: block;
+}
+group[vertical] input {
 
+	margin:-2px -1px !important;
+}
+group[vertical] {
+	margin-left:0px;
+	display:inline-block;
+	box-shadow: 1px 1px 3px #666 !important;
+	border-radius:4px !important;
+}
+group[vertical] button[nxt]:first-child,
+group[vertical] *:first-child {
+	border-radius:0px !important;
+	border-top-left-radius: 3px !important;
+	border-top-right-radius: 3px !important;
+}
+group[vertical] button[nxt]:last-child,
+group[vertical] *:last-child  {
+	border-radius:0px !important;
+	border-bottom-left-radius: 3px !important;
+	border-bottom-right-radius:3px !important;
+}
+
+/** MESSAGE BOX  - NEW **/
+/*multiple implementations*/
+
+msg , message, p[message]{
+	display: none;
+}
+msg[open] , message[open], p[message][open]{
+	display: block;
+	border-radius:4px;
+	border:1px solid #F57C00;
+	border:1px solid var(--dark-primary);
+	background:#FFA726;
+	background:var(--primary);
+	color:white !important;
+	padding:0px 15px 20px 15px;
+}
+
+/* SCROLLBARS */
 /*----------------------------------------------------------------------------*/
 /*RATING CHOICE JS REQ*/
 selector {

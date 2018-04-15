@@ -15,16 +15,16 @@
       function drawChart() {
 
         // Create the data table.
-        
+
                 data = google.visualization.arrayToDataTable([
-          ['Szám (bemenet)', 'Kimenet'],
+          ['Input', 'Output'],
            [parseInt(0)+'.', Number(graf[0])]
-          
+
         ]);
         for (i=1;i<graf.length;i++)
         {
         	data.addRows([
-         	 [parseInt(i)+'.', Number(graf[i])],     
+         	 [parseInt(i)+'.', Number(graf[i])],
        		 ]);
        		 console.log(i+graf[i]);
         }
@@ -53,7 +53,7 @@
       {
       if(r.charAt(i)=='-')
       	 {
-      	 
+
       	 tomb[tombs]=Number(szam);
       	 szam='';
       	 tombs++;

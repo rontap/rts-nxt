@@ -109,9 +109,9 @@
         try { if ((bomba[h-1][v])) {korulotte++;} } catch(a) {};
         try { if (bomba[h-1][v+1]) {korulotte++;} } catch(a) {};
         try { if (bomba[h-1][v-1]) {korulotte++;} } catch(a) {};
-        try { if (bomba[h][v-1]) {korulotte++;} } catch(a) {};
-        try { if (bomba[h][v+1]) {korulotte++;} } catch(a) {};
-        try { if (bomba[h+1][v]) {korulotte++;} } catch(a) {};
+        try { if (bomba[h][v-1])   {korulotte++;} } catch(a) {};
+        try { if (bomba[h][v+1])   {korulotte++;} } catch(a) {};
+        try { if (bomba[h+1][v])   {korulotte++;} } catch(a) {};
         try { if (bomba[h+1][v+1]) {korulotte++;} } catch(a) {};
         try { if (bomba[h+1][v-1]) {korulotte++;} } catch(a) {};
 
@@ -186,7 +186,6 @@
         }
 
         endgame = true;
-
         //again();
     }
 
@@ -206,7 +205,7 @@
       if (win && endgame === false) {
 
           //alert('Gratulálunk! Megnyerted a játékot! \n Időd:' + time.innerHTML + '.');
-          nxt.notify("#youWin");
+          nxt.notify("#youWon",12000);
           clearInterval(idotelik);
         for (i=0;i<g_h;i++)
         {

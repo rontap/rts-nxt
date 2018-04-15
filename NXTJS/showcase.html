@@ -16,8 +16,6 @@
 
 	<link rel="stylesheet" href="input-design.css">
 
-
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -51,8 +49,6 @@
 
 		<div class="otitle"><div>Installing</div></div>
 		<div class="omenu" onclick="">Downloads <i class="material-icons">open_in_new</i></div>
-
-
 
 
 </container>
@@ -215,6 +211,13 @@
                     <input class="short" placeholder=".short">
                     <input class="short non-expand" placeholder=".short.non-expand"><br><br>
 										<input nxt placeholder="material-style [nxt]" >
+
+										<br><br>
+										<group vertical>
+												<input placeholder="Name (group)" class="long">
+												<input placeholder="Email" class="long">
+												<input placeholder="Nickname" class="long">
+										</group>
 										<br><br>
                     Range (using HTML5, only available in Chrome)<br>
                     <input type="range" min="0" value="55" max="255" ><br><br>
@@ -224,6 +227,14 @@
                     <button real>[real] button</button>&nbsp;&nbsp;
                     <button real class="blue">send <i class="material-icons">send</i></button>&nbsp;&nbsp;
                     <button real disabled class="orange-500">+[disabled] disabled</button><br><br>
+
+										<button nxt>[nxt] button</button>
+										<group>
+												<button nxt>first button</button>
+												<button nxt>middle button</button>
+												<button nxt>last button</button>
+										</group>
+										<br><br>
 
                     FABs (Floating Primary Action Buttons)<br><br>
                     <i class="material-icons fab" style="color:white;" >play_arrow</i>&nbsp;&nbsp;
@@ -306,7 +317,7 @@
 										<button flat onclick="something.showModal();">DEFAULT</button>
                     <button flat onclick="other.showModal();">DEFAULT W/ INK</button>
 										<button flat onclick="selectL.showModal();">WITH OPTIONS</button>
-										<button flat>NEW EMAIL TEMPLATE</button> 
+										<button flat>NEW EMAIL TEMPLATE</button>
                     <br>
 
                     <toast id="open" onclick="">

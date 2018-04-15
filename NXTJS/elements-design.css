@@ -165,7 +165,7 @@ hr {
     padding: 17px;
     text-align: right;
     border-radius: 100%;
-    box-shadow: 0px 3px 4px #999;
+    box-shadow: 0px 2px 2px #999;
     background: var(--dark-primary);
     transition: all .2s;
 }
@@ -210,9 +210,9 @@ h1.continued {
 }
 holder h1.expand.covered {
                background-size: 100%;
-           padding-top: 220px ;
-           color: white !important;
-           font-weight: 400;
+               padding-top: 210px;
+               color: white !important;
+               font-weight: 400;
 }
 
 .card h2.covered.subtitle ,  .covered.subtitle{
@@ -225,7 +225,7 @@ holder h1.expand.covered {
 .fab.white {
    color:#222;
    background:white;
-       box-shadow: 0px 2px 3px #444;
+   box-shadow: 0px 2px 3px #999;
    float:right;
 }
 .blue {
@@ -324,7 +324,7 @@ toast action[warning] , dialog[nxt] action button[warning] { color:#FF9800; }
 toast action[info]    , dialog[nxt] action button[info]    { color:#B0BEC5; }
 toast action[default]    , dialog[nxt] action button[default]    { color:#666; }
 
-
+@media screen and (min-width: 600px) {
 body.toast-desktop toast {
     margin: 0 auto;
     padding: 16px;
@@ -332,7 +332,17 @@ body.toast-desktop toast {
     left: calc(40% - 120px) !important;
     right: calc(40% - 120px) !important;
 }
+}
 
+@media screen and (max-width: 600px) {
+  body toast {
+    left:0px !important;
+    right:0px !important;
+    border-radius:0px;
+    margin-bottom: -20px !important;
+    padding:20px;
+  }
+}
 /*TOGGLE*/
 toggle {
     display: inline-block;
@@ -342,12 +352,12 @@ toggle {
 }
 toggle::before {
        content: '';
-    display: block;
-    width: 40px;
-    height: 10px;
-    background: #bbb    ;
-    border-radius: 5px;
-    transition: all .2s;
+       display: block;
+       width: 40px;
+       height: 10px;
+       background: #999;
+       border-radius: 5px;
+       transition: all .2s;
 }
 toggle::after {
    content: '';
@@ -441,7 +451,7 @@ chip>i, chip>i.material-icons {
 }
 chip>i.material-icons {
   font-size: 17px;
-  vertical-align: -3px;
+  vertical-align: -3px !important;
 }
 
 chip {
@@ -496,6 +506,8 @@ dialog[nxt][open] {
     border-radius: 4px 4px 2px 2px;
     box-shadow:var(--z-1);
     width: 500px;
+    z-index: 99;
+    /* margin-top: -942px; */
 }
 dialog[nxt] div {
   padding:10px;
@@ -538,6 +550,22 @@ dialog[nxt][open] h1 {
   text-transform: none;
   text-shadow:none !important;
 }
-dialog::backdrop  {
-  transition:.2s all;
+
+dialog::backdrop {
+    z-index:99;
+
+    z-index: 100 !important;
+
+}
+dialog::backdrop {
+    z-index:100;
+      transition:.2s all;
+    
+
+}
+
+
+.omenu.on {
+    border: 1px solid var(--light-primary);
+    border-right-width: 10px;
 }

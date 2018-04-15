@@ -162,6 +162,9 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
     </loader>
 
     <style>
+		loader {
+			z-index: 99;
+		}
     #iconHolder {
 
     margin-top: -57px;
@@ -169,9 +172,17 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
     }
     site {
         background:white;
-        display:none;
+
+				display: block;
         margin-bottom:290px;
     }
+		site  *{
+					transition:opacity .2s;
+					opacity:0;
+		}
+		site.on * {
+				opacity:1;
+		}
     body {
         overflow-x:hidden;
     }
@@ -376,8 +387,9 @@ Proin vel metus nec ex pulvinar fermentum. Cras tincidunt dignissim turpis quis 
         }
         document.fonts.ready.then( function() {
           $('loader').classList.add('hide');
+				
            setTimeout(function(){
-             $('site').style.display="block";
+             $('site').classList.add('on');
              $('#up').style.display="block";
              $('loader').style.display="none";
            },600);

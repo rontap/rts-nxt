@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../NXTJS/icons/tapcalk.png" type="image/png">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-
     <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
 
     <script src="primes.js" type="text/javascript"></script>
@@ -14,8 +12,8 @@
     <link rel="stylesheet" href="tapcalk.css">
     <link rel="stylesheet" href="tapcalkUi.css">
     <link rel="stylesheet" href="../NXTJS/design.css">
-    <link rel="stylesheet" href="../NXTJS/elements-design.css">
-
+    <link rel="stylesheet" href="../NXTJS/elements.css">
+    <link rel="stylesheet" href="../NXTJS/input.css">
     <script src="geocalk.js"></script>
 
     <meta name="description" content="tapcalk calculator">
@@ -46,10 +44,10 @@
             <input placeholder="Keresés..." onkeyup="kutat(kera.value)" id="kera" style="width: 73%;margin-left: -5px" class="">
         </center>
 <br>
-		<div class="omenu" onclick="fillt('formula');" style="margin-top:38px;">Írd be! <span class="keyhint">0</span></div>
+		<!--div class="omenu" onclick="fillt('formula');" style="margin-top:38px;">Írd be! <span class="keyhint">0</span></div-->
 
 	<div id="alapmuveletek" class="otitle"><div>Arithmetics</div></div>
-		<div class="omenu" onclick="fillt('base_');">Négy Alapművelet<span class="keyhint">1</span></div>
+		<div class="omenu" onclick="fillt('base_');">All in One Calculator<span class="keyhint">1</span></div>
 
 		<div class="omenu" onclick="fillt('hatv_');">Gyökvonás & Hatványozás</div>
 		<div class="omenu" onclick="fillt('besz');">Kiemelés és Beszorzás <span class="keyhint">5</span></div>
@@ -143,24 +141,24 @@
 
 
 		<holder class="card" id="tfill">
-			
-			<h1 class="covered" style="color:white;">Welcome to calculator 6.</h1>
-			<p class="p">
-                TAPCALK
-			Ez egy redesign és cleanup változat<br>
-			Ez a számológép az alapűveleteken túl<wbr> bonyolultabb műveletek és összefüggések kiszámítására is használható.<wbr> Így akár a házifeladat megoldásában, akár otthoni, munkahelyi feladatok megoldásában segít.
-			<br><br>
-			<span style="color:#26F;">Használat:</span><br>
-			A második oszlopban lehet kiválasztani a műveletet, amit el szeretnél végezni.<br>
-			A könnyebb eligazodás érdekében csoportokba szedtük a funkciókat.<br>
-			Kérünk vedd vigyelembe, hogy a <blue>TapCalk 5</blue> béta stádiumban van, bárhol előfordulhatnak hibák!<br>
-			</p>
-			Welcome Back, Bitches!
+
+    			<h1 class="covered" >Welcome to tapcalk</h1>
+    			<p class="p">
+                    TAPCALK
+    			Ez egy redesign és cleanup változat<br>
+    			Ez a számológép az alapűveleteken túl<wbr> bonyolultabb műveletek és összefüggések kiszámítására is használható.<wbr> Így akár a házifeladat megoldásában, akár otthoni, munkahelyi feladatok megoldásában segít.
+    			<br><br>
+    			<span style="color:#26F;">Használat:</span><br>
+    			A második oszlopban lehet kiválasztani a műveletet, amit el szeretnél végezni.<br>
+    			A könnyebb eligazodás érdekében csoportokba szedtük a funkciókat.<br>
+    			Kérünk vedd vigyelembe, hogy a <blue>TapCalk 5</blue> béta stádiumban van, bárhol előfordulhatnak hibák!<br>
+    			</p>
+    			Welcome Back, Bitches!
 		</holder>
-	  <div id="tfill2" class="card"></div>
+	  <div id="tfill2" class="card"><!--second filler for some functions--></div>
 	</div>
 		<div id="treganwser"></div>
-    <div id="graphDrawer">
+    <div id="graphDrawer" class="card">
       <i class="material-icons" onclick="$('body').classList.toggle('moreInfoOn');">keyboard_arrow_up</i>
       more info & graphs
 
@@ -168,7 +166,7 @@
     <div id="graphInformationText">
 
         <iframe src="tapcalkgraph.html" id="graph_iframe"></iframe>
-        
+
      <div id="histh">
 		<div class="otitle"><div>History</div></div>
 		<div id="hist">
@@ -182,7 +180,7 @@
 		<div id="infopanell">
 		</div>
 	</div>
-        
+
     </div>
     <style>
         .moreInfoOn #graph_iframe {
@@ -193,6 +191,9 @@
         }
         #graph_iframe {
             opacity:0;
+        }
+        blue {
+          color:#48F;
         }
     </style>
 
@@ -205,8 +206,10 @@
 
 
 <div id="primeListGrid" style="display:none;">
-		<checkbox checked="true" id="ulammegjel" onclick="showmeit();changeChBox(this);">Show Numbers</checkbox>
-		<hr />
+  <h1 class="covered">Primes in a grid</h1><br><br>
+		<toggle  id="ulammegjel" onclick="this.classList.toggle('on');showmeit();"></toggle>Show Numbers |
+    <toggle  id="" onclick="this.classList.toggle('on');body.classList.toggle('fullscreen')"></toggle> Fullscreen
+		<hr /><br>
 		How many Numbers to generate: <input type="number" id="ulamgen">
 		<br />
 					 <table id="prime_tbl"></table>
@@ -225,8 +228,9 @@
 
         <!--TAPCALK 6 express MODULES-->
         <script src="allaboutnumber.js" ></script>
-        <script src="serial.js" tcx-module></script>
-        <script src="sets.js" tcx-module nxt-module></script>
+        <script src="serial.js"    tcx-module></script>
+        <script src="sets.js"      tcx-module nxt-module></script>
+        <script src="eval.tcx.js"  tcx-module></script>
         <script src="conversion.js"></script>
 
 		  <script src="tapcalkUi.js"></script>

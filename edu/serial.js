@@ -31,3 +31,8 @@ tcx.product = function(obj) {
   }
   return value;
 }
+
+/* ADDING FUNCTIONS TO FNS */
+Number.prototype.fact = function() {
+  return Math.factorial(this);
+}

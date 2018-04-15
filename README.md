@@ -1,26 +1,27 @@
+# RONTAP SITES NXT - CHARIOTEER 
+## Release Candidate 2
 
-
-## RONTAP SITES NXT - CHALLENGER
-*Ported originally from version 4.3.2 of RTS4*
-Previous stable: none. Previous RC: Achilles
 *Rolling Stock version:*
 
-**5.7 CHALLENGER**
+**5.8 CHARIOTEER**
 
 ## Recent Changes
 ```
-(+) NEW NOTES++ application under construction,
-(*) MAJOR Design change, more coherent and part of Material Design
-(*) rontapparty X music capture Pre-Release Added and project updated
-(+) PlusOne added
-(+) Husvet 2.0 Added
-(+) Random changed to tools, new RND app in development
+(+) X FILES Music analysing program, ProjectX connect
+(*) Utopia Updated so it works now.
+(*) Tapcalk Express Parsing added
+(*) Microcount works
+(*) ProjectX exploded
+(+) Speed About Added
+(*) Tapcalk UI changed
+(*) File Cleanup
 
---- NXT.JS Updates (1700)
-(*) $_SET temporarly disabled, TB replaced in $_GET
-(+) introduced nxt.location, making requires available from everywhere
-(*) require is quicker now
-(+) CTXmenu, Chips and Dialogs Added
+--- NXT.JS Updates (1800)
+
+(*) css group, new style button and group input added
+(+) css files split into more parts
+(+) dialog windows are used more
+(+) globals.css added for global [float] values and scrollbars
 ```
 
 ## General Changes
@@ -31,9 +32,10 @@ Previous stable: none. Previous RC: Achilles
 
  (+) Added (rewrote) most of RTS3&4 Projects
  (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
- (+) MEK works again. added mek.html for explaining mek, and search.php for searching and exploring the MEK.OSZK archive, with popup
+ (+) MEK OSZK reader works; with search
  (+) Ultron URL Shortener added with admin panel.
  (+) Notes++ and Counter with PHP support
+ (+) Music analyser
 
 ```
 ## Roadmap
@@ -49,24 +51,26 @@ Previous stable: none. Previous RC: Achilles
 ### EDUCATION
 * tapcalk 6 - advanced calculator _stage Design_
 * wiki - wikipedia processor
-* MEK mek.oszk.hu reader **4.5 splash screen added, search added**  moved from web eaters
+* MEK mek.oszk.hu reader  moved from web eaters
 
 ### GAMES
-* mine - Mine game (finished) **updated in 5.6** notifications added. co-written w/ deesnow97
+* mine - Mine game (finished)   co-written w/ deesnow97
 * SuperFarmer - simulation game **5.2** w/ agoston and mate
 * ColorGame - boring color game
-* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) ** updated w/ ai in 5.6 archer**
+* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) ** updated help in 5.8**
 * ProjectX - AKA: rontapparty, szemkieg. - includes six previous variants! slightly offensive **updated in 5.6**
+* utopia - game  (under development) 4.2.3 needs rewrite, partially working
 
-### META
-* index -  rewrote to better suit as landing page
-* rtsmenu - navigate between websites, now with search and settings
+
+### ABOUT : SELF
+* index 
+* rtsmenu - navigate between websites, with search and settings **redesigned in charioteer**
 * ver -  summary of old versions
-* NXT.JS Documentation - provides Style, Coding and dependency information about using NXT.JS **new in 5.5**
+* NXT.JS Documentation - provides Style, Coding and dependency information about using NXT.JS 
 * ULTRON - URL shortener and API, downloadable. **new in 5.6 archer**
 
 ### TOOLS 3
-* PlusOne counter **new in archer**
+* PlusOne counter 
 * Notes++ **new in challenger**
 * timer and stopper
 * text editor and text analyser
@@ -74,25 +78,24 @@ Previous stable: none. Previous RC: Achilles
 * text and color generator
 * music player
 * habit counter
-* **clocker - 5.5 edited controls**
+* **clocker**
   * timeflow clock -  fancy clock (co-created with bobarna and fuiszgt)
   * circle clock - set reminders and use stopwatch
   * binary clock - binary clock
 * mulitiplix **postponed**
 * languages
+* **XFiles** music analyser **new in charioteer**
 
-### Random
+### RANDOM STUFF
 Split of from tools; unsure implementation **challenger**
 * do-not-smoke
 * husvet (hungarian event)
-* color time
+* color time **updated**
 * riches (hungarian politicians)
 
 
 ###INACTIVE/CANCELLED PROJECTS
-* grimm - a Simulation Towerdefense game - (not updated not working)
-* kikerdezo_offline - advanced learning tool  ot included, 4.1.0, needs rewrite
-* utopia - game  (under development) 4.2.3 needs rewrite, partially working
+* kikerdezo_offline - advanced learning tool not included, 4.1.0, needs rewrite
 
 ## Previous versions
 > 5.1 SOTON _main focus: random and tapcalk redesign_ 17/10/13-17/10/17
@@ -117,7 +120,9 @@ Split of from tools; unsure implementation **challenger**
 
 > 5.7 CHALLENGER (Preview) 18/03/17
 
-> 5.7.2 CHALLENGER ...
+> 5.7.2 CHALLENGER 
+
+> 5.8 CHARIOTEER (RC3) _XFiles, design tweaks_ 15/04/18 Spring break
 
 ### Upcoming versions
-Challanger, Charioteer (RC3), Conway, Underwood (NXT 2).
+Conway, Underwood (NXT 2).

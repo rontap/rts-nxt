@@ -8,79 +8,18 @@
 	<link rel="icon" href="NXTJS/icons/tools.png" type="image/png">
 	<meta name="theme-color" content="#FF9800">
 
-    <link rel="stylesheet" href="NXTJS/elements-design.css">
+  <link rel="stylesheet" href="NXTJS/elements-design.css">
 	<link rel="stylesheet" href="NXTJS/design.css">
 	<link rel="stylesheet" href="NXTJS/input-design.css">
 	<link rel="stylesheet" href="NXTJS/mobile.css">
 
-	<link rel="stylesheet" href="random/music.css">
-	<link rel="stylesheet" href="random/random.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
 </head>
 
-<style>
-    :root {
-        --primary:#444;
-        --dark-primary:#48f;
-    }
-    #NineDotMenu {
-        text-shadow:0px 1px 1px #666;
-        color:#222;
-    }
-    center {
-        font-family: 'Oswald';
-        font-weight: bold;
-        text-transform: uppercase;
-        margin:400px;
-        font-size:72px;
-        position: fixed;
-        left:calc(50% - 492px);
-        top: calc(50% - 492px);
-        text-shadow:0px 1px 1px #444;
-        cursor:progress;
-        transition:all .2;
-        border-bottom:12px solid black;
-    }
-    center:hover {
-        animation:voila 2s linear infinite alternate, ls 2.5s forwards ;
-    }
-    @keyframes voila {
-        0%   {color:red;        }
-        10%  {color:orange;     }
-        20%  {color:gold;       }
-        30%  {color:black;       }
-        40%  {color:yellowgreen;}
-        50%  {color:green;      }
-        60%  {color:cyan;       }
-        70%  {color:blue;       }
-        80%  {color:violet;     }
-        90%  {color:magenta;    } 
-        100% {color:indigo;     }
-
-        9%   {color:red;        }
-        19%  {color:orange;     }
-        39%  {color:black;       }
-        29%  {color:gold;       }
-        49%  {color:yellowgreen;}
-        59%  {color:green;      }
-        69%  {color:cyan;       }
-        79%  {color:blue;       }
-        89%  {color:violet;     }
-        99%  {color:magenta;    } 
-        100% {color:indigo;     }
-    }
-    @keyframes ls {
-        0% { letter-spacing: 0px; transform:rotateZ(0deg);}
-        100% { letter-spacing: 20px; left:calc(50% - 532px);}
-    }
-</style>
 <body>
-
-	
-
 	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('');">apps</i>
 
 
@@ -91,85 +30,26 @@
     <hrs>
         <hr>
     </hrs>
-    <pivot> 
+    <pivot>
         <div id="pivPoint" class="ok">&nbsp;</div>
         <footer>
-                <toggle onclick="party.bnw();" id="bmwSwitch"> </toggle> Racial Segregation | 
+                <toggle onclick="party.bnw();" id="bmwSwitch"> </toggle> Racial Segregation |
                 <toggle onclick="party.title();" id="titleSwitch"  class="on"> </toggle> Show "Party!" |
-                <toggle onclick="this.classList.toggle('on');$('hrs').classList.toggle('transon');" id="nm"> </toggle> Transition | 
+                <toggle onclick="this.classList.toggle('on');$('hrs').classList.toggle('transon');" id="nm"> </toggle> Transition |
 
-                <input type="range" min="1" value="1" max="100" style="width:60px;vertical-align: 4px;" onchange="party.setHR(this.value)"> Workers  | 
+                <input type="range" min="1" value="1" max="100" style="width:60px;vertical-align: 4px;" onchange="party.setHR(this.value)"> Workers  |
                 <input type="range" min="1" value="10" max="100" style="vertical-align: 4px;" onchange="party.timeout=this.value*10"> Slowness |
                 <input type="range" min="5" value="100" max="100" style="width:100px;vertical-align: 4px;" onchange="party.probs=this.value/100"> Work Ethic
         </footer>
     </pivot>
 
     <style>
-        hrs.transon hr {
-            transition:.2s linear;
-        }
-        hr {
-            position: fixed;
-            bottom: 0; top:0; right:0; left:0;
-            background:transparent;
-            border:none;
-            margin:0px;
-            height:100%;
-            z-index: -1;
-        }
-            #pivPoint {
-        width:10px;
-        height:10px;
-        border-radius:100%;
-                background:#999;
-                text-align:Center;
-                display:inline-block;
-                position: absolute;
-                left:calc(50% - 7px);
-                right:0;
-                margin-top: -22px;
-                border:1px solid #666;
-                cursor: help;
-                transition:all .2s;
-                
-    }
-        pivot {
-           display: block;
-            position:fixed;
-            bottom:-55px;
-            left:0;
-            right:0;
-            height:55px;
-            transition:all .2s;
-            border-top:20px solid transparent;
-        }
-        pivot:hover {
-            bottom:0px;
-        }
-        pivot:hover #pivPoint {
-      
-            margin-top: -5px;
-        }
-        footer {
-            height:55px;
-            padding-top:15px;
-            border-top:1px solid #999;
-            padding-left:20px;
-            color:#222;
-            background:white;
-        }
-        body {
-            display: block;
-            height:100%;
-            position:fixed;
-            top:0;
-            bottom:0;
-        }
+
     </style>
 
     <script>
     party = {};
-    
+
     party.timeout = 333; //set timeout config time;
     party.allowed = true; //disable party
     party.theme = "random";
@@ -180,11 +60,12 @@
     party.isGuided = true;
     party.runTimeIndex = 1; //how many times the program has been looped
     party.videoStartTime = 0;
-    party.videoURL = "Phe5rl2je3k";
+    party.videoURL = "ironman.mp3";
 
     party.update = function() {
-        if (party.runTimeIndex<2) { 
-            player.seekTo( party.videoStartTime ,true ); 
+        if (party.runTimeIndex<2) {
+            //player.seekTo( party.videoStartTime ,true );
+						audioctrl.play();
             if (!(party.isGuided)) $('body').classList.add('nodev');
         }
         if (party.allowed) {
@@ -205,8 +86,8 @@
         }
 
         setTimeout(function(){
-            
-            
+
+
             if (party.isGuided) party.parseMode();
 
             party.runTimeIndex++;
@@ -229,7 +110,7 @@
     }
 
     party.title = function() {
-        
+
         if (party.ui) {
             party.ui=false;
             $("#titleSwitch").classList.remove('on');
@@ -257,13 +138,13 @@
     party.parseMode = function() {
             party.timeout = Math.abs( parser.record[ party.runTimeIndex ].time -   parser.record[ party.runTimeIndex -1].time);
 
-            if (parser.record[ party.runTimeIndex ].theme!="*") 
+            if (parser.record[ party.runTimeIndex ].theme!="*")
                 party.theme = parser.record[ party.runTimeIndex ].theme;
 
-            party.setHR(parser.record[ party.runTimeIndex ].bars || 1 ); 
+            party.setHR(parser.record[ party.runTimeIndex ].bars || 1 );
             console.log(parser.record[ party.runTimeIndex ], party.runTimeIndex);
             $('#currElement').innerHTML=String(party.runTimeIndex).padStart(2).replace(/\s/g,"&nbsp;");
-            
+
     }
 
 
@@ -274,7 +155,7 @@
         console.log(event);
         if (event.code == "Space") party.allowed=false;
         if (event.key == "Control") parser.reg();
-        
+
     }
     window.onkeyup = function() {
         if (event.code == "Space") party.allowed=true;
@@ -286,7 +167,7 @@
 finally {
     console.log('not on 000');
 };
-   
+
     </script>
 
     <div id="debug">
@@ -296,123 +177,30 @@ finally {
                 Adjust settings Later<br>
 
         </div>
-    
+
         <br>
         <div id="debugSet">
-            
-           
+
+
             <span id="currElement">###</span>
             <span onclick="party.runTimeIndex=1;player.stopVideo();">reset</span>
             URL:
             <span onclick="toURL()">update</span>/<span onclick="location.hash=''">flsuh</span>
-            
+
         </div>
 
 
-       
+
     </div>
     <div id="player"></div>
     <div id="playersetup">
-        <b>Video Settings</b><br>
-        <span onblur="party.videoURL=this.innerHTML" contenteditable style="width:100px">_o-XIryB2gg</span> video URL ID<br>
+        <b>Audio Settings</b><br>
+				<audio controls src="ironman.mp3" id="audioctrl"></audio>
+        <span onblur="audioctrl.src=this.innerHTML" contenteditable style="width:100px">ironman.mp3</span> video URL ID<br>
         <span onblur="party.videoStartTime=Number(this.innerHTML)" contenteditable>0</span> video start time<br>
     </div>
-    <script>
-            // 2. This code loads the IFrame Player API code asynchronously.
-            var tag = document.createElement('script');
-      
-            tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      
-            // 3. This function creates an <iframe> (and YouTube player)
-            //    after the API code downloads.
-            var player;
-            function onYouTubeIframeAPIReady() {
-              player = new YT.Player('player', {
-                height: '200',
-                width: '200',
-                videoId: party.videoURL,
-                suggestedQuality: 'small',
-                events: {
-                  'onReady': onPlayerReady,
-                  'onStateChange': onPlayerStateChange
-                }
-              });
-            }
-            function onPlayerReady(event) {
 
-           }
-            // 4. The API will call this function when the video player is ready.
-
-            function onPlayerStateChange(event) {
-                
-              
-            }
-
-           
-            function stopVideo() {
-              player.stopVideo();
-            }
-          </script>
-
-
-    <style>
-        #player, #playersetup {
-            position:fixed;
-            top:250px;
-            left:20px;
-            opacity:.7;
-        }
-        
-        #debug b {
-            position: fixed;
-         background: white;
-
-        }
-         #debugSet {
-             background:white;
-         }
-         #debug span, #playersetup span {
-             padding:0 5px;
-             background:#eee;
-             display: inline-block;
-             min-width: 25px;
-         }
-         #debug span:hover, #playersetup span  {
-            font-weight: bold;
-            background:white;
-         }
-
-         #debug span:focus {
-            outline-style: solid;
-            outline-color: #444;
-            outline-width: 1px;
-            outline-offset: 1px ;
-         }
-    #debug ,  #playersetup   {
-        position:fixed;
-        top:20px;
-        left:20px;
-        width:280px;
-        height:200px;
-        overflow-y:scroll;
-        background:#ddd;
-        overflow-x:hidden;
-        font-family: monospace;
-        font-size:10px;
-        opacity: .8;
-    }
-    #debug:hover , #playersetup:hover{
-        opacity:1;
-    }
-    #playersetup {
-            top:500px;
-            height:50px !important;
-        }
-        .nodev #debug , .nodev #playersetup, .nodev #player {
-            display: none;
-        }
-    </style>
 </body>
-<script src="projectx.parser.js" type="text/javascript"></script>
+<link rel="stylesheet" href="projectx/party-mgr.css">
+<link rel="stylesheet" href="projectx/party-ui.css">
+<script src="projectx/party-parser.js" type="text/javascript"></script>

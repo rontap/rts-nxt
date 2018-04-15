@@ -3,11 +3,11 @@
           -webkit-animation:showme .8s ;
           -webkit-animation-delay:1.5s;
           -webkit-animation-fill-mode: forwards;
- margin-top:50px;   
+ margin-top:50px;
 
- 
+
 }
- 
+
 h1.big:before {
     position: absolute;
     content: '';
@@ -15,8 +15,8 @@ h1.big:before {
     height: 50px;
     background:#48f;
     margin-top: 10px;
-    margin-left: 60px;    
-     
+    margin-left: 60px;
+
         -webkit-animation:growup 1s ;
         -webkit-animation-fill-mode: forwards;
         -webkit-animation-delay:1s;
@@ -25,7 +25,7 @@ h1.big:before {
         color:transparent !important;
        margin-top:50px;
        -webkit-animation:slideupa .8s ;
-        -webkit-animation-fill-mode: forwards; 
+        -webkit-animation-fill-mode: forwards;
         -webkit-animation-delay:1.5s;
     }
     @-webkit-keyframes growup {
@@ -41,10 +41,10 @@ h1.big:before {
         0% {opacity:0;margin-top:70px;}
         100%{opacity:1;margin-top:50px;}
     }
-    
 
-    
-    body {margin:0;padding:0;}
+
+
+    body {margin:0;padding:0;background: white;}
 #namecon h1.big {
     font-family: 'Titillium Web', sans-serif;
     font-weight: 400;
@@ -54,10 +54,9 @@ h1.big:before {
     font-size:50px;
     margin-left:calc(50% - 85px);
     position: fixed;
-   bottom:0px;
+    bottom: -14px;
     color:#222;
     /*margin-top:200px;*/
-    
 }
     #mainwrap {
         z-index: -1;
@@ -81,7 +80,7 @@ h1.big:before {
         box-shadow: 0px 2px 6px #666;
     }
     /*actual code*/
-    player, portal, laser, checkpoint, money, key, lock, focus, p-portal,p-laser ,wall,.bullet {
+    player, portal, laser, checkpoint, money, key, lock, focus, p-portal,p-laser ,wall,.bullet ,u-block{
         position: absolute;
     }
     player {
@@ -106,14 +105,14 @@ h1.big:before {
     wall {
         background: #666;
         width: 50px;
-        height: 4px;   
+        height: 4px;
     }
     wall.top    {  }
     wall.left   { transform: rotate(90deg); margin-top: 23px; margin-left: -23px; }
     wall.right  { transform: rotate(90deg); margin-top: 23px; margin-left:  23px; }
     wall.bottom {  margin-top: 46px; }
-    
-    
+
+
     portal {
         position: absolute;
         background:#48f;
@@ -134,7 +133,7 @@ h1.big:before {
     portal.left   { margin: 24px -16px;  transform: rotate(90deg); }
     portal.right  { margin: 24px 31px ;  transform: rotate(90deg); }
     portal.bottom { margin: 49px 7px; }
-    
+
     portal.top.on    { margin: -4px 0px; }
     portal.left.on   { margin: 24px -16px;  /*NOT IMPLEMENTED*/}
     portal.right.on  { margin: 23px 27px;  }
@@ -150,7 +149,7 @@ h1.big:before {
     p-portal.bottom.on {-webkit-animation:portal-poss-bottom 1s infinite;}
     p-portal.left.on   {-webkit-animation:portal-poss-left   1s infinite; margin:19px;}
     p-portal.right.on  {-webkit-animation:portal-poss-right  1s infinite; margin:19px;}
-    
+
     @-webkit-keyframes portal-poss-top{
         0%   {opacity: .4; margin-top:0px; }
         80% {opacity:.8; margin-top:-30px;}
@@ -171,8 +170,8 @@ h1.big:before {
         80% {opacity:.8;margin-left:65px;}
         100% {opacity:0;margin-left:65px}
     }
-    
-    /*LASERS*/   
+
+    /*LASERS*/
     laser {
         background: #F44;
         width: 35px;
@@ -185,7 +184,7 @@ h1.big:before {
     p-laser {
         background: #283593;
         margin:5px 25px;
-        width: 1px; 
+        width: 1px;
         transition: .3s;
     }
     p-laser.on {
@@ -193,7 +192,7 @@ h1.big:before {
         width: 25px;
         margin:5px 12px;
     }
-    
+
     /*checkpoint*/
     checkpoint, placed-mine /deep/ #Mine {
          width: 20px;
@@ -204,12 +203,12 @@ h1.big:before {
         border:2px solid #4CAF50;
         transition: background .4s;
         box-shadow: 0px 0px 1px #ddd;
-        
+
     }
     checkpoint.on {
-        background: #4CAF50;   
+        background: #4CAF50;
     }
-    
+
     /*money*/
     money {
          width: 10px;
@@ -226,7 +225,7 @@ h1.big:before {
         height: 50px;
         opacity:0;
     }
-    
+
     /*key & lock*/
     key,lock {
         width: 10px;
@@ -248,13 +247,13 @@ h1.big:before {
     }
     .hovel {
         -webkit-animation:zfade 1s;
-        opacity:0;   
+        opacity:0;
     }
     @-webkit-keyframes  zfade {
         0% {opacity:1;}
         100% {margin:-15px;width:80px;height:80px;opacity:0;}
     }
-    
+
     /*U-BLOCK*/
     u-block.on /deep/ #uBlock {
                     opacity:.4;
@@ -264,8 +263,8 @@ h1.big:before {
         opacity:.1;
          transition:opacity .4s;
     }
-    
-    /*FOCUS*/ 
+
+    /*FOCUS*/
      focus {
         border: 3px #666 dashed;
         position: fixed;
@@ -280,10 +279,10 @@ h1.big:before {
 	0%{transform: rotate(0deg);}
 	100%{transform: rotate(360deg);}
 	}
-    
+
     placed-mine.on /deep/ #Mine {
         -webkit-animation:defuses 6s ease-in;
-        -webkit-animation-fill-mode: forwards; 
+        -webkit-animation-fill-mode: forwards;
     }
     @-webkit-keyframes defuses {
         0% {transform:rotate(0deg);}
@@ -319,4 +318,21 @@ h1.big:before {
         width:100%;
         top: 50%;
         margin-top: -100px;
+    }
+
+    /**/
+    u-block {
+      display:block;
+      background:#444;
+      width:50px;
+      height:50px;
+    }
+    u-block[lava] {
+      background:#F44;
+    }
+    u-block[key].open {
+      opacity:.1;
+    }
+    u-block[key].on {
+      opacity:.3;
     }

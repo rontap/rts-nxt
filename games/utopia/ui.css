@@ -41,10 +41,9 @@
     padding:20px;
 }
 .collkey {
-  margin-top: -52px !important;
+  margin-top: 8px !important;
   margin-left: 81px;
-  border-spacing: 4px
-    
+  border-spacing: 4px;
 }
 .collkey tr td:not(:first-child) {
     transition:all .4s; /*TODO fancy effect*/
@@ -83,9 +82,14 @@ body:not(.edit) #editar {
 }
 #editar {
       position: fixed;
-  right: -6px;
-  width: 248px;
-  margin-top: 23px;
+      right: 0px;
+      width: 260px;
+      margin-top: 23px;
+      padding: 10px;
+      height: 200px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border: 1px solid #999;
 }
 #editar #blocks div {
       width: 100px;

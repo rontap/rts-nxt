@@ -60,7 +60,7 @@
         <div>
           <var is="Players[1].cards.length">???</var> Cards
           <div onclick="touchControl('ControlRight')">SHIFT</div>
-          Hanging <toggle></toggle> 
+          Hanging <toggle></toggle>
         </div>
     </holder>
 
@@ -70,7 +70,7 @@
 <div id="startScreen" class="card" style="padding:0px;">
   <div class="chip" onclick="$('body').classList.add('aiselect');">Player VS AI</div>
   <div class="chip" onclick="$('body').classList.add('single');">Player VS Player</div>
-  <div class="chip">Help & Guide</div>
+  <div class="chip" onclick="location.href='about.html'">Help & Guide</div>
   <div class="chip" onclick="nxt.notify('#about',8000);">About</div>
 </div>
 <div id="aiDifficulty" class="card" style="padding:0px;">
@@ -86,7 +86,6 @@
 <script type="text/javascript" src="player.class.js"></script>
 
 <script type="text/javascript" src="main.js" charset="UTF-8"> </script>
-<script src="about.js" type="text/javascript"></script>
 <script src="../../NXTJS/sets.js" type="text/javascript"></script>
 <script src="../../NXTJS/design-notifications.js" type="text/javascript"></script>
 <script src="ai.js" type="text/javascript"></script>

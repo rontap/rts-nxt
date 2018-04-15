@@ -1,4 +1,4 @@
-
+ 
 # JÁTÉKSZABÁLY
 A játékot két játékos játssza egymás ellen: céljuk hogy a saját kártyapaklijukat ki tudják pakolni a képernyő közepén levő két kártyára. A középső kártyákra azonban csak a maguk elé kihelyezett öt kártyák közül rakhatnak. A kártyák csak a francia kártya sorrendjében helyezhetők egymásra, vagy növekvő vagy csökkenő irányban.
 

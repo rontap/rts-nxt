@@ -16,7 +16,7 @@
 //PROGRAM
 //INITALIZING--------------------------------------------------------------------
 
- 
+
 tcx = {}; //initialising TapCalk Express -> all of the API functions will be slowly ported
 tcx.packages=["calknew-core"];
 abc = ["a","b","c","d","e","f","g","h","i","j"];
@@ -27,9 +27,9 @@ inpn=2; //inputszám a HaMiSaN-hoz
 halmaz=[];
 functions=[];
 validatenumber=true;
-for (a=0;a<5;a++) {
-halmaz[a]=[];
-}
+	for (a=0;a<5;a++) {
+	halmaz[a]=[];
+	}
 inpnadd='<button class="inp-text" onClick="addinpn();">Új szám</button>';
 a =new Date();
 chart='';//grafikonos kirajzoláshoz szűkséges változó
@@ -42,7 +42,7 @@ function makeinput(mal,out) {//legeneralja az input mezőket
 for (i=1;i<=mal;i++)
 	{
 
-		window['input'+i]='<input type="text" class="inp-text-short"  placeholder="5"  ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)"  ondragleave="return dragOver(event)" ondragover="event.preventDefault()"  id="ino'+i+'" >';
+		window['input'+i]='<input type="text" class="inp-text-short"  placeholder="'+Math.randInt(100)+'"  ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)"  ondragleave="return dragOver(event)" ondragover="event.preventDefault()"  id="ino'+i+'" >';
 	}
 
 for (i=1;i<=out;i++)
@@ -51,8 +51,6 @@ for (i=1;i<=out;i++)
 		window['output'+i]='<span class="outputtext" ran="'+Math.random()+'" id="ouo'+i+'"></span>';
 	}
 }
-
-
 
 
 function fillt(c) {
@@ -67,11 +65,9 @@ function fillt(c) {
 switch (c)
 {
 	case "base_" :
-                tfill.innerHTML ='<h1 class="covered indigo-disabled">Alapműveletek</h1>';
-				tfill.innerHTML+='<h2 >Összeadás:</h2>'+input1+"+"+input2+"= "+output1+"<br>";
-				tfill.innerHTML+='<h2 >Kivonás:</h2>'+input3+"-"+input4+"= "+output2+"<br>";
-				tfill.innerHTML+='<h2 >Szorzás:</h2>'+input5+"×"+input6+"= "+output3+"<br>";
-				tfill.innerHTML+='<h2 >Osztás:</h2>'+input7+"÷"+input8+"= "+output4+"<br>";
+        tfill.innerHTML ='<h1 class="covered indigo-disabled">express calculator</h1>';
+				tfill.innerHTML+='<h2 >input the formula:</h2><div id="AIO">'+input1+ "<br><br>"+output1+"</div>  ";
+
 				break;
 	case "hatv_" :
                 tfill.innerHTML ='<h1 class="covered indigo-disabled">Gyökvonás</h1>';
@@ -81,7 +77,7 @@ switch (c)
 				ino3.style.width="40px";
 		    tfill2.style.display="block";
                 tfill2.innerHTML ='<h1 class="covered green ">Hatványozás</h1>';
-				tfill2.innerHTML+='<h2>Négyzetre emelés:</h2>'+input4+"<sup>2</sup>="+output4+"<br>";
+				tfill2.innerHTML+='<h2>Négyzetre emelés:</h2>'+input9+"<sup>2</sup>="+output9+"<br>";
 				tfill2.innerHTML+='<h2>N-edikre emelés</h2>'+input5+"<sup>"+input6+"</sup>= "+output5+"<br>";
 				tfill2.innerHTML+='<br><button onClick="fillt('+"'negyzet'"+');">Négyzetszámok</button>';
 				ino3.style.width="40px";
@@ -154,9 +150,9 @@ switch (c)
 				//SZAMRENDSZER
 
 	case "szamrend" :
-				tfill.innerHTML ='<h1 class="covered indigo-disabled" >Számrendszerek</h1>';
-				tfill.innerHTML+='';
-				tfill.innerHTML+='Átváltás '+input1+'-ből'+input2+'-ba.<br>A szám:  '+input3+' <br>'+output1;
+				tfill.innerHTML ='<h1 class="covered indigo-disabled" >Number Systems</h1>';
+				tfill.innerHTML+='<br>';
+				tfill.innerHTML+='Change from '+input1+' To: '+input2+'<br><br>The Number:  '+input3+' <br>'+output1;
 				//GEOMETRIE
 				break;
 	//MESELJ
@@ -181,7 +177,7 @@ switch (c)
 				break;
 	case 'kamat' :
 				tfill.innerHTML='<h1 class="covered indigo-disabled" >Katamszámítás</h1><br><br>';
-				tfill.innerHTML+='Alaptőke: '+input1+'<br>Kamat (%): '+input2+' <br>futamidő (egység): '+input3+' <br>'+output1;
+				tfill.innerHTML+='Alaptőke: '+input1+'<br><br>Kamat (%): '+input2+' <br><br>futamidő (egység): '+input3+' <br><br>'+output1;
 				ino2.style.width="40px";
 				break;
 	case 'atl_' :
@@ -286,65 +282,25 @@ function calkr(call)
 	{
 		if ((window['ino'+j]!=undefined))
 		{
-				console.log(window['ino'+j].value);
-			if (validatenumber==false)
-			{
-				window['in'+j]=window['ino'+j].value;
-				console.log('unvalidated')
-			}
-			else if ((window['ino'+j].value!=undefined)&&(window['ino'+j].value!="")){
-				 if (window['ino'+j].value=="=PI")
-				{
-					//window['in'+j]=Math.PI;
+				if (window['ino'+j].value!=undefined) {
+					console.log(window['ino'+j].value);
+					if ( tcx.eval(window['ino'+j].value).valid )
+						window['in'+j]=tcx.eval(window['ino'+j].value).value;// a szamokat atalakitja
+						//new using tcx eval
+					else
+						window['in'+j]=window['ino'+j].value;
+						//if "invalid" input for evaling, it must be something special
+				// NXT charioteer replaced conversion with new tcx.eval
 				}
-				else if (window['ino'+j].value=="=E")
-				{
-					window['in'+j]=Math.E;
-				}
-				else if (0<=window['ino'+j].value.search("SQRT") && 0==window['ino'+j].value.search("="))
-				{
-					test=window['ino'+j].value;
-					test=test.slice(5,String(test).length);
-					window['in'+j]=Math.sqrt(test);
-				}
-				else if (0<=window['ino'+j].value.search("!") && 0==window['ino'+j].value.search("="))
-				{
-					window['in'+j]=Math.factorial(window['ino'+j].value);
-				}
-				else if (0<=window['ino'+j].value.search("RANDF") && 0==window['ino'+j].value.search("="))
-				{	//egész
-					test=window['ino'+j].value;
-					test=test.slice(6,String(test).length);
-					if (test=="") test=1;
-					window['in'+j]=Math.randInt(test);
-				}
-				else if (0<=window['ino'+j].value.search("RANDOM") && 0==window['ino'+j].value.search("="))
-				{
-					test=window['ino'+j].value;
-					test=test.slice(7,String(test).length);
-					if (test=="") test=1;
-					window['in'+j]=Math.random()*test;
-				}
-				else if (0==window['ino'+j].value.search("="))
-				{
-					test=window['ino'+j].value;
-					test=test.slice(1,String(test).length);
-					window['in'+j]=eval(test);
-				}
-				else {
-
-				window['in'+j]=Number(window['ino'+j].value);// a szamokat atalakitja
-				}
-
 			}//validate
 		}
 
-	}
+
 	validatenumber=true;
 	chart='';
 	althist=false;
-	precalkr(call);
-	nxt.parseDocument();
+	precalkr(call); //PRE Calculation
+	nxt.parseDocument(); //reparsing everything
 	}
 
 //-MAIN-CALCULATION----------------------------------
@@ -354,12 +310,8 @@ function calkr(call)
 	switch (eventfire)
 {
 		//ALAPMŰVELETEK
-	case "base_" : outcall(in1+in2,1);
-				 outcall(in3-in4,2);
-
-				 outcall(in1*in2,3)
-				 if (in4!=0)	outcall(in3/in4,4);
-
+	case "base_" :
+					outcall(in1,1);
 				 break;
 
 		case "hatv_" :
@@ -367,7 +319,7 @@ function calkr(call)
 				 outcall(Math.pow(in2, 1/3),2);
 				 outcall(Math.pow(in4, 1/in3),3);
 
-         outcall(in1*in1,4);
+         outcall(in9*in9,9);
 				 outcall(Math.pow(in2,in3),5);
 				 break;
 		case "besz" :
@@ -827,7 +779,7 @@ function calkr(call)
 
 	vanouo=true;i=0;
         reloadGraphFrame();
-        
+
 		}
 function sortit(a,b){
 return(a-b)
@@ -909,19 +861,6 @@ function addhalm()
 
 }
 
-function gochart() {
-
-//rjsx.notify("Grafikon betöltése...","blue")
-
-calkr(eventfire);
-
-myWindow=window.open('','','width=650,height=300')
-myWindow.document.location="tapcalkgraph.html#"+chart;
-myWindow.title="Tapcalk 5 grafikon";
-myWindow.resizable=false;
-myWindow.focus();
-
-}
 
 //---------------------------------------------------
 //----HALMAZMŰVELETEK--------------------------------
@@ -951,11 +890,8 @@ else {
 }
 
 
-//----------------------------------------------------------------------
-//ROMAI---------------------------------------------------------------------------------------------ATVALT---------
-//----------------------------------------------------------------------
+/**END OF FILE**/
 
-/**end**/
-
-/*1367 TC6 Design begins*/
-/*968  TC6 eXpress begins 17-12*/
+/* 1367 TC6 Design begins*/
+/* 968  TC6 eXpress First 17-12 TCX*/
+/* 900  TC6 eXpress Update II 18/Marc/26  **  tcx.eval added */

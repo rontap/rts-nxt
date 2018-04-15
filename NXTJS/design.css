@@ -156,21 +156,26 @@ container.sidebar {
     font-weight: 300;
     margin: none !important;
     z-index: 10;
-     border-radius:0px;
+    border-radius:0px;
+    overflow-x: hidden;
 }
 
 
 .omenu {
     font-size: 18px;
-    padding: 9px 20px;
-    transition: border 0.2s, background 0.2s, opacity .4s, height .4s, padding .3s, color .2s;
+    padding: 8px 20px;
+    transition: border 0.2s, background 0.3s, opacity .4s, height .4s, padding .3s, color .2s;
     min-height: 23px;
     overflow: hidden;
-    overflow-y: ;
+    overflow-y:;
+    margin: 5px 10px;
+    border-radius: 4px;
+    /* opacity: 0.5; */
+    border: 1px solid transparent;
 }
 
 .omenu:hover {
-    background: var(--dark-primary);
+    background: var(--primary);
     cursor: pointer;
     color: #fff;
 }
@@ -185,7 +190,7 @@ container.sidebar {
     margin-bottom: 5px;
     padding-top: 5px;
     color: white;
-    transition: all .2s;
+    transition: all 200ms 0ms;
 }
 
 .otitle div {
@@ -232,11 +237,11 @@ container.sidebar {
 
 .sidebar .omenu::before {
     content: '';
-    height: 8px;
-    width: 8px;
+    height: 9px;
+    width: 9px;
     position: absolute;
-    margin-top: 7px;
-    margin-left: 240px;
+    margin-top: 6px;
+    margin-left: 215px;
     border-radius: 6px;
     transition: all .2s;
 }

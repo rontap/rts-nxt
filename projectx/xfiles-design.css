@@ -1,0 +1,164 @@
+body>div:not(#progress) {
+  margin:30px;
+  margin-top:0px;
+  padding: 5px !important;
+}
+#ssumLINE b {
+  background: var(--primary);
+  width: 100%;
+  display: block;
+  height: 300px;
+  text-align: center;
+  padding-top: 40px;
+  font-size: 21px;
+  font-weight: lighter;
+  box-shadow:0px 0px 2px  var(--dark-primary) inset;
+}
+:root {
+  --bluite:#2196F3;
+  --discord:#36393f;
+  --secondary:#2196F3;
+}
+nav {
+  box-shadow: 0px 2px 3px #1b1e22;
+}
+#canvas {
+  display: block;
+  position: fixed;
+  border: 1px solid var(--dark-primary);
+  top: 90px;
+  right: 30px;
+  background: var(--primary);
+  border-radius:4px;
+  box-shadow:0px 0px 2px  var(--dark-primary) inset;
+}
+  #technodot {
+    transition:all .1s linear;
+    width:5px;
+
+        height: 18px;
+    background:var(--bluite);
+    box-shadow:0px 0px 10px #000;
+    display: block;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 8px;
+margin-top: 4px;
+  }
+  #ssum span {
+    display:inline-block;
+    height:30px;
+    width: 6px;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+  }
+  audio {
+    vertical-align: -12px;
+  }
+  #ssum span.selo {
+    border-top:8px solid #333333ee;
+    border-bottom:8px solid #333333ee;
+  }
+  #ssum {
+    overflow-x:auto;
+    overflow-y:hidden;
+    display: block;
+    height: 200px;
+    white-space:nowrap;
+    border: 1px solid var(--dark-primary);
+    border-radius: 4px;
+    margin:10px 30px;
+    background:var(--primary);
+    margin-top:0px;
+  }
+  #ssum span:hover{
+    border-bottom:8px solid #ffffff99 !important;
+    width:30px;
+        box-shadow: 0px -1px 5px #444;
+  }
+    #ssum span[f]{
+    display:inline-block;
+    height:10px ;
+    width:30px;
+  }
+
+
+input[type="range"] {
+  vertical-align: 4px;
+}
+
+
+#stopRecordBtn:hover,#recordAudio:hover {
+  background:#f44336;
+}
+#audioHolder {
+  transition:opacity 1s;
+  opacity:0;
+  display: inline-block;
+  background: white;
+  padding: 3px 3px 4px 3px;
+  border-radius: 3px;
+  vertical-align: 1px;
+  box-shadow: 0px 1px 2px #222;
+
+}
+audio {
+  width:483px;
+}
+#urlinput {
+  color:#999;
+  background:var(--discord);
+  transition:.3s;
+  width:100px;
+  cursor: alias;
+}
+#urlinput:hover {
+  width:150px;
+}
+label>input[type="file"] {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+label>div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+}
+
+
+body  div#statusbox {
+   position:fixed;
+   right: 0px;
+   width:200px;
+   background:#eee;
+   padding: 9px !important;
+   border:1px solid #aaa;
+   top:10px;
+   border-radius:4px;
+   border:1px solid var(--light-primary);
+   background:var(--primary);
+   color:#999;
+   transition:all .2s;
+ }
+ body  div#statusbox:hover {
+   background: var(--dark-primary);
+ }
+ #statusbox::before {
+   content:'Status: ';
+ }

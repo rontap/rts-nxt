@@ -3,7 +3,7 @@
 }
 
 .omenu:hover {
-  background:transparent !important;
+  /* background:transparent !important; */
 }
 .omenu::after {
   content: '';
@@ -81,12 +81,34 @@
     top: 14px;
 }
 */
+#AIO input {
+  display: block;
+  padding: 20px;
+  background: #FAFAFA;
+  transition: all .2s;
+  width:100%;
+  margin: 0px;
+  border-radius: 0px;
+  font-size:18px;
+}
+#AIO span {
+  padding:10px;
+  display:block;
+  font-size:19px;
+  color:#222;
+}
+#AIO span::before {
+  content:'The Gods Say:';
+  position:absolute;
+  margin-top:-30px;
+  color:#444;
+}
 #graphbtn {
     position: fixed;
-    bottom: 30px;
+    bottom: 24px;
     z-index: 99;
     color: white;
-    right: 168px;
+    left: calc(50% + 520px);
     background: #9C27B0;
 }
 
@@ -183,6 +205,8 @@
     box-shadow: none;
     padding: 13px;
     /* margin-left: 0px; */
+    margin-left: -65px !important;
+    width: 280px !important;
 }
 
 #kera:hover {
@@ -325,7 +349,7 @@ container.sidebar {
   right: 0px;
   height:20px;
   padding:15px;
-  bottom: 0;
+  bottom: -53px;
   padding-left:50px;
   cursor: pointer;
   transition:all .2s;
@@ -344,7 +368,7 @@ body.moreInfoOn #graphDrawer>i {
   transform:rotate(180deg);
 }
 body.moreInfoOn #graphDrawer{
-  bottom:300px;
+  bottom: 255px;
   padding: 15px 15px 20px 50px;
   height: 15px;
   /* box-shadow: 0px -1px 1px #999; */
@@ -358,7 +382,7 @@ body.moreInfoOn #graphbtn {
   background:white;
   bottom: 309px;
   /* border: 7px solid #009688; */
-  right: 174px;
+  /* right: 174px; */
   padding: 10px !important;
   box-shadow: 0px 1px 3px #222 inset;
 }
@@ -374,13 +398,18 @@ right:0 !important;
 }
 body.moreInfoOn #graphInformationText {
   position: fixed;
-  left:300px;
+  left: 485px;
   background:white;
   /* right:300px; */
-  height: 268px;
+  height: 275px;
   padding:15px;
   bottom: 0;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
   padding-left:50px;
+  width: 798px;
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 #tfill2 h1 {
   background:#eee;
@@ -390,7 +419,8 @@ body.moreInfoOn #graphInformationText {
   position: absolute;
   top: 98px;
   z-index: 99;
-  right: calc(50% - 580px);
+  color: white;
+  left: calc(50% + 521px);
   background: #9C27B0;
   box-shadow: 0px 1px 3px #444;
 }
@@ -474,12 +504,13 @@ body.moreInfoOn #graphInformationText {
     font-size: 15px;
     text-align: right;
     float: right;
-    background: rgb(153, 153, 153);
+    background: white;
     padding: 1px 3px 1px 3px;
     border-radius: 3px;
     color: rgb(68, 68, 68);
     transition: opacity .6s, background .4s, color .4s;
     opacity: 0;
+    border: 1px solid #999;
 }
 
 .omenu:hover .keyhint {
@@ -530,11 +561,11 @@ body.moreInfoOn #graphInformationText {
     padding: 5px;
     color: #fff;
     margin: 10px;
-    background: #48F;
+    background: #9C27B0;
     margin: 13px;
     padding: 15px;
     border-radius: 4px;
-    border: 1px solid #26F;
+    border: 1px solid hsl(291, 56%, 34%);
 }
 
 #aboluter {

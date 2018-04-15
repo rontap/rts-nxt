@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Project X Files</title>
+    	<link rel="stylesheet" href="NXTJS/elements.css">
+      <link rel="stylesheet" href="NXTJS/input.css">
+      <link rel="stylesheet" href="NXTJS/design.css">
+    <script type="text/javascript" src="http://www.smartjava.org/examples/webaudio/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="NXTJS/jsplus.js"></script>
+
+	<link rel="icon" href="NXTJS/icons/xfiles.png" type="image/png">
+
+
+
+    <style>
+:root {
+  --primary:#2C2F33;
+  --dark-primary:#23272A;
+  --light-primary:#99AAB5;
+}
+        * {
+            font-family: sans-serif;
+        }
+        group {
+          display: inline-block;
+          box-shadow:0px  1px  1px  #222 !important;
+        }
+        group button[flat], group * {
+          margin:0px -3px;
+          border-radius:0px !important;
+          box-shadow:0px 0px 0px black !important;
+        }
+        group button[flat]:first-child, group *:first-child{
+          border-top-left-radius: 3px !important;
+          border-bottom-left-radius: 3px !important;
+        }
+        group button[flat]:last-child,group *:last-child  {
+          border-top-right-radius: 3px !important;
+          border-bottom-right-radius:3px !important;
+        }
+
+        nav {
+          height:35px;
+        }
+        nav header {
+          background:transparent;
+          box-shadow:none;
+          color:#ccc !important;
+          border:0px;
+          text-align: center;
+          width:100%;
+          margin-top:12px;
+          color:white !important;
+          font-family:'Montserrat';
+          font-weight: bold;
+          text-transform: uppercase;
+              font-size: 27px;
+
+
+        }
+        nav header div {
+          color:#eee;
+        }
+        body {
+          background:var(--discord) !important;
+          color:#eee;
+        }
+    </style>
+
+<body style="background-color: white;">
+
+
+
+<div id="statusbox">ERR_INIT</div>
+<nav>
+  <header>Project X Files</header>
+</nav>
+
+
+
+<dialog id="autotune" nxt class="nxt">
+  <h1 class="covered">Auto Tune Setup</h1>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> Master <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 1. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 2. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 3. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 4. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 5. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 6. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 7. channel <br>
+  <input type="range" nxt min=0 max=100 onchange="updateAutoTune();"> 8. channel <br><br>
+
+
+<input type="range" nxt min=0 max=8 secondary> Min Lines To Activate <br><br>
+<input type="range" nxt min=0 max=8 secondary> Min Delta [~] <br><br>
+  <input type="range" nxt min=0 max=100 secondary> Line-Resistency <br><br>
+
+  <br><br>
+  <input placeholder="min.tunes"> | <input placeholder="line vx">
+  <action>
+    <button default>Full Auto Tune</button>
+    <button flr in-block onclick="autotune.close();autoTune(autoTuneVaules,0);">Done</button>
+</dialog>
+
+<div id="progress">
+<h1 class="on">LOAD</h1>
+<h1>ANALYSE</h1>
+<h1>EDIT</h1>
+</div>
+<style>
+#reca:hover {
+
+}
+  #part_load,#part_analyse,#part_edit {
+   max-height:400px;
+
+   overflow-x: hidden;
+   overflow-y:hidden;
+   height:300px;
+  }
+  #part_analyse,#part_edit {
+    max-height:0px;
+    opacity: 0;
+  }
+ #progress  h1 {
+    transition:all .4s;
+  }
+  #progress:hover h1 {
+    color:#bbb;
+    cursor:no-drop;
+    user-select: none;
+  }
+  #progress:hover h1.on {
+    color:white !important;
+  }
+</style>
+
+
+<div id="part_load">
+  Presets:
+  <group style="margin-left:20px">
+  <button onclick="loadSound('projectx/media/bobd.mp3',0)"; real flat>Dreams</button>
+  <button onclick="loadSound('projectx/media/ironman.mp3',0)"; real flat>Iron Man</button>
+  <button onclick="loadSound('projectx/media/oracle.mp3',0)"; real flat>Oracle</button>
+  <button onclick="loadSound('projectx/media/kurz.mp3',0)"; real flat>Kurz</button>
+  </group>
+  <br><br>
+  <label for="audioFile">
+    <div>Upload Own File</div>
+    <input id="audioFile" type="file" accept="audio/*" onchange="loadFile();" real flat value="Use Own File"/>
+
+  </label>
+
+  <group style="margin-left:140px;">
+
+  <button id="urlinput" real flat contenteditable >music.mp3</button>
+  <button real flat onclick="loadSound(urlinput.innerHTML,0)">Load URL</button>
+  </group>
+
+  <button onclick="switchToMicrophoneInput()" id="recordAudio" style="margin-left:20px"real flat>
+    <i class="material-icons" style="margin-right:10px;">fiber_manual_record</i> Record Audio
+  </button>
+<br>
+
+<br><br>
+<table><tr><td>
+Average Sample Rate for Frequency (accuracy horizontally along S):
+</td><td>
+<group style="margin-left:30px;">
+  <button real flat onclick="if(tdvc.innerHTML!='0')tdvc.innerHTML=(TDV=Number(tdvc.innerHTML)-1)" id="" ><i class="material-icons" style="padding-right:9px">remove</i></button>
+<button id="tdvc" real flat  style="" number>1</button>
+<button real flat onclick="if(tdvc.innerHTML!='12')tdvc.innerHTML=(TDV=Number(tdvc.innerHTML)+1)" id="" ><i class="material-icons" style="padding-right:9px">add</i></button>
+</group>
+</td></tr><tr><td>
+  <br>
+Frequency Split Rate (accuracy vertically along Hz):</td><td><br>
+<group style="margin-left:30px;">
+  <button real flat onclick="if(avsr.innerHTML!='1')avsr.innerHTML=(SPL=Number(avsr.innerHTML)-1);SPL=Math.pow(2,SPL)" id="" ><i class="material-icons" style="padding-right:9px">remove</i></button>
+<button id="avsr" real flat  style="" number>3</button>
+<button real flat onclick="if(avsr.innerHTML!='6')avsr.innerHTML=(SPL=Number(avsr.innerHTML)+1);;SPL=Math.pow(2,SPL)" id="" ><i class="material-icons" style="padding-right:9px">add</i></button>
+</group>
+</td></tr></table>
+</div>
+<div   id="part_analyse">
+
+<script>
+function toggle(element,varb) {
+  if (window[varb]) {
+    element.classList.remove('on');
+    window[varb]=false;
+  }
+  else {
+    element.classList.add('on');
+    window[varb]=true;
+  }
+}
+</script>
+<style>
+
+</style>
+<msg style="width:600px;">
+  <h2>Media Not Found</h2>
+The media you wanted to use is either not an audio or the URL is invalid<br>
+Sorry about that.
+</msg>
+
+Update While Fetching  <toggle id="dmct" class="on"onclick="toggle(this,'devMode')"></toggle>
+ <br>
+<br>
+  <button real flat onclick="stopIt();"; id="stopRecordBtn">Stop Recording</button>
+  <button real flat onclick="toggleGain();" id="gainToggle" ><i class="material-icons" style="padding-right:9px" id="gainToggleIcon">volume_up</i></button>
+
+
+  <canvas id="canvas" width="350" height="300" style="display: block;"></canvas>
+
+</div>
+
+ <script>
+
+ gainVolume = true;
+ function toggleGain() {
+    if (gainVolume) {
+      gainVolume = false;
+      sourceNode.disconnect(context.destination);
+      audio_player.volume=0;
+      gainToggleIcon.innerHTML="volume_off";
+      gainToggle.style.background="#f44336"
+    }
+    else {
+      gainVolume = true;
+      sourceNode.connect(context.destination);
+      gainToggleIcon.innerHTML="volume_up";
+      audio_player.volume=1;
+      gainToggle.style.background="inherit";
+    }
+ }
+
+ </script>
+
+<div style="margin-top:-50px;" id="part_edit">
+  <span id="audioHolder">
+    <audio id="audio_player" controls></audio>
+  </span>
+  <br><br><br><br>
+
+<group class="timers">
+
+
+<button real flat onclick="stopIt()" id="" ><i class="material-icons" style="padding-right:9px">indeterminate_check_box</i> Manual Timing</button>
+<button real flat onclick="autotune.show();" id="" ><i class="material-icons" style="padding-right:9px">hearing</i> Auto Tune</button>
+
+
+</group>
+<group  style="margin-left:30px;" id="hov">
+    <button real flat onclick="if(lip.innerHTML!='0')lip.innerHTML=(Number(lip.innerHTML)-.5)" id="" ><i class="material-icons" style="padding-right:9px">remove</i></button>
+  <button id="lip" real flat  style="" >1</button>
+  <button real flat onclick="if(lip.innerHTML!='10')lip.innerHTML=(Number(lip.innerHTML)+.5)" id="" ><i class="material-icons" style="padding-right:9px">add</i></button>
+<span id="styles"></span>
+  <style>
+#dmct::after {
+  box-shadow:   0px 2px 2px #222;
+  background:var(--bluite) !important;
+}
+    #lip,button[number] {
+      width:45px;
+      color:#999;
+      background:var(--discord) !important;
+    }#hov::before {
+      content: 'Treshold for including Keyframe';
+    border: 1px solid var(--dark-primary);
+    position: absolute;
+    margin-top: 0px;
+    font-size: 16px;
+    padding: 8px 10px;
+    background: var(--primary);
+    border-radius: 5px;
+    margin-left: -3px;
+    width: 316px;
+    z-index: -1;
+    text-align: center;
+    color: #ddd;
+    transition:all .2s;
+    }
+    #hov:hover::before {
+    margin-top:-33px;
+    }
+  </style>
+  <button real flat onclick="autoMix(Number(lip.innerHTML))" id="">
+    <i class="material-icons" style="padding-right:9px">autorenew</i> Render Keyframes</button>
+</group>
+
+</div>
+
+
+<br>
+
+
+
+<script type="text/javascript">
+
+   function  technocheck() {
+      currTime = audio_player.currentTime
+      //ticks
+
+      margLeft = (currTime/diffTimeStamp)*ticks*DLW
+      $("#technodot").style.marginLeft= margLeft+"px";
+      //$("#technodot").scrollIntoView();
+
+      setTimeout(function(){
+        if (currTime>diffTimeStamp) audio_player.pause();
+        else technocheck();
+      },50)
+    }
+
+
+</script>
+<span id="ctrlpanel">
+
+  <br><!--Computer Scientits BSC-->
+  <div id="ssum" >
+    <div id="ssumLINE" > <b>Record Audio Above.</b> </div>
+    <div id="technodot"></div>
+
+    <canvas id="runin" height="180px" style="display: block;"></canvas>
+
+  </div>
+  <div id="eq"></div>
+
+
+  <button onclick="sendToX(selectList.concat(worthy))" id="prx_exp" real flat>Export To ProjectX</button>
+  <button onclick="sendToX(selectList.concat(worthy))"  style="margin-left:10px"real flat>Export JSON</button>
+
+
+  <group style="margin-left:30px;">
+    <button real flat onclick="if(zoomer.innerHTML!='0')zoomer.innerHTML=( setDLW(Number(zoomer.innerHTML)-1))" id="" ><i class="material-icons" style="padding-right:9px">remove</i></button>
+    <button id="zoomer" real flat  style="width:80px;" number>6</button>
+    <button real flat onclick="if(zoomer.innerHTML!='12')zoomer.innerHTML=( setDLW(Number(zoomer.innerHTML)+1))" id="" ><i class="material-icons" style="padding-right:9px">add</i></button>
+  </group>
+</span>
+<style>
+#zoomer::before {
+  content:'Zoom: '
+}
+#ctrlpanel {
+  position:absolute;
+  bottom:20px;
+  left:0px;
+  right:0px;
+}
+
+</style>
+
+  <style>
+  #prx_exp {
+    margin-left:30px;
+  }
+
+
+  </style>
+  <script>
+  selectList = [];
+  ssum.onclick=function(event){
+    nth=event.path[0].getAttribute('nth');
+
+    if (selectList.indexOf(nth)<0) selectList.push(nth);
+    else {
+      selectList.splice( selectList.indexOf(nth) , 1);
+    }
+    console.log((nth/ticks)*diffTimeStamp);
+
+    event.path[0].classList.toggle('selo');
+
+  }
+    function keymgr(event) {
+    console.log(event.keyCode);
+    console.log("DDDD");
+  }
+
+
+  function renderKeyframes(call) {
+    cplx=call.concat(selectList.map((x)=>Number(x)));
+    for (i=0;i<ticks;i++) {
+
+
+      if (cplx.has(i))  $$('#ssumLINE span')[i].classList.add('selo');
+      else              $$('#ssumLINE span')[i].classList.remove('selo');
+    }
+  }
+  </script>
+</body>
+<script type="text/javascript" src="projectx/xfiles-audio.js"></script>
+<script type="text/javascript" src="projectx/xfiles-ui.js"></script>
+<script type="text/javascript" src="projectx/microphone.js"></script>
+<script type="text/javascript" src="projectx/xfiles-filter.js"></script>
+<link rel="stylesheet" href="projectx/xfiles-design.css">
+<link rel="stylesheet" href="projectx/xfiles-ui.css">
+</html>
+<!--633 before splitup-->

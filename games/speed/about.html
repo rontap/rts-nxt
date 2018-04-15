@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!-- WELCOME TO SPEED. -->
+<HTML>
+<HEAD>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../NXTJS/elements-design.css">
+	<link rel="stylesheet" href="../../NXTJS/design.css">
+	<link rel="stylesheet" href="../../NXTJS/input-design.css">
+  <title>About Speed Game</title>
+
+</HEAD>
+
+<BODY class="full-covered-active  toast-desktop">
+
+<nav class="fixed">
+
+        <span id="pageTitle" style="opacity: 1;">speed / about</span>
+        <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../../');">apps</i>
+</nav>
+  <items nxt id="langs" toggles="div.card">
+      <item>English</item>
+      <item onmouseup="toggleAll('div.card',0,event)">Hungarian</item>
+      <item onmouseup="toggleAll('div.card',1,event)">German</item>
+  </items>
+  <script>
+    toggleAll = function(Query,toActive,e) {
+        console.log(e.path[0]);
+        for (Qi=0;Qi< $$(Query).length ; Qi++) {
+          $$(Query)[Qi].style.display='none';
+        }
+        $$(Query)[toActive].style.display='block';
+    }
+
+  </script>
+<style>
+#mainFab {
+  z-index: 99;
+}
+div.card {
+  z-index: 99;
+}
+#langs {
+  position:fixed;
+  left:calc(50% + 158px);
+  top:180px;
+  z-index: -1;
+}
+  items {
+    background:white;
+  }
+  items>item {
+      background:white;
+    display:inline-block;
+    padding:10px;
+    font-size:14px;
+    font-family:'Montserrat';
+    border:1px solid #666;
+    border-right: 0px;
+    margin:0 -3px;
+    cursor: pointer;
+    transition:all .2s;
+  }
+  items>item:hover {
+    background:#eee;
+  }
+  items>item:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  items>item:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-right:1px solid  #666;
+  }
+  items>item[selected] {
+    box-shadow:0px 0px 2px #999;
+  }
+.card {
+  margin-top:240px;
+  display:none;
+}
+</style>
+  <div class="card" style="display:block;">
+    <h1><a id="JTKSZABLY_1"></a>JÁTÉKSZABÁLY</h1>
+      <p>A játékot két játékos játssza egymás ellen: céljuk hogy a saját kártyapaklijukat ki tudják pakolni a képernyő közepén levő két kártyára. A középső kártyákra azonban csak a maguk elé kihelyezett öt kártyák közül rakhatnak. A kártyák csak a francia kártya sorrendjében helyezhetők egymásra, vagy növekvő vagy csökkenő irányban.</p>
+      <p>Ez a sorrend a következő:<br>
+      <strong>2 3 4 5 6 7 8 9 10 J Q K A</strong><br>
+      Így pl. egy Q kártyára helyezhető J vagy A kártya<br>
+      Az A és a 2-es egymást követi</p>
+      <p>A kártyák billentyűkódokkal rakhatók ki középre, viszont a billentyűk gyors egymásutánban való nyomkodása sajnos nem segít megnyerni a játékot, ugyanis ez időbüntetéssel jár.</p>
+      <p>Az öt kihelyezett kártya automatikusan cserélődik, amennyiben kártyákat helyezünk a középső paklira, addig amíg a teljes pakli el nem fogy, vagy már nem lehet közülük új kártyát a középső kettőre rakni. Ebben az esetben a középső két kártya cseréjével lehet folytatni a játékot.</p>
+      <p>Amennyiben a kihelyezett öt kártyán belül két kártya egyezik, azok egymásra helyezhetőek. Ha három kártya kerül egymásra, akkor azok “elégnek” azaz kiesnek a játékból.</p>
+      <h2><a id="Speed_15"></a>Speed</h2>
+      <p>Ha két ugyanolyan kártya kerül középre, akkor a játékosok megnyomhatják a speed billentyűt, aki ezt később teszi meg annak a paklijához hozzáadódnak az addig lerakott kártyák.</p>
+      <h2><a id="Billentykdok_17"></a>Billentyűkódok</h2>
+      <ul>
+      <li>két azonos kártya egymásra rakása: <strong>Q vagy U (játékostól függ) majd az azonos kártya billentyűje</strong></li>
+      <li>új kártya kérése: <strong>Q+U+space</strong></li>
+      <li>speed: <strong>I vagy W (játékostól függ)</strong></li>
+      </ul>
+  </div>
+  <div class="card">
+        <h1><a id="SPIELREGEL_1"></a>SPIELREGEL</h1>
+    <p>Das Spiel wird zu weit gespielt. Das Ziel ist, die ganze Kartenstapel auf die mittigen Karten auszupacken. Auf diesen Karten kann man aber nur von den fünf vor dem Spieler gelegten Karten ablegen. Die Karten können nur in eine richtige Reihenfolge gepackt werden.</p>
+    <p>Diese Reihenfolge ist:<br>
+    <strong>2 3 4 5 6 7 8 9 10 J Q K A</strong><br>
+    z.B. auf ein Q kann man ein J oder ein K legen.<br>
+    Nach der Karte A beginnt die Reihenfolge von vorne mit 2.</p>
+    <p>Man kann Tastaturkürzel benutzen, um die Karten zu bewegen, aber es ist nicht erlaubt, die Tasten endlos schnell nach einander zu schlagen. Es führt zu einer Zeitstrafe.</p>
+    <p>Die fünf gelegte Karten werden automatisch ausgetauscht, wenn man auf die mittigen Stapeln Karten legt, solange es keine mehr Karten gibt, oder keine Karte ausgepackt werden können. Auf diesen Fall kann man mit dem Austausch der mittigen Karten weiterspielen.</p>
+    <p>Wenn es zwei gleichen Karten zwischen den fünf Karten gibt, werden sie sich “brennen”, also sie verschwenden sich aus dem Spiel.</p>
+    <h2><a id="Speed_15"></a>Speed</h2>
+    <p>Wenn in der Mitte zwei gleiche Karten liegt, kann die “speed” Taste geschlagt werden. Wer es später macht, nimmt alle schon in der Mitte gelegte Karten auf.</p>
+    <h2><a id="Tastaturkrzel_18"></a>Tastaturkürzel</h2>
+    <ul>
+    <li>zwei gleichen Karten auf einander zu legen: <strong>Q oder U (hängt von dem Spieler ab) dann die Taste der gleichen Taste</strong></li>
+    <li>neue Karten in der Mitte: <strong>Q+U+space</strong></li>
+    <li>speed: <strong>I oder W (hängt von dem Spieler ab)</strong></li>
+    </ul>
+  </div>
+
+  <i class="fab material-icons white" id="mainfab" onclick="location.href='index.html'">arrow_back</i>
+<script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
+<script src="../../NXTJS/design.js" type="text/javascript"></script>
+
+<style>
+  :root {
+    --primary:white;
+  --dark-primary:#673AB7;
+  }
+  #mainfab {
+    position:fixed;
+    left:calc(50% - 500px);
+    top:295px;
+    z-index: 99;
+  }
+    #mainfab:hover {
+      color:#eee;
+    }
+</style>

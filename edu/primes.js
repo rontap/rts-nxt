@@ -85,7 +85,7 @@
 
 
     function showmeit() {
-     if ($('#tfill #ulammegjel').getAttribute('checked')=="true")
+     if ($('#tfill #ulammegjel').classList.value=="on")
            $('#tfill #prime_tbl').style.fontSize="16px";
     else   $('#tfill #prime_tbl').style.fontSize="0px";
 

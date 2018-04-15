@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../NXTJS/elements-design.css">
 	<link rel="stylesheet" href="../NXTJS/design.css">
-	<link rel="stylesheet" href="../NXTJS/input-design.css">
+	<link rel="stylesheet" href="../NXTJS/input.css">
 	<link rel="stylesheet" href="../NXTJS/mobile.css">
 
+   <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </HEAD>
 <BODY id="body" class="full-covered-active toast-desktop">
 <nav class="fixed">
-	<header>
-		<div>Games</div></header>
+
         <span id="pageTitle">Minesweeper Ultimate</span>
 	<i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
 </nav>
@@ -158,14 +158,14 @@ height: 52px;
      newv.onchange = function() { updateHardness() ; }
      newh.onchange = function() { updateHardness() ; }
      newb.onchange = function() { updateHardness() ; }
+     nxt.location = '../NXTJS/';
 </script>
 
- <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
  <script src="mine.js" type="text/javascript"></script>
  <script src="../NXTJS/design.js" type="text/javascript"></script>
  <script src="../NXTJS/design-input.js" type="text/javascript"></script>
 
- <script src="../NXTJS/design-notifications.js" type="text/javascript"></script>
+ <script src="../NXTJS/notifications.js" type="text/javascript"></script>
 
 </BODY>
 </HTML>

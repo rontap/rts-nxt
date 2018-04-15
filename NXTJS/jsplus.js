@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					       //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1710;  //build number for modules
+const nxtjs_proto_BuildNumber = 1800;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -150,6 +150,14 @@ Number.prototype.pad = function() { /*padding number for dates and stuff*/
   else return String(this);
 }
 
+//returns binary
+String.prototype.has = function(str) {
+  return (this.search(str)>=0)
+}
+Array.prototype.has = function(str) {
+  return (this.indexOf(str)>=0)
+}
+
 //-----------------------------------------------------------------
 //-----------------COLOR-GENERATION--------------------------------
 //-----------------------------------------------------------------
@@ -272,7 +280,7 @@ String.prototype.stat = function(call) {
        var textLM=this.stat('letters');
        return textLM[1][ textLM[0].indexOf( textLM[0].max() ) ]
 
-
+      // this is to be deprecated
       case 'letterMin'  :   //     get the least freq. letter from the index of the most used letter
        var textLN=this.stat('letters');
        return textLN[1][ textLN[0].indexOf( textLN[0].min() ) ]
@@ -339,7 +347,7 @@ var nxt = {
   },
 
   // examples
-  notify : function() { nxt.requireJS("design-notifications.js");  nxt.requireCSS("elements-design.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
+  notify : function() { nxt.requireJS("notifications.js");  nxt.requireCSS("elements.css"); setTimeout( ()=> nxt.notify(arguments[0]), 10) ;},
 
 
   openMenu : function(call) {
@@ -392,7 +400,7 @@ var nxt = {
    domInteraction : true,
 
    //allowing <var is="" setups
-   timeCopSwitch : false ,
+   timeCopSwitch : true ,
    timeCop : function() {
      if ( nxt.domInteraction && nxt.timeCopSwitch )
        for (let i=0; i<$$("var").length;i++) {

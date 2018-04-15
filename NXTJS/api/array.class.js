@@ -1,0 +1,3 @@
+class CircuralArray extends Array {
+
+}

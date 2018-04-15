@@ -1,6 +1,6 @@
      body , html, div#siteView{
             user-select: none;
-            background:#333;
+            background:var(--bg);
         }
         #siteView {
             text-align: center;
@@ -14,7 +14,7 @@
             margin: 0 !important;
             padding: 10px 5px;
             text-shadow: 0px 0px 1px #999;
-            color: #111;
+            color: var(--dark-bg);
         }
 
         .scroll nav h1 {
@@ -42,7 +42,7 @@
         }
         article h1, article span {
           display: block;
-        
+
           color:white !important;
         }
         article span , article img {
@@ -73,7 +73,7 @@
             margin: 0 auto;
             background: linear-gradient(#EEE, white);
             animation: show .3s;
-           
+
         }
         article h1 {
             position: absolute;
@@ -105,6 +105,20 @@
             padding: 12px !important;
             width: calc(100% - 37px) !important;
             margin-bottom: 8px !important;
+            background: var(--bg) !important;
+            max-width: 700px;
+            box-shadow: 0px 2px 3px #222;
+            margin: 0 auto 8px auto !important;
+        }
+        .search .newholo {
+          background:var(--primary) !important;
+          box-shadow: 0px 1px 2px #222 !important;
+        }
+        .search #siteView * {
+          opacity: 0 !important;
+        }
+        #socMedia {
+          display:none !important;
         }
         article {
            width:84px;
@@ -127,7 +141,7 @@
             color: white;
             float: left;
             height: 40px;
-           
+
             width: 94px;
         }
 
@@ -178,22 +192,21 @@
             opacity: 1;
         }
 
-       
+
 
         nav {
-            top:0;
-            right:0;
-            background:var(--primary);
+            top: 0px;
+            right:0px;
+            background:var(--dark-bg);
             position: fixed;
             text-align: center;
             z-index: 99;
-            left:0;
+            left:0px;
             margin: 0 auto;
-            padding: 0px 20px 0px 20px;
+            padding: 0px 60px 10px 60px;
             font-family: 'Montserrat', sans-serif;
-            color:#222;
+            color:var(--primary);
             box-shadow: 0px 3px 3px #222;
-            max-width: 690px;
         }
 
         #buts {
@@ -246,7 +259,7 @@
             z-index: 2;
             margin-top: 0px !important;
             border: none;
-            border-top: 1px solid #999; */
+
             margin:;
             display:;
             margin: 0px -20px;
@@ -256,10 +269,10 @@
         #linkHome {
             /* position: fixed; */
             margin-top: 86px;
-            left: 0px;
+            left: -18px;
             right: 0px;
             height: 57px;
-            background: var(--primary);
+            /* background: var(--primary); */
             /* max-width: 690px; */
             /* margin: 0 auto; */
             padding-top: 5px;
@@ -286,7 +299,7 @@
             margin-left: 5px;
             border-radius: 3px;
             box-shadow: 0px 1px 2px #444;
-            background: #444;
+            background: var(--bg);
             display: inline-block;
             color: white;
             transition: all .2s;
@@ -308,7 +321,7 @@
         #linkBack span:active {
             box-shadow: none;
         }
-        
+
         input.holo#search, body input.holo#search:hover {
         padding:13px !important;
         background:var(--light-primary) !important;
@@ -325,7 +338,7 @@
             margin-top:-63px;
                 background: white !important;
          box-shadow: 0px 3px 4px #999;
- 
+
 
     }
     input.holo::placeholder {
@@ -393,18 +406,21 @@ body.search nav {
 body.search #linkBack {
     transition: all .4s;
     background:var(--dark-primary);
+    margin: -10px -64px;
+    padding-top: 10px;
 }
 body.search #searchResults {
     max-height:700px;
     padding-bottom: 30px;
     opacity: 1;
     display:block;
-   
-   
-    bottom: 0;
-    
-    margin-top: -8px;
+    bottom: 70px;
+    margin-top: -17px;
     top: 68px;
+    border-radius: 5px;
+    z-index: 9;
+    padding-top: 50px;
+    box-shadow: 0px 2px 3px #333;
 }
 #searchResultsList {
     max-height: calc(100% - 155px);
@@ -413,7 +429,7 @@ body.search #searchResults {
     overflow-x: hidden;
 }
 #searchResults {
-    max-width: 729px;
+    max-width: 773px;
     margin: 0 auto;
     display: block;
     overflow: hidden;
@@ -527,6 +543,7 @@ body #settingsView {
   opacity: 0;
   margin-top: 0px;
   animation:show 1s forwards;
+  /* letter-spacing: 3px; */
 }
 @keyframes show {
   0% { opacity:0; background:#333;}

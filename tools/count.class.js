@@ -21,9 +21,8 @@ class Microcount {
 
   }
   rename(id) {
-      let name = prompt("Change name", names[id]);
-      this.names[id]=name;
-      this.refreshUI();
+      __counts(id);
+      //THIS IS NOT GOOD
 
   }
   refreshUI() {
@@ -34,11 +33,9 @@ class Microcount {
       let currRename = "<i class='material-icons' onclick='counter.rename("+i+")'>create</i>";
       let currReset  = "<i class='material-icons' onclick='counter.counts["+i+"]=0;counter.refreshUI();'>replay</i>";
       let currFwd    = "<i class='material-icons' onclick='counter.counts["+i+"]+=10;counter.refreshUI();'>forward_10</i>";
-      sect.innerHTML+="<div class='chip'><span onclick='counter.countUp("+i+")' >"+this.names[i]+" = "+this.counts[i]+"</span> <span>"+currRename+currFwd+currReset+currRemove+" </span></div>";
+      sect.innerHTML+="<div class='chip'><span onclick='counter.countUp("+i+")' >"+this.names[i]+"  <chip style='margin:0 -30px 0 30px;'><i class='material-icons red' >adjust</i>"+this.counts[i]+"</chip></span> <span>"+currRename+currFwd+currReset+currRemove+" </span></div>";
 
-     
+
     }
   }
 }
-
-

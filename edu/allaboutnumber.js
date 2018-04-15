@@ -1,4 +1,4 @@
-// dual-connection to tapcalk and API
+// dual-connection to tapcalk and NXT TCX API
 // TAPCALK EXPRESS
 // forked from calknew.js
 tcx.packages.push("allaboutnumber");
@@ -98,7 +98,7 @@ tcx.tellMe = function(call) {
     }
 
     if (in1 == 42) {
-        kim += "<b>This number is tte ultimate answer</b>"
+        kim += "<b>This number is the ultimate answer</b>"
     }
     console.log(kim);
     return kim;
@@ -109,7 +109,7 @@ Math.tellMe = function(call) {
     var in1 = call;
     tcx.tellMe(call);
 }
-function meselj() { // TC 6 Design Update
+function meselj() { // TC 6 Design Update compatibility
     tcx.tellMe(in1);
     ouo1.innerHTML = kim;
 }

@@ -20,7 +20,7 @@ searchMe = [
     ['mek oszk parser explorer reader text literature redesign','explore/mek.html','book','MEK Explorer '],
     ['wikipedia parser explorer read redesign learn','explore/mek.php','domain','RE:WIKI Wikipedia'],
 
-    ['tapcalk caluclator numbers maths','edu/tapcalk.html','view_carousel','TapCalk 6'],
+    ['tapcalk calculator numbers maths','edu/tapcalk.html','view_carousel','TapCalk 6'],
 
     ['games play simulation superfarmer','games/superfarmer/main.html','recent_actors','Super Farmer Simulation'],
     ['games play card speed fun','games/speed/main.html','credit_card','Speed Card Game'],
@@ -43,6 +43,14 @@ function updateTextSearch(e) {
     if (!isNaN(keywords[0])) {
         searchResultsList.innerHTML="<b class='imp'>Tap Calk Express results</b>";
         searchResultsList.innerHTML+= "<div style='border:2px solid #455A64;background:white;color:#222;'><br>" +  tcx.tellMe( Number( keywords[0] ) ) + "<br><br></div>";
+    }
+    else if (tcx.eval(keywords[0]).valid) { // TAPCALK X EVAL
+        console.log(tcx.eval(keywords[0]).value);
+
+        searchResultsList.innerHTML="<b class='imp'>Tap Calk Express calculator</b>";
+        searchResultsList.innerHTML+= "<div style='border:2px solid #1E88E5;background:white;color:#222;'><br>The result for you input is:<br><br><b>" +  tcx.eval(keywords[0]).value + "</b><br><br></div>";
+
+
     }
     else
     for (i=0; i<keywords.length;i++) {
@@ -83,7 +91,7 @@ function updateTextSearch(e) {
     }
 
     document.onscroll = function(event) {
-        if ($('html').scrollTop>87) a = 87;
+        if ($('html').scrollTop>72) a = 72;
         else a = $('html').scrollTop
 
         $('nav').style.top = -a + "px";
