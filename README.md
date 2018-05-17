@@ -1,20 +1,20 @@
-## RONTAP SITES NXT - CHARIOTEER
+## RONTAP SITES NXT - CONWAY
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version:*
 
-**5.8 CHARIOTEER**
+**5.9 CONWAY**
 
 ## Recent Changes
 ```
-(+) X FILES Music analysing program, ProjectX connect
-(*) Utopia Updated
-(*) Tapcalk Express Parsing added
+(+) Priest Canvas Clock Beta
+(+) **Cancer Game v2.8 with PWA**
+(*) Random design changed back to more original
+(+) Flamewar debate creator added
 
+--- NXT.JS Updates (1810)
 
---- NXT.JS Updates (1710)
-
-(*) css group, new style button and group input added
-(+) css files split into more parts
+(+) Material 2.0 input added (material-input.css)
+(*) Changed <status>
 ```
 
 ## General Changes
@@ -23,34 +23,35 @@
  (-) removed old projects and restructured.
  (+) new API called NXT.js improving speed
 
- (+) Added (rewrote) most of RTS3&4 Projects
+ (*) Added (rewrote) most of RTS3&4 Projects
  (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
- (+) MEK works again. added mek.html for explaining mek, and search.php for searching and exploring the MEK.OSZK archive, with popup
+ (+) MEK reader and searching
  (+) Ultron URL Shortener added with admin panel.
  (+) Notes++ and Counter with PHP support
+ (+) Several new games including cancer simulator
 
 ```
 ## Roadmap
 ```
  (>) Adding features to tapcalk
- (>) Adding React like modules to NXT.JS
- (>) on-line note editor
- (>) finishing Multiplix
- (>) excuse creator
+ (>) Implementing Material Design 2.0
+ (>) Remixing NXTJS
+
 ```
 ## Packages
 
 ### EDUCATION
 * tapcalk 6 - advanced calculator _stage Design_
 * wiki - wikipedia processor
-* MEK mek.oszk.hu reader **4.5 splash screen added, search added**  moved from web eaters
+* MEK mek.oszk.hu reader **4.9 conway froze**  moved from web eaters
 
 ### GAMES
-* mine - Mine game (finished) **updated in 5.6** notifications added. co-written w/ deesnow97
+* mine - Mine game (finished) **5.6** notifications added. co-written w/ deesnow97
 * SuperFarmer - simulation game **5.2** w/ agoston and mate
 * ColorGame - boring color game
-* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) ** updated w/ ai in 5.6 archer**
-* ProjectX - AKA: rontapparty, szemkieg. - includes six previous variants! slightly offensive **updated in 5.6**
+* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) **updated w/ ai in 5.6 archer**
+* ProjectX - AKA: rontapparty, szemkieg. - includes six previous variants! slightly offensive **5.6**
+* Cancer game v2.8 **new in 5.9 conway** with PWA and actually enjoyable gameplay
 
 ### META
 * index -  rewrote to better suit as landing page
@@ -68,16 +69,19 @@
 * text and color generator
 * music player
 * habit counter
-* **clocker - 5.5 edited controls**
+* **clocker - 5.9**
   * timeflow clock -  fancy clock (co-created with bobarna and fuiszgt)
   * circle clock - set reminders and use stopwatch
   * binary clock - binary clock
-* mulitiplix **postponed**
+  * Priest Canvas based round clock **new, in dev**
+* ~mulitiplix **marked for deletion**~
 * languages
 * **XFiles** music analyser
+* FlameWar Debate creator **new in 5.9 conway**
+
 
 ### Random
-Split of from tools; unsure implementation **challenger**
+Split of from tools; unsure implementation
 * do-not-smoke
 * husvet (hungarian event)
 * color time
@@ -86,8 +90,9 @@ Split of from tools; unsure implementation **challenger**
 
 ###INACTIVE/CANCELLED PROJECTS
 * grimm - a Simulation Towerdefense game - (not updated not working)
-* kikerdezo_offline - advanced learning tool  ot included, 4.1.0, needs rewrite
+* kikerdezo_offline - advanced learning tool, 4.1.0, needs rewrite, not included
 * utopia - game  (under development) 4.2.3 needs rewrite, partially working
+* Multiplix - lack of interest
 
 ## Previous versions
 > 5.1 SOTON _main focus: random and tapcalk redesign_ 17/10/13-17/10/17
@@ -113,6 +118,10 @@ Split of from tools; unsure implementation **challenger**
 > 5.7 CHALLENGER (Preview) 18/03/17
 
 > 5.7.2 CHALLENGER ...
+
+> 5.8 Charioteer 18/04/15
+
+> 5.9 CONWAY _cancer game, priest_ 18/05/17
 
 ### Upcoming versions
 Charioteer (RC3), Conway, Underwood (NXT 2).
