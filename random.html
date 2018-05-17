@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="NXTJS/design.css">
 	<link rel="stylesheet" href="NXTJS/input-design.css">
 	<link rel="stylesheet" href="NXTJS/mobile.css">
+	<link rel="stylesheet" href="NXTJS/material-input.css">
 
 	<link rel="stylesheet" href="tools/music.css">
 	<link rel="stylesheet" href="tools/random.css">
@@ -99,7 +100,7 @@
 <holder>
    <div id="splash" class="on">
       <div class="card " on>
-          <h1 class="covered red-antigene expand" img="url('http://hdqwalls.com/wallpapers/hex-abstract-material-design-ad.jpg')">
+          <h1 class="covered red-antigene expand blue-700">
               Welcome to NXT Tools 3!
           </h1>
           <br>
@@ -115,7 +116,7 @@
 
 		<div>
 			<div class="card" id="">
-				<h1 class="covered grey-dark">markdown Text Editor
+				<h1 class="covered orange-500 white-text">markdown Text Editor
 
 					<switch checked="true" style="float:right;margin-top:-5px;" onmouseup="MDTextSwitch()"><span>Edit</span><span>View</span></switch>
 				</h1>
@@ -226,12 +227,23 @@
 				<h1 class="covered cyan-antigene">Timer</h1>
 
 				<i class="material-icons fab h1-connect-fab" onclick="switchTimer()">hourglass_empty</i>
-				<i class="material-icons fab-small  h1-connect-fab-small" onclick="resetTimer()">restore</i>
+
 				<br /><br />
-				Please set Timer below:<br /><br />
-				<input  class="non-expand short" placeholder="Hours"/> :
-				<input  class="non-expand short" placeholder="Minutes"/> :
-				<input  class="non-expand short" placeholder="Seconds"/>
+
+				<div short input tabindex=0>
+				  <input type="text" required>
+				  <span label>Hours</span>
+				</div>
+				<div short input tabindex=0>
+				  <input type="text" required>
+				  <span label>Minutes</span>
+				</div>
+				<div short input tabindex=0>
+				  <input type="text" required>
+				  <span label>Seconds</span>
+				</div>
+				<button nxt class="" onclick="resetTimer()"><i class="material-icons">restore</i> Reset timer</button>
+
 				<hr /><br />
 
 				<status value="100" block></status>
@@ -245,10 +257,10 @@
 				<br /><br />
 				Click on the icon to start the stopper<br /><hr /><br />
 
-				<status value="100" block></status>
+				<status value="100" block></status><br>
 				<status value="100" block></status>
 				<br />
-				<div class="colorResults" id="timerCurrent" onclick="roundStopper()">
+				<div class="colorResults blue-500" id="timerCurrent" onclick="roundStopper()" >
 					HH:MM:SS:MS××
 				</div><hr /><br />
 				<div id="stopperRounds">				</div>
@@ -262,12 +274,19 @@
 
 		<div>
 				<div class="card" id="passwordHolder">
-					<h1 class="covered cyan-500">Set Randomised Password</h1>
+					<h1 class="covered blue-500 white-text">Set Randomised Password</h1>
 					<i class="material-icons fab h1-connect-fab" onClick="generateAllPwd(Number($('#passwordCharCount').value),Number($('#passwordCount').value))">fingerprint</i>
 
 					<br /><br />
-					<input placeholder="Characters" type="number" id="passwordCharCount">
-					<input placeholder="Number of PWDs" type="number" id="passwordCount">
+					<div short input tabindex=0>
+					  <input type="text" required id="passwordCharCount" value=8>
+					  <span label>Characters</span>
+					</div>
+					<div input tabindex=0>
+					  <input type="text" required id="passwordCount" value=8>
+					  <span label>Number of PWDs</span>
+					</div>
+
 					<br /><br />
 					<hr />
 					<h3>Include:</h3>
@@ -283,10 +302,14 @@
 
 
 			<div class="card">
-				<h1 class="covered cyan">Random Text & Numbers</h1>
+				<h1 class="covered blue-400">Random Text & Numbers</h1>
 				<i class="material-icons fab h1-connect-fab" >graphic_eq</i>
 				<br /><br />
-				<input placeholder="Length" type="number" min="0">
+				<div input tabindex=0>
+					<input type="text" required id="passwordCount" value=8>
+					<span label>Length</span>
+				</div>
+
 				<br /><br /><hr />
 				<checkbox>Text</checkbox>
 				<checkbox>Numbers</checkbox>
@@ -297,7 +320,7 @@
 			</div>
 
 			<div class="card">
-				<h1 class="covered cyan-600">other random events</h1>
+				<h1 class="covered blue-300">other random events</h1>
 				<!--sdiv class="content">
 					<div class="navigation">
 						<a>Eszperente Words</a>
@@ -308,7 +331,7 @@
 					<div>
 							heyya
 					</div-->
-				<div class="covered subtitle cyan-400 buttons" >
+				<div class="covered subtitle cyan-200 buttons" >
 					<button  flat>Flip-a-Coin</button>
 					<button  flat>Throw Dice</button>
 					<button  flat>Rock-Paper-Scissors</button>
@@ -385,24 +408,64 @@
 
     <div class="card">
 
-    <h1 class="covered ">Create Groups</h1>
-    <i class="material-icons fab h1-connect-fab indigo-500 white-text" onclick="distributeToGroups()">group</i>
+    <h1 class="covered indigo-500 white-text">Create Groups</h1>
+
+		<backdrop class="indigo-500">
+			<i class="material-icons fab h1-connect-fab white " onclick="distributeToGroups()">group</i>
+			<div input tabindex=0>
+			  <input type="text" required id="groupNo">
+			  <span label>Groups of</span>
+			</div>
+
+			<switch checked="false" id="groupOptions">
+					<span>new trunk group</span>
+					<span>distribute along groups</span>
+			</switch>
+			<br><br>
+		</backdrop>
+		<style>
+		backdrop .white {
+			box-shadow:0px 2px 2px #222 !important;
+
+margin:-30px 15px -20px 0px;
+		}
+		backdrop {
+			display: block;
+			margin:0px -25px -10px -25px;
+			padding:10px 25px;
+		}
+		.top-round {
+			margin-top:-10px;
+			border-radius:12px 12px 0px 0px;
+		}
+		backdrop div[input] {
+			border-color:rgba(255,255,255,.9) !important;
+			color:rgba(255,255,255,.9) !important;
+		}
+		backdrop div[input] [label] ,backdrop div[input] input{
+			color:white !important;
+		}
+		backdrop div[input]:focus-within [label] {
+		 color:#444 !important;
+		 border-radius: 2px;
+		 margin-left:-1px;
+		}
+		</style>
 
 
-       <textarea placeholder="Enter Names seperated with comma (,)" class="fill-card" style="border-top:0px;padding-left:23px !important;width:760px;" id="groupHolder"></textarea>
-    <br>
-        Seperate them into groups of:
-        <input class="short non-expand" value="2" type="number" id="groupNo"><br>
-        What to do with the remaining subjects:
-            <switch checked="false" id="groupOptions">
-                <span>new trunk group</span>
-                <span>distribute along groups</span>
-            </switch>
-        <br><hr>
+       <textarea placeholder="Enter Names seperated with comma (,)" class="fill-card top-round" style="border-top:0px;padding-left:23px !important;width:760px;height:200px;" id="groupHolder"></textarea>
+
+
+
+
+
+
         <ol id="groupOutput" style="padding-left:0px !important;">
-        <i center>Output will be shown here.</i>
+        <i center></i>
         </ol>
-    <br><br><hr>
+
+
+  <br><hr>
         Clone of <a href="http://ago.comeze.com/group/index.html" target="_blank"nxt>group generator</a> project with ago.
     </div>
 

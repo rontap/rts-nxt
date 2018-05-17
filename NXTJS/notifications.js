@@ -11,9 +11,10 @@ nxt.notify = function(id , time) {
 
       document.body.append(el);
       setTimeout(function(){
+        console.log('notify>>>',id,timeTemp);
           return nxt.notify(id,timeTemp);
 
-      },100)
+      },150);
     }
 
     else {

@@ -1,0 +1,26 @@
+{
+  "short_name": "Cancer Game",
+  "name": "Cancer Game v3 by Rontap",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+
+  ],
+  "start_url": "cancer.html?launcher=true",
+  "background_color": "#3F51B5",
+  "theme_color":"#3F51B5"
+}

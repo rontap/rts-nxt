@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<!-- WELCOME TO CANCER SIMULATOR. -->
+<HTML>
+<HEAD>
+
+  <script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
+    <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="../../NXTJS/elements.css">
+	<link rel="stylesheet" href="../../NXTJS/design.css" >
+	<link rel="stylesheet" href="../../NXTJS/input.css"  >
+	<link rel="stylesheet" href="../../NXTJS/mobile.css" >
+  <link rel="stylesheet" href="cancer.css">
+  <link rel="stylesheet" href="cancer-animate.css">
+  <meta name="theme-color" content="#3F51B5">
+
+  <link rel="icon" href="icon.png" type="image/png">
+  <title>Cancer Simulator</title>
+
+</HEAD>
+<BODY id="body" class="full-covered-active toast-desktop">
+
+  <div id="level" box>Level 1</div>
+  <div id="move" box><span id="move_text">Moves left</span>: <b id="movesLeft">X</b></div>
+
+<nav class="fixed">
+    <span id="pageTitle">Cancer Simulator</span>
+	   <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
+</nav>
+
+<div id="menu" class="card">
+    <div class="chip">
+    <h2>New Game</h2>
+       <selector class="center" >
+          <span onclick="plusChange=4">Easy</span>
+          <span  onclick="plusChange=1"class="on">Medium</span>
+          <span  onclick="plusChange=(-1)">Hard</span>
+          <span  onclick="plusChange=(-3)">Epic</span>
+        </selector>
+    </div>
+
+      <div class="chip">
+        <h2 class="">Mode</h2>
+        <selector class="test center" >
+           <span onclick="selectMode('normal')" class="on">Normal</span>
+           <span  onclick="selectMode('zen')">Zen</span>
+           <span  onclick="selectMode('time')">Time</span>
+
+         </selector>
+      </div>
+
+
+</div>
+
+<div id="power_selection">
+  <button nxt onclick="powerup.select(-1)"> Cancel </button>
+  <br>
+  <i id="power_icon" class="material-icons"></i>
+  <div id="power_text"></div>
+</div>
+
+<i class="material-icons fab" id="start" onclick="startGame();">send</i>
+<canvas id="canv"></canvas>
+<group id="controls" >
+</group>
+
+<group id="pwrup">
+  <div id="pwrup_gradient"></div>
+  <i class="material-icons" onclick="powerup.select(0)">exit_to_app</i>
+  <i class="material-icons" onclick="powerup.select(1)">space_bar</i>
+  <i class="material-icons" onclick="powerup.select(2)">zoom_out_map</i>
+  <i class="material-icons" onclick="powerup.select(3)">loupe</i>
+</group>
+
+
+<button nxt onclick="location.reload();" id="reload"><i class="material-icons" style="margin-right:20px;">replay</i> New Game</button>
+
+<script>
+plusChange=0;
+reqMoves=[14,15,16,18,20,22,24,26,28,30,34,38,42,46,50,55,60,65,70,76,82,88,100];
+function setDifficulty() {
+  reqMoves = reqMoves.map(x=>x+plusChange);
+}
+document.body.onkeypress = function(event) {
+  if (!isNaN(Number(event.key)+1)) {
+      if (isGameStarted)
+      clickTo( Number(event.key) ) ;
+      else startGame();
+  }
+  else if ((event.key == "Enter") || (event.keyCode == 32)) {
+    startGame();
+  }
+}
+isGameStarted = false;
+</script>
+
+<div id="winAnimate"></div>
+<style>
+
+</style>
+<toast id="runOut">Game Over! You Run out of moves</toast>
+
+<footer>
+App loading...
+</footer>
+<style>
+footer {
+position:absolute;
+bottom:20px;
+left:200px;
+right:0;
+
+color:#999;
+}
+body:not(.started) #pwrup {
+  display: none;
+}
+#pwrup {
+
+  margin:40px auto;
+  display: block;
+  width:190px;
+
+  border-radius: 4px;
+    border: 1px solid #999;
+    box-shadow: 0px 1px 2px #888 ;
+}
+#pwrup i {
+  padding:18px 12px;
+}
+#pwrup i:hover::before {
+  opacity:.85;
+  display: block;
+  position: absolute;
+  content:'';
+  border-radius: 100%;
+  background:white;
+  margin-top:-6px;
+  margin-left:-6px;
+  height:36px;
+  width:36px;
+  transition:background .2s;
+  z-index: -1;
+}
+#pwrup_gradient {
+  transition:all .2s linear;
+  position:absolute;
+  background: repeating-linear-gradient(
+  60deg,
+  #ddd,
+  #ddd 8px,
+  #ccc 8px,
+  #ccc 16px
+  );
+  width: 100px;
+  z-index: -1;
+  height: 61px;
+  border-right:1px solid #aaa;
+
+}
+div>a[target="_blank"]  {
+  display:none !important;
+}
+div[dialog]{
+  position:fixed;
+  top:-200px;
+  width:300px;
+  left:calc(50% - 175px);
+  height:100px;
+  overflow:hidden;
+  box-shadow:0px 2px 3px #222;
+  padding:0px 25px 25px 25px;
+  background:#eee;
+}
+div[dialog].on {
+  transition:all .4s;
+  border-radius: 4px;
+  opacity: 1;
+  top:80px;
+  overflow:show;
+
+  height:400px;
+
+  z-index: 99;
+}
+#backdrop.on {
+  position:fixed;
+  left:0;right:0;top:0;bottom:0;
+  animation:showBackdrop .6s forwards;
+  z-index: 3;
+}
+@keyframes showBackdrop {
+  0% {  background:rgba(160,160,160,0);}
+  100% {  background:rgba(60,60,60,0.7);}
+}
+#restart {
+  text-align: center;
+
+}
+@keyframes showDialog {
+  0% {
+
+  }
+  100% {
+
+  }
+}
+button.fab {
+  border-radius:20px;
+
+
+  box-shadow:0px 2px 3px #222;
+}
+button.fab i {
+
+}
+.primary {
+  background:var(--primary) !important;
+}
+#inset {
+  font-size:20px;
+}
+.ups {
+  padding:10px;
+  background:#FDD835;
+  border:2px solid #FFEB3B;
+  border-radius:4px;
+  width:80px;
+  font-weight: bold;
+  margin:0 auto;
+
+}
+#newGames {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 350px;
+  border-radius: 0px 0px 4px 4px;
+}
+</style>
+<div id="backdrop"></div>
+
+</div>
+<div id="restart" dialog >
+
+  <h1 class="covered white-text primary" style="margin-top:0px;">Out of Moves!</h1>
+  <br><br>
+  <div id="inset">
+  <span>You reached Level <span id="restartLevel">%</span><br><br>
+  <div id="upsholder">
+  <div id="XPHolder" class="ups">+ XP for Level</div>
+
+  </div>
+  <span id="restartXP"></span><br><br>
+  <div class="covered primary subtitle" id="newGames">
+  <button  real class="fab black-900" onclick="location.reload();"><i class="material-icons" >replay</i> New Game</button>
+</div>
+</div>
+
+
+<div>&nbsp;</div>
+</BODY>
+<!-- VERSION history
+
+BETA 0.1  - added basic colors and assimilation
+BETA 0.2  - added counting and levels. keyboard shortcuts; animation
+BETA 0.3  - added death and config splash screen
+
+VER  1.0  - proper splash screen and death
+VER  1.5  - bugfixes and animated home screen
+VER  1.7  - adding powerups
+
+BETA 2.0  - powerups are usable and require POINTS
+BETA 2.1  - powerup max and checking added
+VER  2.4  - [PWA] Progressive web apps support and offline
+VER  2.5  - [PWA] Added manifest, service and updated icon
+VER  2.6  - [PWA] version.json added and full autoupdate
+VER  2.7  - Selecting powerup information and canceling powerups
+VER  2.8  - Added ZEN Mode
+
+VER  3.0  -
+
+ -->
+
+<script src="../../NXTJS/design.js" type="text/javascript"></script>
+<script src="../../NXTJS/design-input.js" type="text/javascript"></script>
+  <script src="../../NXTJS/notifications.js" type="text/javascript"></script>
+<script src="powerups.js" type="text/javascript"></script>
+<script src="cancer.js" type="text/javascript"></script>
+<script src="modes.js" type="text/javascript"></script>
+<script src="service-manager.js" type="text/javascript"></script>

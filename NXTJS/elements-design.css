@@ -199,7 +199,7 @@ hr {
 h1.continued {
    border-radius: 0px !important;
 }
-.card h1.covered , h1.covered{
+.card h1.covered , h1.covered, .covered{
     margin: -10px -25px;
     color: #222;
     padding: 15px 20px;
@@ -215,7 +215,8 @@ holder h1.expand.covered {
                font-weight: 400;
 }
 
-.card h2.covered.subtitle ,  .covered.subtitle{
+.card h2.covered.subtitle ,  .covered.subtitle ,.covered.subtitle{
+  border-radius: 0px;
    margin: 10px -25px;
     padding: 14px 20px;
     background: #81C784;
@@ -560,12 +561,21 @@ dialog::backdrop {
 dialog::backdrop {
     z-index:100;
       transition:.2s all;
-    
+
+
+}
+
+/* SMALL FOOTER BACKDROP */
+footer[nxt] {
 
 }
 
 
+
 .omenu.on {
-    border: 1px solid var(--light-primary);
-    border-right-width: 10px;
+    background:#ddd;
+    color: #000;
+}
+.omenu.on:hover {
+    background:var(--primary);
 }

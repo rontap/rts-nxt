@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="../NXTJS/design.css">
 	<link rel="stylesheet" href="../NXTJS/input-design.css">
 	<link rel="stylesheet" href="../NXTJS/mobile.css">
+	<link rel="stylesheet" href="../NXTJS/material-input.css">
 
 	<link rel="stylesheet" href="main.css">
 
@@ -156,8 +157,15 @@
 		</p>
 
 			<h2>Credentials</h2>
-			<input nxt class="long" id="idUrl"     placeholder="URL or Access Code"><br><br>
-			<input nxt class="long" id="passwordUrl" placeholder="password"			 ><br>
+			<div input tabindex=0>
+				<input type="text" required id="groupNo" id="idUrl" >
+				<span label>URL Access</span>
+			</div>
+			<div input tabindex=0>
+				<input type="text" required id="groupNo" id="passwordUrl">
+				<span label>Password</span>
+			</div>
+
 
 				<br>
 				<h2>Access Control</h2>
@@ -211,7 +219,7 @@ function openNotePasswordUpdate(e) {
 	}
 }
 
-
+nxt.location="../NXTJS/"
 </script>
 </holder>
 

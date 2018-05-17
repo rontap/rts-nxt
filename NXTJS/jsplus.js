@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					       //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1800;  //build number for modules
+const nxtjs_proto_BuildNumber = 1810;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -71,7 +71,10 @@ Array.prototype.isSame = function() {
   return !!this.reduce((a, b) => (a === b) ? a : NaN );
 }
 
-
+Array.prototype.copy = function() {
+  //returns deep copy of element. doesnt work if the array contains functions.
+  return  JSON.parse ( JSON.stringify(this) ) ;
+}
 
 //JS is loosely typed, but this will not stop us from checking types...
   Array.prototype.type = "Array";

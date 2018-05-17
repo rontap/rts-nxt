@@ -86,7 +86,7 @@ header>span {
 nav {
     font-family: 'Montserrat', sans-serif;
     background: var(--dark-primary);
-    height: 104px;
+    height: 35px;
     padding-top: 25px;
     display: block;
     color: #FEFEFE;
@@ -104,9 +104,9 @@ nav.fixed {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 1;
   right: 0;
-  box-shadow: 0px 2px 3px #aaa;
+  box-shadow: 0px 2px 2px #aaa;
 }
 
 nav header div {
@@ -124,6 +124,7 @@ holder > div.on {
 
 holder {
     transition: opacity .15s, left .4s;
+    margin-top:120px !important;
 }
 
 /*A LINKS*/
@@ -196,7 +197,7 @@ container.sidebar {
 .otitle div {
     padding: 6px;
     border-radius: 3px;
-    box-shadow: 0px 1px 2px #999;
+    box-shadow: 0px 1px 1px #7771;
     background: var(--primary);
 }
 
@@ -259,11 +260,11 @@ container.sidebar {
 #pageTitle {
   display: block;
   font-size: 24px;
-  /* margin-left: 350px; */
+   margin-left: 350px;
   margin-top: -12px;
   text-transform: uppercase;
   transition: .2s;
-  text-align: center;
+  
 }
 
 /*for top nav*/

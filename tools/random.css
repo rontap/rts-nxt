@@ -50,7 +50,7 @@ animation:showUp .4s;
 }
 .colorResults {
 transition: all .2s;
-background: rgb(55, 140, 133);
+
 border-radius: 4px;
 padding: 20px 30px;
 font-family: monospace;
@@ -73,7 +73,7 @@ text-align: center;
 font-size:20px;
 font-weight: bold;
 color:white;
-background: #00acc1;
+
 
 }
 #stopperRounds div {

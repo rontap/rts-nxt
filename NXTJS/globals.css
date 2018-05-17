@@ -1,3 +1,12 @@
+/*GLOBAL *[] VARIABLES AND SCROLLBARS*/
+
+/* NXT scrollbars */
+/* @imported by:
+ * input-design.css
+ * required:
+ * none.
+*/
+
 *[block] { display: block; }
 *[in-block] { display: inline-block; }
 *[float] , *[flr] {float:right;text-align: right;}

@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Flamewar Debating</title>
+    <link rel="stylesheet" href="NXTJS/sole-design.css">
+    <link rel="stylesheet" href="NXTJS/design.css">
+    	<link rel="stylesheet" href="NXTJS/elements.css">
+      <link rel="stylesheet" href="NXTJS/input.css">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=2">
+      <script type="text/javascript" src="NXTJS/jsplus.js"></script>
+	     <link rel="icon" href="NXTJS/icons/flamewar.png" type="image/png">
+
+
+
+    <style>
+:root {
+  --primary:#2C2F33;
+  --dark-primary:#23272A;
+  --light-primary:#99AAB5;
+}
+        nav {
+          height:35px;
+        }
+        nav header {
+          background:transparent;
+          box-shadow:none;
+          color:#ccc !important;
+          border:0px;
+          text-align: center;
+          width:100%;
+          margin-top:12px;
+          color:white !important;
+          font-family:'Montserrat';
+          font-weight: bold;
+          text-transform: uppercase;
+            font-size: 27px;
+        }
+        nav header div {
+          color:#eee;
+        }
+        body {
+          background:var(--discord) !important;
+          color:#eee;
+        }
+
+        #refresh {
+          box-shadow:0px 2px 3px #111;
+          position:absolute;
+          right: 30px;
+          top:30px;
+          background: #ff5722;
+          z-index: 99;
+        }
+        #refresh:hover {
+          background: #ff8a65;
+        }
+          #info {
+            right:120px;
+            top:10px;
+            position:absolute;
+            bottom:inherit;
+            box-shadow:0px 0px 0px #111;
+            border: 1px solid var(--light-bg);
+            cursor: pointer;
+            z-index: 99;
+          }
+          #info:hover {
+            box-shadow:0px 2px 3px #111;
+          }
+          #info:active {
+            box-shadow:0px 2px 3px #111 inset;
+          }
+          #info i {
+            margin-right:20px;
+          }
+        content div{
+            position:absolute;
+            top:60px;
+            border:0px solid var(--light-bg);
+            bottom:0px;
+            z-index: -1;
+            width:calc( 33.33% - 40px );
+            margin:00px ;
+            padding:20px;
+            transition:all .1s linear;
+              text-align: center;
+        }
+        content div:hover {
+            border:10px solid var(--light-bg) ;
+          padding:10px;
+            cursor: pointer;
+        }
+        content div:active {
+          background:var(--light-bg) !important;
+        }
+        #is {
+          left:calc( 33.33% );
+          background:hsla(223, 8%, 29%, 1);
+        }
+        #why {
+          left:calc( 2 * 33.33% );
+          background: #50545e;
+        }
+        content div b {
+
+           word-wrap:break-word;
+          font-size:3.5vw;
+          font-weight: 400;
+          text-transform: uppercase;
+          display: block;
+          letter-spacing: -2px;
+              padding-top: calc(50%  - 2vw);
+
+        }
+        @media (max-width:800px) {
+          #is {
+            top:calc( 33.33% + 40px);
+
+          }
+          #why {
+            top:calc( 2 * 33.33% + 20px);
+          }
+          content div {
+            left:0px !important;
+            right:0px !important;
+            width:calc(100% - 40px);
+            height:calc(33.33% - 60px);
+
+          }
+          content div b {
+              padding-top:40px;
+                font-size:50px;
+          }
+        }
+        #linkBack {
+          top:0px;
+          position: absolute;
+          z-index: 99;
+          left:-20px;
+        }
+    </style>
+
+<body style="background-color: white;">
+
+
+
+<nav>
+  <header>FLAMEWAR Debating</header>
+</nav>
+
+<div id="linkBack" >
+    <i class="material-icons"  onclick="location.href='rtsmenu.html'">arrow_back</i>
+    <span  onclick="location.href='rtsmenu.html'" style="background:#00796B;">Go back to Menu.</span>
+    <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
+</div>
+
+
+<button real  id="info"><i class="material-icons" onclick="infobox.show();">info</i> Info</button>
+<i class="material-icons fab" id="refresh" onclick="redo();">refresh</i>
+<dialog id="infobox" nxt wide>
+  <h1 class="covered" class="blue-600">about flamewar debate generator</h1><br>
+
+</dialog>
+<content>
+  <div id="who" onclick='$("#who b").innerHTML= who[Math.randInt(who.length)] ;'><b>Kids are</b></div>
+  <div id="is" onclick='$("#is b").innerHTML=   is[Math.randInt(is.length)] ;'><b>responsible for</b></div>
+  <div id="why" onclick='$("#why b").innerHTML= why[Math.randInt(why.length)] ;'><b>eating Tide Pods</b></div>
+</content>
+
+</body>
+  <link rel="stylesheet" href="projectx/xfiles-design.css">
+  <link rel="stylesheet" href="projectx/xfiles-ui.css">
+    <link rel="stylesheet" href="NXTJS/elements.css">
+  <script type="text/javascript" src="tools/flamewar.js"></script>
+</html>

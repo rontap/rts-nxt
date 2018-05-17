@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="NXTJS/elements.css">
+    <link rel="stylesheet" href="NXTJS/input.css">
+    <link rel="stylesheet" href="NXTJS/design.css">
+    <script type="text/javascript" src="NXTJS/jsplus.js"></script>
+  </head>
+<body>
+<canvas id="canv" height="200px">
+
+</canvas>
+
+<style>
+* { margin:0; padding:0; }
+html, body { width:100%; height:100%; } /* just to be sure these are full screen*/
+
+canvas {
+  display:block;
+  background:White;
+  }
+
+</style>
+<script>
+canv.width = window.innerWidth;
+canv.height = window.innerHeight;
+var ctx=canv.getContext("2d");
+
+var Ypos = innerHeight/2;
+
+
+const section = 10;
+const ampt = 200;
+parts = (innerWidth-2) / section;
+
+values = [];
+
+function genArr(amount) {
+
+  arr = [];
+  for (i=0;i<amount;i++) {
+    temp = Math.floor(Math.random()*ampt-(ampt/2));
+    arr.push(temp);
+  }
+  return arr;
+}
+const sourceArr = genArr(1000);
+
+function draw(arr) {
+  Ypos = innerHeight/2;
+
+  ctx.clearRect(0, 0, canv.width, canv.height);
+  ctx.moveTo(0,Ypos);
+  for (i=0;i<=arr.length;i++) {
+
+    Ypos+=arr[i];
+    if (Ypos<0 || Ypos>innerHeight) Ypos-=arr[i]*2;
+    ctx.lineTo(parts*i,Ypos);
+
+  
+  }
+  ctx.stroke();
+}
+
+
+currElem = 0;
+function animate() {
+  draw(sourceArr.slice(currElem,currElem+section+1));
+  currElem++;
+  setTimeout(function(){animate();},100)
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+div[input] {
+  border-radius:3px;
+  border:2px solid #666;
+  margin:10px;
+  padding:10px;
+  display:inline-block;
+  outline:none;
+  transition:all .3s;
+  cursor:input;
+
+
+}
+div[input] input[type="text"]  {
+  background:transparent !important;
+  border:0px !important;
+  width:150px !important;
+  box-shadow:0px 0px red !important;
+
+}
+div[input][short] {
+  width:100px;
+}
+
+div[input]:focus-within input[type="text"]  {
+
+}
+div[input] [label] {
+  position: absolute;
+background: transparent;
+  margin-top: -31px;
+  color: #444;
+  margin-left: 12px;
+  transition:all .3s;
+  border-radius: 8px;
+  padding:6px;
+  z-index: 0;
+}
+div[input]::before {
+  position: absolute;
+  content: '';
+  margin-top: -20px;
+  height: 15px;
+  width: 0px;
+  transition:all .2s;
+  margin-left:5px;
+}
+div[input]:focus-within::before {
+  width: 50px;
+  background: #eee;
+  margin-left: 0px;
+}
+
+div[input]:focus-within {
+    border:2px solid var(--primary);
+}
+div[input]:focus-within [label],div[input] input[type="text"]:valid + [label] {
+      margin-top: -52px;
+      margin-left: 3px;
+      font-size:13px;
+      color:var(--primary);
+      background:#eee;
+        z-index: 2;
+}
+.card div[input]:focus-within [label],.card  div[input] input[type="text"]:valid + [label],div[input]:focus-within::before  {
+  background:white;
+}
+div[input]:not(:focus-within) input[type="text"]:valid + [label] {
+  color:#444;
+}
