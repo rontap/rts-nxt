@@ -1,0 +1,146 @@
+/*ELEMENTS*/
+element:last-child peek {
+    box-shadow:0px 1px 2px #999;
+}
+  element {
+    display:block;
+
+
+  }
+  element peek:hover {
+    z-index: 12;
+    cursor:pointer;
+    background:#ccc;
+    transition:all .3s;
+  }
+  element peek {
+    display: block;
+    height:120px;
+    padding:20px 60px;
+    background:white;
+
+
+  }
+  element:not(.on) peek {
+      border-bottom:1px solid #eee;
+  }
+  element peek h1 {
+    text-shadow:0px 0px 0px;
+    font-size:20px;
+    text-transform: uppercase;
+    color:#333;
+  }
+  element>div {
+    display:none;
+  }
+  element.transition>div {
+    display:block;
+
+    transition:all .2;
+  }
+  element.on>div {
+
+  }
+  #all-holder {
+    padding-top:68px;
+  }
+  element.transition {
+    position:fixed;
+    overflow: hidden;
+    left:0; right:0;
+    transition:all .5s;
+    box-shadow:0px 0px 3px #999;
+  }
+  element.transition.on {
+    top:0 !important;
+    bottom:17px !important;
+    background:white;
+  }
+  element.transition>peek {
+    background:#eee;
+  }
+
+  element.on peek  {
+    height:25px;
+    border-bottom-color:#aaa;
+    transition:all .4s;
+  }
+  element.on peek h1 {
+    margin-top:0px;
+    font-size:22px;
+  }
+  element.on peek div {
+    height:0px;
+    overflow:hidden;
+    transition:all .2s;
+  }
+
+ element {
+    background:#eee;
+  }
+  element.transition>div {
+    display:block;
+
+    transition:all .4s, max-height 1s;
+    padding:30px 40px;
+    max-height:0px;
+  }
+  element.on>div {
+      opacity: 1;
+      max-height: calc(100% - 140px);
+      display: block;
+      z-index: -1;
+      overflow: auto;
+      position: absolute;
+      width: 100%;
+
+  }
+  .tickDown {
+    display: block;
+    height: 20px;
+    font-size: 28px;
+    width: 20px;
+    color: #607D8B;
+    border-radius: 100%;
+    /* border: 1px solid #999; */
+    padding: 2px;
+    margin-top: 20px;
+    background: white;
+    /* float: right; */
+    margin-left: -10px;
+
+  }
+  .tickDown::before {
+    position: absolute;
+  height: 2px;
+  background: #999;
+  content: '';
+  z-index: -1;
+  left: 0;
+  right: 0;
+  margin-top: -15px;
+  box-shadow: 0px 1px 1px #999 inset;
+}
+.tickDown::after {
+font-family: 'Montserrat';
+font-size: 17px;
+color: #444;
+position: absolute;
+background: white;
+text-transform: uppercase;
+font-weight: bold;
+left: 82px;
+margin-top: 5px;
+padding: 0 5px;
+}
+.tickdown.tick-result::after { content:'Result';}
+.tickdown.tick-more::after { content:'More Info';}
+.tickdown.tick-graph::after { content:'Graps';}
+.tickdown.tick-info::after { content:'About operation';}
+.num.tick {
+text-align: center;
+margin: 0 10px;
+width: 200px;
+display: block;
+margin-top: 17px;
+}

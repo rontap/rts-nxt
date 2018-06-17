@@ -1,0 +1,96 @@
+article h1 {
+
+    margin: 0 !important;
+    padding: 10px 5px;
+    text-shadow: 0px 0px 1px #999;
+    color: var(--dark-bg);
+}
+
+.scroll nav h1 {
+    position: fixed;
+    top: -12px;
+    z-index: 99;
+    color: white;
+    margin-left: 35px;
+}
+
+
+article h1, article span {
+  display: block;
+
+  color:white !important;
+}
+article span , article img {
+    display: none !important;
+}
+article {
+    zoom:1.2 !important;
+    margin: 29px;
+    display:inline-block;
+    padding: 10px;
+    box-shadow: 0px 2px 4px #222;
+    transition:all .2s;
+    cursor: pointer;
+    width:80px;
+}
+
+article:hover {
+    box-shadow: 0px 4px 5px #111;
+}
+article:active {
+    box-shadow: 0px 2px 7px #000 inset;
+}
+
+article h1 {
+    position: absolute;
+    font-size: 14px;
+    width: 90px;
+    padding: 7px;
+    font-weight: normal;
+    color:#222 !important;
+    margin: 71px 0px 0px -10px !important;
+    background:rgba(255,255,255,.9) !important;
+    height:37px;
+    text-align:center;
+    border-top:1px solid #444;
+    border-radius: 0px 0px 2px 2px;
+}
+article h1[ol] /*one liner*/
+{
+    padding-top:16px;
+    height:35px;
+    padding-bottom:0px;
+}
+article {
+   width:84px;
+    height: 114px;
+    border-radius: 0px 0px 2px 2px;
+    transition:all .4s;
+}
+
+        article:hover span {
+            color: black;
+            opacity: 1;
+        }
+
+        .delta {
+            transition:all .2s;
+            margin: -9px 0px 0px -10px;
+            padding: 5px;
+            background: #00796B;
+            color: white;
+            float: left;
+            height: 40px;
+
+            width: 94px;
+        }
+
+        .delta.material-icons {
+            height: 60px;
+            padding-top: 20px !important;
+            font-size: 40px;
+            text-align: center;
+            vertical-align: -20px;
+            padding-top: 10px;
+            padding-bottom: 0px;
+        }

@@ -1,0 +1,146 @@
+<html>
+  <script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
+  <script src="../../edu/sets.js" type="text/javascript"></script>
+  <script src="duel.graph.js" type="text/javascript"></script>
+    <script src="ui.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="main.css">
+
+  <body>
+    <canvas id="hidden" style="display:none;"></canvas>
+    <canvas id="third" ></canvas>
+    <canvas id="draw" ></canvas>
+    <canvas id="front" onmousemove="drawLine(event);" onmouseup="endLine(event)"></canvas>
+
+  </body>
+  <script>
+    MUM = false; //MULTI USER MODE
+    DIMENSION = 400;
+
+   canvases = ['hidden','third','draw','front'];
+
+    (function setDimension() {
+      canvases.forEach( function(e) {
+        $("#" +e).width = DIMENSION*2;
+        $("#" +e).height =DIMENSION;
+      });
+    })();
+
+    field = [];
+
+    WIDTH = 30;
+    HEIGHT = 15;
+
+    SIZE = 5;
+
+    colors = ["#999999","#F44336","#2196F3","#4CAF50","#795548","#9C27B0","#00BCD4","#009688","#FF9800","#607D8B","#d81b60","#673AB7","#555","#333","#111"];
+    playerID=1;
+    isLineDrawn = false;
+    startID = [];
+    connections =[];
+
+  
+
+    function setupBg() {
+      for (i=0;i<WIDTH;i++) {
+        field[i] = [];
+        for (j=0; j<HEIGHT;j++) {
+          field[i][j] = new dot(i,j);
+        }
+      }
+    }
+
+    class dot {
+      constructor(x,y) {
+        this.x = x;
+        this.y = y;
+        this.owner = 0;
+        this.connection = [];
+        this.subtree=-1;
+      }
+      connected() {
+        let outarr=[];
+        for (let i=0;i<this.connection.length;i++) {
+            outarr.push(field[this.connection[i][0]][this.connection[i][1]]);
+        }
+        return outarr;
+      }
+
+    }
+
+    ctxCalc = hidden.getContext('2d');
+    ctx  = draw.getContext('2d');
+    ctx2 = front.getContext('2d');
+    ctx0 = third.getContext('2d');
+
+    setupBg();
+    drawBg();
+
+
+    function endLine(event) {
+      ctx2.clearAll();
+      ctx0.clearAll();
+      //ctx.clearRect(0,0,DIMENSION*2,DIMENSION*2);
+      isLineDrawn=false;
+      drawTime=0;
+      startX = l2p( startID[0] );
+      startY = l2p( startID[1] );
+      endX   = l2p(event.layerX);
+      endY   = l2p(event.layerY);
+
+      //if distance is greater than one
+      if ( Math.abs(startX-endX)>1 || Math.abs(startY-endY)>1)
+        return false;
+
+      if ( !((field[startX ][ startY].owner-playerID) * field[startX ][ startY].owner === 0)  || !((field[endX ][ endY].owner-playerID) * field[endX ][ endY].owner === 0))
+        return false;
+
+
+      if (startX == endX && startY == endY)
+        return false;
+
+
+
+
+      field[startX ][ startY].owner = playerID;
+      field[ endX  ][ endY ].owner = playerID;
+
+      field[startX ][ startY].connection.push([endX,endY]);
+      field[endX ][     endY].connection.push([startX,startY]);
+
+      connections.push( [[startX, startY] , [endX,endY], playerID])
+
+
+      updateConnectionStats();
+      drawTerritory();
+      drawBg();
+
+      if (--playerStepCurr == 0) {
+        playerStepCurr = playerStep;
+        if (playerID<playerSize-1) playerID++;
+        else playerID=1;
+      }
+      stepsLeft.innerHTML = playerStepCurr;
+      currPlayerDisplay.innerHTML=playerID;
+
+    }
+
+    function l2p(call){
+      return Math.round(call/(SIZE*5))-1;
+    }
+    function p2l(call) {
+      return 5*SIZE*(call+1);
+    }
+
+    playerSize = 1;
+    playerStep = 1;
+    playerStepCurr = playerStep;
+  </script>
+  <div id="ctrl">
+
+  <button onclick="cp.innerHTML=playerSize++;MUM=true" placeholder="players" type="number">+1 Player (<span id="cp">Now: Graph Mode</span>)</button>
+  <input onchange="playerStep=Number(this.value);playerStepCurr=playerStep;" type="number"style="width:30px"value=1>steps > <span id="stepsLeft">?</span> left
+  player:<span id="currPlayerDisplay">?</span>
+</div>
+
+
+</html>

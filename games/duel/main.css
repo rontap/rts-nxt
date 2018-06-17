@@ -1,0 +1,28 @@
+#ctrl {
+  position:fixed;
+  font-family:Monospace;
+  bottom:0px;
+  left:0;
+  background:white;
+}
+#ctrl span {
+  font-weight: bold;
+}
+  canvas {
+    border:1px solid blue;
+    position:absolute;
+  }
+  #draw {
+
+      border:1px solid red;
+      left:10px;
+      right:10px;
+      margin-left:-2px;
+  }
+#front {
+  opacity:.4;
+  transition:all .4s;s
+}
+#front:active  {
+  opacity:1;
+}

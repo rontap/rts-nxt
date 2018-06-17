@@ -21,7 +21,9 @@ Array.prototype.flatout = function()  {
     return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
   }, []);
 }
-
+Array.prototype.merge = function() {
+  return [].concat.apply([], this);
+}
 
 //sets behave like arrays but with the main difference of having one value only once.
 //when a Set is created, it can be manipulated with Arrays, and can return arrays.

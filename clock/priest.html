@@ -3,22 +3,28 @@
 <link href="../NXTJS/elements-design.css" rel="stylesheet">
 <link href="../NXTJS/input.css" rel="stylesheet">
 <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+<link href="../pinchbox.css" rel="stylesheet">
 <div id="linkBack" >
     <i class="material-icons"  onclick="location.href='../random.html'">arrow_back</i>
-    <span  onclick="location.href='../random.html'">Go back to rontap Tools.</span>
-    <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('../');">apps</i>
+    <span  onclick="location.href='../random.html'">Go back to rontap Tools?.</span>
+    <i class="material-icons" id="NineDotMenu" onclick="run() ">apps</i>
 </div>
 
-<link rel="import" href="switcher.html" document>
+
 
 <canvas id="canv"></canvas>
-<i class="material-icons" id="sp">stop</i>
+<!--i class="material-icons" id="sp">stop</i-->
 
-<group>
-  <button nxt onclick="mode='clock'">Clock</button>
-  <button nxt onclick="mode='stopper'">Stopper</button>
-  <button nxt>Timer</button>
-</group>
+<div id="options">
+  <group>
+    <button nxt onclick="mode='clock'">Clock</button>
+    <button nxt onclick="mode='stopper'">Stopper</button>
+
+  </group>
+  <br><br>
+  <input type="color" onchange="$('body').style.background=this.value">
+
+</div>
 <script>
 size = 500;
 
@@ -30,6 +36,7 @@ start = new Date().getTime();
 canv.style.width=size+"px";
 canv.style.height=size+"px";
 canv.width = size;
+rundown = true;
 canv.height = size;
 ctx = canv.getContext('2d');
 };
@@ -53,9 +60,17 @@ function up() {
   ctx.arc(size/2,size/2,unit*5,ms*Math.PI-Math.PI/2,(ms+.4)*Math.PI-Math.PI/2); //MS
   ctx.stroke();
 
-  ctx.beginPath();  ctx.lineWidth=unit; ctx.strokeStyle="#4488FF";
-  ctx.arc(size/2,size/2,unit*7.2,-Math.PI/2,(sec)*Math.PI-Math.PI/2);
+  if (sec > 1.975) {
+  let temp = unit - (unit* (ms/2));
+  ctx.beginPath();  ctx.lineWidth=temp; ctx.strokeStyle="#4488FF";
+  ctx.arc(size/2,size/2,unit*7.2,0,Math.PI*2);
   ctx.stroke();
+  }
+  else {
+  ctx.beginPath();  ctx.lineWidth=unit; ctx.strokeStyle="#4488FF";
+  ctx.arc(size/2,size/2,unit*7.2,-Math.PI/2,(sec*1.01)*Math.PI-Math.PI/2);
+  ctx.stroke();
+  }
 
   ctx.lineWidth=unit*1.5; ctx.strokeStyle="#FF8844";  ctx.beginPath();
   ctx.arc(size/2,size/2,unit*9,-Math.PI/2,(min)*Math.PI-Math.PI/2);
@@ -63,8 +78,8 @@ function up() {
   }
   else if (mode=="clock") {
 
-    if (true) shft = (new Date().getMilliseconds()/120000+new Date().getSeconds()/120+new Date().getMinutes()/2+new Date().getHours())/2;
-
+    if (rundown) shft = (new Date().getMilliseconds()/120000+new Date().getSeconds()/120+new Date().getMinutes()/2+new Date().getHours())/2;
+    else shft=0;
     fullTime = new Date();
     ctx.beginPath();    ctx.lineWidth=2;ctx.strokeStyle="#444444";
     ms = new Date().getMilliseconds() / 500;
@@ -95,6 +110,14 @@ function up() {
 up();
 </script>
 <style>
+group {
+  margin-left:0px !important;
+}
+#options {
+  margin:0 auto;
+  display: block;
+  text-align: center;
+}
 canvas {
   display: block;
   margin:0 auto;
@@ -114,5 +137,27 @@ canvas {
 link[document] {
   display:block;
 }
+.run-on #linkBack>#NineDotMenu {
+  z-index: 99;
+  color:white;
+}
+body:not(.run-on) #cnav {
+    height:0;
+}
+body:not(.run-on) #cnav * {
+opacity: 0;}
+.run-on #linkBack>span {
+  display: none;
+}
 </style>
+<script>
+function run() {
+$('body').classList.add('run-on');
+$('body').onmouseup = ()=> $('body').classList.remove('run-on');
+
+}
+setTimeout( ()=>
+linkBack.innerHTML +=  $$("link[rel=import][document]")[0].import.$$('html body')[0].innerHTML,100)
+</script>
+<link rel="import" href="common-nav.html" document>
 </html>

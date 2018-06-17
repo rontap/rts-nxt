@@ -1,5 +1,18 @@
+/*
+ * cancer HTML main core js
+ * created by: Aron Tatai
 
-// MAIN Setup
+ * testing and feedback: Csikos-Nagy Mate
+
+ * part of RTS NXT | created in 2018
+ * source: http://rontap.netne.net/games/cancer.html
+
+*/
+
+// -----------------------------------------------
+// --- BASIC SETUP -------------------------------
+// -----------------------------------------------
+
 level = 0 ;
 //variables
 size = 10;
@@ -13,6 +26,13 @@ gameMode = "normal";
 //gamemodes: Normal/Zen
 var canvas = document.getElementById("canv");
 var ctx = canvas.getContext("2d");
+
+cancerMetastasis=[null,null];
+isMetastasis=false;
+
+
+scheme=["f44336","3F51B5","009688","FFEB3B","795548","8E24AA","039BE5","7CB342","F4511E","546E7A","212121"]
+colorRange =3;
 
 // -----------------------------------------------
 // --- DRAWING NEW LEVEL -------------------------
@@ -108,6 +128,17 @@ function clickTo(color ) {
     restart.classList.add('on');
     backdrop.classList.add('on');
     restartLevel.innerHTML= level;
+    if ( nxt.getStore('cancer-3-maxlevel') < level ) {
+      XPHolder.innerHTML="New Personal Record!<br> You beat your previous record of " + nxt.getStore('cancer-3-maxlevel');
+      nxt.setStore('cancer-3-maxlevel',level);
+    }
+    else if ( nxt.getStore('cancer-3-maxlevel') == undefined) {
+        nxt.setStore('cancer-3-maxlevel',level);
+          XPHolder.innerHTML="Congrats on your first game!";
+    }
+    else {
+        XPHolder.innerHTML="Keep it up! Your best level is: " + nxt.getStore('cancer-3-maxlevel');
+    }
     isAllowed=false;
     return false;
   }
@@ -268,11 +299,21 @@ function clickEvent(e) {    //handeling
   updatePaint(currColor);
 
 }
-cancerMetastasis=[null,null];
-isMetastasis=false;
 
-
-scheme=["f44336","3F51B5","009688","FFEB3B","795548","8E24AA","039BE5","7CB342","F4511E","546E7A","212121"]
-colorRange =3;
 
 nxt.location='../NXTJS/';
+
+//EVOLUTION
+function showEvolution() {
+  $('body').classList.add('evolveIO');
+  pageTitle.style.opacity=0;
+  setTimeout(function() {
+    pageTitle.innerHTML="Evole and Traits";
+    start.innerHTML="close";
+evolveHolder.classList.add('on');
+    pageTitle.style.opacity=1;
+    setTimeout(function(){
+
+    },600)
+  },300);
+}

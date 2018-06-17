@@ -138,7 +138,7 @@ bottom: 0px;
   padding: 20px 60px 20px 120px;
 color: white;
 }
-#power_icon {
+#power_icon , #upgradeIcon{
   margin:30px;
   cursor:none;
   position: absolute;
@@ -152,5 +152,9 @@ background: rgba(255,255,255,.5);
   font-family: 'Montserrat';
 }
 #pageTitle {
-  margin:0 aut
+  margin:0 auto;
+  text-align:center;
+}
+.started #evolveBtn {
+  display:none;
 }

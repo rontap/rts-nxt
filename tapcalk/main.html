@@ -1,0 +1,402 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="../../NXTJS/elements.css">
+  <link rel="stylesheet" href="../../NXTJS/design.css" >
+  <link rel="stylesheet" href="../../NXTJS/input.css"  >
+  <link rel="stylesheet" href="../../NXTJS/mobile.css" >
+    <link rel="stylesheet" href="../../NXTJS/material-input.css" >
+  <link rel="stylesheet" href="main.css" >
+    <link rel="stylesheet" href="tube.css" >
+  <script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
+  <script src="../../edu/sets.js" type="text/javascript"></script>
+  <title>Tapcalk X</title>
+</head>
+<body class="start-state">
+  <div id="write-in" state>
+    <div class="dgrey-500" id="top-input">
+      <input placeholder="Input Formula" onchange="updateInputFormula(event);" onkeyup="updateInputFormula(event);">
+    </div>
+    <div class="option" id="tcx-output">
+      <h1 class="smalltext">Tapcalk X express output</h1> <br>
+      <span class="num" onclick="$('body').classList.add('allabout');"></span>
+      <br><br>
+      <hr>
+
+      <div scrollable><b>Functions: </b> <chip>dice</chip>  <chip>coin</chip> <chip>! (factorial)</chip>  <chip>rand</chip>  <chip>randInt</chip></div>
+      <div scrollable><b>Constants: </b> <chip>PI</chip>  <chip>E</chip> <chip>sqrt</chip></div>
+      <div scrollable><b>Trigonometry: </b> <chip>sin(?)</chip>  <chip>cos(?)</chip> <chip>tan(?)</chip></div>
+        <div scrollable><b>Conversion: </b> <chip>rt(?)</chip>  <chip>choose(n,k)</chip> <chip>round(?)</chip> <chip>floor(?)</chip></div>
+
+
+    </div>
+  </div>
+
+  <div id="all-holder">
+    <div id="top-bar">Functions
+    </div>
+      <element algebra>
+        <peek><h1>Element</h1>
+            <div>Subtitle</div>
+        </peek>
+        <div>
+            lkjlkj
+        </div>
+      </element>
+
+      <element algebra>
+        <peek><h1>somathing</h1>
+            <div>Subtitle</div>
+        </peek>
+        <div>
+          <div input="" tabindex="0">
+            <input type="text" required="">
+            <span label="">First Number</span>
+          </div>
+          <div input="" tabindex="0">
+            <input type="text" required="">
+            <span label="">Increment</span>
+          </div><br><br>
+          <div class="tickDown material-icons tick-result" >label</div>
+          <br><br>
+            <span class="num tick" onclick="$('body').classList.add('allabout');">output</span>
+          <br><br>
+          <div class="tickDown material-icons tick-more" >info</div>
+          <br><br><br><br><br><br><br>
+          <br><br><br><br><br><br><br>
+          <br><br><br><br><br><br><br>
+          <br><br><br><br><br><br><br>
+        </div>
+      </element>
+      <element algebra>
+        <peek><h1>differebt</h1>
+            <div>Subtitle</div>
+        </peek>
+        <div>
+            lkjlkj
+        </div>
+      </element>
+      <element algebra>
+        <peek><h1>conversion</h1>
+            <div>something ceca</div>
+        </peek>
+        <style>
+        #rol {
+          margin:0 !important;
+        }
+          .input-option select ,#rol{
+                padding: 10px 20px;
+                cursor:pointer;
+                background:#f1f1f1;
+                border-radius:4px;
+                margin-left:10px !important;
+                margin-top:10px !important;
+          }
+  .input-option select:hover ,#rol:hover {
+    bacground:#fff;
+    transition: all .2s;
+  }
+        </style>
+        <div class="input-option">
+
+          <table class="norjsx"><tr><td>Measurment</td><td>
+
+                <select id="kategoria" onchange="kat(kategoria.options[kategoria.selectedIndex].value)" class="inp-text">
+                       <option value="tomeg">Tömeg</option>
+                       <option value="terfogat">Térfogat</option>
+                       <option value="hossz">Hossz</option>
+                        <option value="terulet">Terület</option>
+                         <option value="ido">Idő</option>
+                         <option value="sebesseg">Sebesség</option>
+                  </select>    </td></tr>
+                          <tr><td>        How Much</td><td>
+                            <input type="text" id="rol" onkeyup="ir()" value="1">
+                            <!-- Mennyit szeretnénk átváltani? --></td></tr>
+                             <tr>    <td>From</td>    <td>
+                     <select id="mirol" onchange="ir()" class="inp-text">
+                            <option value="1">kilogramm (kg)</option>
+                            <option value="1000">tonna (t)</option>
+                            <option value="0.1">dekakilogramm (dkg)</option>
+                            <option value="0.001">gramm (g)</option>
+                            <option value="0.31103">uncia</option>
+                            <option value="0.373241">font</option>
+                            <option value="1000">tonna</option>
+                            <option value="20411">barge</option>
+                            <option value="100">mázsa [metrikus]</option>
+                      </select>    </td></tr>
+                                                               <tr><td> To </td>   <td>
+                      <select id="mire" onchange="ir()" class="inp-text">
+                           <option value="1">kilogramm (kg)</option>
+                           <option value="1000">tonna (t)</option>
+                           <option value="0.1">dekakilogramm (dkg)</option>
+                           <option value="0.001">gramm (g)</option>
+                           <option value="0.31103">uncia</option>
+                           <option value="0.373241">font</option>
+                           <option value="1000">tonna</option>
+                           <option value="20411">barge</option>
+                           <option value="100">mázsa [metrikus]</option>
+                       </select>    </td></tr>          </table>
+                                         <span id="kime"  placeholder="eredmény" onclick="addnum(kime.innerHTML)" class="l"></span> <!-- Eredmény kiírása -->  '
+
+        </div>
+      </element>
+
+      <element algebra>
+        <peek><h1>algebraa</h1>
+            <div>Subtitle</div>
+        </peek>
+
+            <div class="list">
+              <container>
+                  CECACECACECACEACA
+              </container>
+              <span>
+                <div class="list-holder">#57</div>
+                <div  class="num list-num">345342</div>
+                <br>
+
+              </span>
+              <div><span>23</span>  50</div>
+              <div><span>29</span>  50</div>
+              <div><span>25</span>  50</div>
+              <div><span>24</span>  350</div>
+              <div><span>23</span>  3250</div>
+              <div><span>27</span>  5250</div>
+              <div><span>20</span>  62150</div>
+              <div><span>24</span>  350</div>
+              <div><span>23</span>  3250</div>
+              <div><span>27</span>  5250</div>
+              <div><span>20</span>  62150</div>
+              <div><span>24</span>  350</div>
+              <div><span>23</span>  3250</div>
+              <div><span>27</span>  5250</div>
+              <div><span>20</span>  62150</div>
+            </div>
+
+      </element>
+      <element algebra>
+        <peek><h1>Element</h1>
+            <div>Subtitle</div>
+        </peek>
+        <div>
+            lkjlkj
+        </div>
+      </element>
+  </div>
+  <style>
+   #top-bar {
+    position:fixed;
+    top:-70px; left:0; right:0; padding:20px;
+    background:#ff5722;
+    color:White;
+    transition:all .4s;
+    box-shadow:0px 2px 3px #999;
+    padding-left:60px;
+  font-family:'Montserrat';
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size:22px;
+  }
+  .all-holder #top-bar {
+    top:0px;
+  }
+
+
+
+    #backArrow {
+      opacity:0;
+      position:fixed;
+      top:8px;
+      font-size:28;
+      left:20px;
+      color:#222;
+      transition:all .4s;
+    }
+    #backArrow.on {
+      opacity:1;
+      left:5px;
+    }
+    html {
+      overflow:hidden;
+    }
+  </style>
+
+  </div>
+  <div id="backdrop-grey" onclick="$('body').classList.remove('menu-on');$('body').classList.remove('sidebar','sidebar-display','sidebar-history');$('body').classList.remove('allabout')"></div>
+  <div id="backdrop" class="indigo-500">
+    <h1>Welcome to Tapcalk X</h1><br>
+    Some text here
+  </div>
+  <div id="menu" onmouseup="$('body').classList.remove('start-state')">
+    <h1 class="covered" onmouseup="$('body').classList.remove('menu-on')">Tapcalk X Menu</h1><br><br>
+    <div class="omenu"  onmouseup="selectMenu('write-in');">Algebra</div>
+    <div class="omenu"  onmouseup="selectMenu('all-holder','all-holder-numbers');">Number Series</div>
+    <div class="omenu"  onmouseup="selectMenu('all-holder','all-holder-convert');">Conversion and Excange</div>
+    <div class="omenu"  onmouseup="selectMenu('all-holder','all-holder-functions');">Functions</div>
+  </div>
+  <i class="material-icons" id="backArrow" onclick="removeAllElementActive();">arrow_back</i>
+
+
+  <div id="sidebar">
+      <div id="sidebar-display">
+      <h1>Display Setup</h1>
+      <span class="padded">Round to Nearest</span><toggler></toggler><br><br>
+      <span class="padded">Use 10X Display</span><toggler class="on"></toggler><br><br>
+      <span class="padded">Infinite Scroll</span><toggler></toggler><br><br>
+      <span class="padded">Parse Special Inputs</span><toggler></toggler><br><br><hr><br>
+    </div>
+    <div id="sidebar-history">
+  <h1>Number History</h1>
+    </div>
+  </div>
+  <style>
+    .padded {
+      display:inline-block;
+      width:170px;
+      vertical-align: -5px;
+    }
+    #sidebar hr {
+      margin-left:-40px;
+      background:#ccc;
+    }
+  </style>
+
+  <div id="submenu" class="dgrey-400"><br>
+    <table>
+        <tr><td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td></tr>
+        <tr><td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td></tr>
+        <tr><td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons">redo</i></td>
+            <td><i class="material-icons" onclick="$('body').classList.remove('submenu-on')">close</i></td></tr>
+    </table>
+  </div>
+  <div id="allabout">
+
+    <div style="height:200px">&nbsp;</div>
+    <div id="allabout-number" onclick="">3453</div>
+    <div id="allabout-holder">
+      <br><br><br><br><br><br><br><br><br><br><br>
+      <br><br><br><br><br><br><br><br><br>
+    </div>
+
+  </div>
+  <footer class="dgrey-500">
+    <div id="mainButtonHolder">
+    <div class="fab material-icons mainColor white-text" id="mainButton">panorama_wide_angle</div>
+  </div>
+    <i class="material-icons" onclick="$('body').classList.add('menu-on')">menu</i>
+    <i class="material-icons" onclick="$('body').classList.toggle('submenu-on')">import_contacts</i>
+    <i class="material-icons" flr onclick="$('body').classList.add('sidebar','sidebar-history')">visibility</i>
+    <i class="material-icons" flr onclick="$('body').classList.add('sidebar','sidebar-display')">history</i>
+  </footer>
+
+  <style>
+
+  </style>
+  <script>
+    tcx = {};
+    tcx.packages=["tapcalkx-core"];
+
+    function updateInputFormula(event) {
+      value = $('#top-input input').value;
+      $('#tcx-output span.num').innerHTML = tcx.eval(value).value;
+    }
+
+    mainButton.onclick = function() {
+      if ($('body').classList.contains('twoSpirit')) {
+        is = $('body').classList.toggle('twoSpiritStage');
+        if (is) mainButton.innerHTML = 'timeline';
+        else mainButton.innerHTML ='panorama_wide_angle';
+      }
+    }
+  </script>
+  <script src="../../NXTJS/design.js" type="text/javascript"></script>
+  <script src="../../NXTJS/design-input.js" type="text/javascript"></script>
+
+    <script src="../../edu/eval.tcx.js" type="text/javascript"></script>
+<style>
+body:not(.sidebar-history) #sidebar-history , body:not(.sidebar-display) #sidebar-display{
+ transition:opacity .4s .4s, display .4s .4s;
+ opacity:0;
+ max-height:0;
+}
+
+toggler {
+  content:'';
+  position:absolute;
+  background:#ddd;
+  border-radius:10px;
+  height:20px;
+  width:45px;
+  box-shadow:0px 0px 3px #444 inset;
+  transition: all .3s;
+  cursor:pointer;
+}
+toggler:not(.on) {
+  background:#aaa !important;
+}
+toggler.on {
+  background:var(--primary);
+}
+toggler::after {
+  content: '';
+  position: absolute;
+  width: 13px;
+  height: 12px;
+  background: white;
+  border-radius: 10px;
+  margin-top: 4px;
+  margin-left: 5px;
+  box-shadow: 0px 1px 2px #444;
+  transition: all .3s;
+}
+toggler.on::after {
+  margin-left:27px;
+  box-shadow: 0px 1px 2px #222;
+}
+#mainButtonHolder {
+  height: 68px;
+  position: fixed;
+  bottom: 25px;
+  left: calc(50%);
+  width:0px;
+  transition: all .3s;
+  background: #444;
+}
+body.twoSpirit:not(.allabout) #mainButtonHolder {
+  width: 101px;
+border-radius: 39px;
+left: calc(50% - 52px);
+
+box-shadow: 0px 0px 2px #222 inset
+}
+body.twoSpirit:not(.allabout) #mainButton {
+      left: calc(50% - 47px);
+}
+body.twoSpirit.twoSpiritStage:not(.allabout)  #mainButton {
+    left: calc(50% - 14px);
+    background:#3F51B5;
+}
+
+/*LISTS*/
+
+
+/*TUBE*/
+</style>
+  <link rel="stylesheet" href="elements.css" >
+  <link rel="stylesheet" href="list.css" >
+
+  <script src="listMenu.js" type="text/javascript"></script>
+</body>
+
+</html>

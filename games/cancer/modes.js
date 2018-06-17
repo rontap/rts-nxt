@@ -1,3 +1,13 @@
+/*
+ * cancer HTML modes addition
+ * created by: Aron Tatai
+ * testing and feedback: Csikos-Nagy Mate
+
+ * MODE module, Time mode disabled for 3.0 STABLE
+
+ * part of RTS NXT | created in 2018
+
+*/
 function selectMode(mode) {
   if (mode=="zen") {
     $('body').style.setProperty("--dark-primary", '#4CAF50');
@@ -7,7 +17,7 @@ function selectMode(mode) {
   else if (mode=="normal") {
     $('body').style.setProperty("--dark-primary", '#3F51B5');
     $('body').style.setProperty("--primary", '#3F51B5');
-    gameMode="mode";
+    gameMode="normal";
   }
   else if (mode=="time") {
     $('body').style.setProperty("--dark-primary", '#FF9800');
@@ -16,6 +26,10 @@ function selectMode(mode) {
   }
 }
 objects = [];
+
+
+// not implemented at this point
+// for V 4.0
 
 function placeObject(x,y,type,random) {
   if (random) ctx.fillStyle = "rgba(10,10,10,.9)" ;

@@ -87,27 +87,14 @@ function valtra(call) {
          }
          else {
          //MCD
-             if (call.charAt(i)=='I') {
-                 e+=1;
-             }
-             else if (call.charAt(i)=='V') {
-                 e+=5;
-             }
-             else if (call.charAt(i)=='X') {
-                 e+=10;
-             }
-             else if (call.charAt(i)=='L') {
-                 e+=50;
-             }
-             else if (call.charAt(i)=='C') {
-                 e+=100;
-             }
-             else if (call.charAt(i)=='D') {
-                 e+=500;
-             }
-             else if (call.charAt(i)=='M') {
-                 e+=1000;
-             }
+             if (call.charAt(i)=='I')                  e+=1;
+             else if (call.charAt(i)=='V')                 e+=5;
+             else if (call.charAt(i)=='X')                e+=10;
+             else if (call.charAt(i)=='L')                e+=50;
+             else if (call.charAt(i)=='C')              e+=100;
+             else if (call.charAt(i)=='D')              e+=500;
+             else if (call.charAt(i)=='M')               e+=1000;
+
          }
  }//nagyelse
 outcall(e);
@@ -118,7 +105,7 @@ outcall(e);
 //----------------------------------------------------------------------
 //ATVALT---------------------------------------------------------------------------------------------ATVALT---------
 //----------------------------------------------------------------------
-obj = {
+changeObj = {
          'tomeg' : {
              'szam': [1,1000,0.1,0.01,0.31103,0.373241,20411,100],
              'nev' : ['kilogramm (kg)','tonna (t)','dekakilogramm (dkg)','gramm (g)','uncia','font','barge','mázsa [metrikus]']
@@ -170,12 +157,10 @@ obj = {
          mire.innerHTML="";  //innerhtml nullázása
          mirol.innerHTML=""; //innerhtml nullázása
 
-         for (i = 0; i < obj[call].szam.length; i++)
+         for (i = 0; i < changeObj[call].szam.length; i++)
          {
-              mire.innerHTML+='<option value="'+obj[call].szam[i]+'">'+obj[call].nev[i]+'</option>';
-             mirol.innerHTML+='<option value="'+obj[call].szam[i]+'">'+obj[call].nev[i]+'</option>';//innerhtml átállítása
+              mire.innerHTML+='<option value="'+changeObj[call].szam[i]+'">'+changeObj[call].nev[i]+'</option>';
+             mirol.innerHTML+='<option value="'+changeObj[call].szam[i]+'">'+changeObj[call].nev[i]+'</option>';//innerhtml átállítása
          }
      }
      //alap();
-
-     valtkod='<h1 class="covered red-antigene" >Univerzális átváltás</h1><br><br><table class="norjsx"><tr><td>Miben</td><td>     <select id="kategoria" onchange="kat(kategoria.options[kategoria.selectedIndex].value)" class="inp-text"><!--ħ-->       <!--ħ-->        <option value="tomeg">Tömeg</option><!--ħ-->        <option value="terfogat">Térfogat</option><!--ħ-->        <option value="hossz">Hossz</option><!--ħ-->        <option value="terulet">Terület</option><!--ħ-->        <option value="ido">Idő</option><!--ħ-->        <option value="sebesseg">Sebesség</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->    <tr><td><!--ħ-->    <!--ħ-->    Mennyit</td><td> <input type="text" id="rol" onkeyup="ir()"><!-- Mennyit szeretnénk átváltani? --></td></tr><!--ħ-->   <tr><!--ħ-->    <td>Miről</td><!--ħ-->    <td><!--ħ-->    <select id="mirol" onchange="ir()" class="inp-text"><!--ħ-->         <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->   <tr><td> Mire </td><!--ħ-->   <td><!--ħ-->    <select id="mire" onchange="ir()" class="inp-text"><!--ħ-->        <option value="1">kilogramm (kg)</option><!--ħ-->        <option value="1000">tonna (t)</option><!--ħ-->        <option value="0.1">dekakilogramm (dkg)</option><!--ħ-->        <option value="0.001">gramm (g)</option><!--ħ-->        <option value="0.31103">uncia</option><!--ħ-->        <option value="0.373241">font</option><!--ħ-->        <option value="1000">tonna</option><!--ħ-->        <option value="20411">barge</option><!--ħ-->        <option value="100">mázsa [metrikus]</option><!--ħ-->    </select><!--ħ-->    </td></tr><!--ħ-->  <!--ħ-->    <!--ħ-->    </table><!--ħ-->    <!--ħ-->    <span id="kime"  placeholder="eredmény" onclick="addnum(kime.innerHTML)" class="l"></span> <!-- Eredmény kiírása --><!--ħ-->  '

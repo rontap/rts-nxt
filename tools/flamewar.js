@@ -6,9 +6,12 @@ who=["Donal Trump is","Teenagers are","Baby Boomers are","the communists are","T
 is=["responsible for","causing","'nt preventing","supporting","denying","the main factor behind","behind","creating","the reason why we have","the reasing why there is no","-","determined to achieve"];
 why=["global warming","WW III","WW II","modern slavery","political conflicts","child labour","Universal Basic Income","Gay Marriage","The great depression","911","gun control laws","legalising mariujana","the opioid epicemid","too powerful","domestic violence","unrealistic beauty standards","food waste","space travel","school shootings","turning the frickin' frogs gay","tide pods","christianity","supporting homeopathy"];
 
-/*function redo() {
+function redo() {
 $("#who b").innerHTML= who[Math.randInt(who.length)] ;
 $("#is b").innerHTML=   is[Math.randInt(is.length)] ;
 $("#why b").innerHTML= why[Math.randInt(why.length)] ;
-}*/
-//redo();
+}
+redo();
+
+
+amounts.innerHTML=who.length*is.length*why.length

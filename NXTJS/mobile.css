@@ -76,6 +76,7 @@ nav header i.material-icons {
 
      body:not(.sidebarMinimised) #pageTitle {
        color:transparent;
+       margin-top: -23px;
      }
      container.sidebar::after {
        top: 0;

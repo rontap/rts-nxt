@@ -24,12 +24,23 @@
 </HEAD>
 <BODY id="body" class="full-covered-active toast-desktop">
 
+
+  <dialog nxt id="aboutHelp">
+    <h1 class="covered">About Cancer Simulator III</h1>
+      Version 3, I really dont know what to put here I am sorry.<br><br>
+    <action color="" class="indigo-500">
+
+      <button warning="">Website Index</button>
+      <button flr="" in-block="" onclick="aboutHelp.close();">Cool, close</button>
+    </action>
+  </dialog>
+
   <div id="level" box>Level 1</div>
   <div id="move" box><span id="move_text">Moves left</span>: <b id="movesLeft">X</b></div>
 
 <nav class="fixed">
     <span id="pageTitle">Cancer Simulator</span>
-	   <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../');">apps</i>
+	   <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../../');">apps</i>
 </nav>
 
 <div id="menu" class="card">
@@ -48,14 +59,14 @@
         <selector class="test center" >
            <span onclick="selectMode('normal')" class="on">Normal</span>
            <span  onclick="selectMode('zen')">Zen</span>
-           <span  onclick="selectMode('time')">Time</span>
+           <!--VERSION3-span  onclick="selectMode('time')">Time</span-->
 
          </selector>
       </div>
 
 
 </div>
-
+<div id="evolveBtn" class="card center" onclick="$('body').classList.add('helpDisplay');$('dialog').showModal();">About & Help</div>
 <div id="power_selection">
   <button nxt onclick="powerup.select(-1)"> Cancel </button>
   <br>
@@ -108,6 +119,28 @@ isGameStarted = false;
 App loading...
 </footer>
 <style>
+#evolveBtn {
+  width:302px;
+  margin-left:calc(50% - 176px);
+  margin-top:380px;
+  position: fixed;
+  font-size:20px;
+  font-weight: bold;
+  padding-top:15px;
+  padding-bottom:15px;
+  font-family: 'Montserrat';
+  font-weight: uppercase;
+  box-shadow: 0px 2px 2px #444;
+  bottom:  60px;
+}
+#evolveBtn:hover {
+  background:#ddd;
+  cursor: pointer;
+}
+#evolveBtn:active {
+  box-shadow: 0px 3px 4px #999 ;
+  background:white;
+}
 footer {
 position:absolute;
 bottom:20px;
@@ -229,8 +262,8 @@ button.fab i {
   background:#FDD835;
   border:2px solid #FFEB3B;
   border-radius:4px;
-  width:80px;
-  font-weight: bold;
+
+
   margin:0 auto;
 
 }
@@ -241,34 +274,238 @@ button.fab i {
   top: 350px;
   border-radius: 0px 0px 4px 4px;
 }
+
+
+.evolve {
+
+
+  background: linear-gradient(white,#eee);
+  transition:all .2s;
+  margin: 0px -25px;
+    width: 332px;
+    padding: 12px 7px;
+    border-bottom: 1px solid #999;
+  background-size: 11px 105px;
+
+}
+.evolve span {
+  color:#444;
+    transition:all .2s;
+}
+
+.evolve:hover span {
+  color:#000;
+}
+.evolve:hover {
+  background-position:60px;
+
+
+  cursor: pointer;
+}
+.evolve:hover * {
+  cursor: pointer;
+}
+
+.evolve span {
+  width:100px;
+  display: inline-block;
+  padding-left:5px;
+}
+.evolve item {
+  width: 24px;
+background: white;
+height: 24px;
+border: 1px solid transparent;
+display: inline-block;
+margin: 0px 0px;
+border-radius: 4px;
+box-shadow: 0px 0px 2px #999;
+
+}
+.evolve span {
+  font-size:15px;
+  padding-right:20px;
+  padding-left:10px;
+}
+
+.evolve item[on] {
+  background:rgb(33, 150, 243);
+}
+#traits .evolve item[on] {
+  background:rgb(244, 67, 54);
+}
+#traits .evolve item {
+    margin-left: 130px;
+}
+.evolveIO nav {
+      height: 38px !important;
+      transition:all .6s;
+}
+.evolveIO  #pageTitle {
+      margin-top: -25px !important;
+      transition:all .6s;
+}
+.evolveIO #start {
+      margin-top: -46px;
+      transition:all .6s;
+      width:23px;
+      height:23px;
+}
+.evolveIO #menu {
+  opacity:0;
+  z-index: -2;
+}
+.evolveIO #canv {
+  opacity:0;
+  z-index: -2;
+}
+
+ #evolveHolder {
+   margin-top:-170px;
+  width: 347px;
+   margin:0 auto;
+
+   opacity:0;
+ }
+
+ #evolveHolder  {
+  display:none;
+
+}
+#evolveHolder .card {
+      width: 296px;
+}
+.evolveIO #evolveBtn {
+  opacity:0;
+  z-index: -2;
+
+}
+.evolveIO #evolveHolder {
+  display: block;
+
+}
+.evolveIO #evolveHolder.on {
+
+
+  opacity:1;
+  margin-top:-160px;
+  transition:all .4s;
+
+
+
+}
+.evolveIO h1 {
+  border-bottom:0px solid black !important;
+  border-radius:0px;
+  font-size:20px;
+  color:white !important;
+}
+.evolveIO h2  {
+  text-align: left;
+  font-size:16px;
+    color:white !important;
+    margin-bottom:0px !important;
+}
+#upgradeHeader {
+
+       padding: 30px 30px 30px 100px;
+}
+#upgradeIcon {
+  color:#444;
+
+  margin-left: -80px;
+margin-top: -16px;
+}
 </style>
+<div id="evolveHolder" >
+<div class="card">
+  <h1 class="covered black-600" id="upgradeHeader"><i id="upgradeIcon" class="material-icons">exit_to_app</i> Mumusch</h1>
+
+</div>
+<div class="card">
+  <h1 class="covered blue-500">Evolution</h1>
+  <h2 class="subtitle covered blue-400">Evolve your cancer and its special abilites.</h2>
+<div class="evolve got">
+  <span>Mumusch</span>
+  <item on>&nbsp;</item>
+  <item on>&nbsp;</item>
+  <item on>&nbsp;</item>
+  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>Zsalami</span>
+  <item on>&nbsp;</item>  <item on>&nbsp;</item>  <item>&nbsp;</item>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>Something</span>
+  <item on>&nbsp;</item>  <item >&nbsp;</item>  <item>&nbsp;</item>  <item>&nbsp;</item>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>PWRUP 1</span>
+  <item on>&nbsp;</item>  <item >&nbsp;</item>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>PWRUP 2</span>
+  <item on>&nbsp;</item>  <item >&nbsp;</item>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>PWRUP 3</span>
+  <item on>&nbsp;</item>  <item >&nbsp;</item>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>PWRUP 4</span>
+  <item>&nbsp;</item>  <item >&nbsp;</item>  <item>&nbsp;</item>
+</div>
+
+</div><div class="card" id="traits">
+<h1 class="covered  red-500 ">Traits</h1>
+<h2 class="subtitle covered red-400">Activate special traits for diverse infections</h2>
+<div class="evolve got">
+  <span>RNA Mutation</span>  <item on>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>RNA Lock</span>  <item>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>Cryo Freeze</span>  <item on>&nbsp;</item>
+</div>
+<div class="evolve got">
+  <span>Adaptation</span>  <item on>&nbsp;</item>
+</div>
+
+</div card>
+</div>
 <div id="backdrop"></div>
 
 </div>
-<div id="restart" dialog >
+<div id="restart" dialog class="popup">
 
-  <h1 class="covered white-text primary" style="margin-top:0px;">Out of Moves!</h1>
+  <h1 class="covered white-text primary" class="popup-text" style="margin-top:0px;">Out of Moves!</h1>
   <br><br>
-  <div id="inset">
+  <div id="inset" class="popup-inset">
   <span>You reached Level <span id="restartLevel">%</span><br><br>
   <div id="upsholder">
-  <div id="XPHolder" class="ups">+ XP for Level</div>
+  <div id="XPHolder" class="ups"></div>
 
   </div>
-  <span id="restartXP"></span><br><br>
+  <span id="restartXP" class="popup-bottom"></span><br><br>
   <div class="covered primary subtitle" id="newGames">
-  <button  real class="fab black-900" onclick="location.reload();"><i class="material-icons" >replay</i> New Game</button>
+  <button  real class="fab black-900" onclick="location.reload();">
+    <i class="material-icons" >replay</i> New Game
+  </button>
 </div>
 </div>
 
 
-<div>&nbsp;</div>
+<div 000webhost-destroyer >&nbsp;</div>
+
+
 </BODY>
 <!-- VERSION history
 
 BETA 0.1  - added basic colors and assimilation
 BETA 0.2  - added counting and levels. keyboard shortcuts; animation
-BETA 0.3  - added death and config splash screen
+BETA 0.3  -  added death and config splash screen
 
 VER  1.0  - proper splash screen and death
 VER  1.5  - bugfixes and animated home screen
@@ -282,7 +519,10 @@ VER  2.6  - [PWA] version.json added and full autoupdate
 VER  2.7  - Selecting powerup information and canceling powerups
 VER  2.8  - Added ZEN Mode
 
-VER  3.0  -
+BETA 2.9  - New death screen
+BETA 2.10 - Adding new functions for 4.0; keepable powerups and in-field additions
+
+VER  3.0  - [STABLE] Cutting off rough edges, not updating for a while. Added about section
 
  -->
 

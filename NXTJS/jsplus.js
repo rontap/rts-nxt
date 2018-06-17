@@ -7,8 +7,8 @@
 
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
-'use strict';					       //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1810;  //build number for modules
+'use strict';					                 //we use strict so everything is clear and no unexpected errors
+const nxtjs_proto_BuildNumber = 1900;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -162,7 +162,7 @@ Array.prototype.has = function(str) {
 }
 
 //-----------------------------------------------------------------
-//-----------------COLOR-GENERATION--------------------------------
+//-----------------DRAWING-STUFF-----------------------------------
 //-----------------------------------------------------------------
 
 
@@ -182,13 +182,19 @@ class Color {                   //simple generation of colors. Finally
 
 }
 
+CanvasRenderingContext2D.prototype.clearAll = function() {
+  this.clearRect(0,0, Number.MAX_SAFE_INTEGER , Number.MAX_SAFE_INTEGER );
+  return true;
+}
 
 //-----------------------------------------------------------------
 //-----------------JS-GET/from-PHP---------------------------------
 //---------------------original-version-co-written-with-deesnow97--
 
-function $_GET(args) {
+function $_GET(args,set_to) {
     args = args || 'null' ; //args is only used for asking specific argument
+    set_to = set_to || 'null'; //if you wanna set sth...
+
     var hash = location.hash.slice(1,Infinity);
 
     if (args!='null') {
@@ -212,39 +218,12 @@ function $_GET(args) {
                 }
                 return arr;
             },
-            'length' : function () { return location.hash.split("=").length }  //returns the length of arguments. to be used with arguumentList to loop
+            'length' : function () { return location.hash.split("=").length -1 }  //returns the length of arguments. to be used with arguumentList to loop
         }
     }
 
 }
-/* code to be reset and removed - and integrated back to $_GET - b1700
 
-function $_SET( locationCall , from , to ) {
-  args = args || 'null';
-  from = from.concat( nxt.jsgetFrom );
-  to = from.concat( nxt.jsgetTo );
-
-  if (args!=null) {
-    let parsedLocation="#";
-    $$('#NineDotMenu')[0].classList.add("on");
-    $$('body')[0].classList.add("NineDotMenuTransition");
-    for (i=0;i<from.length;i++) {
-      parsedLocation += from[i] + "=" +to[i] + "&";
-    }
-    setTimeout(function(){
-      location.href = locationCall + parsedLocation;
-    },200);
-  }
-  else {
-    return {
-      'add' : function(from,to) {
-          nxt.jsgetFrom = nxt.jsgetFrom.concat(from);
-          nxt.jsgetTo = nxt.jsgetTo.concat(to);
-      }
-    }
-  }
-}
-*/
 var $_SET = ()=> false;
 
 //-----------------------------------------------------------------
@@ -285,8 +264,7 @@ String.prototype.stat = function(call) {
 
       // this is to be deprecated
       case 'letterMin'  :   //     get the least freq. letter from the index of the most used letter
-       var textLN=this.stat('letters');
-       return textLN[1][ textLN[0].indexOf( textLN[0].min() ) ]
+       return undefined;
 
       case 'letterSort' :
       case 'sort' :
@@ -361,9 +339,7 @@ var nxt = {
       },550)
   },
    closeSidebar : function(e) {
-      if (document.body.offsetWidth<640) {
-          $('body').classList.add('sidebarMinimised');
-      }
+     console.error('NXTJS Feature Deprecated in 1900');
    },
 
    internalNXTStorage : JSON.parse(localStorage.nxtDataStore),
@@ -376,6 +352,12 @@ var nxt = {
       nxt.internalNXTStorage[elem] = to;
       localStorage.nxtDataStore = JSON.stringify(nxt.internalNXTStorage);
    },
+   store : function(elem, to) { // NEW in 1900
+     to = to || 'null';
+     if (to == 'null')  return nxt.getStore(elem);
+     else nxt.setStore(elem,to);
+   },
+
    setNormalisation : function(call) { //extended by sets
      let temp = [];
      for (var i=0 ; i<call.length ; i++ ) {
@@ -390,11 +372,9 @@ var nxt = {
       var message = message || "";
       document.writeln("<style>body {font-family:monospace;margin:60px;}</style><title>ParseError</title>")
       document.writeln("<br><h1>NXT JS Runtime Error "+title+"</h1>");
-      document.writeln("The page cannot be parsed. Please reload or go back to the previous site.<br>");
-      document.writeln("<b>Message:</b> "+message+"<hr><br>");
+      document.writeln("The page cannot be parsed. Please reload or go back to the previous site.<br>"+message);
       let a =  new Date().getTime();
-      document.writeln("nxt.js build version: " + nxt.build + "<br>Timestamp: " + a);
-      document.writeln("<br><br>Please report this error  to: aron.tatai@gmail.com");
+      document.writeln("<br><hr>nxt.js build version: " + nxt.build + "<br>Timestamp: " + a);
       throw "NXT.JS Fatal Parse Error.";
    },
    dieFromVersion : function(ver) {
@@ -402,29 +382,12 @@ var nxt = {
    },
    domInteraction : true,
 
-   //allowing <var is="" setups
-   timeCopSwitch : true ,
-   timeCop : function() {
-     if ( nxt.domInteraction && nxt.timeCopSwitch )
-       for (let i=0; i<$$("var").length;i++) {
-         let allow = true;
 
-           try {
-             $$("var")[i].innerHTML = eval( $$("var")[i].getAttribute("is") );
-           }
-           catch(e) {}
-
-        }
-     setTimeout( () => nxt.timeCop() ,100);
-    }
+}; //NXT MAIN OBJECT
 
 
+nxt.toggle = function(is,elem) { //toggle variables and objects
+  if (elem.type == 'Object')   $(elem).toggleClass('on');
+  if (window[is].type != 'Boolean') return null;
+  return window[is] = window[is] ? false : true
 }
-
-
-//timecop for varables
-nxt.timeCop();
-
-//-----------------------------------------------------------------
-//-----------------KEYBOARD-CONTROL--------------------------------
-//------------------------------------postponed--------------------

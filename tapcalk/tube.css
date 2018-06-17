@@ -1,0 +1,115 @@
+
+.list>span::after {
+    content: '';
+    position: absolute;
+    width: 19px;
+    height: 42px;
+    background: #607D8B;
+    left: 47px;
+    /* z-index: 95; */
+    height: 75px;
+    top: 33px;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+    box-shadow: 0px 2px 3px inset #455A64;
+    z-index: 99;
+}
+.list>span::before {
+    position: absolute;
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: white;
+        left: 51px;
+
+    border-radius: 100%;
+    top: 38px;
+    box-shadow: 0px 2px 2px #333;
+    z-index: 100;
+}
+.list>div>span::before {
+    content: '';
+    position: absolute;
+    margin: 7px;
+    width: 8px;
+    height: 8px;
+    background: #ffffff99;
+    margin-left: 6px;
+    border-radius: 100%;
+    z-index: 1;
+}
+
+.list>span + div{
+
+      margin-top: 110px;
+
+}
+.list>div>span {
+
+
+}
+.list>container {
+  border-radius: 0px;
+  width: 100%;
+  padding: 5px;
+  height: 80px;
+  padding-left: 25px;
+  padding-top: 25px;
+  font-size: 14px;
+      box-shadow: 0px 1px 3px #ccc;
+}
+
+.scrolledToPeek element>peek {
+  background: #ff5722 !important;
+  box-shadow:0px 1px 3px #666;
+
+}
+.scrolledToPeek element>peek h1 {
+  color:white;
+  transition:all .4s;
+}
+.scrolledToPeek #backArrow {
+  color:white !important;
+}
+element>div>container {
+  border-bottom:1px solid #999;
+  background:#eee;
+}
+
+/**/
+.list>span {
+  height:67px;
+}
+.list-holder {
+    padding: 9px 7px;
+    width: 60px;
+    margin-left: -19px;
+    margin-top: 3px;
+    border: 1px solid #607D8B;
+    border-radius: 4px;
+}
+.list-holder::before {
+    content: '';
+    position: absolute;
+    transform: rotate(45deg);
+    border: 1px solid #607D8B;
+    z-index: 99;
+    width: 10px;
+    height: 10px;
+    margin-left: -14px;
+    margin-top: 5px;
+    border-right: 0px;
+    border-top: 0px;
+    background: white;
+}
+.num.list-num {
+
+    position: absolute;
+    margin-top: -42px;
+    margin-left: 67px;
+}
+
+
+.list>div>span:hover::before {
+    opacity: 0;
+}

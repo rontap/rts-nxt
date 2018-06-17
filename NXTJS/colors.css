@@ -6,6 +6,7 @@
 
   * version 1 - 2017 December
   * version 2 - 2018 January - Added More Colors
+  * version 3 - 2018 May - Added remaining colors
  **/
 
 body .red-100 { background:#FFCDD2 !important ;}
@@ -136,7 +137,7 @@ body .black-700 { background:#616161 !important ; }
 body .black-800 { background:#424242 !important ; }
 body .black-900 { background:#212121 !important ; }
 
-
+body .magenta-500 { background:#d81b60 !important;}
 body .black-900,body .black-800,body .black-700 {
   color:#eee !important;
 }

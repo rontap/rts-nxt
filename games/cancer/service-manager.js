@@ -1,5 +1,7 @@
 // installing service manager
-const CURR_VER = 2.8;
+const CURR_VER = 3.0;
+
+
 var STATUS = null;
 var response = {};
 if ('serviceWorker' in navigator) {
@@ -16,8 +18,6 @@ if ('serviceWorker' in navigator) {
 
 
 //checking upate
-
-
 // defining request to check newest version
 var xmlhttp = new XMLHttpRequest();
 xmlhttp.onreadystatechange = function() {
@@ -48,4 +48,5 @@ function resetService(to) {
   })
 }
 
-setTimeout(()=>$('footer').innerHTML="version "+CURR_VER,1000);
+//updating version in the footer
+setTimeout( () => $('footer').innerHTML="version " + CURR_VER , 1000 );
