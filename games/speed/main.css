@@ -8,6 +8,7 @@ holder[central] {
 holder {
     display: block;
     /* margin: 10px; */
+    margin-top: 0px !important;
     /* padding:10px; */
     height: 135px;
 }

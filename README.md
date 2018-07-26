@@ -2,17 +2,15 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version:*
 
-**5.10 SUMMERSET**
+**5.11 NORTHWEST**
 
 ## Recent Changes
 ```
 (*) Priest Canvas Clock; Common Clock switcher
-(*) **Cancer Game v3 final version**
-(*) Flamewar about section added
+(*) **Cancer Game v3.1+ multiple updates**
 (+) **Duel, graph based PVP game beta**
-(*) Updateing rtsmenu **not done yet**
+(*) Updating RTS Menu
 (+) **TAPCALK X** mobile friendly FULL rewrite of TC6
-(*) Color game version 5->6; major improvements
 (*) More elements ported to TCX format
 
 --- NXT.JS Updates (1900)
@@ -133,6 +131,8 @@ Split of from tools; unsure implementation
 > 5.9 CONWAY _cancer game, priest_ 18/05/17
 
 > 5.10 SUMMERSET _tidying up, TCX, Duel, CancerGame, Colorize_ 18/06/16
+
+> 5.11 NORTHWEST  18/07/26
 
 ### Upcoming versions
 

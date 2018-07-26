@@ -12,11 +12,12 @@ powerup = {};
 powerup.active = undefined ;// no powerups are active
 powerup.strength = 0 //0-100
 
-powerup.name = [ "Targeted Infection" , "Mutation" , "Expansion","New Infection Root"];
+powerup.name = [ "Targeted Campaign", "Fundraiser" , "Postponed Election" ,"Vice President"];
 powerup.longname=["Select a single point in the field to change it to your current color.",
-            "Gives 3-5 Extra steps. Tap Anywhere on the field to activate",
-            "Expands the main cancer in every direction. Tap Anywhere on the field to activate",
-            "Creates a new \"Source\" cancer, where everything will spread out. Select a single point in the field."];
+
+            "Everyone loves a fundraiser! Your influence expands in every direction.",
+              "Gives 3-5 Extra steps. Tap Anywhere on the field to activate",
+            "Creates a new starting point from which you can expand! Select a single citizen."];
 
 
 //selecting the current powerup

@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<!-- WELCOME TO CANCER SIMULATOR. -->
+<!-- WELCOME TO   . -->
 <HTML>
 <HEAD>
 
@@ -19,14 +19,32 @@
   <meta name="theme-color" content="#3F51B5">
 
   <link rel="icon" href="icon.png" type="image/png">
-  <title>Cancer Simulator</title>
+  <title>Populistic</title>
 
 </HEAD>
 <BODY id="body" class="full-covered-active toast-desktop">
+  <div id="timeAttackBar"></div>
+  <style>
+  #timeAttackBar {
+      right: 100%;
+  }
+  .started #timeAttackBar {
+    position:fixed;
+    left:0;
+    z-index: 99;
+    bottom: 56px;
+    height: 6px;
+    background: #4CAF50;
 
+  }
+
+  .started #timeAttackBar.warn {
+    background:#FF9800 !important;
+  }
+  </style>
 
   <dialog nxt id="aboutHelp">
-    <h1 class="covered">About Cancer Simulator III</h1>
+    <h1 class="covered">Populistic</h1>
       Version 3, I really dont know what to put here I am sorry.<br><br>
     <action color="" class="indigo-500">
 
@@ -39,7 +57,7 @@
   <div id="move" box><span id="move_text">Moves left</span>: <b id="movesLeft">X</b></div>
 
 <nav class="fixed">
-    <span id="pageTitle">Cancer Simulator</span>
+    <span id="pageTitle">Populistic</span>
 	   <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../../');">apps</i>
 </nav>
 
@@ -59,14 +77,58 @@
         <selector class="test center" >
            <span onclick="selectMode('normal')" class="on">Normal</span>
            <span  onclick="selectMode('zen')">Zen</span>
-           <!--VERSION3-span  onclick="selectMode('time')">Time</span-->
+           <span  onclick="selectMode('time')">Time Attack</span>
 
          </selector>
       </div>
 
 
 </div>
-<div id="evolveBtn" class="card center" onclick="$('body').classList.add('helpDisplay');$('dialog').showModal();">About & Help</div>
+<div id="evolveBtn" class="card center" onclick="$('body').classList.add('campaign');startCampaign();"  style="bottom:130px;background:#222;color:#eee;">Start Campaign</div>
+
+<div id="evolveBtn" class="card center plot" onclick="$('body').classList.add('evolve','evolveIO');showEvolution();" >Evolve</div>
+
+<div id="evolveBtn" class="card center plot" onclick="$('body').classList.add('helpDisplay');$('dialog').showModal();"  style="left:180px;">About</div>
+<style>
+.plot {
+  width:120px !important;
+}
+/****************/
+.campaign #evolveBtn , .campaign #menu {
+  display:none !important;
+}
+.campaign canvas {
+  border:0px !important;
+  margin:0px !important;
+  position:fixed;
+  opacity:0;
+
+}
+.campaign  canvas.in-camp{
+  opacity:1;
+    transition:all .3s;
+}
+.campaign  #runAsCandidate {
+  bottom:50px;
+}
+#runAsCandidate {
+  z-index: 99;
+  border-radius:50px;
+  background:#222;
+  position:fixed;
+  bottom:-80px;
+  left: calc(50% - 90px);
+  margin:0 auto;
+  padding: 14px 20px;
+  font-size:18px;
+  box-shadow:0px 1px 2px #111;
+
+}
+</style>
+
+<script>
+
+</script>
 <div id="power_selection">
   <button nxt onclick="powerup.select(-1)"> Cancel </button>
   <br>
@@ -76,14 +138,15 @@
 
 <i class="material-icons fab" id="start" onclick="startGame();">send</i>
 <canvas id="canv"></canvas>
+<button real id="runAsCandidate" onclick="runAsCandidateNow()">Run for Election</button>
 <group id="controls" >
 </group>
 
 <group id="pwrup">
   <div id="pwrup_gradient"></div>
   <i class="material-icons" onclick="powerup.select(0)">exit_to_app</i>
-  <i class="material-icons" onclick="powerup.select(1)">space_bar</i>
-  <i class="material-icons" onclick="powerup.select(2)">zoom_out_map</i>
+  <i class="material-icons" onclick="powerup.select(1)">zoom_out_map</i>
+  <i class="material-icons" onclick="powerup.select(2)">space_bar</i>
   <i class="material-icons" onclick="powerup.select(3)">loupe</i>
 </group>
 
@@ -92,9 +155,11 @@
 
 <script>
 plusChange=0;
+timeAttackSpace = 3;
 reqMoves=[14,15,16,18,20,22,24,26,28,30,34,38,42,46,50,55,60,65,70,76,82,88,100];
 function setDifficulty() {
   reqMoves = reqMoves.map(x=>x+plusChange);
+  timeAttackSpace += plusChange/2;
 }
 document.body.onkeypress = function(event) {
   if (!isNaN(Number(event.key)+1)) {
@@ -122,7 +187,7 @@ App loading...
 #evolveBtn {
   width:302px;
   margin-left:calc(50% - 176px);
-  margin-top:380px;
+  margin-top: 371px;
   position: fixed;
   font-size:20px;
   font-weight: bold;
@@ -130,7 +195,7 @@ App loading...
   padding-bottom:15px;
   font-family: 'Montserrat';
   font-weight: uppercase;
-  box-shadow: 0px 2px 2px #444;
+  box-shadow: 0px 1px 2px #999;
   bottom:  60px;
 }
 #evolveBtn:hover {
@@ -173,7 +238,7 @@ body:not(.started) #pwrup {
   border-radius: 100%;
   background:white;
   margin-top:-6px;
-  margin-left:-6px;
+  margin-left: -6px;
   height:36px;
   width:36px;
   transition:background .2s;
@@ -276,27 +341,17 @@ button.fab i {
 }
 
 
-.evolve {
-
-
-  background: linear-gradient(white,#eee);
-  transition:all .2s;
-  margin: 0px -25px;
-    width: 332px;
-    padding: 12px 7px;
-    border-bottom: 1px solid #999;
-  background-size: 11px 105px;
-
-}
-.evolve span {
+.evolve .evolve{
+  background: linear-gradient(white,#eee);transition:all .2s;margin: 0px -25px;width: 332px;padding: 12px 7px;border-bottom: 1px solid #999;background-size: 11px 105px;}
+.evolve  .evolve span {
   color:#444;
     transition:all .2s;
 }
 
-.evolve:hover span {
+.evolve  .evolve:hover span {
   color:#000;
 }
-.evolve:hover {
+.evolve .evolve:hover {
   background-position:60px;
 
 
@@ -346,7 +401,7 @@ box-shadow: 0px 0px 2px #999;
       transition:all .6s;
 }
 .evolveIO #start {
-      margin-top: -46px;
+      margin-top: 54px;
       transition:all .6s;
       width:23px;
       height:23px;
@@ -364,13 +419,17 @@ box-shadow: 0px 0px 2px #999;
    margin-top:-170px;
   width: 347px;
    margin:0 auto;
-
-   opacity:0;
+display:none;
+   opacity:1;
  }
-
- #evolveHolder  {
-  display:none;
-
+.evolve #menu {
+  display: none !important;
+}
+.evolve #evolveBtn, .evolve #canv {
+  display:none !important;
+}
+ .evolve #evolveHolder  {
+  display:block;
 }
 #evolveHolder .card {
       width: 296px;
@@ -380,20 +439,8 @@ box-shadow: 0px 0px 2px #999;
   z-index: -2;
 
 }
-.evolveIO #evolveHolder {
-  display: block;
 
-}
-.evolveIO #evolveHolder.on {
-
-
-  opacity:1;
-  margin-top:-160px;
-  transition:all .4s;
-
-
-
-}
+.evolveIO #evolveHolder.on {opacity:1;margin-top: 90px;transition:all .4s;
 .evolveIO h1 {
   border-bottom:0px solid black !important;
   border-radius:0px;
@@ -406,20 +453,16 @@ box-shadow: 0px 0px 2px #999;
     color:white !important;
     margin-bottom:0px !important;
 }
-#upgradeHeader {
-
-       padding: 30px 30px 30px 100px;
-}
+#upgradeHeader {padding: 30px 30px 30px 100px;margin-bottom: -25px;background: #eee;}
 #upgradeIcon {
-  color:#444;
-
+  color: white;
   margin-left: -80px;
-margin-top: -16px;
+  margin-top: -16px;
 }
 </style>
 <div id="evolveHolder" >
 <div class="card">
-  <h1 class="covered black-600" id="upgradeHeader"><i id="upgradeIcon" class="material-icons">exit_to_app</i> Mumusch</h1>
+  <h1 class="covered black-600" id="upgradeHeader"><i id="upgradeIcon" class="material-icons">exit_to_app</i> Campain</h1>
 
 </div>
 <div class="card">
@@ -532,4 +575,5 @@ VER  3.0  - [STABLE] Cutting off rough edges, not updating for a while. Added ab
 <script src="powerups.js" type="text/javascript"></script>
 <script src="cancer.js" type="text/javascript"></script>
 <script src="modes.js" type="text/javascript"></script>
+<script src="candidate.js" type="text/javascript"></script>
 <script src="service-manager.js" type="text/javascript"></script>

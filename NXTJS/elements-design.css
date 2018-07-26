@@ -571,6 +571,21 @@ footer[nxt] {
 }
 
 
+/*A LINKS*/
+a[nxt] {
+    color:#222 !important;
+    text-decoration: underline;
+    padding:1px 6px;
+    display: inline-block;
+    border-radius:3px;
+    transition: all .2s;
+}
+a[nxt]:hover {
+    background:var(--light-primary);
+    box-shadow:0px 1px 3px #444 inset;
+
+}
+
 
 .omenu.on {
     background:#ddd;

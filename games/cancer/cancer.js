@@ -31,7 +31,14 @@ cancerMetastasis=[null,null];
 isMetastasis=false;
 
 
-scheme=["f44336","3F51B5","009688","FFEB3B","795548","8E24AA","039BE5","7CB342","F4511E","546E7A","212121"]
+
+schemeStore = [
+  ["f44336","3F51B5","009688","FFEB3B","795548","8E24AA","039BE5","7CB342","F4511E","546E7A","212121"],
+  ["E74856","00CC6A","0078D7","C239B3","FF8C00","00B7C3","6B69D6","FFB900","4C4A48","515C6B","212121"],
+  ["e74c3c","2ecc71","3498db","e67e22","9b59b6","34495e","1abc9c","f1c40f","95a5a6","#ecf0f1","212121"],
+  ["c62828","e53935","6A1B9A","F06292","E91E63","C2185B","f44336","b71c1c","d50000","#9C27B0","212121"]
+]
+scheme = schemeStore[2];
 colorRange =3;
 
 // -----------------------------------------------
@@ -172,7 +179,7 @@ function clickTo(color ) {
   // [LEVEL PROGRESSION]
   movesTook[level-1]++; //adding moves
 
-  if (gameMode == "normal") {
+  if ((gameMode == "normal") || (gameMode == "time")) {
       reqMoves[level-1]--;
       movesLeft.innerHTML =  reqMoves[level-1];
 
@@ -187,14 +194,19 @@ function clickTo(color ) {
            powerup.levelStrength( level );
            animateWin(color);
            paint();
-           movesLeft.innerHTML="..";
+           movesLeft.innerHTML=reqMoves[level];
 
-
+          // YOU WON STILL
+          if (gameMode == "time") {
+            setTimeout(function(){
+              timeAttackSafeSpace=true;
+              timeAttackCount();
+            },100)
         }
   }
-  else if (gameMode == "zen") {
+  if (gameMode == "zen") {
       movesLeft.innerHTML =  movesTook[level-1];
-      move_text.innerHTML = "Moves Used In level:";
+      move_text.innerHTML = "Moves Used";
       if ( content.map(x => x.isSame()).isSame() ) {//you won
         reqMoves[level] += reqMoves[level-1];
          size+=2;
@@ -210,6 +222,10 @@ function clickTo(color ) {
          movesLeft.innerHTML="..";
 
   }
+}
+  //
+
+
 }
 
 
@@ -264,6 +280,17 @@ function isValid(x,y,color) {
 
 function startGame()//animtaion
 {
+    if (gameMode =="time") {
+      timeAttackBar.style.transition='0s';
+      timeAttackBar.style.right='0%';
+      timeAttackBar.style.background='#4CAF50';
+    setTimeout(function(){
+     timeAttackCount();
+
+    },600);
+
+     }
+
   if (gameMode == "zen") {
       colorRange=2;
   }
@@ -310,10 +337,10 @@ function showEvolution() {
   setTimeout(function() {
     pageTitle.innerHTML="Evole and Traits";
     start.innerHTML="close";
-evolveHolder.classList.add('on');
+    evolveHolder.classList.add('on');
     pageTitle.style.opacity=1;
     setTimeout(function(){
 
-    },600)
+    },600);
   },300);
 }

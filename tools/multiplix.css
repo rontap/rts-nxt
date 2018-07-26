@@ -6,6 +6,7 @@
 
 nav header {
     width:300px;
+    box-shadow: 0px 0px 0px black;
 }
  #multiplix.on #userCurrText, #multiplix.on #userNames{
   animation:showWin .8s;
@@ -29,14 +30,7 @@ nav header {
   0% { right:-30%;}
   100% { right: 0%;}
 }
-#userNames {
-position:fixed;
-left:0px;
-width:300px;
-background:white;
- top:60px; bottom:0;
-border-right:1px solid #AAA;
-}
+#userNames {position:fixed;left:0px;width:300px;z-index: 99;background:white;top:60px;bottom:0;border-right:1px solid #AAA;}
 #userNamesHolder {
   max-height: calc( 100% - 72px);
   overflow-x: hidden;

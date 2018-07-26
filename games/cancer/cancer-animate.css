@@ -104,10 +104,8 @@ font-weight: bold;
   }
   #controls button {
   display: table-cell;
-
-      border-radius:0px;
-
-      padding:20px 10px;
+  border-radius:0px;
+  padding: 25px 10px;
   }
   #move {
     width:calc(50% - 50px);

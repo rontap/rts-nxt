@@ -8,7 +8,10 @@
  * part of RTS NXT | created in 2018
 
 */
+
+
 function selectMode(mode) {
+
   if (mode=="zen") {
     $('body').style.setProperty("--dark-primary", '#4CAF50');
     $('body').style.setProperty("--primary", '#4CAF50');
@@ -20,13 +23,54 @@ function selectMode(mode) {
     gameMode="normal";
   }
   else if (mode=="time") {
+    setTimeout(function(){
+
+      timeAttackBar.style.right='0%';
+
+    },100);
     $('body').style.setProperty("--dark-primary", '#FF9800');
     $('body').style.setProperty("--primary", '#FF9800');
     gameMode="time";
+
+
+
   }
 }
 objects = [];
 
+
+timeAttackSafeSpace = true;
+timeFrozen = false;
+function timeAttackCount() {
+  if (gameMode != "time") return false;
+
+  timeAttackBar.style.transition=timeAttackSpace*3+'s linear';
+  timeAttackBar.style.right='100%';
+  setTimeout(function(){
+    if (timeFrozen) {
+        timeAttackBar.classList.add('frozen');
+    }
+    else {
+        timeAttackBar.classList.add('frozen');
+    }
+    if (timeAttackSafeSpace) {
+      timeAttackSafeSpace=false;
+      timeAttackBar.classList.add('warn');
+    }
+    else {
+      reqMoves[level-1]--;
+
+    }
+    timeAttackBar.style.transition='0s';
+      timeAttackBar.style.right='0%';
+    setTimeout(function(){
+
+        movesLeft.innerHTML=   reqMoves[level-1];
+        timeAttackCount();
+      },100);
+  },timeAttackSpace*3000);
+
+}
 
 // not implemented at this point
 // for V 4.0

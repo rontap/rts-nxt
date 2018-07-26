@@ -1,2 +1,17 @@
 @import url('elements-design.css');
 /* this will change to be the default soon.*/
+
+
+.floatbox {
+    padding: 5px;
+    color: #f1f1f1;
+    margin: 10px;
+    padding: 5px;
+    color: #fff;
+    margin: 10px;
+    background: #9C27B0;
+    margin: 13px;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #44444444;
+}

@@ -74,8 +74,9 @@ nav header {
     font-size: 30px;
     height: 59px;
     z-index: 99;
+    z-index: 99;
     animation: scrollIn .2s;
-    box-shadow: 0px 3px 4px #444;
+    /* box-shadow: 0px 3px 4px #444; */
 }
 
 header>span {
@@ -85,7 +86,7 @@ header>span {
 
 nav {
     font-family: 'Montserrat', sans-serif;
-    background: var(--dark-primary);
+    background: var(--primary);
     height: 35px;
     padding-top: 25px;
     display: block;
@@ -127,20 +128,6 @@ holder {
     margin-top:120px !important;
 }
 
-/*A LINKS*/
-a[nxt] {
-    color:#222 !important;
-    text-decoration: underline;
-    padding:1px 6px;
-    display: inline-block;
-    border-radius:3px;
-    transition: all .2s;
-}
-a[nxt]:hover {
-    background:var(--light-primary);
-    box-shadow:0px 1px 3px #444 inset;
-
-}
 /* UI ELEMENTS */
 
 
@@ -152,7 +139,7 @@ container.sidebar {
     left: 0;
     margin-left: 1px;
     overflow-y: scroll;
-    background: white;
+    background: #fefefe;
     font-family: 'Montserrat', sans-serif;
     font-weight: 300;
     margin: none !important;
