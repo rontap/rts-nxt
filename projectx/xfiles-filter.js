@@ -17,4 +17,7 @@ function connectedFilter(array) {
     Math.round(filter.sum[1]*255),
     Math.round(filter.sum[2]*255))
   $('h1.on').style.color=filter.color.hex;
+
+  
+
 }

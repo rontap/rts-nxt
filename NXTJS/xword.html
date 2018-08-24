@@ -1,0 +1,57 @@
+<html>
+<title>Cross Word Testing</title>
+<script src="jsplus.js"></script>
+<script src="sets.js"></script>
+<link rel="stylesheet" href="design.css" />
+
+<link rel="stylesheet" href="sole-design.css" />
+<h1>XWords</h1>
+
+<script>
+
+if (Array.prototype.flat === undefined) nxt.die('Not Supported: Chrome Version 69 or Firefox 62 Required');
+
+class XWord {
+  constructor(words) {
+    this.words = words.split(' '); //array of words
+    let wl = this.words.length;
+
+    this.matchMatrix = new Array(wl).fill().map(()=> new Array(wl));
+    this.matchNo = new Array(wl).fill().map(()=> new Array(wl) );
+    this.wordStrength = [];
+
+    for (let i= 0;i<wl;i++) {
+      for (let j = 0;j<i;j++) {
+              let matchingObjects = this.words[i].toSet().intersect(this.words[j].toSet());
+              this.matchMatrix[i][j] = matchingObjects;
+              this.matchNo[i][j] = matchingObjects.length;
+        }
+    }
+    this.values = this.calcVals();
+    for (let i = 0; i<wl;i++) {
+      this.wordStrength.push([ this.words[i] , this.calcStrength(i,wl) ] );
+    }
+  }
+  calcVals() {
+    return this.matchNo.flat().toSet().get.sort(compareNumber);
+  }
+  calcStrength(val,wl/*>>*/) { //calculating each individual word's strength based on the grid
+    let xvalue = 0;
+    for (let j = 0; j < wl ; j++) {
+      if (isNaN(this.matchNo[j][val])) continue;
+      xvalue+=this.matchNo[j][val];
+    }
+    let yvalue = Math.sum(this.matchNo[val]);
+
+    return xvalue + yvalue;
+  }
+}
+
+function compareNumber(a,b) {
+  if (Number(a)>Number(b)) return 1;
+  else if (Number(a)<Number(b)) return -1;
+  else return 0;
+}
+
+</script>
+</html>

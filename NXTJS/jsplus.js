@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					                 //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 1900;  //build number for modules
+const nxtjs_proto_BuildNumber = 2000;  //build number for modules
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -339,7 +339,7 @@ var nxt = {
       },550)
   },
    closeSidebar : function(e) {
-     console.error('NXTJS Feature Deprecated in 1900');
+     $('body').classList.add('sidebarMinimised')
    },
 
    internalNXTStorage : JSON.parse(localStorage.nxtDataStore),

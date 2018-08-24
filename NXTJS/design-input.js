@@ -3,7 +3,8 @@
 //Created by Aron Tatai, 2017/2018
 
 //requires: jsplus.js
-//          input-design.css is
+//          input.css is
+
 
 
 nxt.modules.push("design-input.js");

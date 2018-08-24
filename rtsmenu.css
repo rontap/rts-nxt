@@ -72,7 +72,7 @@
         body.bye {
             animation: bye .45s infinite fill forwards;
         }
-        
+
         @keyframes show {
             0% {
                 opacity: 0;
@@ -158,8 +158,7 @@
             color:#white;
             position: fixed;
             top: 0;
-            left: 0;
-            opacity:  0;
+            left: 20px;
         }
 
         #closeicon:hover,

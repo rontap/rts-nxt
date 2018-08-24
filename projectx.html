@@ -57,7 +57,12 @@
     party.level = 1; //tba later
     party.ui = true; //showing party and other icons
     party.probs = 1; //probability of color change
-    party.isGuided = true;
+
+		//differentiating between guided and not guided modes
+		//this variable should not be changed, use party.updateGuided(newValue) instead
+		if ($_GET('guided') == 'true')  party.isGuided = true;
+		else party.isGuided = false;
+
     party.runTimeIndex = 1; //how many times the program has been looped
     party.videoStartTime = 0;
     party.videoURL = "ironman.mp3";
@@ -145,7 +150,20 @@
             console.log(parser.record[ party.runTimeIndex ], party.runTimeIndex);
             $('#currElement').innerHTML=String(party.runTimeIndex).padStart(2).replace(/\s/g,"&nbsp;");
 
-    }
+    };
+		party.updateGuided = function(doUpdate) {
+			if (doUpdate != undefined)
+				party.isGuided = doUpdate;
+
+			if (!party.isGuided) {
+				$('#debug').style.display='none';
+				$('#playersetup').style.display='none';
+			}
+			else {
+				$('#debug').style.display='block';
+				$('#playersetup').style.display='block';
+			}
+		}
 
 
     window.onresize = function() {
@@ -162,11 +180,11 @@
     }
     try {setTimeout(function(){
        // $('div:last-child:not(.ok)').style.display='none'
-    },100);
-}
-finally {
-    console.log('not on 000');
-};
+		    },100);
+		}
+		finally {
+		    console.log('not on 000');
+		};
 
     </script>
 
@@ -174,7 +192,8 @@ finally {
         <b>#No| Time&nbsp;  . Dur &nbsp;| Stamp | Bars Theme TR?</b>
         <br>
         <div id="debugInfo">Press CTRL to record a frame<br>
-                Adjust settings Later<br>
+                And adjust settings Later<br>
+								<span onclick="location.hash='guided=false';alert('You can reactivate Dev Mode via context menu.');location.reload()">Switch Back To Non-Guided Mode</span>
 
         </div>
 
@@ -201,6 +220,11 @@ finally {
     </div>
 
 </body>
+<script>
+	// updating UI to value set from $_GET
+	party.updateGuided();
+
+</script>
 <link rel="stylesheet" href="projectx/party-mgr.css">
 <link rel="stylesheet" href="projectx/party-ui.css">
 <script src="projectx/party-parser.js" type="text/javascript"></script>

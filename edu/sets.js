@@ -1,13 +1,4 @@
-  /**
-   * NXT JS / Maths / Set expansion class
-   * GNU GPL v3 Licence.
-   * @date: 2017/12/01
-   * @requirements: jsplus.js build 1322
-   * @author: rontap
-   *
-   * description: extends JS SETS with math functionality
-   **/
-
+// ??? NEEDS TO BE REDONE
 
 
 Array.prototype.normalise = function() {
@@ -82,9 +73,5 @@ class Sets {
   xdiff(set /*type setonly*/) {
     return (set.diff(this)).union(this.diff(set));
   }
-
-
   //
-
-
 }

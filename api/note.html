@@ -8,7 +8,7 @@ input {
 }
     input:hover {
     width:300px;
-}  
+}
 </style>
 <div class="note-object">
 
@@ -18,11 +18,11 @@ input {
     <input disabled id="creatis" is="created"> created<br>
     <input disabled id="statusis" is="status"> status<br>
     <textarea id="input" is="content" style="width:450px;height:120px;"> </textarea>
- 
+
     <hr>
     <button onclick="update()">save</button>
     <button onclick="update();note.push( note.getById(note.current));">save & sync up</button>
-    
+
 </div>
 <script use>
     appId="10";
@@ -33,7 +33,7 @@ input {
         temp= {
             name:nameis.value,
             content:input.value,
-        
+
         }
         note.edit(note.current,temp);
         note.status(21,'',true);

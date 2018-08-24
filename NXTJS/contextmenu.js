@@ -3,7 +3,7 @@
 //Created by Aron Tatai, 2018 [Challanger]
 
 /*requires: jsplus.js
-            input-design.css is
+            input.css is
             contextmenu.js
 
   @package: contextmenu

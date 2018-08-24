@@ -4,7 +4,18 @@
 
 nxt.modules.push("design.js");
 
-if ( nxt.build < 1620) nxt.dieFromVersion(1620);
+//require that basic set things
+nxt.requireJS("sets.js");
+
+
+
+function trigger(call) {
+   return false
+}
+nxt.triggerDesignUpdate = (call) => false;
+
+
+if ( nxt.build < 1890) nxt.dieFromVersion(1890);
 
 //waiting for everything to get
 setTimeout(function(){
@@ -30,12 +41,19 @@ for (i=0;i<$$('.omenu').length;i++)
     }
      $('#pageTitle').style.opacity=0
 
+    nxt.triggerDesignUpdate(this);
     trigger(this);
+    //this must be updated such that is uses the observer pattern
+
     setTimeout(function(){
 
        $('#pageTitle').innerHTML=$$('.omenu')[lastSelMenuItem].innerHTML;
        $('#pageTitle').style.opacity=1;
-       // location.hash="l="+lastSelMenuItem; ->TEMPORARLY DISABLED [bugfix][tba]
+       if ($$('.omenu').length != 0 && nxt.disableHotlink != true ) {
+         // can disable hotlink manually, but it will default to using location hashes [2k]
+         location.hash="l="+lastSelMenuItem;
+       }
+       //  ->TEMPORARLY DISABLED [bugfix][tba]
     },200 );
 
 
@@ -50,7 +68,7 @@ if (nxt.getStore("desktopMode")) {
     $('nav').innerHTML+='<i class="ctrls-m material-icons " onClick="location.reload()">replay</i>';
 
     try {var nodew = nw.Window.get();}
-    catch (e) {}
+    catch (e) { }
 }
 
 
@@ -59,15 +77,9 @@ setTimeout(function(){
   let getArgs =  new Sets($_GET().argumentList()) ;
   if (getArgs.includes("l"))
     $$('.omenu')[ Number( $_GET("l") ) ].click();
-  else
+  else if ($$('.omenu').length != 0)
     $$('.omenu')[0].click();
 },100);
 
 
-},100); //main wait
-
-
-
-function trigger(call) {
-   return false
-}
+},100); //main wait for parsing

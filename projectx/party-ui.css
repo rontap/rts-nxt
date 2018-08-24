@@ -10,7 +10,7 @@ hr {
     height:100%;
     z-index: -1;
 }
-    #pivPoint {
+    #pivPoint , .nodev #pivPoint{
 width:10px;
 height:10px;
 border-radius:100%;
@@ -26,7 +26,7 @@ border-radius:100%;
         transition:all .2s;
 
 }
-pivot {
+pivot , body.nodev pivot{
    display: block;
     position:fixed;
     bottom:-55px;
@@ -36,12 +36,12 @@ pivot {
     transition:all .2s;
     border-top:20px solid transparent;
 }
-pivot:hover {
+body.nodev pivot:hover , body pivot{
     bottom:0px;
 }
-pivot:hover #pivPoint {
+pivot:hover #pivPoint,  , body pivot #pivotPoint {
 
-    margin-top: -5px;
+    margin-top: 0px;
 }
 footer {
     height:55px;

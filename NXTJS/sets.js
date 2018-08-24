@@ -18,6 +18,12 @@ Array.prototype.flatout = function()  {
     return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
   }, []);
 }
+Array.prototype.toSet = function() {
+  return new Sets(this);
+}
+String.prototype.toSet = function() {
+  return new Sets(this.toLowerCase().split(''));
+}
 
 //sets behave like arrays but with the main difference of having one value only once.
 //when a Set is created, it can be manipulated with Arrays, and can return arrays.
@@ -61,7 +67,7 @@ class Sets {
   }
   intersect(set /*type set or array*/) {
     let temp = [];
-    for ( i = 0; i<this.get.length; i++) {
+    for (let i = 0; i<this.get.length; i++) {
       if ( set.includes(this.get[i]))  temp.push( this.get[i] );
     }
     this.get = temp;
@@ -70,24 +76,12 @@ class Sets {
   diff(set /*type set or array*/) {
     ///?
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //
 
 
+}
+
+
+function Set(arr) { // support for easier set creation
+  return new Sets(arr);
 }
