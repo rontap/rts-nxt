@@ -38,6 +38,7 @@ function openNote() {//or create
                        else {
                                $('#noteTitle').innerHTML = currentNote.title;
                                $('#content').innerHTML = currentNote.text;
+                               $('#pageTitle').innerHTML = 'Editing: ' + id;
                                $$('.omenu')[0].click();
 
                                //share box
@@ -79,17 +80,17 @@ function saveNote() {
             if ( (this.status==200) && (this.readyState==3) ) {
 
                 try {    currentNote = JSON.parse(this.responseText);  }
-                catch(e) { errorMsg='Error: Corrupted File, JSON error.';  nxt.notify('#not_err',4000); }
+                catch(e) { errorMsg='Error: Corrupted File, JSON error.';  nxt.notify(4000,errorMsg); }
 
                 console.log(this.responseText);
                 if (currentNote.error!=undefined) {
                        errorMsg = currentNote.error;
-                       nxt.notify('#not_err',4000);
+                       nxt.notify(4000,errorMsg);
                 }
                 else {
                          $("#saveIcon").innerHTML="radio_button_checked";
 	                 $("#saveIcon").style.color="#4CAF50";
-	                 nxt.notify('#not_save',1500);
+	                nxt.notify(4000,'Saved.');
                 }
             }
 

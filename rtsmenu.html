@@ -427,5 +427,13 @@
     <script src="edu/allaboutnumber.js" type="text/javascript"></script>
     <script src="edu/eval.tcx.js" type="text/javascript"></script>
     <script src="NXTJS/design-input.js" type="text/javascript"></script>
+    <script>
 
+        document.onscroll = function(event) {
+            if ($('html').scrollTop>72) a = 72;
+            else a = $('html').scrollTop
+
+            $('nav').style.top = -a + "px";
+        }
+    </script>
 </html>

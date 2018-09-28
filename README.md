@@ -1,23 +1,28 @@
-## RONTAP SITES 6
+# RONTAP SITES 6
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.0 DISENCHANTED**
+**6.1 IGNITE**
 
-## Recent Changes
+  ## Recent Changes
 ```
 
-(*) Lots of little Bugfixes
-(+) HyperFarmer Genetic Algorithm edition (needs to be changed)
-(*) ProjectX developer mode switch added
-(+) XWord Crossword puzzle added
-(~) changed project to match github project
+(+) Graph Structure and file added
+---
+(*) Ultron working again
+(~) Tapcalk 6 Split to parts
+(-) Removed duplicate sets.js
+(*) changed index appearance
+(*) plusone +10 and +50 added
+(+) colorpicker beta added
 
---- NXT.JS Updates (2000)
+--- NXT.JS Updates (2015)
 
-(*) sets.js is included by default
-(*) changed default filename to FILENAME.css from FILENAME-TYPE.css
-(+) added material colors
+
+(+) Montserrat Font is now imported along with colors.
+(+) NXT.ajax added; NXT.mapper added for map->JSON conversion
+(+) Material colors.js query functions added
+(+) Download links added in showcase.html
 ```
 
 ## General Changes
@@ -25,6 +30,7 @@
  (-) removed JQuery, Polymer, RJSX and Polyfome
  (-) removed old projects and restructured.
  (+) new API called NXT.js improving speed
+ (+) graph modelling
 
  (*) Added (rewrote) most of RTS3&4 Projects
  (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
@@ -64,8 +70,8 @@
 * ULTRON - URL shortener and API, downloadable.
 
 ### TOOLS 3
-* PlusOne counter **new in archer**
-* Notes++ **new in challenger**
+* PlusOne counter 
+* Notes++
 * timer and stopper
 * text editor and text analyser
 * note app
@@ -90,7 +96,7 @@ Split of from tools; RND.html
 * riches (hungarian politicians)
 
 
-###INACTIVE/CANCELLED PROJECTS
+### INACTIVE/CANCELLED PROJECTS
 * grimm - a Simulation Towerdefense game - (not updated not working)
 * kikerdezo_offline - advanced learning tool, 4.1.0, needs rewrite, not included
 * utopia - game  (under development) 4.2.3 needs rewrite, partially working
@@ -119,17 +125,19 @@ Split of from tools; RND.html
 
 > 5.7 CHALLENGER (Preview) 18/03/17
 
-> 5.7.2 CHALLENGER ...
+> 5.7.2 CHALLENGER 18/05/19
 
 > 5.8 Charioteer 18/04/15
 
 > 5.9 CONWAY _cancer game, priest_ 18/05/17
 
-> 5.10 SUMMERSET
+> 5.10 SUMMERSET 18/06/17
 
-> 5.11 NORTHWEST
+> 5.11 NORTHWEST 18/07/26
 
-> 6.0 DISENCHATED _18/08/24_
+> 6.0 DISENCHATED 18/08/24
+
+> 6.1 IGNITE 18/09/27
 
 
 

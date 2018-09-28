@@ -105,10 +105,10 @@ function graphis(call) {
 }
 function reloadGraphFrame() {
    $("#graph_iframe").src="null";
-        
-        setTimeout( function(){ 
+
+        setTimeout( function(){
             $("#graph_iframe").src="tapcalkgraph.html#"+chart;
-        },250); 
+        },250);
 }
 
 isSideBarOn=false;
@@ -135,21 +135,7 @@ onkeydown = onkeyup = function(e){
       map=[];
     }
     if (map[17] && map[18] ) {
-    	setTimeout(function(){
-    		   for (i=0;$$(".keyhint").length>i;i++)
-			    	{
-			    	$$(".keyhint")[i].style.opacity=0.9;
-			    	}
-
-    	},100)
-
-    	setTimeout(function(){
-    		   for (i=0;$$(".keyhint").length>i;i++)
-			    	{
-			    	$$(".keyhint")[i].style.opacity=0;
-			    	}
-
-    	},4000)
+    	showHelpCtrKeys();
     }
     if((map[17] && map[18] & map[96]) || (map[17] && map[18] & map[48])){ // CTRL+alt+0
     	fillt('formula');   	 mapler();
@@ -247,4 +233,19 @@ setTimeout(function(){
 
 },1200);
 
-console.log('TC/UI.js init');
+
+function showHelpCtrKeys() {
+  setTimeout(function(){
+       for (i=0;$$(".keyhint").length>i;i++)     {
+        $$(".keyhint")[i].style.opacity=0.9;
+        }
+  },100);
+
+  setTimeout(function(){
+        for (i=0;$$(".keyhint").length>i;i++)  {
+        $$(".keyhint")[i].style.opacity=0;
+        }
+  },4000);
+}
+showHelpCtrKeys();
+console.log('Tapcalk Classic UI.js init');

@@ -3,7 +3,7 @@
 <link href="../NXTJS/elements-design.css" rel="stylesheet">
 <link href="../NXTJS/input.css" rel="stylesheet">
 <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
-<link href="../pinchbox.css" rel="stylesheet">
+
 <div id="linkBack" >
     <i class="material-icons"  onclick="location.href='../random.html'">arrow_back</i>
     <span  onclick="location.href='../random.html'">Go back to rontap Tools?.</span>
@@ -151,13 +151,8 @@ opacity: 0;}
 }
 </style>
 <script>
-function run() {
-$('body').classList.add('run-on');
-$('body').onmouseup = ()=> $('body').classList.remove('run-on');
 
-}
-setTimeout( ()=>
-linkBack.innerHTML +=  $$("link[rel=import][document]")[0].import.$$('html body')[0].innerHTML,100)
 </script>
+<link href="../pinchbox.css" rel="stylesheet">
 <link rel="import" href="common-nav.html" document>
 </html>

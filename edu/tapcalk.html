@@ -8,6 +8,7 @@
 
     <script src="primes.js" type="text/javascript"></script>
     <script src="calknew.js" type="text/javascript"></script>
+    <script src="calknewUi.js" type="text/javascript"></script>
 
     <link rel="stylesheet" href="tapcalk.css">
     <link rel="stylesheet" href="tapcalkUi.css">
@@ -18,7 +19,7 @@
 
     <meta name="description" content="tapcalk calculator">
     <meta name="author" content="rontap">
-    <title>Tapcalk 6 Design Update</title>
+    <title>Tapcalk Classic</title>
 <style>
 		nav header {
 			width: 300px;
@@ -63,12 +64,12 @@
     <div class="omenu" onclick="fillt('happy');">Happy Numbers</div>
 
 	<div id="geometria" class="otitle"><div>Geometry</div></div>
-		<div class="omenu" onclick="fillt('sintg');">Szögfüggvények (sin) Triangles <span class="keyhint">S</span></div>
-    <div class="omenu" onclick="location.href='euclidean.html'">Geometriai rajzoló <i class="material-icons">open_in_new</i> </div>
-		<div class="omenu">2D Négyszögek</div>
+		<!--div class="omenu" onclick="fillt('sintg');">Szögfüggvények (sin) Triangles <span class="keyhint">S</span></div-->
+    <div class="omenu" onclick="location.href='euclidean.html'">Geogebra Drawer <i class="material-icons">open_in_new</i> </div>
+		<!--div class="omenu">2D Négyszögek</div>
 		<div class="omenu">2D Egyéb objektumok</div>
 		<div class="omenu">Koordinátageometria</div>
-		<div class="omenu">3D objektumok</div>
+		<div class="omenu">3D objektumok</div-->
 
 	<div id="atlag" class="otitle"><div>Statistics</div></div>
         <div class="omenu" onclick="fillt('stat');">Stats</div>
@@ -90,12 +91,12 @@
 
 
 	<div id="oth" class="otitle"><div>Etc.</div></div>
-		<div class="omenu" onclick="fillt('mesel');">Mindent a számról <span class="keyhint">9</span></div>
-		<div class="omenu" onclick="fillt('random');">Véletlenszerű szám</div>
+		<div class="omenu" onclick="fillt('mesel');">Deep Dive<span class="keyhint">9</span></div>
+		<div class="omenu" onclick="fillt('random');">Random number</div>
 		<div class="omenu" onclick="fillt('kamat');">Kamatszámító</div>
-		<div class="omenu" onclick="fillt('masodfok');">Másodfok</div>
-		<div class="omenu" onclick="fillt('pir');">Pireneusi számok</div>
-		<div class="omenu" onclick="fillt('pi'); ">ConEstants (π & √2)</div>
+		<div class="omenu" onclick="fillt('masodfok');">2nd Degree functions</div>
+		<div class="omenu" onclick="fillt('pir');">Mountenous numbers</div>
+		<div class="omenu" onclick="fillt('pi'); ">Constants (π & √2)</div>
     <div class="omenu" onclick="fillt('spin');">Spinkvantmszámok</div>
 
 
@@ -142,18 +143,11 @@
 
 		<holder class="card" id="tfill">
 
-    			<h1 class="covered" >Welcome to tapcalk</h1>
+    			<h1 class="covered" >Welcome to tapcalk Classic</h1>
     			<p class="p">
-                    TAPCALK
-    			Ez egy redesign és cleanup változat<br>
-    			Ez a számológép az alapűveleteken túl<wbr> bonyolultabb műveletek és összefüggések kiszámítására is használható.<wbr> Így akár a házifeladat megoldásában, akár otthoni, munkahelyi feladatok megoldásában segít.
-    			<br><br>
-    			<span style="color:#26F;">Használat:</span><br>
-    			A második oszlopban lehet kiválasztani a műveletet, amit el szeretnél végezni.<br>
-    			A könnyebb eligazodás érdekében csoportokba szedtük a funkciókat.<br>
-    			Kérünk vedd vigyelembe, hogy a <blue>TapCalk 5</blue> béta stádiumban van, bárhol előfordulhatnak hibák!<br>
-    			</p>
-    			Welcome Back, Bitches!
+            <br>
+              Tapcalk Classic Edition
+          </p>
 		</holder>
 	  <div id="tfill2" class="card"><!--second filler for some functions--></div>
 	</div>
@@ -195,6 +189,11 @@
         blue {
           color:#48F;
         }
+        nav {
+          height: 174px !important;
+          z-index: -1 !important;
+        }
+
     </style>
 
 
@@ -222,8 +221,6 @@
 		</style>
 </div>
 
-
-
      <div id="blacker" class="mute" onclick="about();"></div>
 
         <!--TAPCALK 6 express MODULES-->
@@ -237,4 +234,5 @@
       <script src="../NXTJS/design-input.js" type="text/javascript"></script>
       <link rel="stylesheet" href="../NXTJS/mobile.css">
 
-</script></body></html>
+    </body>
+</html>

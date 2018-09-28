@@ -51,7 +51,7 @@ for (i=0;i<$$('.omenu').length;i++)
        $('#pageTitle').style.opacity=1;
        if ($$('.omenu').length != 0 && nxt.disableHotlink != true ) {
          // can disable hotlink manually, but it will default to using location hashes [2k]
-         location.hash="l="+lastSelMenuItem;
+         //location.hash="l="+lastSelMenuItem;
        }
        //  ->TEMPORARLY DISABLED [bugfix][tba]
     },200 );
@@ -73,6 +73,7 @@ if (nxt.getStore("desktopMode")) {
 
 
 //jumping between locations
+
 setTimeout(function(){
   let getArgs =  new Sets($_GET().argumentList()) ;
   if (getArgs.includes("l"))

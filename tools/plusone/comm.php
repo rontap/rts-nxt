@@ -6,20 +6,24 @@ $_ID = "./counts/" . $_GET["id"] . ".count";
 
 if (is_file($_ID)) {
     //file already exist
-    
+
     $myfile = @fopen(  $_ID  , "r") or die('Error Accessing File"}');
     $prevContainer = fread($myfile,filesize( $_ID )) or die('Error Opening File Stream"}');
     $_parsedNumber = intval($prevContainer);
     fclose($myfile);
-    
-    
+
+
     if (isset($_GET["inc"])) {
+      $addAmount = 1;
+        if ($_GET["inc"] != "") {
+          $addAmount = $_GET["inc"];
+          }
         $writefile = @fopen(  $_ID  , "w+") or die('Error Writing File Stream"}');
-        fwrite($writefile, $_parsedNumber+1);
-        fclose($writefile);  
-        echo $_parsedNumber+1 . '"';
+        fwrite($writefile, $_parsedNumber+ $addAmount);
+        fclose($writefile);
+        echo $_parsedNumber+$addAmount . '"';
     }
-    else {        
+    else {
         echo $_parsedNumber . '"';
     }
 }

@@ -1,16 +1,38 @@
 // NXTJS Material design support for js
-// RTS NXT 2'0
+// RTS VI
 
 /** taken from Material Design Color Swatches
   * CSS created by Aron Tatai, rontap.netne.net
-  * part of NXT'JS core packages
+  * part of NXT.JS core packages
 
   * version 1 - 2017 December
   * version 2 - 2018 January - Added More Colors
   * version 3 - 2018 May - Added even more colors
   * version 4 - 2018 August - Ported To JS
+  * version 5 - 2018 September - Added functions for smart Queries
  **/
 const MAT_COLORS = {
+ 'swatches': ['red','purple','dp','indigo','blue','lblue','cyan','teal','green','orange','brown','dgrey','black'],
+ 'get' : {
+   byHue : (hue) => {
+      let vals = [];
+      Object.keys(MAT_COLORS).map( (val) => {
+        if (val.indexOf('-'+hue)!=-1)  //an actual color
+          vals.push(MAT_COLORS[val].replace(' ',''));
+      });
+      return vals;
+   },
+   byColor : (color,asMap) => {
+     let vals = asMap ? new Map() : [];
+     Object.keys(MAT_COLORS).map( (val,key) => {
+       if (val.indexOf(color) != -1)
+        asMap   ? vals.set(Number(val.replace(color+'-','')),MAT_COLORS[val].replace(' ',''))
+                : vals.push(MAT_COLORS[val].replace(' ',''));
+     })
+     return vals;
+   }
+ },
+
  'red-100':' #FFCDD2',
  'red-200':' #EF9A9A',
  'red-300':' #E57373',
@@ -144,4 +166,7 @@ const MAT_COLORS = {
 };
 
 if (nxt != undefined) //allowing complete portability
-  nxt.packages.push('material-colors.js');
+  nxt.modules.push('material-colors.js');
+
+
+// @4.0

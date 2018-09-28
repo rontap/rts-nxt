@@ -2,7 +2,7 @@ tcx.packages.push("evalJS");
 /**
  * @author rontap
 
- * @package TAPCALK EXPRESS for Tapcalk 6
+ * @package TAPCALK EXPRESS for Tapcalk 6 and Tapcalk X
  * @requires implemented tcx
  * @description Mathematical eval. Not JS Secure but catchable errors
  */
@@ -74,7 +74,6 @@ console.log(splitted,parsed);
       valid : true
     }
 };
-
 
 
 //test cases

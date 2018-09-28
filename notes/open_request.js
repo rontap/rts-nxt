@@ -21,6 +21,10 @@ function openNote(id,pw) {//or create
                                $('#title').innerHTML = currentNote.title;
                                $('#perTitle').innerHTML = currentNote.title;
                                $('#text').innerHTML = currentNote.text;
+                               setTimeout(function(){
+                                 $('#pageTitle').innerHTML = 'Editing: ' + id;
+                                 console.log('CECA');
+                               },500,id);
 
                        }
                        //$('#noteTitle')

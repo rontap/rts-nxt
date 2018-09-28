@@ -20,7 +20,7 @@
 	    margin-right: 3px;
 		}
 		#pageTitle {
-			display:none;
+			/* display:none; */
 		}
 h1:focus {
 	background:#E8F5E9 !important;

@@ -63,8 +63,8 @@ function updateTextSearch(e) {
 
     }
     else
-    for (i=0; i<keywords.length;i++) {
-        for (j=0; j<searchMe.length; j++) {
+    for (let i=0; i<keywords.length;i++) {
+        for (let j=0; j<searchMe.length; j++) {
 
             if ( 0 <= searchMe[j][0].indexOf(keywords[i]) ) {
                 searchResultsPrevelance[j]++;
@@ -98,12 +98,5 @@ function updateTextSearch(e) {
         $$('#searchResults div')[searchCurrSelected].classList.remove('on');
         searchCurrSelected=e;
         $$('#searchResults div')[searchCurrSelected].classList.add('on');
-        
-    }
 
-    document.onscroll = function(event) {
-        if ($('html').scrollTop>72) a = 72;
-        else a = $('html').scrollTop
-
-        $('nav').style.top = -a + "px";
     }
