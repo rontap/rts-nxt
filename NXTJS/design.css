@@ -7,12 +7,15 @@
 
 /* offline material design icons */
 /* fallback */
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700&subset=latin-ext');
 @import url('mobile.css');
+@import url('colors.css');
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url('resources/material-icons.woff2') format('woff2');
+    src: url('material-icons.woff2') format('woff2');
   }
 
 

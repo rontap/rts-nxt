@@ -1,11 +1,11 @@
  { "version" : "4"
 
 <?php
-/* ULTRON URL SHORTENER API 
+/* ULTRON URL SHORTENER API
   version 4 Release | CC BY-NC | part of rontap.netne.net
 
   API information in : newurl.html
- 
+
 */
 
 
@@ -40,9 +40,9 @@ function randomString($length = 6 /*if no input specified, this should be the de
    //copy file contents to a variable, replacing closing
    $prevContainer = fread($myfile,filesize(  $_JSON )) or die(', "code":"2", "message":"Unable to Read JSON"}');
 
- 
+
    $entries = json_decode($prevContainer) or die(', "code":"4", "message":"Invalid JSON format"}');
-  
+
    $entry_vars = get_object_vars($entries);
 
 
@@ -56,20 +56,24 @@ function randomString($length = 6 /*if no input specified, this should be the de
       html,body{ background:#ddd;font-family:monospace;padding:20px;font-size:20px;margin:0;}
     </style>
   <?php
-      if (!(isset($entry_vars[ $_GET["q"] ]))) {
+      if (!(isset($entry_vars[ ' ' . $_GET["q"]  ]))) {
         echo '<br><b>Broken Link! Sorry About that.</b><br>';
+        echo '<br><b>developer info:</b><br>';
+        echo $_GET["q"] . '<br>' . print_r($entry_vars);
+
       }
       else {
         if  (!(isset($_GET["devmode"]))) {
-          echo '<script> setTimeout(function(){location.href="' . $entry_vars[ $_GET["q"] ][0] .'"},0);</script>';
+
+          echo '<script> setTimeout(function(){location.href="' . $entry_vars[ ' ' . $_GET["q"] ][0]  .'"},0);</script>';
         }
         else {
           echo '<br><b>developer info:</b><br>';
-          echo $_GET["q"] . '<br>' . $entry_vars[ $_GET["q"] ][0] . '<br>MD5 key: '. $entry_vars[ $_GET["q"] ][1] . '<br><hr>';
+          echo $_GET["q"] . '<br>' . $entry_vars[ ' ' . $_GET["q"] ][0] . '<br>MD5 key: '. $entry_vars[ ' ' .$_GET["q"] ][1] . '<br><hr>';
         }
 
-        echo '<div>You are getting redirected to:<i>'  . $entry_vars[ $_GET["q"] ][0] . '</i><br><br>';
-        echo 'If not redirected please <a href='. $entry_vars[ $_GET["q"] ][0]. '>click here</a><br><br>';
+        echo '<div>You are getting redirected to:<i>'  . $entry_vars[ ' ' . $_GET["q"] ][0] . '</i><br><br>';
+        echo 'If not redirected please <a href='. $entry_vars[ ' ' . $_GET["q"] ][0]. '>click here</a><br><br>';
       }
 
 
@@ -101,9 +105,10 @@ function randomString($length = 6 /*if no input specified, this should be the de
     else if ((is_numeric($redir_from)) || ($redir_from=="")) {
       if ( $redir_from < $_minUrlLength ) $redir_from = $_minUrlLength + 1; //doesnt allow for very short URLs
       $redir_from = randomString($redir_from);
+
     }
 
-    
+
     if ( array_key_exists($redir_from , $entries) ) {
       echo ', "overlap":"true"';
       if ( (substr(md5( @$_GET["key"] ), 0 , 10) != $entry_vars[ $redir_from ][1]  && ( md5(@$_GET["key"]) != $adminpwd) )) {
@@ -115,7 +120,7 @@ function randomString($length = 6 /*if no input specified, this should be the de
     $myfile = fopen( $_JSON , "w+") or die("Unable to write to file!");
 
     //adding current URL shortening to the list and closing }
-    $prevContainer = $prevContainer . '," ' . $redir_from . '":["' . $_GET["to"] . '" , "'. substr(md5($acc_key) , 0 , 10). '"]}';
+    $prevContainer = $prevContainer . '," ' . $redir_from . '":["' .  $_GET["to"] . '" , "'. substr(md5($acc_key) , 0 , 10). '"]}';
 
     //write out for debug
     echo ', "key":"'. $acc_key.'"';

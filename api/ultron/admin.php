@@ -92,6 +92,7 @@
             <?php
         }
         else {
+          //echo($password . "<br>" . $prevContainer);
             ?>
                 Please Log in:<br><br>
                 <form method="post">

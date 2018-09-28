@@ -71,10 +71,6 @@ function drawTerritory() {
         territoryOpacity=0;
         updateTerritoryPaint();
 
-
-
-
-
 }
 
 function updateTerritoryPaint() {
@@ -189,10 +185,6 @@ function breathNextCircleDetect(currSubtree,line) {
   }
 
 }
-
-
-
-
 
 function xdiffCircle(first,second) {
 

@@ -7,8 +7,9 @@
 
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
-'use strict';					                 //we use strict so everything is clear and no unexpected errors
-const nxtjs_proto_BuildNumber = 2000;  //build number for modules
+'use strict';					                 //we use strict so everything is clear and no unexpected errors occur
+const nxtjs__proto__BuildNumber = 2015;  //build number for modules
+const nxtjs__proto__CodeName = null;
 // use nxt.build instead.
 
 //-----------------------------------------------------------------
@@ -88,9 +89,9 @@ Boolean.prototype.type = "Boolean";
 //-----------------MATHEMATIC-OPERATIONS---------------------------
 //-----------------------------------------------------------------
 
-//supporting RTS4
+//supporting RTS4 Websites
 const Inf = Infinity;
-
+// </support>
 
 Math.spread =  function(/*array*/ call)
 {
@@ -132,7 +133,7 @@ Math.randInt = function(/*number*/ upTo) {
   return Math.floor(Math.random()*upTo);
 }
 
-Math.factorial = function(number /*int*/, serialise) { /*factorisation*/
+Math.factorial = function(number /*int*/, serialise/*not needed if doing full !*/) { /*factorisation*/
   if (typeof serialise === 'undefined')     return Math.factorial(number,number);
   else if (serialise>1)                     return Math.factorial(number*(--serialise),serialise);
   else if (number!=0)                       return number
@@ -227,6 +228,17 @@ function $_GET(args,set_to) {
 var $_SET = ()=> false;
 
 //-----------------------------------------------------------------
+//-----------------COMPARISON-FUNCTIONS----------------------------
+//-----------------------------------------------------------------
+
+
+Number.Compare = (a,b) => {
+  if (Number(a)>Number(b)) return 1;
+  else if (Number(a)<Number(b)) return -1;
+  else return 0;
+}
+
+//-----------------------------------------------------------------
 //-----------------STRING-STATISTICS-------------------------------
 //-----------------------------------------------------------------
 
@@ -242,8 +254,8 @@ String.prototype.stat = function(call) {
 
       case 'letters' : //sort the letters
        let a=this.toLowerCase();
-       var letterStore=[];//where we store the actual letters
-       var letterCount=[];//where we store those
+       let letterStore=[];//where we store the actual letters
+       let   letterCount=[];//where we store those
        for (i=0;i<a.length;i++) {
            let index=letterStore.indexOf(a[i]);//to save power, we calculate this here
            if (index<0) { //if not
@@ -259,12 +271,11 @@ String.prototype.stat = function(call) {
 
       case 'max' :
       case 'letterMax' :    //     get the most  freq. letter from the index of the most used letter
-       var textLM=this.stat('letters');
+       let textLM=this.stat('letters');
        return textLM[1][ textLM[0].indexOf( textLM[0].max() ) ]
 
-      // this is to be deprecated
-      case 'letterMin'  :   //     get the least freq. letter from the index of the most used letter
-       return undefined;
+      // letter min is deprecated
+
 
       case 'letterSort' :
       case 'sort' :
@@ -276,8 +287,9 @@ String.prototype.stat = function(call) {
                 output[1][output[1].length] = text[1][ text[0].indexOf( text[0].max() ) ]
                 text[0][ text[0].indexOf( text[0].max() ) ] = 0 ;
            }
-        return output;
+       return output;
 
+      default: return null; //invalid or unsupported
    }
 }
 
@@ -300,7 +312,7 @@ if (localStorage.nxtDataStore==undefined) {
 var nxt = {
   jsgetFrom : [],
   jsGetTo : [],
-  build : nxtjs_proto_BuildNumber,
+  build : nxtjs__proto__BuildNumber,
   modules : ["core"],
   location : "NXTJS/", //default location, can be overwritten
   //loading JS packages
@@ -352,7 +364,7 @@ var nxt = {
       nxt.internalNXTStorage[elem] = to;
       localStorage.nxtDataStore = JSON.stringify(nxt.internalNXTStorage);
    },
-   store : function(elem, to) { // NEW in 1900
+   store : function(elem, to) { // NEW in 1900; replaces get and set store
      to = to || 'null';
      if (to == 'null')  return nxt.getStore(elem);
      else nxt.setStore(elem,to);
@@ -383,11 +395,27 @@ var nxt = {
    domInteraction : true,
 
 
-}; //NXT MAIN OBJECT
+}; // </NXT MAIN OBJECT>
 
 
 nxt.toggle = function(is,elem) { //toggle variables and objects
   if (elem.type == 'Object')   $(elem).toggleClass('on');
   if (window[is].type != 'Boolean') return null;
   return window[is] = window[is] ? false : true
+};
+
+nxt.ajax  = function nxtAjaxFn(setup) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", setup.url);
+    xhr.onload = () => resolve(xhr.responseText);
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send();
+  });
 }
+
+
+// Sets and Maps are parsed correctly by default.
+// Use this function to map them correctly
+// usage: JSON.stringify( ObjectWithMaps , nxt.mapper );
+nxt.mapper = (k,v) =>  v instanceof Set || v instanceof Map ? Array.from(v) : v

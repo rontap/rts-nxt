@@ -30,18 +30,30 @@ header {
 }
 nav {
 	    box-shadow: 0px 1px 3px #222 !important;
-	left: calc(50% - 230px);
-position: absolute;
-margin-top: -46px;
-padding: 32px;
-border-radius: 6px;
-font-size: 20px;
-background: #333;
-vertical-align: -17px;
-height: 30px;
-width: 400px;
-padding-top: 18px;
+	    left: calc(50% - 245px);
+	    position: absolute;
+	    margin-top: -37px;
+	    padding: 32px;
+	    border-radius: 6px;
+	    font-size: 20px;
+	    background: #333;
+	    vertical-align: -15px;
+	    height: 11px;
+	    width: 450px;
+	    padding-top: 18px;
 }
+#mainId {margin-left: calc(50% - 380px);font-size: 32px !important;margin-top: 28px;position: absolute;padding-bottom: 12px;
+animation: opacitIn 2s;}
+
+#mainCard {text-align:justify;padding:20px 50px;font-size:18px;text-indent:30px;
+	background:#f1f1f1;border-radius: 6px;
+	 border:1px solid #999; box-shadow: none;}
+	 nav>div {
+		 color:#ccc;
+		 padding:15px 15px;
+		 margin:-15px -20px;
+		 font-style: italic;
+	 }
 </style>
 	</head>
 	<body>
@@ -51,21 +63,36 @@ padding-top: 18px;
              <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
 
 		  <nav>
-				Everything from Games to calculators
+				<div  onclick="searchBox(true)"  onblur="searchBoxDeactivate()" id="searchBox"contenteditable>
+					Search Everything from Games to calculators..</div>
 		  </nav>
-		<br>
-				<container>
-					<card class="title" style="background:#607D8B;text-align:center;font-size:20px;">
-							About these websites
-					</card>
-					<card style="text-align:justify;padding:20px 50px;font-size:18px;text-indent:30px;background:#EEE;" no>
+		<br><br><br>
+		<div id="mainId"class="title" style="font-size:20px;">
+				About these websites
+		</div>
+		<script>
+		function searchBox(call) {
+
+		}
+
+		</script>
+		<div id="importHolder">
+			<link rel="import" href="NXTJS/jumper.html" document>
+		</div>
+
+<br><br>
+				<container style="box-shadow:none;">
+
+					<card id="mainCard"style="" no>
 						<p>
-							rontap sites have existed in some form since 2012.<br>
+							Rontap sites have existed in some form since 2012.<br>
 							This is the fourth iteration, and includes a complete rewrite of almost every website and application, while including numerous new projects.<wbr>
 						</p>
 						<p>
 							I am currently studying Computer Science (BSc) in <b>University of Southampton, UK</b> previusly went to Veres Peter Grammar School in Hungary.
 						</p>
+						<p>
+							These project include: calculator, everyday tools, music analyser, multiple games and so much more. Search for them in the magic black boxes</p>
 					</card>
 				</container>
         <container>
@@ -239,6 +266,9 @@ padding-top: 18px;
 				background:linear-gradient(#3f51b5,#5c6bc0);
 				color:#fff;
 			}
+			.scroll15h header 	{
+			box-shadow:	0px 1px 2px #333 !important;
+			}
 		</style>
 
 	</body>
@@ -251,13 +281,8 @@ padding-top: 18px;
 				{
 			$('header span').style.paddingTop=179+window.scrollY/2;
 				}
-			if (window.scrollY>450)
-				{
-					$('body').classList.add('scroll450');
-				}
-			else {
-				$('body').classList.remove('scroll450');
-			}
+			(window.scrollY>450)  ? $('body').classList.add('scroll450') : $('body').classList.remove('scroll450');
+			(window.scrollY>1500) ? $('body').classList.add('scroll15h') : $('body').classList.remove('scroll15h');
 			if (window.scrollY>2000) {
 				$('#bottomFix').style.display="block";
 			}
@@ -268,7 +293,18 @@ padding-top: 18px;
 		if (location.hash.length > 0 ) {
 			location.href="api/ultron/url.php?q=" + location.hash.slice(1,Infinity);
 		}
+
+
+
+		setTimeout( ()=>
+		importHolder.innerHTML +=  $$("link[rel=import][document]")[0].import.$$('html body')[0].innerHTML,100)
 	</script>
+	<style>
+		span[nxt-module="jumper"] {
+		 background:red;
+		 display: none;
+		}
+	</style>
 
         <script src="NXTJS/design.js"></script>
 </html>

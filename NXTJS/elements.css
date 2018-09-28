@@ -1,4 +1,11 @@
+/* NXT elements design */
+/* required: none.     */
+/* tied to: colors.css */
 
+/*cards, chips, modal windows and other elements*/
+
+
+/*floating boxes*/
 .floatbox {
     padding: 5px;
     color: #f1f1f1;
@@ -13,11 +20,6 @@
     border: 1px solid #44444444;
 }
 
-/* NXT elements design */
-/* required: none.     */
-/* tied to: colors.css */
-
-/*cards, chips, modal windows and other elements*/
 
 
 /* FONT , BASE ICONS AND COLORS*/
@@ -48,6 +50,7 @@ body {
 h1, h2 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 small {
@@ -245,7 +248,7 @@ holder h1.expand.covered {
    float:right;
 }
 .blue {
-    background:#2196F3;
+    background:#2196F3 !important;
     color:white !important;
 }
 
@@ -600,7 +603,9 @@ a[nxt]:hover {
     box-shadow:0px 1px 3px #444 inset;
 
 }
-
+.white-text {
+  color:white !important;
+}
 
 .omenu.on {
     background:#ddd;
@@ -608,4 +613,5 @@ a[nxt]:hover {
 }
 .omenu.on:hover {
     background:var(--primary);
+    color: white !important;
 }

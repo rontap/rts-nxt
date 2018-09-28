@@ -21,39 +21,42 @@
         <span id="pageTitle" class="center">counter</span>
     <i class="material-icons" id="NineDotMenu" onclick="nxt.openMenu('../../');">apps</i>
     <div id="additional-icons">
-           
+
     </div>
-    
+
 </nav>
 
-      
-        <input placeholder="ID" id="id" style="display: none;"> 
+
+        <input placeholder="ID" id="id" style="display: none;">
        <toast id="msg">Howdy</toast>
     <button id="plusOne" onclick="sendData('&inc=');" real class="green-500">+?</button>
-     
+
         <div class="card" id="about">
-           
+
             <h1 class="covered">About this counter</h1>
-            <br> This is the 
+            <br> This is the
             <b>Complex Counting Clever Progress Application (short CCCP)</b><br>
-            
+
             <br>
             <h2>Keyboard Shortcuts</h2>
-            <mono>Spacebar / Enter</mono> to count up!<br>
+            <mono>Spacebar / Enter</mono>or Click to count up!<br>
             <mono>Arrow Up / N</mono> to create a new counter<br>
             <mono>a</mono> to check about section<br>
+            <mono>k</mono> (or  <mono>Ctrl+Click</mono> ) to add 10 to the counting<br>
+            <mono>j</mono> (or <mono>Shift+Click</mono> ) to add 50 to the counting</br>
             <mono>backspace</mono> to go back to NXT Tools<br><br>
             <hr>
             Not musch to else say.<br>
-            Created during a boring lecture in PHP , JS using NXT.js.<br>
-        </div>    
-   
+            Created during a boring lecture; made in PHP , JS using NXT.js.<br>
+            Updated in august (add 10/50 options)
+        </div>
+
     <footer nxt>
         NXT 2018 |
         <a  onclick="about()" id="aboutBTN">About</a> |
-        <a href="../../random.html">Go Back to Tools</a> | 
+        <a href="../../random.html">Go Back to Tools</a> |
         <a onclick="newPlus();">Create Your Own / Open</a>
-        
+
     </footer>
        <style>
            nav {
@@ -88,7 +91,7 @@
                background:#888;
                color:#eee;
            }
-        
+
            #plusOne {
                    margin: 10px;
                 position: fixed;
@@ -102,7 +105,7 @@
                 box-shadow: 0px 1px 4px #444;
                transition:all .1s linear;
            }
-           
+
            body:not(.aboutOn) #about {
             display: none;
            }
@@ -122,17 +125,18 @@
        </style>
         <script>
             const hsv = 244;
-            
+
             function sendData(textPlus) {
                     var xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
+                      console.log(this.responseText);
                            rtext =  JSON.parse(this.responseText.replace(/(?:\r\n|\r|\n)/g,''));
                             plusOne.style.color="transparent";
                             setTimeout(function(){
                                 plusOne.innerHTML = "+" + rtext.value;
                                 plusOne.style.color="white";
                             },150)
-                            
+
                         if (isNaN(rtext.value)) {
                             //error message
                             $('#plusOne').style.fontSize="20px";
@@ -142,7 +146,7 @@
                             console.log("hsl("+Math.floor(hsv-(rtext.value/2))+",51%,43%) !important");
                             $('#plusOne').style.setProperty("background","hsl("+Math.floor(hsv-(rtext.value/2))+",51%,50%)","important");
                         }
-                         
+
                     };
                     parsedText = "comm.php?id=" + id.value + textPlus;
                     console.log(parsedText)
@@ -150,16 +154,16 @@
                     xmlhttp.send();
                      return false;
             }
-            
-            
-            
+
+
+
             if (location.hash!="") {
                 let using = location.hash.slice(1,Infinity);
                 id.value=using;
                 pageTitle.innerHTML="Counting "+using;
                 sendData(" ");
             }
-            
+
             function newPlus() {
                 let text = prompt("Create Title");
                 location.hash="#"+text;
@@ -168,7 +172,7 @@
             function about() {
                 $('body').classList.toggle('aboutOn');
             }
-            
+
             function key(e) {
                 console.log(e);
                 switch (e.code) {
@@ -176,6 +180,13 @@
                     case 'Space':
                         sendData('&inc=');
                         break;
+                    case 'KeyT' :
+                    case 'KeyK' :
+                        sendData('&inc=10');
+                        break;
+                    case 'KeyH' :
+                    case 'KeyJ' :
+                        sendData('&inc=25')
                     case 'ArrowUp':
                     case 'KeyN':
                         newPlus();
@@ -192,6 +203,6 @@
 
  <script src="../../NXTJS/design.js" type="text/javascript"></script>
  <script src="../../NXTJS/design-input.js" type="text/javascript"></script>
- <script src="../../NXTJS/design-notifications.js" type="text/javascript"></script>
+ <script src="../../NXTJS/notifications.js" type="text/javascript"></script>
 
 </html>

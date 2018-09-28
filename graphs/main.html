@@ -1,0 +1,42 @@
+<HTML>
+
+<HEAD>
+    <meta name="author" content="Team Autism" />
+    <meta name="description" content="Graph Editor based on Mathematical Modell"/>
+    <meta name="keywords" content="RTS NXT Graph Generator">
+
+    <!--importing essential data structures-->
+    <script src="./node.class.js"></script>
+    <script src="./graph.class.js"></script>
+    <script src="../NXTJS/jsplus.js"></script>
+
+    <title>Graphisoft Graph Drawer</title>
+</HEAD>
+
+<BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
+<holder>
+    <h1 class="">GraphiSoft</h1>
+</holder>
+
+<span id="canvHolder">
+  <canvas id="canvBg" ></canvas>
+  <canvas id="canvOverlay"></canvas>
+  <canvas id="canv" onmousedown="render('click',event)"
+                    onmouseup="render('up',event)" onmousemove="render('down',event)"></canvas>
+</span>
+
+<div module="sidebar">
+  <h2 style="margin-top:10px">Properties</h2>
+  <div id="properties"></div>
+</div>
+
+
+</BODY>
+   <script src="../NXTJS/material-colors.js"></script>
+   <script src="./main.js"></script>
+   <script src="./sidebar.js"></script>
+   <script src="./keyboard.js"></script>
+   <link rel="stylesheet" href="../NXTJS/elements.css">
+   <link rel="stylesheet" href="../projectx/xfiles-ui.css">
+   <link rel="stylesheet" href="main.css">
+</HTML>
