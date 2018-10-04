@@ -7,21 +7,35 @@
     /* margin-left: 14px; */
     font-family: 'Montserrat';
   }
-  button[flat] , label>div {
+  button[flat] , label>div, select[flat] {
     box-shadow:0px  1px  2px  #222 !important;
-    background:var(--primary);
+    background: var(--dark-primary);
     border:1px solid var(--dark-primary);
     padding:10px;
     font-size:14px;
   }
-  button[flat]:hover, label>div:hover {
-      background:var(--bluite);
+  button[flat]:hover, label>div:hover, select[flat]:hover {
+      background:var(--bluite) ,#2196F3;
   }
-  button[flat]:active, label>div:active {
+  button[flat]:active, label>div:active, , select[flat]:active {
     box-shadow:0px  -1px  2px  #222 inset !important;
     background:var(--primary);
   }
-
+ select[flat] {
+   color:white;
+   border-radius:4px;
+   cursor:pointer;
+   transition:all .2s;
+   outline:none;
+ }
+ select[flat] option {
+   background:#222;
+   cursor:pointer;
+   padding:0 5px;
+ }
+ select[flat]:hover {
+       background: #2196F3;
+ }
 .timers button:hover {
   background:#ff9800;
 }
@@ -53,6 +67,7 @@ label[nxt] {
 input[type=range] {
 
 }
+/*
 input[type=range]::-webkit-slider-runnable-track {
 
     height:6px;
@@ -63,4 +78,23 @@ input[type=range]::-webkit-slider-thumb {
       margin-top:-4px;
       border-radius:0px 4px 0px 4px;
       transform:rotate(-45deg);
+}
+*/
+
+group {
+  display: inline-block;
+  box-shadow:0px  1px  1px  #222 !important;
+}
+group button[flat], group * {
+  margin:0px -3px;
+  border-radius:0px !important;
+  box-shadow:0px 0px 0px black !important;
+}
+group button[flat]:first-child, group *:first-child{
+  border-top-left-radius: 3px !important;
+  border-bottom-left-radius: 3px !important;
+}
+group button[flat]:last-child,group *:last-child  {
+  border-top-right-radius: 3px !important;
+  border-bottom-right-radius:3px !important;
 }

@@ -4,7 +4,7 @@
     <meta name="author" content="Team Autism" />
     <meta name="description" content="Graph Editor based on Mathematical Modell"/>
     <meta name="keywords" content="RTS NXT Graph Generator">
-
+    <link rel="icon" href="../NXTJS/icons/graphisoft.png" type="image/png">
     <!--importing essential data structures-->
     <script src="./node.class.js"></script>
     <script src="./graph.class.js"></script>
@@ -16,7 +16,19 @@
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
 <holder>
     <h1 class="">GraphiSoft</h1>
+    <group>
+      <button real flat><i class="material-icons">undo</i></button>
+      <button real flat><i class="material-icons">redo</i></button>
+    </group>
+
+    <button real flat style="vertical-align:6px;margin-left:15px;" onclick="exportIt.showModal();"><i class="material-icons" >save</i>&nbsp; Export</button>
+
+    <button real flat style="vertical-align:6px;margin-left:10px;" onclick="exportIt.showModal();"><i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
+
 </holder>
+<dialog nxt id="exportIt" onclick="exportIt.close()">Hm.</dialog>
+
+
 
 <span id="canvHolder">
   <canvas id="canvBg" ></canvas>
@@ -25,18 +37,102 @@
                     onmouseup="render('up',event)" onmousemove="render('down',event)"></canvas>
 </span>
 
-<div module="sidebar">
+
+
+<div module="sidebar" id="sidebarProp" onmouseup="this.classList.add('open');">
   <h2 style="margin-top:10px">Properties</h2>
+  <i id="sidebarPropDrag" class="material-icons" style="" dragger>drag_indicator</i>
+  <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="properties"></div>
 </div>
 
+  <group module="action" id="action" style="margin-left:0px"> 
+  <button real flat onclick="switchMode('Place')" data-text="Add or Modify Nodes and Links">
+    <i class="material-icons" >touch_app</i>
+  </button>
+  <button real flat onclick="switchMode('Move')" data-text="Move Field">
+    <i class="material-icons" >control_camera</i>
+  </button>
+  <button real flat onclick="switchMode('Search')" data-text="Routes and Subgraphs">
+    <i class="material-icons" >outlined_flag</i>
+  </button>
+  <button real flat onclick="switchMode('Place')" data-text="???">
+    <i class="material-icons" >border_inner</i>
+  </button>
+  <i class="material-icons" dragger id="actionDrag">drag_indicator</i>
+</group>
+
+
+<div module="sidebar" id="line" onmouseup="this.classList.add('open');">
+  <h2 style="margin-top:10px" >Line Weight</h2>
+  <i id="lineDrag" class="material-icons" style="margin-left:218px" dragger>vertical_align_bottom</i>
+  <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>close</i>
+  <div id="linkProperties">
+    <div id="linkRef" style="margin-top:-15px">&nbsp;</div><br>
+
+    <input type="range" nxt value="10" max="50" min="0" id="rangeLP" onchange="sidebar.updateLineWidth(this.value)"/>
+    <input id="textLP"type="number" nxt value='10'  onchange="sidebar.updateLineWidth(this.value)"/><span> </span><br><br>
+    <button nxt onclick="sidebar.removeCurrLine();">Delete Connection</button>
+  </div>
+</div>
+
+
+<div module="sidebar" id="distance"style="width:350px;"  onclick="this.classList.add('open','on')">
+    <h2 style="margin-top:10px">Measure Distance</h2>
+      <i id="distanceDrag" class="material-icons" style="margin-left:320px" dragger>drag_indicator</i>
+    Measure Distance Between Two Nodes<br>
+    <i>Drag and Drop from a Node to another.</i>
+</div>
+
+<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')">
+    <h2 style="margin-top:10px">View and<br> highlighting</h2>
+    <i id="viewerDrag" class="material-icons" style="" dragger>drag_indicator</i>
+    <i id="viewerClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
+
+    <span class="elem">
+      <span>Node Colors:</span>
+      <select real flat onchange="updateSelMode(this.value)"
+      >
+      <option value="Subgraph" default>Subgraphs</option>
+      <option value="NodeWeight">Node Weight</option>
+      <option value="NodeConnection">Node Connections</option>
+      <option value="NoColoring">No Coloring</option>
+    </select>
+  </span>
+
+  <span class="elem">
+    <span>Connection weight:</span>
+    <select real flat onchange="updateConnectionMode(this.value)" class="elem"
+      >
+
+      <option value="Manual" default>Manual Weight</option>
+      <option value="ConnectionWeight">Calculate From Distance</option>
+
+    </select>
+  </span>
+</div>
+
+
+</div>
+<footer id="docFooter">
+  <div id="footerBarHolder"></div>
+
+
+  <div id="shortcutHelp">...</div>
+</footer>
 
 </BODY>
    <script src="../NXTJS/material-colors.js"></script>
+
    <script src="./main.js"></script>
+   <script src="./render.js"></script>
    <script src="./sidebar.js"></script>
    <script src="./keyboard.js"></script>
+   <script src="./dnd.js"></script>
+
+   <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">
+   <link rel="stylesheet" href="../NXTJS/input.css">
    <link rel="stylesheet" href="../projectx/xfiles-ui.css">
    <link rel="stylesheet" href="main.css">
 </HTML>

@@ -9,6 +9,8 @@
 
 /*----------------------------------------------------------------------------*/
 /*text inputs*/
+
+
 input:not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="submit"]) {
 	padding:5px;
 	margin:0px 5px;
