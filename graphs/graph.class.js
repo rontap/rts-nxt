@@ -5,7 +5,7 @@ class Graph {
         this.subgraphCount = 0;
         this.validity = undefined;
         this.characteristics = [];
-        
+
 
         this.type = "Graph";
 
@@ -16,6 +16,14 @@ class Graph {
         this.validity = this.validate();
 
         return this;
+    }
+    fromJS(jsGraph) {//getting data from regural Object
+      this.nodes = new Map(jsGraph.nodes);
+      this.characteristics = jsGraph.characteristics;
+      this.validity = this.validate();
+    }
+    toText() {//converting to CSV text
+
     }
     createNode() {
         // later
@@ -84,8 +92,40 @@ class Graph {
                //graph.mergeSubgraphIds(currNode.subgraph , representedSubgraph);
            }
         });
+    }
         //this.isConnected();
+    getRoute(Node1,Node2) {
+        if (Node1.subgraph != Node2.subgraph) return false;
+        //if they are not in the same subgraphs, we know there is no connection
+        dijkstra(Node1,Node2);
+
+    }
+    //getValami() {}
+    dijkstra(node) {
+
+        let graph=this;
+        let visitedId = [];
+
+        this.nodes.forEach((currNode)=>{
+            currNode.distance=infinity;
+        })
+
+        node.distance=0;
+
+        // X -> Y
+        node.edges.forEach((weight,currEdgeId)=>{
+           console.log(weight,currEdgeId)
+        });
 
     }
 
 }
+
+
+
+
+//do not tács
+Map.prototype.sort = () => new Map([...this.entries()].sort((a, b) => b[1] - a[1]));
+
+Map.prototype.min = () => Array.from(map).sort((x,y) => x[1]>y[1])[0];
+Map.prototype.max = () => Array.from(map).sort((x,y) => x[1]<y[1])[0];

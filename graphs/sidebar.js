@@ -32,7 +32,7 @@ sidebar.removeCurrLine = function() {
 }
 sidebar.showEl = function(el,motherId) {
   propEl = el;
-  console.log(el);
+  //console.log(el);
   $(motherId).innerHTML ='';
 
 
@@ -58,12 +58,12 @@ sidebar.showEl = function(el,motherId) {
 }
 
 sidebar.updateEl = (el,to) => {
-  console.log(el,to);
+  //console.log(el,to);
   propEl[el]=to;
 }
 
 sidebar.updateElName = (el,to) => {
-  console.log(el,to);
+  //console.log(el,to);
   propEl.name[el]=to;
 }
 

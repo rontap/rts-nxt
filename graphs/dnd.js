@@ -67,7 +67,7 @@ window[el].ondragstart = function() {
 
 
 //assigning factory
-['sidebarProp','line','action','distance','viewer'].map( (x) => dndFactory(x));
+['sidebarProp','line','action','distance','viewer','textStyle'].map( (x) => dndFactory(x));
 
 
 minimiseFactory =(el) => {
@@ -95,3 +95,5 @@ closeWindow = (el) => {
 
 openWindow('viewer');
 minimiseFactory('viewer');
+openWindow('textStyle');
+minimiseFactory('textStyle');

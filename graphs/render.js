@@ -25,6 +25,7 @@ function render(type,e) {//main rendering funcion
         {*/
           lastClickedElement.name.x = x;
           lastClickedElement.name.y = y;
+          changeStruct();
         //}
 
       }
@@ -48,8 +49,8 @@ function render(type,e) {//main rendering funcion
 
 
   if (type=='click' && clickArea == false  && MODE=='Place') {
-      graph.addNode( new Node( nodeNumber , {x:x,y:y,text:null} ));
-     nodeNumber++
+      graph.addNode( new Node( graph.nodes.size , {x:x,y:y,text:null} ));
+      changeStruct();
   }
 
   ctx.clearAll();
@@ -62,6 +63,7 @@ function render(type,e) {//main rendering funcion
          if ( ! graph.nodes.get( lastClickedElement.id ).edges.has( clickArea.id ) ) {
            graph.nodes.get( lastClickedElement.id ).edges.set( clickArea.id , 10);
            graph.nodes.get( clickArea.id ).edges.set( lastClickedElement.id , 10);
+           changeStruct()
          }
          sidebar.showLine(lastClickedElement.id,clickArea.id);
 
@@ -144,6 +146,7 @@ function render(type,e) {//main rendering funcion
           temp = (temp<4) ? 3 : temp;
           val.edges.set(edgeId,temp);
           ctxbg.lineWidth = temp;
+          changeStruct();
         }
 
         if (val == clickArea) {
