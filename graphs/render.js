@@ -7,7 +7,8 @@ function render(type,e) {//main rendering funcion
 
   if (type=='down' && !isMouseDown) return;
 
-  if (e.which == 3) {
+
+  if (e.which == 3 || type=='fake') {
     if (type=='click') e.preventDefault();
     type='alt';
   }
@@ -17,7 +18,10 @@ function render(type,e) {//main rendering funcion
 
 //->
   if (MODE == 'Move' &&type!='alt') translateRender(type,e,x,y);
+
+
   //drawing connection lines
+
   if (lastClickedElement!=null && type=="down" && MODE == "Place") {
       if (e.altKey) { //moving a node
       /*if(getGraphNodeDistance(x,y)==false ||
@@ -25,7 +29,7 @@ function render(type,e) {//main rendering funcion
         {*/
           lastClickedElement.name.x = x;
           lastClickedElement.name.y = y;
-          changeStruct();
+
         //}
 
       }
@@ -36,6 +40,7 @@ function render(type,e) {//main rendering funcion
         ctxo.lineTo(lastClickedElement.name.x,lastClickedElement.name.y);
         ctxo.stroke();
         drawingLine =true;
+
       }
 
   }
@@ -63,12 +68,12 @@ function render(type,e) {//main rendering funcion
          if ( ! graph.nodes.get( lastClickedElement.id ).edges.has( clickArea.id ) ) {
            graph.nodes.get( lastClickedElement.id ).edges.set( clickArea.id , 10);
            graph.nodes.get( clickArea.id ).edges.set( lastClickedElement.id , 10);
-           changeStruct()
+           changeStruct();
          }
          sidebar.showLine(lastClickedElement.id,clickArea.id);
 
          if (e.ctrlKey) sidebar.removeCurrLine();
-
+         changeStruct();
          graph.validate(true /*enforcing*/);
       }
       //else if (confirm('Do you want to connetct this node with itself?')){
@@ -84,6 +89,9 @@ function render(type,e) {//main rendering funcion
 
   // HOLY DRAWING THING
   ctxbg.clearAll();
+  ctxbg.fillStyle = canvBgColor;
+  ctxbg.fillRect(0, 0, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
+
 
   graph.nodes.forEach( (val,key) => {
 
@@ -116,6 +124,14 @@ function render(type,e) {//main rendering funcion
       if (val == clickArea && e.altKey && type!='up') ctx.fillStyle = '#4488FF';
 
       let cRadius = (RADIUS / 10) * val.weight;
+
+      if (NODE_WEIGHT_MODE=='ConnectionWeight') {
+        //calculating  manually from incoming connections.
+       cRadius = RADIUS;
+       val.edges.forEach((edge) =>  cRadius+=(cRadius/8));
+
+      }
+
       ctx.arc(val.name.x,val.name.y,cRadius,0,2*Math.PI);
       ctx.fill();
 
@@ -141,7 +157,7 @@ function render(type,e) {//main rendering funcion
         }
         else {
           dst =  distance(val.name.x,connectedEdge.name.x,val.name.y,connectedEdge.name.y,true) ;
-          console.log(dst);
+          //console.log(dst);
           let temp = 10 + (30 - Math.sqrt(dst)*5)/5;
           temp = (temp<4) ? 3 : temp;
           val.edges.set(edgeId,temp);

@@ -82,7 +82,7 @@ class Graph {
     isConnected(Node,representedSubgraph) {
         let graph = this;
         Node.edges.forEach( function(key, currNode) {
-            console.log(currNode);
+           
            if (graph.nodes.get(currNode).subgraph == null) {
                graph.nodes.get(currNode).subgraph  = representedSubgraph;
                graph.isConnected(graph.nodes.get(currNode), representedSubgraph);

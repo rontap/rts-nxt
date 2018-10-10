@@ -18,6 +18,7 @@ const height = 600;
 const dpi = 2; //needs to be changed to dynamic dpi setup
 
 //setting resolution
+setupCanv = () =>
 [canvBg,canv,canvOverlay].map(curr =>{
   curr.height = (innerHeight-toolBarHeight)*dpi;
   curr.style.height = (innerHeight-toolBarHeight);
@@ -25,11 +26,13 @@ const dpi = 2; //needs to be changed to dynamic dpi setup
   curr.style.width = innerWidth-2;
   curr.getContext('2d').scale(dpi,dpi);
 });
+setupCanv();
+
 
 var MODE = 'Place';
 var SEL_MODE = 'Subgraph';
 var CONNECTION_MODE = 'Manual';
-
+var NODE_WEIGHT_MODE= 'Manual';
 
 var graph = new Graph();
 var hist = new History();
@@ -40,11 +43,11 @@ var nodeNumber=0;
 var downCoords = [];
 var moveCoords = [0,0];
 var translateCoords = [0,0];
-
+var canvBgColor = '#ffffff';
 
 function switchMode(mode) {
   MODE = mode;
-  console.log(mode);
+  //console.log(mode);
   $('body').classList.remove('move-mode','search-mode');
   switch (MODE) {
     case 'Move' : $('body').classList.add('move-mode'); break;
@@ -58,7 +61,7 @@ function translateRender(type,e) {
   //used for moving
   let x = e.offsetX;
   let y = e.offsetY;
-  console.log(e,type,x,y);
+  //console.log(e,type,x,y);
 
   if (type=='click') {downCoords=[x,y]; moveCoords=[0,0];}
 
@@ -67,7 +70,7 @@ function translateRender(type,e) {
   ctxo.translate(moveCoords[0],moveCoords[1]);
 
   moveCoords=[downCoords[0]-x,downCoords[1]-y];
-  console.log(moveCoords,x,y,downCoords);
+  //console.log(moveCoords,x,y,downCoords);
 
   ctx.translate(-moveCoords[0],-moveCoords[1]);
   ctxbg.translate(-moveCoords[0],-moveCoords[1]);
@@ -109,64 +112,21 @@ function updateConnectionMode(mode) {
   CONNECTION_MODE=mode;
   render(null,{which:3});
 }
+function updateNodeConnectionMode(mode) {
+  NODE_WEIGHT_MODE=mode;
+  render(null,{which:3});
+}
 
 function changeStruct(calle) {
   //gets called whenever the structure is to be changed ,
-  console.log('strc');
+
+
   store.save();
 }
 
-LOCK_INSTANCE = localStorage[''+NAME+VERSION+'Lock'];
-store = {
-  save : ()=>{
-    if (LOCK_INSTANCE == INSTANCE || LOCK_INSTANCE==undefined) {
-      localStorage[''+NAME+VERSION+'MainStorage']= JSON.stringify(graph,nxt.mapper);
-      statusHolder.innerHTML=  "Saving";
-      hist.push(Array.from(graph.nodes));
-      setTimeout(()=>{
-        statusHolder.innerHTML=" Saved. ";
-      },300);
-    }
-    else statusHolder.innerHTML='Not Saving!';
-
-  },
-  load:  ()=>{
-    if (LOCK_INSTANCE == INSTANCE || LOCK_INSTANCE==undefined) {
-      let temp=localStorage[''+NAME+VERSION+'MainStorage'];
-      graph.fromJS( JSON.parse(temp) );
-      render(null,{which:3});
-      statusHolder.innerHTML="Loaded";
-      localStorage[''+NAME+VERSION+'Lock']=INSTANCE;
-    }
-  },
-  init : ()=>false,
-  flush: (force=false)=>{
-      delete localStorage[''+NAME+VERSION+'MainStorage'];
-      if (force) location.reload();
-  },
-  download:()=>{
-    let a = window.document.createElement('a');
-    a.href = window.URL.createObjectURL(new Blob([JSON.stringify(graph,nxt.mapper)], {type: 'text/text'}));
-    a.download = 'GraphiSoft-' + new Date().getTime() + '.graph.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  },
-
-  export:()=> store.download(),
-  redo:()=> {
-    if (hist.pointer+1 == hist.data.length) return false;
-    graph.nodes = new Map(hist.redo());
-    graph.validate();
-  },
-  undo:()=> {
-    graph.nodes = new Map(hist.undo());
-    graph.validate();
-  }
-}
 
 
-window.onunload=()=>delete localStorage[''+NAME+VERSION+'Lock'];
+
 
 function renderSelectedColor(val) {
   let mainColor = '#444';
@@ -178,7 +138,7 @@ function renderSelectedColor(val) {
   }
   else if (SEL_MODE=="NodeWeight") {
 
-    mainColor = 'hsl('+(Number(val.weight)+200)+','+(Number(val.weight)+50)+'%,60%)';
+    mainColor = 'hsl('+(Number(val.weight)*2+200)+','+(Number(val.weight)+50)+'%,60%)';
 
   }
   else if (SEL_MODE=="NodeConnection") {

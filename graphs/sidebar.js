@@ -41,14 +41,14 @@ sidebar.showEl = function(el,motherId) {
       if (el[key] != null) {
         if (el[key].type == 'Object') {
             Object.keys(el[key]).map( (keyName) => {
-              $(motherId).innerHTML+=`<span class="elem"><span>${keyName}</span><input value=${el[key][keyName]} onkeyup="sidebar.updateElName('${keyName}',this.value)"></span>`;
+              $(motherId).innerHTML+=`<span class="elem"><span>${keyName}</span><input value=${el[key][keyName]} onkeypress="sidebar.updateElName('${keyName}',this.value)"></span>`;
 
             });
         }
         else  if (key!='edges'){
-            if (graphPropWritable[key])
-            $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} onkeyup="sidebar.updateEl('${key}',this.value)"></span>`;
-            else
+            if (graphProps[key] == graphPV.w)
+            $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} onkeypress="sidebar.updateEl('${key}',this.value)"></span>`;
+            else if (graphProps[key] == graphPV.r)
             $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} disabled></span>`;
 
 
@@ -57,24 +57,27 @@ sidebar.showEl = function(el,motherId) {
   });
 }
 
-sidebar.updateEl = (el,to) => {
-  //console.log(el,to);
-  propEl[el]=to;
-}
+sidebar.updateEl = (el,to) =>   propEl[el]=to;
+sidebar.updateElName = (el,to) =>   propEl.name[el]=to;
 
-sidebar.updateElName = (el,to) => {
-  //console.log(el,to);
-  propEl.name[el]=to;
-}
 
-const graphPropWritable = {
-  id:false,
+
+//values
+//R-readable W-writable H-hidden
+
+const graphPV = {
+  r : 'read',
+  w : 'read-write',
+  h : 'hidden'
+}
+const graphProps = {
+  id:    graphPV.r,
   name:{
-    x:true,
-    y:true,
-    text:true
+    x:   graphPV.w,
+    y:   graphPV.w,
+    text:graphPV.w
   },
-  subgraph:false,
-  type:false,
-  weight:true
+  subgraph:graphPV.r,
+  type:    graphPV.h,
+  weight:  graphPV.w
 }

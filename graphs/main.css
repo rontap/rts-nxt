@@ -87,8 +87,9 @@ body {
     margin:0px;
     padding-left: 10px;
     color: #eee;
-    letter-spacing: -3px;
-    font-weight: 400;
+    letter-spacing: -1px;
+    font-weight: 100;
+    text-transform: capitalize;
   }
 
   .elem>span, .elem>option {
@@ -352,4 +353,48 @@ div[linked]:hover {
 #statusHolder:hover {
   background:#ff9800;
   border:1px solid black;
+}
+.elem>input[double][type="range"] {
+  width:100px;
+  margin-left: 0px;
+  vertical-align: -7px;
+  background: transparent;
+}
+
+
+.elem>input[double][type="number"] {
+  width: 56px !important;
+}
+input:not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="submit"]), input.active {
+  box-shadow:0px 0px 0px red !important;
+}
+input[real][type="color"] {
+    height:30px;
+    width:100px !important;
+}
+input[real][type="color"]:hover {
+  background:#999;
+}
+@media only screen and (max-width: 940px) {
+  holder button {
+    width: 70px;
+    overflow: hidden;
+    height: 40px;
+    color: transparent !important;
+  }
+  holder button i {
+    color:white !important;
+  }
+  #footerBarHolder>div {
+    max-width: 120px;
+    height:40px;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition:max-width .2s;
+  }
+    #footerBarHolder>div:hover {
+      max-width:300px;
+
+    }
 }
