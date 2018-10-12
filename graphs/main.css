@@ -398,3 +398,76 @@ input[real][type="color"]:hover {
 
     }
 }
+holder>button {
+  vertical-align:6px;margin-left:10px;
+}
+
+dialog>.elem span {
+  width:250px;
+  font-weight: 100;
+  font-family: 'Montserrat';
+}
+dialog>.elem {
+  padding: 14px 30px 14px 30px;
+  border-bottom-color:#ccc;
+}
+dialog>.elem>input[type="range"] {
+  vertical-align: -5px !important;
+}
+
+
+/********************************/
+/********************************/
+#jumper {
+  position:fixed;
+  margin-top: 64px;
+  /* margin-bottom:32px; */
+  
+  top:0;
+  /* bottom:0; */
+  left:0;
+  right: 0;
+  /* width: 274px; */
+  background: #000000;
+  border-top: 1px solid #444;
+}
+#jumper .cat {
+  border: 3px solid #313131;
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+  margin: 20px 0px 20px 20px;
+  padding: 20px;
+  color: #FFFFFFee;
+  transition:all .1s;
+}
+#jumper .material-icons {
+  font-size: 72px;
+  display: block;
+  text-align: center;
+  margin-top: 8px;
+}
+#jumper .cat span {
+  font-family:'Montserrat';
+  font-size:16px;
+  text-align: center;
+  display: block;
+}
+#jumper .cat:hover {
+  background:#333;
+  cursor: pointer;
+}
+#jumper::before {
+  content:'';
+  transform:rotate(45deg);
+  border: 0px solid black;
+  width: 10px;
+  height: 10px;
+  position:fixed;
+  border-top: 1px solid #444;
+  top: 59px;
+  left: 98px;
+  box-shadow: 0px 0px 0px blue;
+  background: black;
+  border-left: 1px solid #444;
+}

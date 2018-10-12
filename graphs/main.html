@@ -15,24 +15,69 @@
 
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
 <holder>
-    <h1 class="">Graphisoft</h1>
-    <group>
-      <button real flat onclick="store.undo()"><i class="material-icons">undo</i></button>
-      <button real flat onclick="store.redo()"><i class="material-icons">redo</i></button>
+    <h1 class="">Graphisoft </h1>&nbsp;
+
+    <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
+      <i class="material-icons" >create</i>&nbsp; New</button>
+
+
+    <group  style="vertical-align:6px;">
+      <button real flat onclick="store.undo()"><i class="material-icons">undo</i>&nbsp;</button>
+      <button real flat onclick="store.redo()"><i class="material-icons">redo</i>&nbsp;</button>
     </group>
-    <group>
-      <button real flat onclick="exportIt.showModal();"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
-      <button real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button>
+    <group  style="vertical-align:6px;">
+      <button title="Export Current Graph"real flat onclick="exportIt.showModal();"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
+      <button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button>
 
     </group>
 
 
-    <button real flat style="vertical-align:6px;margin-left:10px;" onclick="convertIt.showModal();"><i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
+    <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
+      <i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
 
-    <button real flat style="vertical-align:6px;margin-left:10px;" err onclick="store.flush(true)"><i class="material-icons" >clear</i>&nbsp; Clear All</button>
+    <button real flat title="Clear everything and reload"err onclick="store.flush(true)">
+      <i class="material-icons" >clear</i>&nbsp; Clear All</button>
+
+    <button real flat title="Switch to/from fullscreen" onclick="toggleFullscreen();isFullscreen() ?fst.innerHTML='fullscreen':fst.innerHTML='fullscreen_exit'">
+      <i class="material-icons" id="fst">fullscreen</i>&nbsp; Fullscreen</button>
+
+    <!--button real flat title="Generate a Custom Graph" onclick="generator.showModal()">
+      <i class="material-icons" id="gener">scatter_plot</i>&nbsp; Generate</button-->
+
 
     <button real flat id="statusHolder" disabled>...</button>
 </holder>
+
+<dialog nxt id="generator">
+
+  <h1 class="covered" style="margin-bottom:0px;">Generate a Graph</h1>
+
+  <span class="elem">
+    <span>Seed</span>
+    <input  flat real  value="123456789">
+  </span>
+  <span class="elem">
+    <span>Freq. of Nodes</span>
+    <input nxt value="20" type="range" min=0 max=100>
+  </span>
+  <span class="elem">
+    <span>Freq. of Connections</span>
+    <input nxt value="20" type="range" min=0 max=100>
+  </span>
+  <span class="elem">
+    <span>Node Weight</span>
+    <input nxt value="20" type="range" min=0 max=100>
+  </span>
+  <span class="elem">
+    <span>Connection Weight</span>
+    <input nxt value="20" type="range" min=0 max=100>
+  </span>
+  <action color class="green-500">
+    <button flr  onclick="generator.close();">GENERATE</button>
+    <button  warn onclick="generator.close();">EXIT</button>
+    <button  warn onclick="generator.close();">RANDOMIZE</button>
+  </action>
+</dialog>
 <dialog nxt id="convertIt">
 
   <h1 class="covered">Convert using Graph Algorithms</h1>
@@ -52,10 +97,10 @@
   <h1 class="covered">Export As:</h1>
 
   Select a Source for your Export:<br><br>
-  <radio name="imp" checked="true">As Save File</radio><br>
-  <radio name="imp" >As CSV File</radio><br>
-  <radio name="imp" checked="true">As PNG Image </radio>
-  <radio name="imp" checked="true">As JPG Image </radio>
+  <radio name="imp" onclick=DOWNLOAD='Save' checked="true">As Save File</radio><br>
+  <radio name="imp" onclick=DOWNLOAD='Csv'>As CSV File</radio><br>
+  <radio name="imp" onclick=DOWNLOAD='Image/Png' checked="true">As PNG Image </radio>
+  <radio name="imp" onclick=DOWNLOAD='Image/Jpg' checked="true">As JPG Image </radio>
 
   <br>
   <action color class="blue-500">
@@ -206,6 +251,20 @@
   <div id="shortcutHelp">Click to add a new Node</div>
 </footer>
 
+<div id="jumper">
+   <div class="cat">
+     <i class="material-icons">edit</i>
+     <span>New Empty Graph<br>(default)</span>
+   </div>
+   <div class="cat">
+     <i class="material-icons">scatter_plot</i>
+     <span>Generate<br>using parameters</span>
+   </div>
+   <div class="cat">
+     <i class="material-icons">archive</i>
+     <span>Import<br>from a savefile</span>
+   </div>
+</div>
 </BODY>
    <script src="../NXTJS/material-colors.js"></script>
    <script src="../NXTJS/history.class.js"></script>
@@ -217,6 +276,7 @@
    <script src="./sidebar.js"></script>
    <script src="./keyboard.js"></script>
    <script src="./dnd.js"></script>
+   <script src="./generator.js"></script>
 
    <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">

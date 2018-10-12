@@ -3,6 +3,7 @@ const RADIUS = 10;
 const VERSION = 1.5;
 const NAME = 'Graphisoft';
 const INSTANCE = String(Math.randInt(1000)+1);
+var DOWNLOAD;
 
 // -------------------------------------------
 // ----CANVAS CONFIGURATION ------------------
