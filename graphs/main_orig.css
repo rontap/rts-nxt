@@ -16,7 +16,7 @@ body.module-sidebar [module="sidebar"].on.open {
   top: 80px;
   height: 50px;
   width:250px;
-  padding: 2px 10px;
+  padding: 5px 13px;
   transition:box-shadow .4s;
   overflow-x:hidden;
   overflow-y:hidden;
@@ -26,7 +26,6 @@ body.module-sidebar [module="action"] {
   left:calc(50% - 300px);
   border-radius:0px;
   border:0px;
-  background: #eee;
 }
 body.module-sidebar [module="sidebar"].on , body.search-mode #distance {
   height: 390px ;
@@ -42,10 +41,9 @@ body.module-sidebar [module="sidebar"].on , body.search-mode #distance {
 }
 
 [module] {
-  border: 1px solid black;
-  border-radius: 4px;
-  background: #393939;
-  color: #eee;
+  border:1px solid #999;
+  border-radius: 7px;
+  background: #eee;
 }
 
 body {
@@ -95,13 +93,12 @@ body {
   }
 
   .elem>span, .elem>option {
-    width: 95px;
+    width: 90px;
     display: inline-block;
-    /* font-weight: bold; */
-    font-family: 'Montserrat';
+    font-weight: bold;
   }
   .elem {
-    border-bottom: 1px solid #222;
+    border-bottom:1px solid #aaa;
     display: block;
     margin: 0 -15px;
     padding: 9px 10px 9px 20px;
@@ -158,10 +155,7 @@ button[flat][real]:hover {
   background:#2196f3;
 }
 #actionDrag {
-  color: black;
-  margin:0px;
-  padding:0px 3px;
-  vertical-align: -6px;
+  color:#222;margin:0px; padding:0px 3px;vertical-align: -6px;
 }
 #action button {
    padding: 15px 19px 15px 11px !important;
@@ -245,7 +239,7 @@ body {
 group {
   vertical-align: 5px;
 }
-[dragger] , [closer] {display:inline-block;margin-top: -53px;margin-left: 227px;color: #fff;cursor:-webkit-grabbing !important;padding-bottom:0px;}
+[dragger] , [closer] {display:inline-block;margin-top: -56px;margin-left: 226px;color:#222;cursor:-webkit-grabbing !important;padding-bottom:0px;}
 [closer] {
   margin-left:180px;
   cursor:pointer !important;
@@ -325,7 +319,7 @@ div[linked]:hover {
   transition:all .15s;
 }
 [module="sidebar"]>i.material-icons:hover {
-  border: 1px solid #999;
+  border:1px solid #666;
 }
 
 [module="sidebar"]>i.material-icons:active {
@@ -373,10 +367,6 @@ div[linked]:hover {
 }
 input:not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="submit"]), input.active {
   box-shadow:0px 0px 0px red !important;
-  border: none;
-  background: #222;
-  color: #eee;
-  padding: 8px 7px;
 }
 input[real][type="color"] {
     height:30px;
@@ -425,10 +415,7 @@ dialog>.elem>input[type="range"] {
   vertical-align: -5px !important;
 }
 
-[module] h2 {
-  color:white;
-  margin-top:6px !important;
-}
+
 /********************************/
 /********************************/
 #jumper {
