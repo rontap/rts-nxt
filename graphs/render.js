@@ -127,9 +127,9 @@ function render(type,e) {//main rendering funcion
 
       if (NODE_WEIGHT_MODE=='ConnectionWeight') {
         //calculating  manually from incoming connections.
-       cRadius = RADIUS;
-       val.edges.forEach((edge) =>  cRadius+=(cRadius/8));
-
+       cRadius = (RADIUS / 10);
+       val.edges.forEach((edge) =>  cRadius+=(edge/5));
+      
       }
 
       ctx.arc(val.name.x,val.name.y,cRadius,0,2*Math.PI);
@@ -157,12 +157,12 @@ function render(type,e) {//main rendering funcion
         }
         else {
           dst =  distance(val.name.x,connectedEdge.name.x,val.name.y,connectedEdge.name.y,true) ;
-          //console.log(dst);
+
           let temp = 10 + (30 - Math.sqrt(dst)*5)/5;
           temp = (temp<4) ? 3 : temp;
           val.edges.set(edgeId,temp);
           ctxbg.lineWidth = temp;
-          changeStruct();
+          //changeStruct();
         }
 
         if (val == clickArea) {
@@ -211,3 +211,54 @@ function getGraphNodeDistance(x,y) {
 }
 
 }//render
+
+function getGNDistance(x,y) {
+  let ret = false;
+  graph.nodes.forEach( (val,key) => {
+       let currX = val.name.x;
+       let currY = val.name.y;
+       if ( distance(currX,x,currY,y,val.weight) == -1) /*pithagoras*/
+       {
+           //we found a node
+
+           if (type=='click') lastClickedElement = val;
+           ret = val;
+
+       }
+       else if ( distance(currX,x,currY,y,RADIUS) == 0 )
+       { //pithagorash
+           //we found a node but not in range
+           ret = true;
+       }
+  });
+
+  return ret;
+}
+
+function getClosestNodes(nodeID,to=1) {
+  let index =[];
+  x = graph.nodes.get( nodeID ).name.x;
+  y = graph.nodes.get( nodeID ).name.y;
+
+  graph.nodes.forEach( (val,key) => {
+    if (val.id!=nodeID) {
+      let currX = val.name.x;
+      let currY = val.name.y;
+      let dst = distance(currX,x,currY,y,true);
+      index.push([dst,val.id]);
+    }
+  });
+  sorted = index.sort((a,b)=> a[0]<b[0] ? -1 : 1).splice(0,to);
+
+  return {
+    full: sorted,
+    data: sorted.map(x=>x[1]),
+    dist: sorted.map(x=>x[0])
+  }
+
+
+}
+
+Array.prototype.random = function() {
+  return this[Math.randInt(this.length)]
+}

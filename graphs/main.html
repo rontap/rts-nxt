@@ -5,19 +5,39 @@
     <meta name="description" content="Graph Editor based on Mathematical Modell"/>
     <meta name="keywords" content="RTS NXT Graph Generator">
     <link rel="icon" href="../NXTJS/icons/graphisoft.png" type="image/png">
+
     <!--importing essential data structures-->
     <script src="./node.class.js"></script>
     <script src="./graph.class.js"></script>
+    <script src="../NXTJS/history.class.js"></script>
+
     <script src="../NXTJS/jsplus.js"></script>
+
 
     <title>Graphisoft Graph Drawer</title>
 </HEAD>
 
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
+  <div id="jumper">
+     <div class="cat">
+       <i class="material-icons">edit</i>
+       <span>New Empty Graph<br>(default)</span>
+     </div>
+     <div class="cat">
+       <i class="material-icons">scatter_plot</i>
+       <span>Generate<br>using parameters</span>
+     </div>
+     <div class="cat">
+       <i class="material-icons">archive</i>
+       <span>Import<br>from a savefile</span>
+     </div>
+  </div>
+
+
 <holder>
     <h1 class="">Graphisoft </h1>&nbsp;
 
-    <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
+    <button real flat title="Convert the Graph  using Algorithms"onclick="$('body').classList.toggle('jump')" id="jumpC">
       <i class="material-icons" >create</i>&nbsp; New</button>
 
 
@@ -41,8 +61,8 @@
     <button real flat title="Switch to/from fullscreen" onclick="toggleFullscreen();isFullscreen() ?fst.innerHTML='fullscreen':fst.innerHTML='fullscreen_exit'">
       <i class="material-icons" id="fst">fullscreen</i>&nbsp; Fullscreen</button>
 
-    <!--button real flat title="Generate a Custom Graph" onclick="generator.showModal()">
-      <i class="material-icons" id="gener">scatter_plot</i>&nbsp; Generate</button-->
+    <button real flat title="Generate a Custom Graph" onclick="generator.showModal()">
+      <i class="material-icons" id="gener">scatter_plot</i>&nbsp; Generate</button>
 
 
     <button real flat id="statusHolder" disabled>...</button>
@@ -52,28 +72,29 @@
 
   <h1 class="covered" style="margin-bottom:0px;">Generate a Graph</h1>
 
-  <span class="elem">
+  <!--span class="elem">
     <span>Seed</span>
     <input  flat real  value="123456789">
+  </span-->
+  <span class="elem">
+    <span>Number of Nodes</span>
+    <input nxt value="20" type="range" min=0 max=100 id="frqN">
   </span>
   <span class="elem">
-    <span>Freq. of Nodes</span>
-    <input nxt value="20" type="range" min=0 max=100>
+    <span>Number of Connections</span>
+    <input nxt value="20" type="range" min=0 max=100 id="frqC">
   </span>
   <span class="elem">
-    <span>Freq. of Connections</span>
-    <input nxt value="20" type="range" min=0 max=100>
+    <span>Node Weight Randomness</span>
+    <input nxt value="10" type="range" min=0 max=35 id="weiN">
   </span>
   <span class="elem">
-    <span>Node Weight</span>
-    <input nxt value="20" type="range" min=0 max=100>
+    <span>Connection Weight Randomness</span>
+    <input nxt value="10" type="range" min=0 max=20 id="weiC">
   </span>
-  <span class="elem">
-    <span>Connection Weight</span>
-    <input nxt value="20" type="range" min=0 max=100>
-  </span>
+  <i id="loadInd" class="material-icons">data_usage</i>
   <action color class="green-500">
-    <button flr  onclick="generator.close();">GENERATE</button>
+    <button flr  onclick="genGraphFromInput();">GENERATE</button>
     <button  warn onclick="generator.close();">EXIT</button>
     <button  warn onclick="generator.close();">RANDOMIZE</button>
   </action>
@@ -171,6 +192,16 @@
   </div>
 </div>
 
+<!--div module="sidebar" id="welcome" onmouseup="this.classList.add('open');" style="height:270px;width:480px;">
+  <h2 style="margin-top:10px" >Welcome </h2>
+  <i id="welcomeDrag" class="material-icons" style="margin-left:448px" dragger>drag_indicator</i>
+  <div id="welcomeProp">
+
+
+
+  </div>
+</div-->
+
 
 <div module="sidebar" id="distance"style="width:350px;"  onclick="this.classList.add('open','on')">
     <h2 style="margin-top:10px">Measure Distance</h2>
@@ -251,24 +282,9 @@
   <div id="shortcutHelp">Click to add a new Node</div>
 </footer>
 
-<div id="jumper">
-   <div class="cat">
-     <i class="material-icons">edit</i>
-     <span>New Empty Graph<br>(default)</span>
-   </div>
-   <div class="cat">
-     <i class="material-icons">scatter_plot</i>
-     <span>Generate<br>using parameters</span>
-   </div>
-   <div class="cat">
-     <i class="material-icons">archive</i>
-     <span>Import<br>from a savefile</span>
-   </div>
-</div>
+
 </BODY>
    <script src="../NXTJS/material-colors.js"></script>
-   <script src="../NXTJS/history.class.js"></script>
-
 
    <script src="./main.js"></script>
    <script src="./window.js"></script>
@@ -282,13 +298,14 @@
    <link rel="stylesheet" href="../NXTJS/elements.css">
    <link rel="stylesheet" href="../NXTJS/input.css">
    <link rel="stylesheet" href="../projectx/xfiles-ui.css">
-   <link rel="stylesheet" href="main.css">
 
-      <script src="../NXTJS/design-input.js"></script>
+   <link rel="stylesheet" href="main.css">
+   <link rel="stylesheet" href="dnd.css">
+   <link rel="stylesheet" href="jumper.css">
+
+   <script src="../NXTJS/design-input.js"></script>
 
       <script>
-
       localStorage[''+NAME+VERSION+'MainStorage'] !== undefined ? store.load() : store.init();
-
-</script>
+      </script>
 </HTML>

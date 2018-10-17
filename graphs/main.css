@@ -65,7 +65,7 @@ body {
   }
   canvas {
 
-
+    margin-top:65px;
         cursor:crosshair;
   }
   body.move-mode canvas {
@@ -81,6 +81,11 @@ body {
     display: block;
     background: #222;
     margin-top:0px !important;
+    z-index: 16;
+    border-bottom: 1px solid #444;
+    position: fixed;
+    right: 0;
+    left: 0;
   }
   holder h1 {
     display:inline-block;
@@ -161,51 +166,6 @@ button[flat][real]:hover {
    padding: 15px 19px 15px 11px !important;
 }
 
-
-/*ADDED*/
-
-#action button:nth-child(2)::before {
-margin-left: -67px;
-}
-#action button:nth-child(3)::before {
-margin-left: -121px;
-}
-#action button:nth-child(4)::before {
-margin-left: -175.5px;
-}
-#action button::before  {
-  content:attr(data-text);
-  background:#3f51b5;
-  position:absolute;
-  transition:.2s;
-  max-height:0;
-  margin-left: -12px;
-  border-radius: 4px 4px 0px 0px;
-  width: 252px;
-  opacity:0;
-  z-index: -2;
-  margin-top: -32px;
-}
-#action button:hover::before {
-  opacity:1;
-    margin-top: -52px;
-  max-height:100px;
-  padding: 10px 0px;
-    z-index: 10;
-}
-#action button:hover::after {
-  background: #3f51b5;
-  width: 6px;
-  height: 6px;
-  border-left: 2px solid #2196f3;
-  border-bottom: 2px solid #2196f3;
-  border-radius:1px;
-  content:'';
-  position:absolute;
-  margin-top: -32px;
-  box-shadow:0px 0px 0px;
-  transform: rotate(-45deg);
-}
 body {
   overflow: hidden;
 }
@@ -239,11 +199,7 @@ body {
 group {
   vertical-align: 5px;
 }
-[dragger] , [closer] {display:inline-block;margin-top: -56px;margin-left: 226px;color:#222;cursor:-webkit-grabbing !important;padding-bottom:0px;}
-[closer] {
-  margin-left:180px;
-  cursor:pointer !important;
-}
+
 button {}
 
   #footerBarHolder>*.open{
@@ -295,38 +251,7 @@ div[linked]:hover {
   width: 280px;
   height:300px;
 }
-[module] select {
-  margin: 10px 0px 10px 0px;
-  width: 180px;
-  display: inline-block;
-}
-[module] select[flat]:active {
-  border-radius:4px 4px 0px 0px;
 
-}
-[module] select[flat] option  {
-  font-weight: 400;
-}
-[module] select[flat] {
-  vertical-align: 9px;
-    box-shadow:0px 0px 0px black !important;
-}
-[module="sidebar"]>i.material-icons {
-  border:1px solid transparent;
-  border-radius: 4px;
-  padding-bottom: 10px;
-  padding: 6px;
-  transition:all .15s;
-}
-[module="sidebar"]>i.material-icons:hover {
-  border:1px solid #666;
-}
-
-[module="sidebar"]>i.material-icons:active {
-  border:1px solid #666;
-  background:  #2196f3;
-  color:white;
-}
 
 #textLP , sliderInput {
 border-radius: 4px;
@@ -375,7 +300,7 @@ input[real][type="color"] {
 input[real][type="color"]:hover {
   background:#999;
 }
-@media only screen and (max-width: 940px) {
+@media only screen and (max-width: 1100px) {
   holder button {
     width: 70px;
     overflow: hidden;
@@ -396,6 +321,9 @@ input[real][type="color"]:hover {
     #footerBarHolder>div:hover {
       max-width:300px;
 
+    }
+    .jump #jumpC {
+padding-bottom: 42px;
     }
 }
 holder>button {
@@ -418,56 +346,31 @@ dialog>.elem>input[type="range"] {
 
 /********************************/
 /********************************/
-#jumper {
-  position:fixed;
-  margin-top: 64px;
-  /* margin-bottom:32px; */
-  
-  top:0;
-  /* bottom:0; */
-  left:0;
-  right: 0;
-  /* width: 274px; */
-  background: #000000;
-  border-top: 1px solid #444;
+
+#loadInd {
+position: absolute;
+padding: 4px !important;
+/* background: #ffffff55; */
+color: white;
+text-align: center;
+border-radius: 100%;
+/* float: right; */
+/* border: 1px solid #999; */
+margin-top: 20px;
+display:none;
+margin-left: calc(100% - 161px);
 }
-#jumper .cat {
-  border: 3px solid #313131;
-  height: 150px;
-  width: 150px;
-  display: inline-block;
-  margin: 20px 0px 20px 20px;
-  padding: 20px;
-  color: #FFFFFFee;
-  transition:all .1s;
+#loadInd.load {
+  display:block;
+  animation:rot .7s linear infinite;
 }
-#jumper .material-icons {
-  font-size: 72px;
-  display: block;
-  text-align: center;
-  margin-top: 8px;
+@keyframes rot {
+  0% {transform:rotate(0deg);}
+
+    100% {transform:rotate(360deg);}
 }
-#jumper .cat span {
-  font-family:'Montserrat';
-  font-size:16px;
-  text-align: center;
-  display: block;
-}
-#jumper .cat:hover {
-  background:#333;
-  cursor: pointer;
-}
-#jumper::before {
-  content:'';
-  transform:rotate(45deg);
-  border: 0px solid black;
-  width: 10px;
-  height: 10px;
-  position:fixed;
-  border-top: 1px solid #444;
-  top: 59px;
-  left: 98px;
-  box-shadow: 0px 0px 0px blue;
-  background: black;
-  border-left: 1px solid #444;
+
+
+.jump holder {
+    box-shadow: 0px 0px;
 }

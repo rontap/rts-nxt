@@ -1,0 +1,79 @@
+body.jump #jumper {
+  display:block;
+  margin-top: 63px;
+
+}
+body.jump #jumpC {
+
+border-radius: 4px 4px 0px 0px;
+
+background: black;
+
+/* border-bottom: 24px; */
+
+border-bottom: 1px solid black;
+
+
+z-index: 99;
+
+box-shadow: 0px 0px 0px red !important;
+
+margin-bottom: -30px;
+  padding-bottom: 23px;
+}
+#jumper {
+  /* display:none; */
+  position: absolute;
+  transition: all .2s;
+  margin-top: -300px;
+  z-index: 1;
+  /* margin-bottom:32px; */
+  top:0;
+  /* bottom:0; */
+  left:0;
+  right: 0;
+  /* width: 274px; */
+  background: #000000;
+  /* border-top: 1px solid #444; */
+}
+#jumper .cat {
+  border: 5px solid #313131;
+  height: 130px;
+  width: 175px;
+  display: inline-block;
+  margin: 20px 0px 20px 15px;
+  border-radius: 10px;
+  padding: 20px;
+  color: #FFFFFFee;
+  transition:all .1s;
+}
+#jumper .material-icons {
+  font-size: 64px;
+  display: block;
+  text-align: center;
+  margin-top: 0px;
+}
+#jumper .cat span {
+  font-family:'Montserrat';
+  font-size:16px;
+  text-align: center;
+  display: block;
+}
+#jumper .cat:hover {
+  background:#333;
+  cursor: pointer;
+}
+#jumper::before {
+  /* content:''; */
+  transform:rotate(45deg);
+  border: 0px solid black;
+  width: 10px;
+  height: 10px;
+  position:fixed;
+  border-top: 1px solid #444;
+  top: 59px;
+  left: 239px;
+  box-shadow: 0px 0px 0px blue;
+  background: black;
+  border-left: 1px solid #444;
+}
