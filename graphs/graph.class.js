@@ -11,9 +11,10 @@ class Graph {
 
         return this;
     }
-    addNode(Node) { // overriding by default;
+    addNode(Node,checking =true) { // overriding by default;
         this.nodes = this.nodes.set(Node.id, Node);
-        this.validity = this.validate();
+        if (checking)  this.validity = this.validate();
+        else this.validity = false;
 
         return this;
     }
@@ -51,6 +52,7 @@ class Graph {
     getSubgraphs() {
         return "arrayOfGraphs";
     }
+    
     copy() {
 
     }
@@ -82,7 +84,7 @@ class Graph {
     isConnected(Node,representedSubgraph) {
         let graph = this;
         Node.edges.forEach( function(key, currNode) {
-           
+
            if (graph.nodes.get(currNode).subgraph == null) {
                graph.nodes.get(currNode).subgraph  = representedSubgraph;
                graph.isConnected(graph.nodes.get(currNode), representedSubgraph);
@@ -117,6 +119,20 @@ class Graph {
            console.log(weight,currEdgeId)
         });
 
+    }
+
+    getGroup(by) {
+      let groupable = Object.keys( {...graph.nodes.values().next().value} );
+      //get all of the groups available
+      let groups = new Map();
+      this.nodes.forEach(val=>{
+          if (groups.has(val[by])) {
+            let t = [...groups.get(val[by]),val];
+            groups.set(val[by],t) //adding to the chain
+          }
+          else groups.set(val[by],[val]);
+      });
+      return groups;
     }
 
 }

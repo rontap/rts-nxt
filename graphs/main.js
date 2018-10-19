@@ -34,6 +34,7 @@ var MODE = 'Place';
 var SEL_MODE = 'Subgraph';
 var CONNECTION_MODE = 'Manual';
 var NODE_WEIGHT_MODE= 'Manual';
+var CONNECTION_SEL_MODE = 'Default';
 
 var graph = new Graph();
 var hist = new History();
@@ -117,7 +118,10 @@ function updateNodeConnectionMode(mode) {
   NODE_WEIGHT_MODE=mode;
   render(null,{which:3});
 }
-
+function updateNodeConnectionHighlight(mode) {
+  CONNECTION_SEL_MODE=mode;
+  render(null,{which:3});
+}
 function changeStruct(calle) {
   //gets called whenever the structure is to be changed ,
 

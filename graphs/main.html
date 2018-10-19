@@ -31,14 +31,19 @@
        <i class="material-icons">archive</i>
        <span>Import<br>from a savefile</span>
      </div>
+     <div class="cat">
+       <i class="material-icons">clear</i>
+       <span>Clear All<br>A fresh start</span>
+     </div>
+
   </div>
 
 
 <holder>
-    <h1 class="">Graphisoft </h1>&nbsp;
+    <h1 class="">Graphene </h1>&nbsp;
 
     <button real flat title="Convert the Graph  using Algorithms"onclick="$('body').classList.toggle('jump')" id="jumpC">
-      <i class="material-icons" >create</i>&nbsp; New</button>
+      <i class="material-icons" >create</i>&nbsp; New / Open...</button>
 
 
     <group  style="vertical-align:6px;">
@@ -47,7 +52,7 @@
     </group>
     <group  style="vertical-align:6px;">
       <button title="Export Current Graph"real flat onclick="exportIt.showModal();"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
-      <button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button>
+      <!--button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button-->
 
     </group>
 
@@ -55,8 +60,8 @@
     <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
       <i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
 
-    <button real flat title="Clear everything and reload"err onclick="store.flush(true)">
-      <i class="material-icons" >clear</i>&nbsp; Clear All</button>
+    <!--button real flat title="Clear everything and reload"err onclick="store.flush(true)">
+      <i class="material-icons" >clear</i>&nbsp; Clear All</button-->
 
     <button real flat title="Switch to/from fullscreen" onclick="toggleFullscreen();isFullscreen() ?fst.innerHTML='fullscreen':fst.innerHTML='fullscreen_exit'">
       <i class="material-icons" id="fst">fullscreen</i>&nbsp; Fullscreen</button>
@@ -86,11 +91,11 @@
   </span>
   <span class="elem">
     <span>Node Weight Randomness</span>
-    <input nxt value="10" type="range" min=0 max=35 id="weiN">
+    <input nxt value="5" type="range" min=0 max=35 id="weiN">
   </span>
   <span class="elem">
     <span>Connection Weight Randomness</span>
-    <input nxt value="10" type="range" min=0 max=20 id="weiC">
+    <input nxt value="1" type="range" min=0 max=20 id="weiC">
   </span>
   <i id="loadInd" class="material-icons">data_usage</i>
   <action color class="green-500">
@@ -166,10 +171,10 @@
     <i class="material-icons" >control_camera</i>
   </button>
   <button real flat onclick="switchMode('Search')" data-text="Routes and Subgraphs">
-    <i class="material-icons" >outlined_flag</i>
+    <i class="material-icons" >swap_horizontal_circle</i>
   </button>
   <button real flat onclick="switchMode('Place')" data-text="???">
-    <i class="material-icons" >border_inner</i>
+    <i class="material-icons" >outlined_flag</i>
   </button>
   <i class="material-icons" dragger id="actionDrag">drag_indicator</i>
 </group>
@@ -235,7 +240,7 @@
   </div>
 </div>
 
-<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')" style="height:400px">
+<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')" style="height:460px">
     <h2 style="margin-top:10px">View and<br> highlighting</h2>
     <i id="viewerDrag" class="material-icons" style="" dragger>drag_indicator</i>
     <i id="viewerClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
@@ -268,6 +273,16 @@
       </select>
   </span>
   <span class="elem">
+    <span>Connection Color:</span>
+    <select real flat onchange="updateNodeConnectionHighlight(this.value)" class="elem"  >
+      <option value="Default" default>Default (Black)</option>
+      <option value="FromWeight">Calculate From Weight</option>
+      <option value="HighlightCircles">Highlight Circles</option>
+      <option value="SE">Highlight Something Else</option>
+
+    </select>
+</span>
+  <span class="elem">
     <span>Background Color</span>
     <input real flat type="color" onchange="canvBgColor=this.value;render(null,{which:3})" value="#ffffff">
   </span>
@@ -293,6 +308,7 @@
    <script src="./keyboard.js"></script>
    <script src="./dnd.js"></script>
    <script src="./generator.js"></script>
+   <script src="./circle.js"></script>
 
    <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">

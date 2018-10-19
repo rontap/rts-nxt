@@ -91,10 +91,12 @@ body {
     display:inline-block;
     margin:0px;
     padding-left: 10px;
-    color: #eee;
-    letter-spacing: -1px;
-    font-weight: 100;
-    text-transform: capitalize;
+    color: #fff;
+    letter-spacing: 0px;
+    /* font-weight: 100; */
+    /* text-transform: capitalize; */
+    font-size: 26px;
+    vertical-align: 2px;
   }
 
   .elem>span, .elem>option {

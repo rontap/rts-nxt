@@ -2,7 +2,7 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.1 IGNITE**
+**6.2 SELBURNE**
 
   ## Recent Changes
 ```
@@ -70,7 +70,7 @@
 * ULTRON - URL shortener and API, downloadable.
 
 ### TOOLS 3
-* PlusOne counter 
+* PlusOne counter
 * Notes++
 * timer and stopper
 * text editor and text analyser
@@ -139,6 +139,7 @@ Split of from tools; RND.html
 
 > 6.1 IGNITE 18/09/27
 
+> 6.2 SELBURNE 18/10/19
 
 
 ### Upcoming versions

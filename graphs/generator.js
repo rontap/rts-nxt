@@ -39,7 +39,7 @@ genGraph = function(setup) {
     do {
       xy = getxy();
     } while( getGNDistance(xy.x,xy.y) !== false )
-    graph.addNode( new Node( graph.nodes.size , {...xy,text:null} ))
+    graph.addNode( new Node( graph.nodes.size , {...xy,text:null} ), false);
     graph.nodes.get(graph.nodes.size-1).weight=getSizeNode()
   }
 
@@ -61,7 +61,7 @@ genGraph = function(setup) {
      graph.nodes.get( el ).edges.set( to , conWeight);
 
     }
-
+    graph.validity = graph.validate(true);
     resolve(true);
 
   function getxy() {

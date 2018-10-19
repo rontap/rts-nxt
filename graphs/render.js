@@ -129,7 +129,7 @@ function render(type,e) {//main rendering funcion
         //calculating  manually from incoming connections.
        cRadius = (RADIUS / 10);
        val.edges.forEach((edge) =>  cRadius+=(edge/5));
-      
+
       }
 
       ctx.arc(val.name.x,val.name.y,cRadius,0,2*Math.PI);
@@ -147,11 +147,14 @@ function render(type,e) {//main rendering funcion
 
       ctx.stroke();
 
+      let circles = circle.calculate();
       val.edges.forEach( (w,edgeId) => {
+
         connectedEdge = graph.nodes.get(edgeId);
         //console.log(connectedEdge,edgeId);
         ctxbg.beginPath();
 
+        //Drawing connection weight out
         if (CONNECTION_MODE=="Manual") {
           ctxbg.lineWidth= (val.edges.get(edgeId) + 1)/5;
         }
@@ -165,12 +168,36 @@ function render(type,e) {//main rendering funcion
           //changeStruct();
         }
 
+        // ---------------------------
+        // Drawing connection color out
         if (val == clickArea) {
             ctxbg.lineWidth=6; //currSelNode
             ctxbg.strokeStyle=MAT_COLORS['blue-500'];
         }
         else {
-          ctxbg.strokeStyle="#222222"
+          if (CONNECTION_SEL_MODE=='Default') ctxbg.strokeStyle="#222222";
+          else if (CONNECTION_SEL_MODE=='FromWeight') {
+            let weight = val.edges.get(edgeId);
+            let parse16 = Math.round((weight/30)*255);
+            let parse = (parse16 > 255 ? 255 : parse16).toString(16); //converting width to HEX
+            ctxbg.strokeStyle=("#222222"+parse);
+
+          }
+          else if (CONNECTION_SEL_MODE="HighlightCircles") {
+            //See calculation code in circle.js
+
+            //checking whether the current pair is in the circle detection val.id vs edgeId
+            isInCircles = circles.filter( x => ( (x[0] == val.id && x[1] == edgeId) || (x[1] == val.id && x[0] == edgeId)));
+
+            if (isInCircles.length > 0) {
+              ctxbg.strokeStyle=MAT_COLORS['green-500'];
+            }
+            else {
+              ctxbg.strokeStyle=("#444444");
+            }
+
+          }
+
         }
 
         ctxbg.moveTo(val.name.x,val.name.y);
@@ -220,18 +247,15 @@ function getGNDistance(x,y) {
        if ( distance(currX,x,currY,y,val.weight) == -1) /*pithagoras*/
        {
            //we found a node
-
            if (type=='click') lastClickedElement = val;
            ret = val;
-
        }
-       else if ( distance(currX,x,currY,y,RADIUS) == 0 )
+       else if ( distance(currX,x,currY,y,RADIUS) == 0 && ret == false)
        { //pithagorash
            //we found a node but not in range
            ret = true;
        }
   });
-
   return ret;
 }
 

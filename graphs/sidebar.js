@@ -31,6 +31,7 @@ sidebar.removeCurrLine = function() {
   closeWindow('line');
 }
 sidebar.showEl = function(el,motherId) {
+  setTimeout(()=>{
   propEl = el;
   //console.log(el);
   $(motherId).innerHTML ='';
@@ -41,13 +42,13 @@ sidebar.showEl = function(el,motherId) {
       if (el[key] != null) {
         if (el[key].type == 'Object') {
             Object.keys(el[key]).map( (keyName) => {
-              $(motherId).innerHTML+=`<span class="elem"><span>${keyName}</span><input value=${el[key][keyName]} onkeypress="sidebar.updateElName('${keyName}',this.value)"></span>`;
+              $(motherId).innerHTML+=`<span class="elem"><span>${keyName}</span><input value=${el[key][keyName]} onkeyup="sidebar.updateElName('${keyName}',this.value)"></span>`;
 
             });
         }
         else  if (key!='edges'){
             if (graphProps[key] == graphPV.w)
-            $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} onkeypress="sidebar.updateEl('${key}',this.value)"></span>`;
+            $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} onkeyup="sidebar.updateEl('${key}',this.value)"></span>`;
             else if (graphProps[key] == graphPV.r)
             $(motherId).innerHTML+=`<span class="elem"><span>${key}</span><input value=${el[key]} disabled></span>`;
 
@@ -55,6 +56,7 @@ sidebar.showEl = function(el,motherId) {
         }
       }
   });
+},0);//settimeout
 }
 
 sidebar.updateEl = (el,to) =>   propEl[el]=to;

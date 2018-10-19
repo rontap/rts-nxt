@@ -97,4 +97,4 @@ openWindow('viewer');
 minimiseFactory('viewer');
 openWindow('textStyle');
 minimiseFactory('textStyle');
-openWindow('welcome');
+//openWindow('welcome');
