@@ -161,6 +161,9 @@
   <i id="sidebarPropDrag" class="material-icons" style="" dragger>drag_indicator</i>
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="properties"></div>
+  <div class="bottomfix" b3>
+    <button warn>Delete<br>Node</buton><button>Copy Props</button><button disabled>Paste Props</button>
+  </div>
 </div>
 
   <group module="action" id="action" style="margin-left:0px">
@@ -193,7 +196,10 @@
     <input id="textLP"type="number" nxt value='10'  onchange="sidebar.updateLineWidth(this.value)"/><span> </span><br><br>
     <switch checked="true"><span>Bidirectional</span><span>Directed</span></switch><br>
     <br>
-    <button nxt onclick="sidebar.removeCurrLine();" style="margin-left:6px">Delete Connection</button>
+
+    <div class="bottomfix" b1>
+      <button warn onclick="sidebar.removeCurrLine();">Delete Connection</buton>
+    </div>
   </div>
 </div>
 
@@ -303,6 +309,7 @@
 
    <script src="./main.js"></script>
    <script src="./window.js"></script>
+   <script src="./struct.js"></script>
    <script src="./render.js"></script>
    <script src="./sidebar.js"></script>
    <script src="./keyboard.js"></script>

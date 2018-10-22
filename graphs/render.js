@@ -2,6 +2,7 @@
 
 function render(type,e) {//main rendering funcion
 
+
   if (type=='click') isMouseDown = true;
   else if (type=='up')isMouseDown=false;
 
@@ -19,6 +20,7 @@ function render(type,e) {//main rendering funcion
 //->
   if (MODE == 'Move' &&type!='alt') translateRender(type,e,x,y);
 
+  if (CONNECTION_SEL_MODE=="HighlightCircles") circles = circle.calculate();
 
   //drawing connection lines
 
@@ -56,6 +58,7 @@ function render(type,e) {//main rendering funcion
   if (type=='click' && clickArea == false  && MODE=='Place') {
       graph.addNode( new Node( graph.nodes.size , {x:x,y:y,text:null} ));
       changeStruct();
+      should.nodes = true;
   }
 
   ctx.clearAll();
@@ -69,11 +72,12 @@ function render(type,e) {//main rendering funcion
            graph.nodes.get( lastClickedElement.id ).edges.set( clickArea.id , 10);
            graph.nodes.get( clickArea.id ).edges.set( lastClickedElement.id , 10);
            changeStruct();
+           should.connections = true;
          }
          sidebar.showLine(lastClickedElement.id,clickArea.id);
 
          if (e.ctrlKey) sidebar.removeCurrLine();
-         changeStruct();
+         //changeStruct();
          graph.validate(true /*enforcing*/);
       }
       //else if (confirm('Do you want to connetct this node with itself?')){
@@ -147,12 +151,14 @@ function render(type,e) {//main rendering funcion
 
       ctx.stroke();
 
-      let circles = circle.calculate();
+
       val.edges.forEach( (w,edgeId) => {
 
         connectedEdge = graph.nodes.get(edgeId);
         //console.log(connectedEdge,edgeId);
         ctxbg.beginPath();
+        ctxbg.strokeStyle="transparent";
+        ctxbg.moveTo(val.name.x,val.name.y);
 
         //Drawing connection weight out
         if (CONNECTION_MODE=="Manual") {
@@ -200,12 +206,13 @@ function render(type,e) {//main rendering funcion
 
         }
 
-        ctxbg.moveTo(val.name.x,val.name.y);
+
         ctxbg.lineTo(connectedEdge.name.x,connectedEdge.name.y);
         //later adding width (weight)
-
         ctxbg.stroke();
+
       });
+
   });
 
 
