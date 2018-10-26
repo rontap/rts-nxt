@@ -67,7 +67,7 @@ window[el].ondragstart = function() {
 
 
 //assigning factory
-['sidebarProp','line','action','distance','viewer','textStyle'].map( (x) => dndFactory(x));
+['sidebarProp','line','action','distance','viewer','textStyle','multiselect'].map( (x) => dndFactory(x));
 
 
 minimiseFactory =(el) => {
@@ -88,6 +88,7 @@ openWindow = (el) => {
 closeWindow = (el) => {
   if ($$('[linked="'+el+'"]').length != 0 ) {
     $('[linked="'+el+'"]').onclick();
+
   }
     $('#'+el).classList.remove('on','open');
 }
@@ -97,4 +98,5 @@ openWindow('viewer');
 minimiseFactory('viewer');
 openWindow('textStyle');
 minimiseFactory('textStyle');
-//openWindow('welcome');
+
+openWindow('multiselect');

@@ -14,7 +14,7 @@
     <script src="../NXTJS/jsplus.js"></script>
 
 
-    <title>Graphisoft Graph Drawer</title>
+    <title>Graphene Graph Drawer</title>
 </HEAD>
 
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
@@ -162,7 +162,7 @@
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="properties"></div>
   <div class="bottomfix" b3>
-    <button warn>Delete<br>Node</buton><button>Copy Props</button><button disabled>Paste Props</button>
+    <button warn onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Delete<br>Node</buton><button>Copy Props</button><button disabled>Paste Props</button>
   </div>
 </div>
 
@@ -183,7 +183,7 @@
 </group>
 
 
-<div module="sidebar" id="line" onmouseup="this.classList.add('open');" style="height:270px">
+<div module="sidebar" id="line" onmouseup="this.classList.add('open');" style="height:251px">
   <h2 style="margin-top:10px" >Line </h2>
   <i id="lineDrag" class="material-icons" style="margin-left:218px" dragger>drag_indicator</i>
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
@@ -195,7 +195,7 @@
     <input type="range" nxt value="10" max="50" min="0" id="rangeLP" onchange="sidebar.updateLineWidth(this.value)"/>
     <input id="textLP"type="number" nxt value='10'  onchange="sidebar.updateLineWidth(this.value)"/><span> </span><br><br>
     <switch checked="true"><span>Bidirectional</span><span>Directed</span></switch><br>
-    <br>
+
 
     <div class="bottomfix" b1>
       <button warn onclick="sidebar.removeCurrLine();">Delete Connection</buton>
@@ -219,6 +219,28 @@
       <i id="distanceDrag" class="material-icons" style="margin-left:320px" dragger>drag_indicator</i>
     Measure Distance Between Two Nodes<br>
     <i>Drag and Drop from a Node to another.</i>
+</div>
+
+
+
+<div module="sidebar" id="multiselect"style=""  onmouseup="this.classList.add('open','on')">
+    <h2 style="margin-top:10px">LIST</h2>
+      <i id="multiselectDrag" class="material-icons" style="margin-left:270px" dragger>drag_indicator</i>
+      <i id="msClose" class="material-icons" style="margin-left: 225px;" onclick="minimiseFactory('multiselect')" closer>vertical_align_bottom</i>
+      <select nxt flat id="msTypeSelect">
+        <option>from Selection</option>
+        <option>show All</option>
+      </select>
+
+      <br>
+      Ctrl+Click to select multiple.
+      <br>
+
+      <div id="msCurrList">currList
+      </div>
+      <div class="bottomfix" b3 id="msbottomfix">
+        <button  onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Add<br>Nodes...</buton><button>Invert<br>Selection</button><button disabled>Hmm<br>Props</button><button>Cancel<br>Selection</button>
+      </div>
 </div>
 
 <div module="sidebar" id="textStyle" style="width:280px;height:380px;"onmouseup="this.classList.add('open');">
@@ -316,6 +338,7 @@
    <script src="./dnd.js"></script>
    <script src="./generator.js"></script>
    <script src="./circle.js"></script>
+   <script src="./multi.js"></script>
 
    <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">

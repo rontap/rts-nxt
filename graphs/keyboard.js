@@ -4,6 +4,7 @@ function handleKeys(e) {
                     $('#properties').innerHTML ='';
                     closeWindow('line');
                     closeWindow('sidebarProp');
+                    ms.flush(); //resetting multi select
                     FORCE_DND_END=true;
                     break;
 

@@ -29,9 +29,19 @@ function render(type,e) {//main rendering funcion
       /*if(getGraphNodeDistance(x,y)==false ||
          getGraphNodeDistance(x,y)==lastClickedElement)// keeping distance not implemented
         {*/
+          prex = {x:lastClickedElement.name.x,y:lastClickedElement.name.y}
           lastClickedElement.name.x = x;
           lastClickedElement.name.y = y;
+          prex = {x:prex.x-x , y:prex.y-y};
 
+          // moving multiple nodes :
+          ms.selected.forEach(e => {
+            if (e != lastClickedElement.id) {
+              graph.nodes.get(e).name.x -= prex.x;
+              graph.nodes.get(e).name.y -= prex.y;
+            }
+
+          })
         //}
 
       }
@@ -61,6 +71,7 @@ function render(type,e) {//main rendering funcion
       should.nodes = true;
   }
 
+
   ctx.clearAll();
   //rendering everything out
   if (clickArea.type == 'Node' && type=='up' && drawingLine && MODE == "Place") {
@@ -89,7 +100,21 @@ function render(type,e) {//main rendering funcion
       lastClickedElement=null;
       ctxo.clearAll();
       drawingLine =false;
-  }
+      if (e.ctrlKey && clickArea.type != undefined) {
+        // -------- MULTI SELECT MANAGEMENT ------
+        //ctrl is pressed
+        //console.log('>>');
+        ms.update();
+        if (! ms.selected.has(clickArea.id))  ms.selected.add(clickArea.id)
+        else                                ms.selected.delete(clickArea.id)
+      }
+      else if (!e.ctrlKey) {
+        ms.flush();
+        ms.update();
+      }
+    }
+
+
 
   // HOLY DRAWING THING
   ctxbg.clearAll();
@@ -102,8 +127,12 @@ function render(type,e) {//main rendering funcion
       ctx.beginPath();
       //
       mainColor = renderSelectedColor(val);
-
-      if (val == clickArea && type!='up') {//clicking on elementt
+      if (ms.selected.has(val.id)) {//element is selected
+        ctx.lineWidth=6;
+        ctx.strokeStyle= MAT_COLORS['orange-800'];
+        ctx.fillStyle = '#eeeeee';
+      }
+      else if (val == clickArea && type!='up') {//clicking on elementt
         ctx.fillStyle = 'red';
         sidebar.showEl(val,'#properties');
         ctx.lineWidth=1;
@@ -243,7 +272,7 @@ function getGraphNodeDistance(x,y) {
 
   return ret;
 }
-
+  ms.update();//update the render procedure
 }//render
 
 function getGNDistance(x,y) {
