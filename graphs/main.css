@@ -467,6 +467,7 @@ d[dbox] {
   display:inline-blcok;
   overflow-x:hidden;
   overflow-y:auto;
+  margin-left: 2px;
   max-height:160px;
 }
 #msClose {
@@ -484,4 +485,12 @@ d[dbox] {
 }
 #msCurrList .elem {
   padding-left:8px;
+}
+a[nxt]:hover {
+  cursor:pointer;
+  background:#3f51b5;
+  color:white !important;
+}
+a[nxt] {
+  padding:1px 10px;
 }

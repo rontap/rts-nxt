@@ -8,6 +8,7 @@ ms.update = function() {
   ms.sumstore = [[],[],[],[],[]];
   box = (data,title='',props=[]) => {
     data = isNaN(data) ? String(data) : data;
+
     return `<d dbox ${props.toString().replace(/,/g,' ')} title='${title}'>${['NaN','',NaN,undefined,null].has(data) ? '-' : data}</d>`
   }
   //updating selection
@@ -23,18 +24,20 @@ ms.update = function() {
 
   ms.selected.forEach( id => {
     let e = graph.nodes.get(id);
-    if (e != undefined) {}
-    let en = e.name;
-    let edgeSum =0;
-    e.edges.forEach( val => edgeSum+=val   );
-    temp+=`<span class='elem'>${box(id) +
-                                box(en.text ) +
-                                box(e.weight)+
-                                box(e.edges.size)+
-                                box(edgeSum/(e.edges.size),'Sum:'+edgeSum)+
-                                box(e.subgraph)}</span>`
-   ms.summary([id,en.text,e.weight,e.edges.size,edgeSum/(e.edges.size)])
-   hasRun = true;
+    if (e != undefined) {
+      let en = e.name;
+      let edgeSum =0;
+
+      e.edges.forEach( val => edgeSum+=val   );
+      temp+=`<span onclick="sidebar.showEl(graph.nodes.get(${e.id}),'#properties')" class='elem'>${box('&nbsp;&nbsp;'+e.id) +
+                                  box(en.text ) +
+                                  box(e.weight)+
+                                  box(e.edges.size)+
+                                  box(edgeSum/(e.edges.size),'Sum:'+edgeSum)+
+                                  box(e.subgraph)}</span>`
+     ms.summary([id,en.text,e.weight,e.edges.size,edgeSum/(e.edges.size)])
+     hasRun = true;
+     }
   })
 
   if (hasRun) ms.getsum();

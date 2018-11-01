@@ -17,6 +17,7 @@ function render(type,e) {//main rendering funcion
   let x = e.offsetX + translateCoords[0] || 0;
   let y = e.offsetY + translateCoords[1] || 0;
 
+
 //->
   if (MODE == 'Move' &&type!='alt') translateRender(type,e,x,y);
 
@@ -65,7 +66,7 @@ function render(type,e) {//main rendering funcion
     //console.log(clickArea);
 
 
-  if (type=='click' && clickArea == false  && MODE=='Place') {
+  if (type=='click' && clickArea == false  && MODE=='Place' && e.shiftKey == false) {
       graph.addNode( new Node( graph.nodes.size , {x:x,y:y,text:null} ));
       changeStruct();
       should.nodes = true;
@@ -108,7 +109,7 @@ function render(type,e) {//main rendering funcion
         if (! ms.selected.has(clickArea.id))  ms.selected.add(clickArea.id)
         else                                ms.selected.delete(clickArea.id)
       }
-      else if (!e.ctrlKey) {
+      else if (!e.ctrlKey && !e.shiftKey) {
         ms.flush();
         ms.update();
       }
@@ -125,7 +126,7 @@ function render(type,e) {//main rendering funcion
   graph.nodes.forEach( (val,key) => {
 
       ctx.beginPath();
-      //
+      //NODE COLOR THINGS
       mainColor = renderSelectedColor(val);
       if (ms.selected.has(val.id)) {//element is selected
         ctx.lineWidth=6;
@@ -152,6 +153,18 @@ function render(type,e) {//main rendering funcion
         ctx.fillStyle = mainColor;
         ctx.strokeStyle="black";
         ctx.lineWidth=1;
+      }
+
+      if (e.shiftKey && SELECTING!=false && SELECT_TO!=false) {
+        if (isInRectangle(...SELECTING,x,y,val.name.x,val.name.y)) {
+            ctx.lineWidth=3;
+
+          ctx.strokeStyle= '#ccccccc';
+
+           if (type=="up")  ms.selected.add(val.id);
+           ctx.strokeStyle= MAT_COLORS['orange-800'];
+           ctx.fillStyle = '#eeeeee';
+        }
       }
 
       if (val == clickArea && e.altKey && type!='up') ctx.fillStyle = '#4488FF';
@@ -273,6 +286,16 @@ function getGraphNodeDistance(x,y) {
   return ret;
 }
   ms.update();//update the render procedure
+
+  if (e.shiftKey && type == 'click') SELECTING = [x,y];
+  else if (e.shiftKey && type == 'down' &SELECTING!=false) {
+    drawSelRect(SELECTING[0],SELECTING[1],x-SELECTING[0],y-SELECTING[1]);
+  //  ms.selected = new Set();
+  }
+  else [SELECTING,SELECT_TO] = [false,false];
+
+
+
 }//render
 
 function getGNDistance(x,y) {
@@ -322,3 +345,45 @@ function getClosestNodes(nodeID,to=1) {
 Array.prototype.random = function() {
   return this[Math.randInt(this.length)]
 }
+
+
+
+function drawSelRect(x0,y0,x1,y1) { //drawing selection rectangle x1 y1 are actually h and w
+  ctxo.clearAll();
+
+  let d=10;
+  //drawing main dotted rect
+  ctxo.beginPath();
+  ctxo.setLineDash([7,7]);
+  ctxo.lineWidth=2;
+  ctxo.strokeStyle="#222";
+  ctxo.fillStyle="#EEEEEE99";
+  ctxo.rect(x0,y0,x1,y1);
+  ctxo.fill();
+  ctxo.stroke();
+
+  //resetting path
+  ctxo.beginPath();
+  ctxo.lineWidth=2;
+  ctxo.setLineDash([0,0]);
+  ctxo.fillStyle="#222";
+
+  //drawing small border rects
+  ctxo.rect(x0,y0,d,d);
+  ctxo.rect(x0+x1-d,y0+y1-d,d,d);
+  ctxo.rect(x0,y0+y1-d,d,d);
+  ctxo.rect(x0+x1-d,y0,d,d);ctxo.fill();ctxo.stroke();
+
+  SELECT_TO=[x1,y1];
+}
+
+function isInRectangle(x0,y0,x1,y1,px,py) {
+  // checking whether a point is in a rectangle
+  let x = [x0,x1].nsort();
+  let y = [y0,y1].nsort();
+
+  if ( px>=x[0] && py>=y[0] && py<=y[1] && px<=x[1] ) return true;
+  else return false;
+}
+
+Array.prototype.nsort  = function(){return this.sort((a,b)=>Number(b)<Number(a) ? 1 : -1)};

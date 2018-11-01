@@ -34,12 +34,12 @@ store = {
       delete localStorage[''+NAME+VERSION+'MainStorage'];
       if (force) location.reload();
   },
-  download:(type='')=>{
+  download:(type='Save')=>{
     let a = window.document.createElement('a');
     if (type=="Save") {
 
       a.href = window.URL.createObjectURL(new Blob([JSON.stringify(graph,nxt.mapper)], {type: 'text/text'}));
-      a.download = 'GraphiSoft-' + new Date().getTime() + '.graph.txt';
+      a.download = 'Graphene-' + new Date().getTime() + '.graph.txt';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

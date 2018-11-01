@@ -4,7 +4,8 @@ const VERSION = 1.5;
 const NAME = 'Graphisoft';
 const INSTANCE = String(Math.randInt(1000)+1);
 var DOWNLOAD;
-
+var SELECTING = false; // toggle wether we are selecting things RN or not
+var SELECT_TO=false;
 // -------------------------------------------
 // ----CANVAS CONFIGURATION ------------------
 // -------------------------------------------

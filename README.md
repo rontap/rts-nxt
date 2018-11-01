@@ -7,14 +7,13 @@
   ## Recent Changes
 ```
 
-(+) Graph Structure and file added
+(+) Graphene added
 ---
 (*) Ultron working again
 (~) Tapcalk 6 Split to parts
 (-) Removed duplicate sets.js
 (*) changed index appearance
-(*) plusone +10 and +50 added
-(+) colorpicker beta added
+(*) Populistic changes
 
 --- NXT.JS Updates (2015)
 
@@ -139,7 +138,7 @@ Split of from tools; RND.html
 
 > 6.1 IGNITE 18/09/27
 
-> 6.2 SELBURNE 18/10/19
+> 6.2 SELBURNE 01/11/19
 
 
 ### Upcoming versions

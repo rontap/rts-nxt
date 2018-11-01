@@ -1,11 +1,15 @@
 function handleKeys(e) {
   switch (e.code) {
-    case 'Escape' : render(null,{which:3});
+    case 'Escape' :
+                    ms.update();
+                    ms.flush(); //resetting multi select
                     $('#properties').innerHTML ='';
                     closeWindow('line');
                     closeWindow('sidebarProp');
-                    ms.flush(); //resetting multi select
+
+
                     FORCE_DND_END=true;
+                    render(null,{which:3});
                     break;
 
     case 'Delete' : graph.nodes.delete( clickArea.id );

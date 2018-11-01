@@ -4,6 +4,7 @@ function genGraphFromInput() {
   loadInd.classList.add('load');
   setTimeout(()=>{
   genGraph({freqNode:Number(frqN.value)/100,
+            tbreplaced:true,
             freqCon:Number(frqC.value)/1000,
             sizeNode:Number(weiN.value),
           sizeCon:Number(weiC.value)}).then(()=>loadInd.classList.remove('load'))
@@ -15,16 +16,17 @@ function genGraphFromInput() {
 Math.randSign = ()=> Math.randInt(3)-1;
 genGraph = function(setup) {
   return new Promise((resolve,reject)=> {
-
+    setup = setup || { //default graph
+      tbreplaced:true,
+      freqNode:.3,
+      freqCon:.01,
+      sizeNode:1, //0-30
+      sizeCon:1,
+    }
 
   graph = new Graph();
 
-  setup = setup || {
-    freqNode:.3,
-    freqCon:.01,
-    sizeNode:1, //0-30
-    sizeCon:1,
-  }
+
   sizeX=innerWidth;
   sizeY=innerHeight-toolBarHeight;
   getSizeNode = () => Math.abs(10-Math.randInt(setup.sizeNode)*Math.randSign());
@@ -65,7 +67,8 @@ genGraph = function(setup) {
     resolve(true);
 
   function getxy() {
-    return {x:Math.randInt(sizeX-RADIUS*4)+RADIUS*2,y:Math.randInt(sizeY-RADIUS*4)+RADIUS*2};
+    return {  x:Math.randInt(sizeX-RADIUS*4)+RADIUS*2,
+              y:Math.randInt(sizeY-RADIUS*4)+RADIUS*2 };
   }
 
 

@@ -8,7 +8,7 @@ sidebar.showLine = function(first,second) {
   propLine = [first,second];
   let firstNode  = graph.nodes.get( propLine[0])
   let secondNode =graph.nodes.get( propLine[1])
-  $('#linkRef').innerHTML=`Connection from ${firstNode.name.text == null ? firstNode.id  : firstNode.name.text} to ${secondNode.name.text == null ? secondNode.id  : secondNode.name.text}`;
+  $('#linkRef').innerHTML=`Connection from <a nxt>${firstNode.name.text == null ? firstNode.id  : firstNode.name.text}</a> to <a nxt>${secondNode.name.text == null ? secondNode.id  : secondNode.name.text}</a>`;
   rangeLP.value = textLP.value = graph.nodes.get( propLine[0]).edges.get( propLine[1]);
 
 

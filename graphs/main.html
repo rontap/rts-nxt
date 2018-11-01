@@ -19,19 +19,19 @@
 
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
   <div id="jumper">
-     <div class="cat">
+     <div class="cat" onclick="location.reload()">
        <i class="material-icons">edit</i>
        <span>New Empty Graph<br>(default)</span>
      </div>
-     <div class="cat">
+     <div class="cat" onclick="generator.showModal()">
        <i class="material-icons">scatter_plot</i>
        <span>Generate<br>using parameters</span>
      </div>
-     <div class="cat">
+     <div class="cat" onclick="nxt.notify(3000,'Sorry, Imports are Unavabile.')">
        <i class="material-icons">archive</i>
        <span>Import<br>from a savefile</span>
      </div>
-     <div class="cat">
+     <div class="cat" onclick="location.reload()">
        <i class="material-icons">clear</i>
        <span>Clear All<br>A fresh start</span>
      </div>
@@ -51,7 +51,7 @@
       <button real flat onclick="store.redo()"><i class="material-icons">redo</i>&nbsp;</button>
     </group>
     <group  style="vertical-align:6px;">
-      <button title="Export Current Graph"real flat onclick="exportIt.showModal();"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
+      <button title="Export Current Graph"real flat onclick="store.export();/*exportIt.showModal();*/"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
       <!--button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button-->
 
     </group>
@@ -69,10 +69,31 @@
     <button real flat title="Generate a Custom Graph" onclick="generator.showModal()">
       <i class="material-icons" id="gener">scatter_plot</i>&nbsp; Generate</button>
 
+      <button real flat title="About Graphene" onclick="about.showModal()">
+        <i class="material-icons" id="">info</i>&nbsp; About</button>
+
 
     <button real flat id="statusHolder" disabled>...</button>
 </holder>
+<dialog nxt id="about" onclick="this.close()">
+    <h1 class="covered blue-500 white-text" style="margin-bottom:0px;">About Graphene (Beta 10)</h1>
 
+    <h2> Graph Generator and Editor</h2>
+    <table>
+      <tr><td>Coding:</td><td>Aron Tatai</td></tr>
+      <tr><td>Additional Coding:</td><td>Mate Cser</td></tr>
+      <tr><td>Help & Testing:</td><td>Mate Csikos-Nagy, Agoston Csehi, Aron Tatai</td></tr>
+    </table>
+    <br>
+    Created in October 2018.<br>
+    Created in Javascript using NXT.js and coffee.<br><br><hr>
+
+    <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Source Code </a> |
+    <a nxt href="http://rontap.netne.net"> Website Index</a> |
+    <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Graph API</a> |
+    <a nxt href="ver.html"> Version History</a>
+
+</dialog>
 <dialog nxt id="generator">
 
   <h1 class="covered" style="margin-bottom:0px;">Generate a Graph</h1>
@@ -107,11 +128,12 @@
 <dialog nxt id="convertIt">
 
   <h1 class="covered">Convert using Graph Algorithms</h1>
-  <br>
+<!--br>
   <radio name="pol">Disjktra</radio><br>
   <radio name="pol">Prims</radio><br>
   <radio name="pol">Something</radio><br>
-  <radio name="pol">Else</radio><br>
+  <radio name="pol">Else</radio><br-->
+  Unavabile for now. Sorry.
   <action color class="indigo-500">
     <button onclick="convertIt.close();" default>HELP</button>
     <button flr  onclick="convertIt.close();">CONVERT</button>
@@ -353,5 +375,8 @@
 
       <script>
       localStorage[''+NAME+VERSION+'MainStorage'] !== undefined ? store.load() : store.init();
+
+      nxt.location = "../NXTJS/";
+      nxt.notify();
       </script>
 </HTML>
