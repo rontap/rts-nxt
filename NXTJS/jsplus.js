@@ -379,14 +379,11 @@ var nxt = {
    }
 ,
    //critial error settings, when parsing goes Wrong
-   die : function(message,title) {
-      var title = title || "";
-      var message = message || "";
-      document.writeln("<style>body {font-family:monospace;margin:60px;}</style><title>ParseError</title>")
-      document.writeln("<br><h1>NXT JS Runtime Error "+title+"</h1>");
-      document.writeln("The page cannot be parsed. Please reload or go back to the previous site.<br>"+message);
-      let a =  new Date().getTime();
-      document.writeln("<br><hr>nxt.js build version: " + nxt.build + "<br>Timestamp: " + a);
+   die : function(message="",title="") {
+      document.writeln(`<style>body {font-family:monospace;margin:60px;}</style><title>ParseError</title>
+                        <br><h1>NXT JS Runtime Error ${title}</h1>
+                        The page cannot be parsed. Please reload or go back to the previous site.<br>${message}
+                        <br><hr>nxt.js build version: ${nxt.build} <br>Timestamp:  ${new Date().getTime()}`);
       throw "NXT.JS Fatal Parse Error.";
    },
    dieFromVersion : function(ver) {
@@ -414,8 +411,18 @@ nxt.ajax  = function nxtAjaxFn(setup) {
   });
 }
 
+nxt.seed = (seed,within=1,skew=1) => {
+  let chr = '0' + nxt.build;
 
+  seed.toString().split('').map( x => {
+    chr+=x.charCodeAt();
+  });
+  chr = Math.sin( (Number(chr*skew) ))*(chr * skew/Math.PI);
+
+  return Math.round( Math.abs(chr))%within;
+}
 // Sets and Maps are parsed correctly by default.
 // Use this function to map them correctly
 // usage: JSON.stringify( ObjectWithMaps , nxt.mapper );
 nxt.mapper = (k,v) =>  v instanceof Set || v instanceof Map ? Array.from(v) : v
+nxt.parser = (k,v,es) => es.indexOf(k) != -1 ?  new Map(v) : v;

@@ -204,10 +204,12 @@ function clickTo(color ) {
             },100)
         }
   }
+  }
   if (gameMode == "zen") {
       movesLeft.innerHTML =  movesTook[level-1];
       move_text.innerHTML = "Moves Used";
       if ( content.map(x => x.isSame()).isSame() ) {//you won
+
         reqMoves[level] += reqMoves[level-1];
          size+=2;
          if (level%4==1) {
@@ -222,7 +224,7 @@ function clickTo(color ) {
          movesLeft.innerHTML="..";
 
   }
-}
+
   //
 
 

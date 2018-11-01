@@ -12,21 +12,25 @@
 
 function selectMode(mode) {
 
+      setTimeout(function(){
+        timeAttackBar.style.right='100%';
+      },200);
+
   if (mode=="zen") {
     $('body').style.setProperty("--dark-primary", '#4CAF50');
     $('body').style.setProperty("--primary", '#4CAF50');
     gameMode="zen";
+
   }
   else if (mode=="normal") {
     $('body').style.setProperty("--dark-primary", '#3F51B5');
     $('body').style.setProperty("--primary", '#3F51B5');
     gameMode="normal";
+
   }
   else if (mode=="time") {
     setTimeout(function(){
-
       timeAttackBar.style.right='0%';
-
     },100);
     $('body').style.setProperty("--dark-primary", '#FF9800');
     $('body').style.setProperty("--primary", '#FF9800');

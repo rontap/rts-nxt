@@ -5,17 +5,26 @@ class Graph {
         this.subgraphCount = 0;
         this.validity = undefined;
         this.characteristics = [];
-        
+
 
         this.type = "Graph";
 
         return this;
     }
-    addNode(Node) { // overriding by default;
+    addNode(Node,checking =true) { // overriding by default;
         this.nodes = this.nodes.set(Node.id, Node);
-        this.validity = this.validate();
+        if (checking)  this.validity = this.validate();
+        else this.validity = false;
 
         return this;
+    }
+    fromJS(jsGraph) {//getting data from regural Object
+      this.nodes = new Map(jsGraph.nodes);
+      this.characteristics = jsGraph.characteristics;
+      this.validity = this.validate();
+    }
+    toText() {//converting to CSV text
+
     }
     createNode() {
         // later
@@ -43,6 +52,7 @@ class Graph {
     getSubgraphs() {
         return "arrayOfGraphs";
     }
+    
     copy() {
 
     }
@@ -74,7 +84,7 @@ class Graph {
     isConnected(Node,representedSubgraph) {
         let graph = this;
         Node.edges.forEach( function(key, currNode) {
-            console.log(currNode);
+
            if (graph.nodes.get(currNode).subgraph == null) {
                graph.nodes.get(currNode).subgraph  = representedSubgraph;
                graph.isConnected(graph.nodes.get(currNode), representedSubgraph);
@@ -84,8 +94,54 @@ class Graph {
                //graph.mergeSubgraphIds(currNode.subgraph , representedSubgraph);
            }
         });
+    }
         //this.isConnected();
+    getRoute(Node1,Node2) {
+        if (Node1.subgraph != Node2.subgraph) return false;
+        //if they are not in the same subgraphs, we know there is no connection
+        dijkstra(Node1,Node2);
+
+    }
+    //getValami() {}
+    dijkstra(node) {
+
+        let graph=this;
+        let visitedId = [];
+
+        this.nodes.forEach((currNode)=>{
+            currNode.distance=infinity;
+        })
+
+        node.distance=0;
+
+        // X -> Y
+        node.edges.forEach((weight,currEdgeId)=>{
+           console.log(weight,currEdgeId)
+        });
 
     }
 
+    getGroup(by) {
+      let groupable = Object.keys( {...graph.nodes.values().next().value} );
+      //get all of the groups available
+      let groups = new Map();
+      this.nodes.forEach(val=>{
+          if (groups.has(val[by])) {
+            let t = [...groups.get(val[by]),val];
+            groups.set(val[by],t) //adding to the chain
+          }
+          else groups.set(val[by],[val]);
+      });
+      return groups;
+    }
+
 }
+
+
+
+
+//do not tács
+Map.prototype.sort = () => new Map([...this.entries()].sort((a, b) => b[1] - a[1]));
+
+Map.prototype.min = () => Array.from(map).sort((x,y) => x[1]>y[1])[0];
+Map.prototype.max = () => Array.from(map).sort((x,y) => x[1]<y[1])[0];

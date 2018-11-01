@@ -4,19 +4,170 @@
     <meta name="author" content="Team Autism" />
     <meta name="description" content="Graph Editor based on Mathematical Modell"/>
     <meta name="keywords" content="RTS NXT Graph Generator">
+    <link rel="icon" href="../NXTJS/icons/graphisoft.png" type="image/png">
 
     <!--importing essential data structures-->
     <script src="./node.class.js"></script>
     <script src="./graph.class.js"></script>
+    <script src="../NXTJS/history.class.js"></script>
+
     <script src="../NXTJS/jsplus.js"></script>
 
-    <title>Graphisoft Graph Drawer</title>
+
+    <title>Graphene Graph Drawer</title>
 </HEAD>
 
 <BODY class="module-sidebar" onkeydown="handleKeys(event)" onclick="deSelectRender(event)">
+  <div id="jumper">
+     <div class="cat" onclick="location.reload()">
+       <i class="material-icons">edit</i>
+       <span>New Empty Graph<br>(default)</span>
+     </div>
+     <div class="cat" onclick="generator.showModal()">
+       <i class="material-icons">scatter_plot</i>
+       <span>Generate<br>using parameters</span>
+     </div>
+     <div class="cat" onclick="nxt.notify(3000,'Sorry, Imports are Unavabile.')">
+       <i class="material-icons">archive</i>
+       <span>Import<br>from a savefile</span>
+     </div>
+     <div class="cat" onclick="location.reload()">
+       <i class="material-icons">clear</i>
+       <span>Clear All<br>A fresh start</span>
+     </div>
+
+  </div>
+
+
 <holder>
-    <h1 class="">GraphiSoft</h1>
+    <h1 class="">Graphene </h1>&nbsp;
+
+    <button real flat title="Convert the Graph  using Algorithms"onclick="$('body').classList.toggle('jump')" id="jumpC">
+      <i class="material-icons" >create</i>&nbsp; New / Open...</button>
+
+
+    <group  style="vertical-align:6px;">
+      <button real flat onclick="store.undo()"><i class="material-icons">undo</i>&nbsp;</button>
+      <button real flat onclick="store.redo()"><i class="material-icons">redo</i>&nbsp;</button>
+    </group>
+    <group  style="vertical-align:6px;">
+      <button title="Export Current Graph"real flat onclick="store.export();/*exportIt.showModal();*/"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
+      <!--button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button-->
+
+    </group>
+
+
+    <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
+      <i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
+
+    <!--button real flat title="Clear everything and reload"err onclick="store.flush(true)">
+      <i class="material-icons" >clear</i>&nbsp; Clear All</button-->
+
+    <button real flat title="Switch to/from fullscreen" onclick="toggleFullscreen();isFullscreen() ?fst.innerHTML='fullscreen':fst.innerHTML='fullscreen_exit'">
+      <i class="material-icons" id="fst">fullscreen</i>&nbsp; Fullscreen</button>
+
+    <button real flat title="Generate a Custom Graph" onclick="generator.showModal()">
+      <i class="material-icons" id="gener">scatter_plot</i>&nbsp; Generate</button>
+
+      <button real flat title="About Graphene" onclick="about.showModal()">
+        <i class="material-icons" id="">info</i>&nbsp; About</button>
+
+
+    <button real flat id="statusHolder" disabled>...</button>
 </holder>
+<dialog nxt id="about" onclick="this.close()">
+    <h1 class="covered blue-500 white-text" style="margin-bottom:0px;">About Graphene (Beta 10)</h1>
+
+    <h2> Graph Generator and Editor</h2>
+    <table>
+      <tr><td>Coding:</td><td>Aron Tatai</td></tr>
+      <tr><td>Additional Coding:</td><td>Mate Cser</td></tr>
+      <tr><td>Help & Testing:</td><td>Mate Csikos-Nagy, Agoston Csehi, Aron Tatai</td></tr>
+    </table>
+    <br>
+    Created in October 2018.<br>
+    Created in Javascript using NXT.js and coffee.<br><br><hr>
+
+    <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Source Code </a> |
+    <a nxt href="http://rontap.netne.net"> Website Index</a> |
+    <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Graph API</a> |
+    <a nxt href="ver.html"> Version History</a>
+
+</dialog>
+<dialog nxt id="generator">
+
+  <h1 class="covered" style="margin-bottom:0px;">Generate a Graph</h1>
+
+  <!--span class="elem">
+    <span>Seed</span>
+    <input  flat real  value="123456789">
+  </span-->
+  <span class="elem">
+    <span>Number of Nodes</span>
+    <input nxt value="20" type="range" min=0 max=100 id="frqN">
+  </span>
+  <span class="elem">
+    <span>Number of Connections</span>
+    <input nxt value="20" type="range" min=0 max=100 id="frqC">
+  </span>
+  <span class="elem">
+    <span>Node Weight Randomness</span>
+    <input nxt value="5" type="range" min=0 max=35 id="weiN">
+  </span>
+  <span class="elem">
+    <span>Connection Weight Randomness</span>
+    <input nxt value="1" type="range" min=0 max=20 id="weiC">
+  </span>
+  <i id="loadInd" class="material-icons">data_usage</i>
+  <action color class="green-500">
+    <button flr  onclick="genGraphFromInput();">GENERATE</button>
+    <button  warn onclick="generator.close();">EXIT</button>
+    <button  warn onclick="generator.close();">RANDOMIZE</button>
+  </action>
+</dialog>
+<dialog nxt id="convertIt">
+
+  <h1 class="covered">Convert using Graph Algorithms</h1>
+<!--br>
+  <radio name="pol">Disjktra</radio><br>
+  <radio name="pol">Prims</radio><br>
+  <radio name="pol">Something</radio><br>
+  <radio name="pol">Else</radio><br-->
+  Unavabile for now. Sorry.
+  <action color class="indigo-500">
+    <button onclick="convertIt.close();" default>HELP</button>
+    <button flr  onclick="convertIt.close();">CONVERT</button>
+    <button flr  warn onclick="convertIt.close();">EXIT</button>
+  </action>
+</dialog>
+<dialog nxt id="exportIt" >
+
+  <h1 class="covered">Export As:</h1>
+
+  Select a Source for your Export:<br><br>
+  <radio name="imp" onclick=DOWNLOAD='Save' checked="true">As Save File</radio><br>
+  <radio name="imp" onclick=DOWNLOAD='Csv'>As CSV File</radio><br>
+  <radio name="imp" onclick=DOWNLOAD='Image/Png' checked="true">As PNG Image </radio>
+  <radio name="imp" onclick=DOWNLOAD='Image/Jpg' checked="true">As JPG Image </radio>
+
+  <br>
+  <action color class="blue-500">
+    <button flr onclick="exportIt.close();store.export();">EXPORT</button>
+    <button   warn onclick="exportIt.close();">CLOSE</button>
+  </action>
+</dialog>
+
+<dialog nxt id="importIt" >
+
+  <h1 class="covered">Import Node</h1>
+  <br>
+  Select a Source for your Import or Export:<br><br>
+  <radio name="imp" checked="true">File</radio><br>
+  <action color class="orange-500">
+    <button onclick="importIt.close();store.import();" default>IMPORT</button>
+    <button flr  warn onclick="importIt.close();">CLOSE</button>
+  </action>
+</dialog>
 
 <span id="canvHolder">
   <canvas id="canvBg" ></canvas>
@@ -25,18 +176,207 @@
                     onmouseup="render('up',event)" onmousemove="render('down',event)"></canvas>
 </span>
 
-<div module="sidebar">
+
+
+<div module="sidebar" id="sidebarProp" onmouseup="this.classList.add('open');">
   <h2 style="margin-top:10px">Properties</h2>
+  <i id="sidebarPropDrag" class="material-icons" style="" dragger>drag_indicator</i>
+  <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="properties"></div>
+  <div class="bottomfix" b3>
+    <button warn onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Delete<br>Node</buton><button>Copy Props</button><button disabled>Paste Props</button>
+  </div>
 </div>
+
+  <group module="action" id="action" style="margin-left:0px">
+  <button real flat onclick="switchMode('Place')" data-text="Add or Modify Nodes and Links">
+    <i class="material-icons" >touch_app</i>
+  </button>
+  <button real flat onclick="switchMode('Move')" data-text="Move Field">
+    <i class="material-icons" >control_camera</i>
+  </button>
+  <button real flat onclick="switchMode('Search')" data-text="Routes and Subgraphs">
+    <i class="material-icons" >swap_horizontal_circle</i>
+  </button>
+  <button real flat onclick="switchMode('Place')" data-text="???">
+    <i class="material-icons" >outlined_flag</i>
+  </button>
+  <i class="material-icons" dragger id="actionDrag">drag_indicator</i>
+</group>
+
+
+<div module="sidebar" id="line" onmouseup="this.classList.add('open');" style="height:251px">
+  <h2 style="margin-top:10px" >Line </h2>
+  <i id="lineDrag" class="material-icons" style="margin-left:218px" dragger>drag_indicator</i>
+  <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
+  <div id="linkProperties">
+    <div id="linkRef" style="margin-top:-15px">&nbsp;</div>
+    Line Weight:
+    <br>
+
+    <input type="range" nxt value="10" max="50" min="0" id="rangeLP" onchange="sidebar.updateLineWidth(this.value)"/>
+    <input id="textLP"type="number" nxt value='10'  onchange="sidebar.updateLineWidth(this.value)"/><span> </span><br><br>
+    <switch checked="true"><span>Bidirectional</span><span>Directed</span></switch><br>
+
+
+    <div class="bottomfix" b1>
+      <button warn onclick="sidebar.removeCurrLine();">Delete Connection</buton>
+    </div>
+  </div>
+</div>
+
+<!--div module="sidebar" id="welcome" onmouseup="this.classList.add('open');" style="height:270px;width:480px;">
+  <h2 style="margin-top:10px" >Welcome </h2>
+  <i id="welcomeDrag" class="material-icons" style="margin-left:448px" dragger>drag_indicator</i>
+  <div id="welcomeProp">
+
+
+
+  </div>
+</div-->
+
+
+<div module="sidebar" id="distance"style="width:350px;"  onclick="this.classList.add('open','on')">
+    <h2 style="margin-top:10px">Measure Distance</h2>
+      <i id="distanceDrag" class="material-icons" style="margin-left:320px" dragger>drag_indicator</i>
+    Measure Distance Between Two Nodes<br>
+    <i>Drag and Drop from a Node to another.</i>
+</div>
+
+
+
+<div module="sidebar" id="multiselect"style=""  onmouseup="this.classList.add('open','on')">
+    <h2 style="margin-top:10px">LIST</h2>
+      <i id="multiselectDrag" class="material-icons" style="margin-left:270px" dragger>drag_indicator</i>
+      <i id="msClose" class="material-icons" style="margin-left: 225px;" onclick="minimiseFactory('multiselect')" closer>vertical_align_bottom</i>
+      <select nxt flat id="msTypeSelect">
+        <option>from Selection</option>
+        <option>show All</option>
+      </select>
+
+      <br>
+      Ctrl+Click to select multiple.
+      <br>
+
+      <div id="msCurrList">currList
+      </div>
+      <div class="bottomfix" b3 id="msbottomfix">
+        <button  onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Add<br>Nodes...</buton><button>Invert<br>Selection</button><button disabled>Hmm<br>Props</button><button>Cancel<br>Selection</button>
+      </div>
+</div>
+
+<div module="sidebar" id="textStyle" style="width:280px;height:380px;"onmouseup="this.classList.add('open');">
+  <h2 style="margin-top:10px">Text Style</h2>
+  <i id="textStyleDrag" class="material-icons" style="" dragger>drag_indicator</i>
+  <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i><br>
+  Node Text Styling (set text in Node properties)<br><br>
+  <div id="">
+  <span class="elem">
+    <span>Font Size</span>
+    <input double type="range" nxt="" value="10" max="50" min="0"  onchange="sidebar.updateLineWidth(this.value)">
+    <input  double type="number"  value="10" onchange="sidebar.updateLineWidth(this.value)">
+  </span>
+  <span class="elem">
+    <span>Rotation</span>
+    <input double type="range" nxt="" value="10" max="50" min="0"  onchange="sidebar.updateLineWidth(this.value)">
+    <input  double type="number"  value="10" onchange="sidebar.updateLineWidth(this.value)">
+  </span>
+
+
+    <span class="elem">
+      <span>Font Color</span>
+      <input real flat type="color">
+    </span>
+  </div>
+</div>
+
+<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')" style="height:460px">
+    <h2 style="margin-top:10px">View and<br> highlighting</h2>
+    <i id="viewerDrag" class="material-icons" style="" dragger>drag_indicator</i>
+    <i id="viewerClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
+
+    <span class="elem">
+      <span>Node Colors:</span>
+      <select real flat onchange="updateSelMode(this.value)">
+      <option value="Subgraph" default>Subgraphs</option>
+      <option value="NodeWeight">Node Weight</option>
+      <option value="NodeConnection">Node Connections</option>
+      <option value="Random">Random Coloring</option>
+      <option value="NoColoring">No Coloring</option>
+    </select>
+  </span>
+
+  <span class="elem">
+    <span>Connection weight:</span>
+    <select real flat onchange="updateConnectionMode(this.value)" class="elem"  >
+      <option value="Manual" default>Manual Weight</option>
+      <option value="ConnectionWeight">Calculate From Distance</option>
+
+    </select>
+  </span>
+    <span class="elem">
+      <span>Node Weight:</span>
+      <select real flat onchange="updateNodeConnectionMode(this.value)" class="elem"  >
+        <option value="Manual" default>Manual Weight</option>
+        <option value="ConnectionWeight">Calculate From Connections</option>
+
+      </select>
+  </span>
+  <span class="elem">
+    <span>Connection Color:</span>
+    <select real flat onchange="updateNodeConnectionHighlight(this.value)" class="elem"  >
+      <option value="Default" default>Default (Black)</option>
+      <option value="FromWeight">Calculate From Weight</option>
+      <option value="HighlightCircles">Highlight Circles</option>
+      <option value="SE">Highlight Something Else</option>
+
+    </select>
+</span>
+  <span class="elem">
+    <span>Background Color</span>
+    <input real flat type="color" onchange="canvBgColor=this.value;render(null,{which:3})" value="#ffffff">
+  </span>
+</div>
+
+
+</div>
+<footer id="docFooter">
+  <div id="footerBarHolder"></div>
+
+
+  <div id="shortcutHelp">Click to add a new Node</div>
+</footer>
 
 
 </BODY>
    <script src="../NXTJS/material-colors.js"></script>
+
    <script src="./main.js"></script>
+   <script src="./window.js"></script>
+   <script src="./struct.js"></script>
+   <script src="./render.js"></script>
    <script src="./sidebar.js"></script>
    <script src="./keyboard.js"></script>
+   <script src="./dnd.js"></script>
+   <script src="./generator.js"></script>
+   <script src="./circle.js"></script>
+   <script src="./multi.js"></script>
+
+   <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">
+   <link rel="stylesheet" href="../NXTJS/input.css">
    <link rel="stylesheet" href="../projectx/xfiles-ui.css">
+
    <link rel="stylesheet" href="main.css">
+   <link rel="stylesheet" href="dnd.css">
+   <link rel="stylesheet" href="jumper.css">
+
+   <script src="../NXTJS/design-input.js"></script>
+
+      <script>
+      localStorage[''+NAME+VERSION+'MainStorage'] !== undefined ? store.load() : store.init();
+
+      nxt.location = "../NXTJS/";
+      nxt.notify();
+      </script>
 </HTML>

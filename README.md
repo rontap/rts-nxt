@@ -2,19 +2,18 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.1 IGNITE**
+**6.2 SELBURNE**
 
   ## Recent Changes
 ```
 
-(+) Graph Structure and file added
+(+) Graphene added
 ---
 (*) Ultron working again
 (~) Tapcalk 6 Split to parts
 (-) Removed duplicate sets.js
 (*) changed index appearance
-(*) plusone +10 and +50 added
-(+) colorpicker beta added
+(*) Populistic changes
 
 --- NXT.JS Updates (2015)
 
@@ -70,7 +69,7 @@
 * ULTRON - URL shortener and API, downloadable.
 
 ### TOOLS 3
-* PlusOne counter 
+* PlusOne counter
 * Notes++
 * timer and stopper
 * text editor and text analyser
@@ -139,6 +138,7 @@ Split of from tools; RND.html
 
 > 6.1 IGNITE 18/09/27
 
+> 6.2 SELBURNE 01/11/19
 
 
 ### Upcoming versions

@@ -84,11 +84,11 @@
 
 
 </div>
-<div id="evolveBtn" class="card center" onclick="$('body').classList.add('campaign');startCampaign();"  style="bottom:130px;background:#222;color:#eee;">Start Campaign</div>
+<div id="evolveBtn" class="card center" onclick="$('body').classList.add('campaign');"  style="bottom:130px;background:#222;color:#eee;">Start Campaign</div>
 
 <div id="evolveBtn" class="card center plot" onclick="$('body').classList.add('evolve','evolveIO');showEvolution();" >Evolve</div>
 
-<div id="evolveBtn" class="card center plot" onclick="$('body').classList.add('helpDisplay');$('dialog').showModal();"  style="left:180px;">About</div>
+<div id="evolveBtn" class="card center plot" onclick="$('body').classList.add('campaign');"  style="left:180px;">About</div>
 <style>
 .plot {
   width:120px !important;
@@ -138,7 +138,54 @@
 
 <i class="material-icons fab" id="start" onclick="startGame();">send</i>
 <canvas id="canv"></canvas>
-<button real id="runAsCandidate" onclick="runAsCandidateNow()">Run for Election</button>
+<div id="aboutInfo">
+  <div id="aIMe">
+    <h1>About Populistic</h1><br>
+    This is literally the best game in existence.
+    <br><br>
+    <button nxt flat>More Games <br>by Rontap</button>
+    <button nxt flat>Force Update <br>Website</button>
+    <button nxt flat>Older Versions</button>
+    <button nxt flat>Reset Game...</button><br><br>
+
+    <span id="webappstatus">Webapp</span>
+    <span id="webconnectstatus">Error.</span>
+  </div>
+</div>
+<style>
+#aboutInfo button:hover {
+  background:black;
+}
+#aboutInfo button {
+  width:180px;
+  margin-top:15px;
+  margin-right: 12px;
+}
+#aboutInfo div {
+  max-width: 400px;
+  margin:40px auto;
+  color:#f1f1f1;
+}
+#aboutInfo {
+  display:none;
+}
+.campaign #aboutInfo {
+  display:block;
+  position:fixed;
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  background: #3F51B5;
+  animation:fillAboutInfo .4s;
+}
+@keyframes fillAboutInfo {
+  0% {opacity:0}
+  100 {opacity:1}
+}
+</style>
+<button real id="runAsCandidate" onclick="$('body').classList.remove('campaign');">Back to game</button>
+
 <group id="controls" >
 </group>
 
@@ -172,6 +219,8 @@ document.body.onkeypress = function(event) {
   }
 }
 isGameStarted = false;
+
+webconnectstatus.innerHTML = (navigator.onLine ? 'online' : 'offline')
 </script>
 
 <div id="winAnimate"></div>

@@ -5,12 +5,12 @@ class Node {
         this.edges = new Map(edges) || new Map(); //Edges is a MAP : Id => Weight
         this.subgraph = null;
         this.type = "Node";
-        this.weigth;
+        this.weight=10;
 
     }
-    addEdge(to,weight) {
+    addEdge(to/*Map or edgeId*/,weight/*Boolean or edgeId*/) {
         if (to.type=="Map") {
-            // weight is boolean which determines whether to override original edges
+            // weight is boolean which determines whether tog override original edges
             // true -> Override
             if (weight) this.edges = new Map([...this.edges,...to]);
             else        this.edges = new Map([...to,...this.edges]);
@@ -21,7 +21,4 @@ class Node {
 
         return this.edges;
     }
-
-
-
 }

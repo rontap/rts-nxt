@@ -1,5 +1,5 @@
-nxt.notify = function(id , time) {
-    var time = time ? time : 3000;
+nxt.notify = function(id , time=3000) {
+    console.log(time);
 
     if (!isNaN(id)) {//dynamic notification creation
       timeTemp=id;
