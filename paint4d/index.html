@@ -1,0 +1,51 @@
+<HTML>
+
+<HEAD>
+    <meta name="author" content="Team Autism" />
+    <meta name="description" content="Paint 4D"/>
+
+
+    <script src="../NXTJS/jsplus.js"></script>
+
+    <title>Paint 4D</title>
+</HEAD>
+<BODY>
+    
+    <canvas id="canvOverlay"></canvas>
+    
+    <canvas id="canv" onmousedown="render(event)" onmousemove="render(event)" onmouseup="render(event)"></canvas>
+    
+    <holder>
+        <h1 class="">Paint 4d</h1>
+        <group>
+          <button real flat onclick="undo();"><i class="material-icons">undo</i></button>
+          <button real flat onclick="redo();"><i class="material-icons">redo</i></button>
+        </group>
+        <group>
+            <button flat real onclick="SELECTED_TYPE='line'"><i class="material-icons">check_box_outline_blank</i></button>
+            <button flat real onclick="SELECTED_TYPE='circle'"><i class="material-icons">view_headline</i></button>
+        </group>
+        <input type="color" onchange="LINE_COLOR=this.value">
+        <input type="number" onchange="LINE_WIDTH=this.value" placeholder="2">
+        <input type="color" onchange="FILL_COLOR=this.value">
+    </holder>
+</BODY>
+
+   <script src="../NXTJS/material-colors.js"></script>
+   <script src="../history.class.js"></script>
+
+    <link rel="stylesheet" href="../NXTJS/design.css">
+    <link rel="stylesheet" href="../NXTJS/elements.css">
+    <link rel="stylesheet" href="../NXTJS/input.css">
+    <link rel="stylesheet" href="../projectx/xfiles-ui.css">
+
+
+    <link rel="stylesheet" href="main.css">
+    
+    <script src="main.js"></script>
+    <style>
+        input {
+            width:50px !important;
+        }
+    </style>
+</HTML>

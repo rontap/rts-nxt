@@ -1,20 +1,24 @@
 <html>
   <script src="../../NXTJS/jsplus.js" type="text/javascript"></script>
-  <script src="../../edu/sets.js" type="text/javascript"></script>
+  <script src="../../NXTJS/sets.js" type="text/javascript"></script>
   <script src="duel.graph.js" type="text/javascript"></script>
     <script src="ui.js" type="text/javascript"></script>
     <link rel="stylesheet" href="main.css">
 
   <body>
+    <header><span>D<k style="color:blue">U</k><k style="color:red">E</k>L</span>
+    
+    </header>
+    <div id=cholder>
     <canvas id="hidden" style="display:none;"></canvas>
     <canvas id="third" ></canvas>
     <canvas id="draw" ></canvas>
     <canvas id="front" onmousemove="drawLine(event);" onmouseup="endLine(event)"></canvas>
-
+  </div>
   </body>
   <script>
     MUM = false; //MULTI USER MODE
-    DIMENSION = 400;
+    DIMENSION = 700;
 
    canvases = ['hidden','third','draw','front'];
 
@@ -27,10 +31,10 @@
 
     field = [];
 
-    WIDTH = 30;
-    HEIGHT = 15;
+    WIDTH = 45;
+    HEIGHT = 20;
 
-    SIZE = 5;
+    SIZE = 7;
 
     colors = ["#999999","#F44336","#2196F3","#4CAF50","#795548","#9C27B0","#00BCD4","#009688","#FF9800","#607D8B","#d81b60","#673AB7","#555","#333","#111"];
     playerID=1;
