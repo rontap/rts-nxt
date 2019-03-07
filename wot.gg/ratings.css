@@ -1,0 +1,130 @@
+body.showWN8 *.unknown {
+    color: #ffffff !important;
+    background-color: #D3D3D3 !important;
+}
+
+body.showWN8 *.veryBad {
+    color: #ffffff !important;
+    background-color: #930D0D !important;
+}
+
+body.showWN8 *.bad {
+    color: #ffffff !important;
+    background-color: #CD3333 !important;
+}
+
+body.showWN8 *.belowAverage {
+    color: #ffffff !important;
+    background-color: #CC7A00 !important;
+}
+
+body.showWN8 *.average {
+    color: #ffffff !important;
+    background-color: #CCB800 !important;
+}
+
+body.showWN8 *.aboveAverage {
+    color: #ffffff !important;
+    background-color: #849B24 !important;
+}
+
+body.showWN8 *.good {
+    color: #ffffff !important;
+    background-color: #4D7326 !important;
+}
+
+body.showWN8 *.veryGood {
+    color: #ffffff !important;
+    background-color: #4099BF !important;
+}
+
+body.showWN8 *.great {
+    color: #ffffff !important;
+    background-color: #3972C6 !important;
+}
+
+body.showWN8 *.unicum {
+    color: #ffffff !important;
+    background-color: #793DB6 !important;
+}
+
+body.showWN8 *.superUnicum {
+    color: #ffffff !important;
+    background-color: #401070 !important;
+}
+
+
+/****/
+
+
+body.tSwinrate:not(.tSbattles) .node.unknown {
+    color: #ffffff !important;
+    background-image:linear-gradient( #D3D3D3 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.veryBad {
+    color: #ffffff !important;
+    background-image:linear-gradient( #930D0D , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.bad,body.tSbattles .node.BTLbad {
+    color: #ffffff !important;
+    background-image:linear-gradient( #CD3333 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.belowAverage,body.tSbattles .node.BTLbelowAverage {
+    color: #ffffff !important;
+    background-image:linear-gradient( #CC7A00 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.average,,body.tSbattles .node.BTLaverage{
+    color: #ffffff !important;
+    background-image:linear-gradient( #CCB800 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.aboveAverage,body.tSbattles .node.BTLaboveAverage {
+    color: #ffffff !important;
+    background-image:linear-gradient( #849B24 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.good{
+    color: #ffffff !important;
+    background-image:linear-gradient( #4D7326 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.veryGood,body.tSbattles .node.BTLgood {
+    color: #ffffff !important;
+    background-image:linear-gradient( #4099BF , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.great {
+    color: #ffffff !important;
+    background-image:linear-gradient( #3972C6 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.unicum ,body.tSbattles .node.BTLunicum {
+    color: #ffffff !important;
+    background-image:linear-gradient( #793DB6 , black 100px) !important;
+}
+
+body.tSwinrate:not(.tSbattles) .node.superUnicum {
+    color: #ffffff !important;
+    background-image:linear-gradient( #401070 , black 100px) !important;
+}
+body.tSbattles g {
+  font-weight: bold;
+}
+body.tSwinrate f {
+  font-weight:bold;
+}
+g {
+  display:block;
+}
+g::after {
+  content:'battles';
+  width:20px;
+  height:20px;
+}
+.techtree .tree .node a {
+  background-position-x:-12px;
+}

@@ -1,0 +1,57 @@
+<HTML>
+    <head>
+        <title>new room</title>
+        <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+         <link rel="stylesheet" href="style.css"  >
+        <link rel="stylesheet" href="../NXTJS/design.css"  >
+        <link rel="stylesheet" href="../NXTJS/elements.css"  >
+      
+    </head>
+    <body>
+        <nav>
+            <div id="pageTitle">New / Join Room</div>
+        </nav>
+        <holder>
+        <form action="room.php" method="get">
+            <input checked type="radio" name="action" value="new" id="newRadio">
+            <label for="newRadio">Create New</label>
+            
+            <br>
+            <input type="radio" name="action" value="join" id="joinRadio">
+            <label for="joinRadio">Join Game</label>
+            
+            <br><br>
+            <input type="text" name="gameID" id=gameID placeholder="Game ID (if joining)">
+            
+            <br>
+            <input type="text" name="name" id="name" placeholder="Username">
+            
+            <br><br>
+            <input type="hidden"  id="cardHolder" name="cards">
+            
+            <input type="submit">
+        </form>
+        </holder>
+        <style>
+            * {
+                user-select:none;
+            }
+            holder {
+                display: block;
+                margin: 0 auto;
+                max-width: 300px;
+            }
+        </style>
+        <script>
+            cardHolder.value = cards
+            
+            if (location.hash != '') {
+                id = location.hash.slice(1);
+                joinRadio.checked = true;
+                gameID.value = id;
+                
+            }
+        </script>
+    </body>
+</HTML>

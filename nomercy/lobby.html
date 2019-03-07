@@ -1,0 +1,68 @@
+<HTML>
+     <head>
+        <title>lobby</title>
+        <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        
+    </head>
+    <body>
+        Room code: <div id="roomId">??</div>
+        <br>
+        <b>Invite Players with this link:</b>
+        <input id="invLink" style="width:400px;">
+        <br>
+        <h1>Players</h1>
+        You are <div id="yourPlayerName">??</div>
+        <hr>
+        Others:<br>
+        <div id="playerList">...</div>
+        <br>
+        <button onclick="" id="start" disabled>
+            Wait for admin to start the game
+        </button>
+        <script>
+            let ID = location.hash.slice(1)
+            invLink.value = location.origin + '/nomercy/room.html#' + ID
+            
+            
+            let currUserID = localStorage.nomercyID
+            
+            
+            roomId.innerHTML = ID;
+            function renderPlayers(arr) {
+                console.log(arr.users[0])
+                if (arr.users[0].name == currUserID) {
+                            //admin
+                            start.disabled = false;
+                            start.innerHTML = "Start Game Now";
+                        }
+                
+                let users = arr.users;
+                playerList.innerHTML = '';
+                for (let i=0; i<users.length-1;i++) {
+                    playerList.innerHTML += `<div>${users[i].name}</div>`
+                }
+            }
+            function load() {
+                nxt.ajax({
+                    url:  './files/' + ID + 'users.json'
+                }).then((file) => {
+                        console.log('{ "users" :  ' + file + '{}]}')   
+                        renderPlayers(JSON.parse('{ "users" :' + file + '{}]}'))
+                        
+                        
+                        
+                        setTimeout(load,5000)
+                    }    
+                )
+            }
+            load()
+            yourPlayerName.innerHTML = currUserID
+            
+            
+            
+
+            
+        </script>
+    </body>
+</HTML>

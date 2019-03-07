@@ -1,0 +1,31 @@
+holder {
+    box-shadow: 0px 2px 3px #aaa;
+    padding: 12px 10px;
+    display: block;
+    background: #222;
+    margin-top: 0px !important;
+}
+holder h1 {
+    display: inline-block;
+    margin: 0px;
+    padding-left: 30px;
+    color: #eee;
+}
+:root {
+    --dark-primary: #48F !important;
+    --primary :red !important;
+}
+button[flat][real] { /*<button flat real>*/
+    padding-right: 16px;
+}
+holder group {
+    vertical-align:6px;
+}
+holder group button:hover{
+    background:red !important;
+}
+ canvas {
+    top:65px;
+    position:absolute;
+    cursor:crosshair;
+  }

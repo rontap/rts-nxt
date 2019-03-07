@@ -5,7 +5,7 @@ var subtrees;
 function updateConnectionStats() {
   subtrees = [];
   subtreeCount = -1;
-  fieldFlat = field.merge();
+  fieldFlat = field.flat();
   for (s=0;s<fieldFlat.length; s++) {
     fieldFlat[s].subtree=-1;
   }
@@ -39,7 +39,7 @@ function greedyNextNode(node) {
 
 // greedily detect circles
 function updateCircleness() {
-  fieldFlat = field.merge();
+  fieldFlat = field.flat();
   for (i=0;i<fieldFlat.length;i++) {//resetting everything
     fieldFlat[i].circle=undefined;
     fieldFlat[i].waypoint=undefined;
@@ -128,7 +128,7 @@ function reduceImageData(UintArray) {
 
 function breathNextCircleDetect(currSubtree,line) {
 
-  fieldFlat = field.merge();
+  fieldFlat = field.flat();
 
   finished = true;
 

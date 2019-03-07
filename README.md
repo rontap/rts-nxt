@@ -2,31 +2,20 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.2 SELBURNE**
+**6.3.3 RUBICON**
 
   ## Recent Changes
 ```
 
-(+) Graphene added
----
-(*) Ultron working again
-(~) Tapcalk 6 Split to parts
-(-) Removed duplicate sets.js
-(*) changed index appearance
-(*) Populistic changes
-
---- NXT.JS Updates (2015)
-
-
-(+) Montserrat Font is now imported along with colors.
-(+) NXT.ajax added; NXT.mapper added for map->JSON conversion
-(+) Material colors.js query functions added
-(+) Download links added in showcase.html
+(×) Life Improvements.
+(+) Wot.gg added [January]
+(+) new CW added [March]
+(+) new game: Nomercy Added [January]
+(+) Paint4D added [November]
 ```
 
 ## General Changes
 ```
- (-) removed JQuery, Polymer, RJSX and Polyfome
  (-) removed old projects and restructured.
  (+) new API called NXT.js improving speed
  (+) graph modelling
@@ -36,13 +25,12 @@
  (+) MEK reader and searching
  (+) Ultron URL Shortener added with admin panel.
  (+) Notes++ and Counter with PHP support
- (+) Several new games including cancer simulator
+ (+) Several new games
 
 ```
 ## Roadmap
 ```
- (>) Adding features to tapcalk
- (>) Implementing Material Design 2.0
+ (>) get a job
  (>) $_GET Extensions
 
 ```
@@ -138,7 +126,7 @@ Split of from tools; RND.html
 
 > 6.1 IGNITE 18/09/27
 
-> 6.2 SELBURNE 01/11/19
+> 6.2 SELBORNE 01/11/19
 
 
 ### Upcoming versions

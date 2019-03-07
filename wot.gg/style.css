@@ -1,0 +1,79 @@
+div.elite>a>span {
+  font-style:italic;
+}
+div.elite>a>span::after {
+  content:'*';
+  font-weight: bold;
+
+}
+.node>a>span>i {
+  display:none;
+}
+.node:hover>a>span>e {
+  display:none;
+}
+.node:hover>a>span>i {
+  display:block;
+}
+.node {
+  filter: grayscale(80%);
+}
+header a {
+display: inline-block;
+padding: 4px;
+/* margin: 1px; */
+width: 100px;
+/* background-repeat: no-repeat; */
+background-position-x: 5px;
+border: 2px solid #444;
+color: white;
+font-weight: bold;
+background-size: 47%;
+text-shadow: 1px 1px black;
+z-index: 99;
+}
+header a:hover {
+  color:white;
+  width:120px;
+  background-position-x: 5px;
+  background-size: 47%;
+}
+header {
+  z-index: 99;
+}
+header a:hover {
+  background:#444;
+  transition:all .3s;
+}
+h1 {
+  margin-left:200px;
+  margin-bottom:80px;
+}
+#settings {
+  display: block;
+max-width: 800px;
+background: white;
+margin: 0 auto;
+padding: 16px;
+margin-top: 20px;
+box-shadow:0px 2px 2px #ddd;
+}
+body.unresearched .node:not(.owned) {
+  opacity:0.33;
+}
+body.unresearched .node:not(.owned):hover {
+  opacity:0.9;
+}
+body.tShide .node {
+  background:#777 !important;
+}
+label {
+  width:80px !important;
+}
+input[type="radio"] {
+  width:20px !important;
+  box-shadow:0px 0px 0px red !important;
+}
+.node {
+  transition:.2s;
+}
