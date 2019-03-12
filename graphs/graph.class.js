@@ -103,23 +103,49 @@ class Graph {
 
     }
     //getValami() {}
-    dijkstra(node) {
+    dijkstra(sourceNode,targetNode) {
+        
+        let Q = [];
 
-        let graph=this;
-        let visitedId = [];
-
-        this.nodes.forEach((currNode)=>{
-            currNode.distance=infinity;
+        this.nodes.forEach((el) => {
+            el._dist = Infinity;
+            el._prev = undefined;
+            Q.push(el);
         })
+        sourceNode._dist = 0;
 
-        node.distance=0;
+        while (Q.length > 0) {
+            let u = Q.sort((a,b) => (a._dist > b._dist) ? -1 : 1).pop()
+    
+           if (u == targetNode) {
+               this.backTrackDijkstra(u,[])
+                
+                return (this.trackback).concat(sourceNode.id);
+           }
 
-        // X -> Y
-        node.edges.forEach((weight,currEdgeId)=>{
-           console.log(weight,currEdgeId)
-        });
+            u.edges.forEach((edgeWeight,edgeId) => {
+                let alt = u._dist + edgeWeight;
+                if (alt < this.nodes.get(edgeId)._dist) {
+                    this.nodes.get(edgeId)._dist = alt;
+                    this.nodes.get(edgeId)._prev = u;
+                }
+            })
+        }
 
+        console.log(Q);
     }
+    backTrackDijkstra(fromNode,chain) {
+       
+        if (fromNode._prev == undefined) { 
+            this.trackback = chain;
+        }
+        else {
+            chain.push(fromNode.id)
+            this.backTrackDijkstra(fromNode._prev,chain)
+        }
+        
+    }
+
 
     getGroup(by) {
       let groupable = Object.keys( {...graph.nodes.values().next().value} );

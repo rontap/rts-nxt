@@ -1,13 +1,14 @@
 <html>
     <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rontap Sites</title>
     </head>
     <body>
         <side>
 
-        
+            <canvas id="canvas"></canvas>
             <h1>
-                <span id="rontap">Rontap<br>Sites</span><span id="realname">Aron<br> Peter Tatai</span>
+                <span id="rontap">Rontap<br>Sites</span><span id="realname">Aron Peter<br> Tatai</span>
             </h1>
         </side>
         <aside>
@@ -80,10 +81,22 @@
                 display:block;
 
             }
+            .real side {
+                background:#222;
+                color:#f1f1f1;
+            }
             h1 {
-                font-size:72px;
-                padding-left: calc(50% - 110px);
-                margin-top:calc(200px);
+                font-size: 72px;
+                padding-left: calc(25% - 114px);
+                top: calc(50% - 145px);
+                position: fixed;
+                /* left: 20px; */
+                bottom: 0;
+                /* top: 0; */
+                transition: padding-left .3s;
+            }
+            .real h1 {
+                padding-left: calc(25% - 170px);
             }
             body {
                 margin:0;
@@ -93,6 +106,7 @@
                 position:fixed;
                 left:0; top:0; width:50%;
                 bottom:0;
+                transition:all .3s;
 
             }
             aside {
@@ -100,8 +114,12 @@
                 position: absolute;
                 top:0;
                 right:0;
-                background:#ddd;
+                background:#e5e5e5;
                
+            }
+            .real h1:after {
+                background:#f1f1f1;
+                width:88px;
             }
             h1:after {
                 content: '';
@@ -109,6 +127,7 @@
                 margin-left:2px;
                 background:black;
                 display: block;
+                transition:all .3s;
                 width: 77px;
                
             }
@@ -125,6 +144,97 @@
             body {
                 background:#f1f1f1;
             }
+            @media screen and (max-width:640px) {
+                aside {
+                   position:relative;
+                   width:100%;
+                   margin-top:300px;
+                }
+                side {
+                    width:100%;
+                    display:initial;
+                }
+                side h1 {
+                    top:10px;
+                    margin-left:30px;
+                    padding-left:initial;
+                    transition:top .2s;
+                }
+                .real side h1 {
+                    
+                    top:-30px;
+                }
+                .real side h1:after {
+                    background:#48F;
+                }
+                
+            }
         </style>
+        <script>
+                isScrolled  = false;
+                document.body.onscroll = function() {
+                    if (scrollY>10) document.body.classList.add('real');
+                    else document.body.classList.remove('real');
+                }
+          
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                if (canvas.getContext) {
+                    var ctx = canvas.getContext('2d');
+                    var w = canvas.width;
+                    var h = canvas.height;
+                    ctx.strokeStyle = 'rgba(100,100,100,.3)';
+                    ctx.lineWidth = 1;
+                    ctx.lineCap = 'round';
+
+                    var init = [];
+                    var maxParts = 1000;
+                    for (var a = 0; a < maxParts; a++) {
+                    init.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        l: Math.random() * 2,
+                        xs: -4 + Math.random() * 4 + 2,
+                        ys: Math.random() * 6 + 3
+                    })
+                    }
+
+                    var particles = [];
+                    for (var b = 0; b < maxParts; b++) {
+                    particles[b] = init[b];
+                    }
+
+                    function draw() {
+                    ctx.clearRect(0, 0, w, h);
+                    for (var c = 0; c < particles.length; c++) {
+                        var p = particles[c];
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
+                        ctx.stroke();
+                    }
+                    move();
+                    }
+
+                    function move() {
+                    for (var b = 0; b < particles.length; b++) {
+                        var p = particles[b];
+                        p.x += p.xs;
+                        p.y += p.ys;
+                        if (p.x > w || p.y > h) {
+                        p.x = Math.random() * w;
+                        p.y = -20;
+                        }
+                    }
+                    }
+
+                    setInterval(draw, 30);
+
+                }
+               
+	
+        </script>
     </body>
 </html>

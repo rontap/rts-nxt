@@ -256,10 +256,14 @@ div[linked]:hover {
 
 
 #textLP , sliderInput {
-border-radius: 4px;
-vertical-align: -3px;
-background: white !important;
-padding: 6px 10px;
+
+border-radius: 4px;
+
+vertical-align: -3px;
+
+background: white !important;
+
+padding: 6px 10px;
 }
 
 #textLP:hover , sliderInput:hover {
@@ -324,9 +328,7 @@ input[real][type="color"]:hover {
       max-width:300px;
 
     }
-    .jump #jumpC {
-padding-bottom: 42px;
-    }
+    .jump #jumpC {padding-bottom: 42px !important;}
 }
 holder>button {
   vertical-align:6px;margin-left:10px;
@@ -350,17 +352,28 @@ dialog>.elem>input[type="range"] {
 /********************************/
 
 #loadInd {
-position: absolute;
-padding: 4px !important;
-/* background: #ffffff55; */
-color: white;
-text-align: center;
-border-radius: 100%;
-/* float: right; */
-/* border: 1px solid #999; */
-margin-top: 20px;
-display:none;
-margin-left: calc(100% - 161px);
+
+position: absolute;
+
+padding: 4px !important;
+
+/* background: #ffffff55; */
+
+color: white;
+
+text-align: center;
+
+border-radius: 100%;
+
+/* float: right; */
+
+/* border: 1px solid #999; */
+
+margin-top: 20px;
+
+display:none;
+
+margin-left: calc(100% - 161px);
 }
 #loadInd.load {
   display:block;
@@ -394,9 +407,12 @@ dialog>.elem>input[type="range"] {
   transition:.2s;
 }
 .bottomfix[b1] button {
-display: block;
-width: 100%;
-padding: 13px 10px;
+
+display: block;
+
+width: 100%;
+
+padding: 13px 10px;
 }
 .bottomfix button:hover {
   background: #2196F3;
@@ -471,17 +487,24 @@ d[dbox] {
   max-height:160px;
 }
 #msClose {
-position: absolute;
+
+position: absolute;
 }
 #msTypeSelect {
-display: block;
-position: absolute;
-margin-top: -57px;
-margin-left: 76px;
-width: 145px;
+
+display: block;
+
+position: absolute;
+
+margin-top: -57px;
+
+margin-left: 76px;
+
+width: 145px;
 }
 #msbottomfix {
-margin-top: 10px;
+
+margin-top: 10px;
 }
 #msCurrList .elem {
   padding-left:8px;
@@ -493,4 +516,70 @@ a[nxt]:hover {
 }
 a[nxt] {
   padding:1px 10px;
+}
+.inPropIcon {
+  
+padding: 0px;
+  
+font-size: 19px;
+  
+padding-top: 5px;
+  
+vertical-align: -5;
+  
+color: #333;
+  
+padding-left: 6px;
+}
+#saveElems {
+  transition:.3s;
+}
+
+.move-mode #action-move-mode,
+.search-mode #action-search-mode,
+.place-mode #action-place-mode{
+  
+  
+  background:#222;
+}
+
+#diagScrollable {
+  max-height:300px;
+  overflow:auto;
+  margin-left: 200px;
+  margin-right: -16px;
+  margin-top: -3;
+}
+#about {
+  width:650px;
+}
+
+div#diagMenu {
+    position: absolute;
+    background: #eee;
+    margin-left: -16px;
+    width: 175px;
+    height: 313px;
+    z-index: 999;
+    max-height: 999;
+
+    border-right:1px solid #ccc;
+}
+div#diagMenu a {
+  display:block;
+  padding: 12px 18px;
+  margin: 5px 0px;
+  /* background: red; */
+  color: #222;
+  margin-right:-1px;
+  border-radius:4px;
+  text-decoration: none;
+  border:1px solid #eee;
+  transition: .1s;
+}
+div#diagMenu a:hover {
+  background:#ccc;
+}
+div#diagMenu>a:active , div#diagMenu>a:focus {
+
 }

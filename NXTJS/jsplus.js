@@ -8,7 +8,7 @@
 //-----------------NXT-JS-MAIN-CONFIG------------------------------
 
 'use strict';					                 //we use strict so everything is clear and no unexpected errors occur
-const nxtjs__proto__BuildNumber = 2015;  //build number for modules
+const nxtjs__proto__BuildNumber = 2020;  //build number for modules
 const nxtjs__proto__CodeName = null;
 // use nxt.build instead.
 
@@ -46,7 +46,7 @@ var $DOMInteraction = function (call) {
     nxt.domInteraction = true;
 	}
 	else {
-	    $ = function(){ throw 'NXT.JS Feature Off: DOM Interaction is turned off'; }
+	    $ = function(){}
 	   $$ = $ ;
      nxt.domInteraction = false;
 	}
@@ -145,7 +145,7 @@ Math.fibonacci = function(n) {/*charioteer*/
 }
 
 Math.choose = function( n , k ) { /* permutation, n under k*/
-  if (k>n) throw 'NXT.JS RangeError: in (n choose k) , n must be >= than k';  //fancy error handling
+  if ( k > n ) throw 'NXT.JS RangeError: in (n choose k) , n must be >= than k';  //fancy error handling
   return ( Math.factorial(n) / ( Math.factorial(k) * Math.factorial(n-k) ) )
 }
 
@@ -184,8 +184,9 @@ class Color {                   //simple generation of colors. Finally
 }
 
 CanvasRenderingContext2D.prototype.clearAll = function() {
-  this.clearRect(0,0, Number.MAX_SAFE_INTEGER , Number.MAX_SAFE_INTEGER );
-  return true;
+  this.clearRect( -1e3 ,-1e3 , 1e10 , 1e10 );
+  //clearing outt the rect in a large area
+  return this;
 }
 
 //-----------------------------------------------------------------
@@ -293,7 +294,6 @@ String.prototype.stat = function(call) {
    }
 }
 
-
 //-----------------------------------------------------------------
 //-----------------NXT-JS-MAIN-DEFAULT-FNS-------------------------
 //-----------------------------------------------------------------
@@ -395,6 +395,20 @@ var nxt = {
 }; // </NXT MAIN OBJECT>
 
 
+const Strings = {   
+  text:"qwertyuiopasdfghjklzxcvbnm",
+  numbers:"0123456789",
+  uppercase:"QWERTYUIOPASDFGHJKLZXCVBNM",
+  spec:"#;!£$%^&*()_+-=[]{}@~~,./<>?|¬¦€ ",
+  ext:"АБВГҐДЂЃЕЀЁЄЖЗЗ́ЅИЍІЇЙЈКЛЉМНЊОПРСС́ТЋЌУЎФХЦЧЏШЩЪЫЬЭЮЯöüóőúűáéíŁłŒŔĀĐŠŴŮŬŨŜŘŌ"
+};
+
+nxt.randomText = (length,text) => {
+
+}
+
+
+
 nxt.toggle = function(is,elem) { //toggle variables and objects
   if (elem.type == 'Object')   $(elem).toggleClass('on');
   if (window[is].type != 'Boolean') return null;
@@ -426,3 +440,5 @@ nxt.seed = (seed,within=1,skew=1) => {
 // usage: JSON.stringify( ObjectWithMaps , nxt.mapper );
 nxt.mapper = (k,v) =>  v instanceof Set || v instanceof Map ? Array.from(v) : v
 nxt.parser = (k,v,es) => es.indexOf(k) != -1 ?  new Map(v) : v;
+
+// [JS PLUS]

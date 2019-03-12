@@ -47,14 +47,20 @@ var downCoords = [];
 var moveCoords = [0,0];
 var translateCoords = [0,0];
 var canvBgColor = '#ffffff';
+var textExtra = ['','',''];  // extra pre and after cursor text
+var ConnectionHighlight = [];
+
 
 function switchMode(mode) {
+  ConnectionHighlight=[];
+
+
   MODE = mode;
   //console.log(mode);
-  $('body').classList.remove('move-mode','search-mode');
+  $('body').classList.remove('move-mode','search-mode','place-mode');
   switch (MODE) {
     case 'Move' : $('body').classList.add('move-mode'); break;
-    case 'Place' : break;
+    case 'Place' : $('body').classList.add('place-mode');break;
     case 'Search' : $('body').classList.add('search-mode'); $('#line').classList.remove('on');break;
   }
 }
@@ -96,6 +102,7 @@ sidebar = {
 };
 
 function deSelectRender(e) {
+  ConnectionHighlight=[];
   if (e.target.id != 'canv') {
     render(null,{which:3});
     //$('#properties').innerHTML ='';
@@ -108,18 +115,22 @@ function deSelectRender(e) {
 
 
 function updateSelMode(mode) {
+  sidebar.highlightChanged(true)
   SEL_MODE=mode;
   render(null,{which:3});
 }
 function updateConnectionMode(mode) {
+  sidebar.highlightChanged(true)
   CONNECTION_MODE=mode;
   render(null,{which:3});
 }
 function updateNodeConnectionMode(mode) {
+  sidebar.highlightChanged(true)
   NODE_WEIGHT_MODE=mode;
   render(null,{which:3});
 }
 function updateNodeConnectionHighlight(mode) {
+  sidebar.highlightChanged(true)
   CONNECTION_SEL_MODE=mode;
   render(null,{which:3});
 }
@@ -184,3 +195,5 @@ function distance(x1,x2,y1,y2,r,reqDist){
   else
     return -1 //clicked at node
 }
+
+_gid = (id) => graph.nodes.get(id)

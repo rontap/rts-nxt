@@ -2,7 +2,6 @@
 
 function render(type,e) {//main rendering funcion
 
-
   if (type=='click') isMouseDown = true;
   else if (type=='up')isMouseDown=false;
 
@@ -63,6 +62,8 @@ function render(type,e) {//main rendering funcion
     //clickArea = false; //meaning -> we can draw
     clickArea = getGraphNodeDistance(x,y);
     updateShortcutKeys(type);
+
+
     //console.log(clickArea);
 
 
@@ -116,6 +117,9 @@ function render(type,e) {//main rendering funcion
     }
 
 
+  if (MODE == "Search" &&lastClickedElement != null && clickArea != false && clickArea != true) {
+    ConnectionHighlight = graph.dijkstra(clickArea,lastClickedElement);
+  }
 
   // HOLY DRAWING THING
   ctxbg.clearAll();
@@ -182,13 +186,22 @@ function render(type,e) {//main rendering funcion
       ctx.fill();
 
 
-      if (val.name.text != null) {
+      
         ctx.fillStyle="#222";
         ctx.font = '12px sans-serif';
         ctx.textAlign='center';
 
-        ctx.fillText(val.name.text, val.name.x, val.name.y+val.weight*2.5);
-      }
+        // text manipulation and defaults
+        let parsedText = '';
+       
+        if (val.name.text == null) {         
+          parsedText = parseInfo( textExtra[1] + textExtra[0] + textExtra[2] , val) ;
+        }
+        else {
+          parsedText = parseInfo( textExtra[1] + val.name.text + textExtra[2], val);
+        }
+        ctx.fillText(  parsedText , val.name.x, val.name.y+val.weight*2.5);
+      
 
 
       ctx.stroke();
@@ -221,6 +234,17 @@ function render(type,e) {//main rendering funcion
         if (val == clickArea) {
             ctxbg.lineWidth=6; //currSelNode
             ctxbg.strokeStyle=MAT_COLORS['blue-500'];
+        }
+        if (ConnectionHighlight.has(edgeId) && 
+            ConnectionHighlight.has(val.id) &&
+            Math.abs(ConnectionHighlight.indexOf(edgeId) - ConnectionHighlight.indexOf(val.id)) == 1) {
+                  ctx.lineWidth=1;
+                  ctx.fillStyle=MAT_COLORS['orange-500'];
+                  ctx.fill();
+                  ctx.arc(val.name.x,val.name.y,10,0,2*Math.PI);
+
+                  ctxbg.lineWidth=6; //currSelNode
+                  ctxbg.strokeStyle=MAT_COLORS['orange-500'];
         }
         else {
           if (CONNECTION_SEL_MODE=='Default') ctxbg.strokeStyle="#222222";

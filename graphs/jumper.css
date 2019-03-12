@@ -4,30 +4,23 @@ body.jump #jumper {
 
 }
 body.jump #jumpC {
-
-border-radius: 4px 4px 0px 0px;
-
-background: black;
-
-/* border-bottom: 24px; */
-
-border-bottom: 1px solid black;
-
-
-z-index: 99;
-
-box-shadow: 0px 0px 0px red !important;
-
-margin-bottom: -30px;
-  padding-bottom: 23px;
+border-radius: 4px 4px 0px 0px;
+background: black;
+padding-bottom: 24px;
+border-bottom: 1px solid black;
+z-index: 99;
+box-shadow: 0px 0px 0px red !important;
+margin-bottom: -30px;
+/* padding-bottom: 2px; */
 }
 #jumper {
   /* display:none; */
   position: absolute;
   transition: all .2s;
-  margin-top: -300px;
+  margin-top: -380px;
   z-index: 1;
   /* margin-bottom:32px; */
+  padding-top: 20px;
   top:0;
   /* bottom:0; */
   left:0;
@@ -38,24 +31,24 @@ margin-bottom: -30px;
 }
 #jumper .cat {
   border: 5px solid #313131;
-  height: 130px;
+  height: 100px;
   width: 175px;
   display: inline-block;
-  margin: 20px 0px 20px 15px;
+  margin: 00px 0px 20px 15px;
   border-radius: 10px;
   padding: 20px;
   color: #FFFFFFee;
   transition:all .1s;
 }
 #jumper .material-icons {
-  font-size: 64px;
+  font-size: 32px;
   display: block;
   text-align: center;
   margin-top: 0px;
 }
 #jumper .cat span {
   font-family:'Montserrat';
-  font-size:16px;
+  font-size: 15px;
   text-align: center;
   display: block;
 }

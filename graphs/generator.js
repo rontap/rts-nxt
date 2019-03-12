@@ -13,7 +13,7 @@ function genGraphFromInput() {
 
 
 }
-Math.randSign = ()=> Math.randInt(3)-1;
+Math.randSign = ()=> Math.randInt() > .5 ? -.5 : 1;
 genGraph = function(setup) {
   return new Promise((resolve,reject)=> {
     setup = setup || { //default graph
@@ -29,8 +29,8 @@ genGraph = function(setup) {
 
   sizeX=innerWidth;
   sizeY=innerHeight-toolBarHeight;
-  getSizeNode = () => Math.abs(10-Math.randInt(setup.sizeNode)*Math.randSign());
-  getSizeCon  = () => Math.abs(10-Math.randInt(setup.sizeCon )*Math.randSign());
+  getSizeNode = () => Math.abs(15-Math.randInt(setup.sizeNode)*Math.randSign());
+  getSizeCon  = () => Math.abs(15-Math.randInt(setup.sizeCon )*Math.randSign());
 
   let maxNodes= Math.round((sizeX/(RADIUS*4))*(sizeY/(RADIUS*4)));
   let sumNodes = Math.round(maxNodes*setup.freqNode);
