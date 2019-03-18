@@ -25,6 +25,15 @@ sidebar.updateLineWidth = function(val) {
   graph.nodes.get( propLine[0]).edges.set( propLine[1] ,val);
   graph.nodes.get( propLine[1]).edges.set( propLine[0] ,val);
 }
+
+sidebar.fontSize = 12;
+sidebar.setFontSize = (to) => {
+  sidebar.fontSize = to;
+  rangeFontLP.value = to;
+  textFontLP.value = to;
+}
+
+
 sidebar.removeCurrLine = function() {
   graph.nodes.get( propLine[0]).edges.delete( propLine[1]);
   graph.nodes.get( propLine[1] ).edges.delete(propLine[0]);
@@ -33,6 +42,7 @@ sidebar.removeCurrLine = function() {
 sidebar.showEl = function(el,motherId) {
   setTimeout(()=>{
   propEl = el;
+  propElDesc.innerHTML = ((propEl.name.text != null) ? propEl.name.text : propEl.id) + " Subgraph: "+propEl.subgraph;
   //console.log(el);
   $(motherId).innerHTML ='';
 
@@ -84,6 +94,7 @@ sidebar.highlightChanged = function(toggle) {
  
 
 }
+
 
 
 //values

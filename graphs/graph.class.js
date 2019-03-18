@@ -12,6 +12,7 @@ class Graph {
         return this;
     }
     addNode(Node,checking =true) { // overriding by default;
+        
         this.nodes = this.nodes.set(Node.id, Node);
         if (checking)  this.validity = this.validate();
         else this.validity = false;
@@ -33,8 +34,9 @@ class Graph {
       //removing a node and all of its
     }
     validate(forceCall) {
-        let force = forceCall || false;
+        let force = forceCall || true;
           //when force called, it will automatically remove all invalid nodes and connections
+          // 11b makes this on by default.
         let valid = true;
         let graph = this;
         this.nodes.forEach( function(currNode,key) { // this is a single node
@@ -68,7 +70,7 @@ class Graph {
             // this is a single node
 
             currNode.edges.forEach( function(currWeigth, currEdge) {
-                console.log(currNode,currEdge);
+                //console.log(currNode,currEdge);
                 graph.nodes.get( currEdge ).edges.set( currNode.id , currNode.edges.get(currEdge))
 
             });
@@ -92,6 +94,7 @@ class Graph {
            else {
                //we meet an other node, which is already in a subgraph
                //graph.mergeSubgraphIds(currNode.subgraph , representedSubgraph);
+               // [small bug] subgraph IDs may not be strictly growing
            }
         });
     }
@@ -103,39 +106,72 @@ class Graph {
 
     }
     //getValami() {}
-    dijkstra(sourceNode,targetNode) {
-        
+    dijkstra(sourceNode,targetNode,shouldTarget = true) {
+        // dijkstra pathfinding algorithm
+        // source and target node are Nodes
+        // shouldTarget = true means we search for a path between them
+        //                false we build a tree from that
+        // @returns path and this.trackback 
         let Q = [];
 
+        // setting ._ variables
         this.nodes.forEach((el) => {
-            el._dist = Infinity;
-            el._prev = undefined;
-            Q.push(el);
+            if (el.subgraph == sourceNode.subgraph) {
+                el._dist = Infinity;
+                el._prev = undefined;
+                delete el.tree;
+                delete el.treeRoot;
+                Q.push(el);
+            }  
+           
         })
         sourceNode._dist = 0;
+        sourceNode.depth = 0;
 
+
+        // while we have elements in the array
         while (Q.length > 0) {
+            // getting the node with the closest distance fn
             let u = Q.sort((a,b) => (a._dist > b._dist) ? -1 : 1).pop()
     
-           if (u == targetNode) {
+           if (u == targetNode && shouldTarget) {
+               // only applicable if we are searching for a path
                this.backTrackDijkstra(u,[])
-                
-                return (this.trackback).concat(sourceNode.id);
+               return (this.trackback).concat(sourceNode.id);
            }
 
             u.edges.forEach((edgeWeight,edgeId) => {
+                // selected node gets updated distance values
                 let alt = u._dist + edgeWeight;
                 if (alt < this.nodes.get(edgeId)._dist) {
                     this.nodes.get(edgeId)._dist = alt;
                     this.nodes.get(edgeId)._prev = u;
+                    this.nodes.get(edgeId).depth = u.depth+1;
                 }
             })
         }
 
         console.log(Q);
+        // returns the Graph only if we are not searching for a path
+
+        this.nodes.forEach( (el) => {
+            //console.log(el);
+            if (el.subgraph == sourceNode.subgraph) {
+                if (el._prev != undefined) {
+                    let specialEdgeWeight = el.edges.get( el._prev.id );
+                    el.edges = new Map().set( el._prev.id , specialEdgeWeight);
+                }
+                else {
+                    el.edges = new Map();
+                } 
+            }
+             
+        })
+        this.mirrorConnections();
+        return this;
     }
     backTrackDijkstra(fromNode,chain) {
-       
+        // backtracking from end node all the way up to sourceNode
         if (fromNode._prev == undefined) { 
             this.trackback = chain;
         }

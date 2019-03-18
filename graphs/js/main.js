@@ -1,6 +1,6 @@
 
 const RADIUS = 10;
-const VERSION = 1.5;
+const VERSION = 12.1;
 const NAME = 'Graphisoft';
 const INSTANCE = String(Math.randInt(1000)+1);
 var DOWNLOAD;
@@ -137,6 +137,10 @@ function updateNodeConnectionHighlight(mode) {
 function changeStruct(calle) {
   //gets called whenever the structure is to be changed ,
 
+  //refreshing tree status
+  circle.calculate();
+
+  
 
   store.save();
 }
@@ -148,9 +152,17 @@ function changeStruct(calle) {
 function renderSelectedColor(val) {
   let mainColor = '#444';
 
-  if (SEL_MODE=="Subgraph") {
-    if (val.subgraph == null) mainColor = '#444'
-    else  mainColor =  cols[val.subgraph % 10];
+  if (SEL_MODE=="Subgraph" ) {
+    if (val.depth != undefined && treeColouring.value == "fromDST" && !circle.subGraphHas.has( val.subgraph )) {
+      mainColor = MAT_COLORS.get.byColor(
+        MAT_COLORS.swatches[val.subgraph % 10] 
+       )[(val.depth > 9) ? 0 : 9-val.depth]
+    }
+    else {
+      if (val.subgraph == null) mainColor = '#444'
+      else  mainColor =  cols[val.subgraph % 10];
+    }
+    
 
   }
   else if (SEL_MODE=="NodeWeight") {
@@ -179,6 +191,7 @@ function renderSelectedColor(val) {
 }
 
 
+randomName = () => Math.random().toString(36).replace(/[^a-z]+/g,'').replace(0,5)
 
 // returns:
 // 1 if L*2 > r

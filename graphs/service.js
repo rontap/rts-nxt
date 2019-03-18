@@ -6,7 +6,7 @@ var urlsToCache = [
   './index.html',
   './service.js',
   './service-manager.js',
-  '*'
+  './*'
 
 ];
 

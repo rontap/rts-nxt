@@ -119,9 +119,14 @@ audio_player.onplay = function() {
                 bufferAtPos=0; //resetting buffer
               //updating UI
 
-            }, onError);
+            }, onError );
         }
-        request.send();
+       
+          onError = e => alert('Error, could not connect to music.\n');
+          request.onerror = onError;
+          request.send();
+        
+        
     }
 
 

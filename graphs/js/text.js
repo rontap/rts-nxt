@@ -7,6 +7,7 @@ function parseInfo(call,node ) {
                .replace(/\[subgraph\]/g , node.subgraph)
                .replace(/\[weight\]/g , node.weight)
                .replace(/\[edges\]/g , node.edges.size)
+               .replace(/\[depth\]/g , (node.depth == undefined) ? 'N/A' : node.depth)
     return call
 }
 

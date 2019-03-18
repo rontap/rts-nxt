@@ -138,7 +138,7 @@ function render(type,e) {//main rendering funcion
         ctx.fillStyle = '#eeeeee';
       }
       else if (val == clickArea && type!='up') {//clicking on elementt
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = MAT_COLORS['blue-800'];
         sidebar.showEl(val,'#properties');
         ctx.lineWidth=1;
         ctx.stokeStyle="black";
@@ -185,10 +185,14 @@ function render(type,e) {//main rendering funcion
       ctx.arc(val.name.x,val.name.y,cRadius,0,2*Math.PI);
       ctx.fill();
 
+ 
+
+
 
       
-        ctx.fillStyle="#222";
-        ctx.font = '12px sans-serif';
+        ctx.fillStyle= fontColor.value ||"#222";
+        let fontSize = sidebar.fontSize || 12
+        ctx.font = fontSize + 'px sans-serif';
         ctx.textAlign='center';
 
         // text manipulation and defaults
@@ -206,6 +210,22 @@ function render(type,e) {//main rendering funcion
 
       ctx.stroke();
 
+
+      if (val.treeRoot) {
+        if (circle.subGraphHas.has( val.subgraph )) {
+          // it was a root once but the container is no longer a tree so removing flag
+          delete val.treeRoot;
+        }
+        else {
+          ctx.beginPath();
+        
+          ctx.fillStyle="#222";
+          ctx.arc(val.name.x,val.name.y,(cRadius/2.5),0,2*Math.PI);
+          ctx.fill();
+          ctx.stroke();
+        }
+        
+      }
 
       val.edges.forEach( (w,edgeId) => {
 
@@ -231,10 +251,7 @@ function render(type,e) {//main rendering funcion
 
         // ---------------------------
         // Drawing connection color out
-        if (val == clickArea) {
-            ctxbg.lineWidth=6; //currSelNode
-            ctxbg.strokeStyle=MAT_COLORS['blue-500'];
-        }
+        
         if (ConnectionHighlight.has(edgeId) && 
             ConnectionHighlight.has(val.id) &&
             Math.abs(ConnectionHighlight.indexOf(edgeId) - ConnectionHighlight.indexOf(val.id)) == 1) {
@@ -246,6 +263,13 @@ function render(type,e) {//main rendering funcion
                   ctxbg.lineWidth=6; //currSelNode
                   ctxbg.strokeStyle=MAT_COLORS['orange-500'];
         }
+        else if (val == clickArea) {
+          ctxbg.setLineDash([10,8]);
+          ctxbg.lineWidth=6; //currSelNode
+          ctxbg.strokeStyle=MAT_COLORS['blue-500'];
+         
+
+      }
         else {
           if (CONNECTION_SEL_MODE=='Default') ctxbg.strokeStyle="#222222";
           else if (CONNECTION_SEL_MODE=='FromWeight') {
@@ -273,9 +297,13 @@ function render(type,e) {//main rendering funcion
         }
 
 
+        // TREE RELATED FUNCTIONS
+   
+
         ctxbg.lineTo(connectedEdge.name.x,connectedEdge.name.y);
         //later adding width (weight)
         ctxbg.stroke();
+        ctxbg.setLineDash([]);
 
       });
 

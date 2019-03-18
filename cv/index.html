@@ -3,7 +3,7 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rontap Sites</title>
     </head>
-    <body>
+    <body class="lang-en" id="bod">
         <side>
 
             <canvas id="canvas"></canvas>
@@ -12,15 +12,22 @@
             </h1>
         </side>
         <aside>
-            <block>
+            <div id="langs">
+                <a onclick="bod.classList.add('lang-de');bod.classList.remove('lang-en','lang-hu')">Deutsch</a> / 
+                <a onclick="bod.classList.add('lang-en');bod.classList.remove('lang-de','lang-hu')">English</a> /
+                <a onclick="bod.classList.add('lang-hu');bod.classList.remove('lang-en','lang-de')">Magyar</a>
+            </div>
+
+
+            <block lang="en">
                 <h2>About Me</h2>
-                Collage Dropout Wow
+                Hi, I am Aron Tatai, 20 years old student, who likes to code, bike and explore in his free time.
             </block>
-            <block>
+            <block lang="en">
                 <h2>Rontap Sites</h2>
                 Rontap Sites is my personal collection of interesting proof-of concepts.<br> You can Access the website <a>index here</a> and a catalouge <a>here</a>
             </block>
-            <block>
+            <block lang="en">
                 <h2>Finished Projects</h2>
                 <a>Graphene</a> is a Graph Editor and analyser<br><br>
                 <a>Tools</a> is a collection of small APIs and projects.<br><br>
@@ -30,34 +37,45 @@
                 <a>Clocks</a> have a lot of different implementations.<br><br>
                 <a>P1</a> Is a basic online counter.<br><br>
             </block>
-            <block>
+            <block lang="en">
               <h2>Games</h2>
               <b> Some fancy games, mostly written with Mate and Ago.</b><br><br>
               <a>Cancer Simulator</a> is a enjoyable casual game with multiple modes and challanges.<br><br>
               <a>Colour Awesome Game</a> is a rythm color matching game with powerups and more.<br><br>
               <a>Mine</a> is a well-known classic.<br>
             </block>
-            <block>
+            <block lang="en">
                 <h2>APIs that could be useful</h2>
                 <a>Ultron</a> redirecting API<br><br>
                 <a>NXT.js</a> is a design framework for easy bootstrapping.<br><br>
                 <a>jsplus</a> is a logical extension of multiple JS features providing comfy functions.<br>
             </block>
-            <block>
+            <block lang="en">
                 <h2>CV</h2>
-                Check out my CV here: <a>English</a> / <a>Hungarian</a> 
+                Check out my Computer Science CV here: <a>English</a> / <a>Hungarian</a> <br><br>
+
+                Check out my general CV here: <a>Hungarian</a>
             </block>
-            <block>
+            <block lang="en">
                     <h2>Contact</h2>
                 Contact me on social media @rontap <br>
-                Or aron.tatai@gmail.com
+                For work, email me at aron.tatai@gmail.com
             </block>
 
             <br><br>
-            <center><b>Created by rontap in 2019</b></center>
+            <center lang="hu"><b>Készítette Tatai Áron, 2019.</b></center>
+            <center lang="en de"><b>Created by rontap in 2019</b></center>
             <br><br>
         </aside>
         <style>
+            block , center {
+                display:none;
+            }
+            .lang-en [lang*="en"] ,
+            .lang-hu [lang*="hu"] , 
+            .lang-de [lang*="de"] {
+                display:block;
+            }
             * {
                 font-family: 'Bahnschrift';
             }
@@ -78,7 +96,7 @@
                 padding:10px;
                 padding-left:30px;
                 font-family: 'Bahnschrift', Sans;
-                display:block;
+               
 
             }
             .real side {
@@ -168,6 +186,15 @@
                     background:#48F;
                 }
                 
+            }
+            #langs {
+                position:fixed;
+                right:15px;
+                top:15px;
+                transition:all .3s;
+            }
+            .real #langs {
+                opacity:0;
             }
         </style>
         <script>

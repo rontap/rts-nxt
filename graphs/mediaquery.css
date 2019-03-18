@@ -1,0 +1,24 @@
+@media only screen and (max-width: 1100px) {
+    holder button {
+      width: 70px;
+      overflow: hidden;
+      height: 40px;
+      color: transparent !important;
+    }
+    holder button i {
+      color:white !important;
+    }
+    #footerBarHolder>div {
+      max-width: 120px;
+      height:40px;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition:max-width .2s;
+    }
+      #footerBarHolder>div:hover {
+        max-width:300px;
+  
+      }
+      .jump #jumpC {padding-bottom: 42px !important;}
+  }

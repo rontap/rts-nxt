@@ -13,6 +13,18 @@ function genGraphFromInput() {
 
 
 }
+function genGraphRandomly() {
+  loadInd.classList.add('load');
+  setTimeout(()=>{
+    genGraph({freqNode:Math.random(),
+              tbreplaced:true,
+              freqCon:Math.randInt(50)/1000,
+              sizeNode:Math.random()*30,
+            sizeCon:Math.random()*20}).then(()=>loadInd.classList.remove('load'))
+              generator.close();
+          }  ,100);
+}
+
 Math.randSign = ()=> Math.randInt() > .5 ? -.5 : 1;
 genGraph = function(setup) {
   return new Promise((resolve,reject)=> {
@@ -29,7 +41,7 @@ genGraph = function(setup) {
 
   sizeX=innerWidth;
   sizeY=innerHeight-toolBarHeight;
-  getSizeNode = () => Math.abs(15-Math.randInt(setup.sizeNode)*Math.randSign());
+  getSizeNode = () => Math.abs(12-Math.randInt(setup.sizeNode)*Math.randSign());
   getSizeCon  = () => Math.abs(15-Math.randInt(setup.sizeCon )*Math.randSign());
 
   let maxNodes= Math.round((sizeX/(RADIUS*4))*(sizeY/(RADIUS*4)));
@@ -37,11 +49,14 @@ genGraph = function(setup) {
   let sumCons = Math.round(sumNodes*(sumNodes*setup.freqCon-1));
 
   //adding new nodes
+  let shouldText =  $('#randNamesGen').classList.contains('on');
   for (let i=0;i<sumNodes;i++) {
     do {
       xy = getxy();
     } while( getGNDistance(xy.x,xy.y) !== false )
-    graph.addNode( new Node( graph.nodes.size , {...xy,text:null} ), false);
+    graph.addNode( 
+      new Node( graph.nodes.size , {...xy,text:(shouldText ? randomName() : null)} ), 
+    false);
     graph.nodes.get(graph.nodes.size-1).weight=getSizeNode()
   }
 
@@ -77,4 +92,20 @@ genGraph = function(setup) {
 }//fn
 function genGraphRandom() {
 
+}
+
+
+
+class Brexit extends Promise {
+  constructor( deadline) {
+    super();
+    this.deadline = deadline;
+  }
+  resolve( deal) {
+    return new Brexit(deadline - 1);
+  }
+  reject( deal) {
+    
+    return new Brexit(deadline - 1);
+  }
 }
