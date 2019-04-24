@@ -11,7 +11,7 @@
   }
 
 
-  .material-icons {
+  .material-icons , .material-pseudo:before {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;

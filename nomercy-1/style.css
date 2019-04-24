@@ -1,0 +1,92 @@
+body {
+    background:#eee;
+}
+
+.chip {
+    border-radius: 3px;
+    margin:10px 2px;
+    padding:6px 16px;
+    width:20px;
+    background-image:linear-gradient(hsl(199, 98%, 48%), hsl(208, 79%, 51%));
+    text-align: center;
+    font-family: 'Bungee', cursive;
+    display: inline-block;
+    box-shadow: 0px 1px 2px #666;
+    color:white;
+    z-index: 1;
+    transition:all .2s;
+    text-shadow:0px 1px 1px #333;
+}
+body:not(.force) .chipgroup:not(:hover) .chip:not(:last-child) {
+    color:transparent;
+    background-image:linear-gradient(hsl(207, 90%, 54%), hsl(212, 80%, 42%));
+    margin-right:-45px;
+    text-shadow:none;
+    z-index: -1;
+}
+
+nav {
+    display: block;
+    background:white;
+    position:absolute;
+    left:0; right:0; top:0; 
+    padding:10px 20px;
+    box-shadow:0px 2px 3px #999;
+}
+#gamename {
+    margin-right:20px;
+    color:#444;
+}
+* {
+    user-select:none;
+}
+#hugecard {
+    font-size:46px;
+    width: 130px;
+    height:140px;
+    position:fixed;
+    top:20px;
+    right:30px;
+    padding-top:28px;
+}
+#cards {
+    position:fixed;
+    bottom:0;
+    background:White;
+    display: block;
+    left:0; right:0;
+    padding:10px;
+}
+#force {
+    width:25px;
+    position:fixed;
+    right:15px;
+    transition: all .2s;
+    bottom:10px;
+}
+body.force #force {
+    background-image:linear-gradient(#FFC107, #FF9800)
+}
+
+input[type="text"],  input[type="submit"]{
+    background:transparent;
+    border:1px solid #999;
+    border-radius:3px;
+    padding:10px;
+    margin:5px 0px;
+    transition: all .2s;
+    width:200px;
+}
+input[type="submit"] {
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+    background-image:linear-gradient(hsl(199, 98%, 48%), hsl(208, 79%, 51%));
+   
+}
+input[type="text"]:hover {
+    background:white;
+}
+input[type="submit"]:hover {
+    box-shadow:0px 1px 2px #333;
+}

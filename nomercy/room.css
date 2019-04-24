@@ -1,0 +1,158 @@
+about, span[a], .about span[d], span[b], .modeSelect span[d], .modeSelect span[a] {
+            opacity:0;
+            display:none;
+        }
+        .about about, .about span[a],span[d], .modeSelect span[b] {
+            opacity:1;
+            display:block;
+        }
+        .about content {
+            opacity:0;
+        }
+        about {
+            position:fixed;
+            top:240px;
+            left:calc(50% - 250px);
+            width:500px;
+        }
+        .about nav::after {
+            transform: rotate(7deg);
+            top: -700px;
+            background: #FF5722;
+        }
+        /****************************/
+        #aboutText {
+            
+            animation:2s slideinhelp ;
+            
+            animation-fill-mode:forwards;
+        }
+        
+        @keyframes slideinhelp {
+             0% { bottom:-20px; opacity:0; }
+            50% { bottom:-20px; opacity:0; }
+            80% {  opacity:1; }
+            100% { bottom:10px; opacity:1}
+        }
+        u {
+            color:#ccc;
+            cursor:pointer;
+        }
+        u:hover {
+            color:#444;
+        }
+        #aboutText {
+             position:fixed;
+             bottom:10px;
+             right:30px;
+             color:#999;
+             font-family: 'Bungee', cursive !important;
+        }
+            * {
+                user-select:none;
+            }
+            holder {
+                display: block;
+                margin: 0 auto;
+                max-width: 500px;
+               
+            }
+            input {
+                pointer;
+            }
+            
+            b {font-family: 'Bungee', cursive !important;}
+            content {
+                display:block;
+                margin: 0 auto;
+                text-align:center;
+            }
+           * {
+               transition: .2s;
+           }
+           
+           
+           nav::after {
+                content: '';
+                position: fixed;
+                background: #00BCD4;
+                top: -1000px;
+                left: -100px;
+                right: -1000px;
+                height: 1333px;
+                z-index: -1;
+                transition:transform .5s linear, top .5s linear, background .8s ease-out;
+                transform: rotate(-20deg);
+            }
+            nav {
+                box-shadow:none;
+                background:transparent !important;
+            }
+            h1, h2 {
+                font-family: 'Bungee', cursive !important;
+                color:white;
+                font-weight:400;
+                margin: 0px 10px;
+                text-align:center;
+            }
+            h2 {
+              
+                
+                color: #424242;
+                
+}
+            #sessionname {
+                color:white;
+            }
+            @media screen and (max-width:650px) {
+                [round] {
+                    padding:15px 22px;
+                    margin-bottom:5px;
+                    width:200px;
+                }
+            }
+            #about {
+                background:white;
+                padding:20px;
+           
+                box-shadow:0px 1px 3px #444;
+            }
+            #modeSelector {
+                display:none;
+            }
+            @keyframes slidein {
+                0% {margin-top:60px;opacity:0;}
+                100% {margin-top:20px;oapcity:1}
+            }
+           .modeSelect #modeSelector {
+                display:block;
+                text-align: center;
+                animation:slidein .6s;
+                margin-top:20px;
+            }
+            .modeSelect content {
+                display:none;
+            }
+            mode {
+               display: inline-block;
+                background: white;
+                width: 200px;
+                text-align: center;
+                height: 250;
+                padding:10px;
+                margin:0 5px;
+                box-shadow:0px 1px 3px #999;
+                border-radius:3px;
+            }
+            mode div {
+                height:210px;
+                padding:10px 5px;
+            }
+            mode:hover  {
+                background:#ccc;
+                cursor:pointer;
+                box-shadow:0px 1px 3px #444;
+            }
+            .about #gamename, .about h2 span {
+                color:#222;
+            }

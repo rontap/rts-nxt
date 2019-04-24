@@ -7,11 +7,8 @@
   ## Recent Changes
 ```
 
-(×) Life Improvements.
-(+) Wot.gg added [January]
-(+) new CW added [March]
-(+) new game: Nomercy Added [January]
-(+) Paint4D added [November]
+(+) Curriculum Vitae added
+
 ```
 
 ## General Changes
@@ -128,5 +125,8 @@ Split of from tools; RND.html
 
 > 6.2 SELBORNE 01/11/19
 
+> 6.3 RUBICON ????
+
+> 6.4 STARK 24/04/2019 (RC)
 
 ### Upcoming versions

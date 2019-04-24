@@ -1,0 +1,73 @@
+#newgame {
+                   background: #FF5722;
+                left: calc(50% - 97px);
+                bottom: 30px;
+                position: fixed;
+                animation:3s slidein;
+                
+        }
+        @keyframes slidein {
+            0% {
+                bottom:-50px;
+            }
+            70% {
+                bottom:-50px; background: #666;
+            }
+            90% {
+                 background: #666;
+            }
+            95% {
+                bottom:30px;
+            }
+            100% {
+                bottom:30px; background: #FF5722;
+            }
+        }
+            container {
+                width:520px;
+                padding: 10px 25px;
+                
+                background:white;
+                position:fixed;
+                left:calc(50% - 285px);
+               
+                
+            }
+            holderr {
+                display:block;
+                max-width:452px;
+                padding: 10px 25px;
+                margin:0 auto;
+                position:fixed;
+                bottom:30px;
+            }
+            
+            
+            nav::after {
+                content: '';
+                position: fixed;
+                background: #00BCD4;
+                top: -1000px;
+                left: -100px;
+                right: -1000px;
+                height: 1333px;
+                z-index: -1;
+                transform: rotate(13deg);
+            }
+            content {
+                position:fixed;
+                                width: 600px;
+                margin: 0 auto;
+                display: block;
+                margin-left: calc(50% - 300px);
+                margin-top:300px !important;
+            }
+            #title {
+                  
+                  margin-left: calc(50% - 285px);
+                position:fixed;
+                color:white;
+                font-family: 'Bungee', cursive !important;
+                font-weight:400;
+
+            }

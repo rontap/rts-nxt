@@ -1,0 +1,56 @@
+<HTML>
+     <head>
+        <title>No Mercy | Game Results</title>
+        <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+        <script type="text/javascript" src="../NXTJS/notifications.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="results.js"></script>
+        <link rel="stylesheet" href="../NXTJS/input.css"  >
+        <link rel="stylesheet" href="../NXTJS/design.css"  >
+        <link rel="stylesheet" href="../NXTJS/elements.css"  >
+        <link rel="stylesheet" href="style.css"  >
+        <link rel="stylesheet" href="results.css"  >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+        
+    </head>
+    <body>
+        <nav>
+            <span id="gamename">No Mercy</span>
+            <span style="color:white">Game Results</span>
+        </nav>
+        <br><br>
+        <h1 id="title">Hey, <span id="userNameHolder">?</span> the game has finished</h1>
+        <container style="top:100px">
+            
+            <br>
+            <b>You have <a id="yourPoints">0</a> points and you have reached position <span id="yourPosition">3</span></b>
+            <br>
+            <h2>Current Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Coins</th>
+                        <th>Sum Points</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard">
+
+                </tbody>
+            </table>
+            
+            <br><br><hr>
+            <h2>All-Time Leaderboard</h2>
+            Coming Soon<br><br>
+        
+        </container>
+        <holderr>
+            <br><br>
+            <button round onclick="location.hash='';location.pathname = '/nomercy/index.html'" id="newgame">Play a new game</button>
+        </holderr>
+        <style>
+        
+        </style>
+        <content>

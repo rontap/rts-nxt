@@ -4,7 +4,7 @@
             <link rel="stylesheet" href="style.css"  >
             <link rel="stylesheet" href="../NXTJS/single.css"  >
              <link rel="stylesheet" href="../NXTJS/input.css"  >
-             <link rel="stylesheet" href="game.css"  >
+           
              
             
             <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
@@ -23,7 +23,7 @@
             <action flr warning onclick="skipResults=true">Stay </action>
         </toast>
         <toast id="toast-finished-fv">The game has finished. 
-            <action flr location.pathname = '/nomercy/results.html' > Go To results page</action>
+            <action flr location.pathname = './nomercy/results.html' > Go To results page</action>
         </toast>
         
         
@@ -37,12 +37,15 @@
         </div>
         <div id=cardsLeft></div>
         <div id="bottomfix">
-            <div id=yourCards></div>
+            <div id=yourCards>
+                You have no cards
+            </div>
             
             <div id="otherUsers">
                 &loading;
             </div>
-            <div id=cards></div>
+            <div id=cards>  
+            </div>
             
         </div>
         <div id=coins
@@ -78,9 +81,6 @@
             }*/
             #playerId {
                 color:white;
-            }
-            #hugecard.disabled {
-                cursor:not-allowed;
             }
        </style>
     </body>

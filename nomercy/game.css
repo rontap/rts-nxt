@@ -1,0 +1,51 @@
+/*game related*/
+#yourCards:empty::after {
+    content: 'Your Cards will appear here';
+    position: fixed;
+    left: 15px;
+    right: calc(50% + 15px);
+    background: #B3E5FC;
+    text-align: center;
+    padding: 80px 0px;
+    /* height: 200px; */
+    bottom: 15px;
+    color: #222;
+    font-family: 'Bungee', cursive;
+    font-size: 25px;
+    border-radius: 8px;
+    border: 1px solid #2196F3;
+}
+#cards:empty::after {
+    content: 'You can check out the opponents\' cards here';
+    position: fixed;
+    left: calc(50% + 15px + 9px);
+    right: calc(160px + 15px);
+    background: #FFE0B2;
+    text-align: center;
+    padding: 80px 0px;
+    /* height: 200px; */
+    line-height: 26px;
+    color: #222;
+    top: 15px;
+    font-family: 'Bungee', cursive;
+    font-size: 22px;
+    border-radius: 8px;
+    border: 1px solid #FF9800;
+}
+#gamename {
+    color:#2196F3;
+    text-shadow: 0px 1px 2px #222;
+}
+nav {
+    background:#444;
+    /* height: 47px; */
+}
+#otherUsers [admin] {
+    position: absolute;
+    margin-top: 7px;
+}
+
+#otherUsers [usercard].current.you {
+    background: #ccc !important;
+    border-color: #cc!important;
+}

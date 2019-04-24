@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Circle.io</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+        <script type="text/javascript" src="../NXTJS/notifications.js"></script>
+        <link rel="stylesheet" href="../NXTJS/sole-design.css">
+        <link rel="stylesheet" href="../NXTJS/single.css">
+        <link rel="stylesheet" href="../NXTJS/elements.css">
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+    <body class="toast-desktop">
+        <canvas id="canv"></canvas>
+        <canvas id="canvUI"></canvas>
+        <canvas id="canvOverlay"></canvas>
+        <div id="cover" onkeypress=handleKeys(e)>&nbsp;</div>
+        <i id="flash" onclick="powerupsExpanded=!powerupsExpanded" class="material-icons">flash_on</i>
+        <i id="collisions" class="material-icons">scatter_plots</i>
+        <i id="maxCollisions" class="material-icons">compare_arrows</i>
+        <i id="timeLeft" class="material-icons">access_time</i>
+        <i id="pauseBtn" class="material-icons">pause</i>
+        <div id="desc">
+            <b>About</b>
+            <button id="closeBtn" onclick="desc.innerHTML=''">×</button>
+            <br><br>
+            
+                <button onclick="addCircle()">Add one Manually</button>
+               
+               
+            </div>
+        </div>
+        <div id="debug">
+            circle.io alpha 0.5<br>
+            <span id="totalCollisions">zero</span> collisions<br>
+            <span id="maximumCollisions">zero</span> max coll<br>
+            <span id="levelHolder">first</span> level<br>
+            <span id="timeSpentOnLevel">zero</span> sec<br>
+            <button onclick="endGame()">END GAME</button><br>
+            <span id='levelStat'></span>
+        </div>
+        <div id="guide">
+            <div guide id="main">
+                <b>Circle IO Tutorial</b><br>
+                Your goal is to stop all of those pesky circles<br>
+                You can do that simply by tapping a circle.<br>
+                Beware, if you tap an inanimate circle, it will start moving again,<br>
+                unbeliveable, eh?<br>
+                Each time a circle collides with a wall, its counter increases, and its bad for us. This will be important later on.
+            </div>
+            <div guide id="main2">
+                    <b>Tutorial 1: How to survive</b><br><br>
+                    You can lose in 3 ways:
+                    <li>The sum of all collisions is too much (blue in the bottom part)</li>
+                    <li>Have a single circle with too many collisons (green)</li>
+                    <li>Run out of time (red)</li>
+                    Later, you will also be able to use powerups, to fight of these basterds.
+                    
+                </div>
+            <div guide id="collider">
+                    <b>Tutorial 2: Bad news everyone</b><br><br>
+                    These circles have come up with some serious technology!<br>
+                    A new type of circle appeared, called <b>collider</b><br>
+                    You need multiple clicks before its timer runs out, or else<br>
+                    it will generate a lot of collisions! Uh oh.
+            </div>
+            <div guide id="spawner-halfling">
+                    <b>Tutorial 3: Kill them before they lay eggs!</b><br><br>
+                    Some Advanced circles have started laying... little halflings.<br>
+                    The halflings (dotted border) dissapear instead of stopping, but they are smaller and faster.<br>
+                    Focus the <b>spawner</b> down, as it will continue to lay eggs!
+            </div>
+            <div guide id="runner-blocker">
+                    <b>Tutorial 4: Gotta Catch 'em all!</b><br><br>
+                    Two new Advanced circles appeared!<br>
+                    The <b>Blocker</b> has no timeout, and will block all powerups while not neutralised.<br>
+                    The <b>Runner</b> has an average speed in the beginning, but keep an eye on it, as it gets progressively faster!
+            </div>
+            <div guide id="killer">
+                    <b>Tutorial 5: I have a bad feeling about this</b><br><br>
+                    They have warned me about the <b>killer</b> circle, and it looks that our time has come.<br>
+                    The killer is extremely dangerous, if its timer runs out, you are instantly going to die.<br>
+                    Oh, also, it lays <b>Halflings</b> and <b>Regular Circles</b> every time it touches a wall...<wbr>
+                    At least its as big as a barn.
+                            </div>
+            <div guide id="vanisher-negator">
+                    <b>Tutorial 6: They are evolving!</b><br><br>
+                    New day, new evolved circles.<br>
+                    The <b>negator</b> is a tricky circle, it gets its energy from other circles; and is immune to all clicking, do not even try clicking them, as it only spawns halflings.<br>
+                    If you stop all other circles, the negator will stop too.<br>
+                    The <b>Vanisher</b> hides and unhides each time it touches a wall.
+            </div>
+        </div>
+        <div id="tutorialPlane" onclick="startTutorial()">
+            Click Here To Start
+        </div>
+        
+        <div id="powerups">
+            ceca
+        </div>
+
+       
+
+        <script type="text/javascript" src="circle.class.js"></script>
+        <script type="text/javascript" src="advanced.class.js"></script>
+        <script type="text/javascript" src="render.js"></script>
+        <script type="text/javascript" src="levels.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        
+    </body>
+</html>

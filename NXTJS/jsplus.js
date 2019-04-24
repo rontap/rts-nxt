@@ -58,6 +58,7 @@ var $DOMInteraction = function (call) {
 Array.prototype.max = function()  {    return Math.max(...this);    }
 Array.prototype.min = function()  {    return Math.min(...this);    }
 Array.prototype.last = function() {    return this[this.length-1];  }
+Array.prototype.times = function(times,acc=[]) {  while (times-->0) acc=acc.concat(this) ; return acc} 
 
 Array.prototype.shuffle = function() { //shuffle the array compleately
 	for (let i = this.length - 1; i > 0; i--) {

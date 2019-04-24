@@ -1,0 +1,145 @@
+#canv , #cover, #canvUI,#canvOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0; 
+    bottom:0;
+}
+#desc b {
+    font-size:26px;
+}
+#desc {
+    position:fixed;
+    width:460px;
+    left:calc(50% - 250px);
+    border-radius:4px 4px 0px 0px;
+    border:1px solid #666;
+    bottom: -184px;
+    font-family:'Bahnschrift' , 'Courier  New';
+    /*Bahnschrift buildt in font for Win10+,Courier new is a fallback */
+    padding:20px;
+    background:#eeeeee99;
+    transition:.2s;
+}
+#desc:hover, #desc.active {
+    bottom:0px;
+}
+th {
+    text-align:left;
+}
+td {
+    padding:0 10px 0px 0px;
+}
+#desc:hover button {
+    opacity:1;
+}
+button {
+    /* opacity:0; */
+    transition: .2s;
+    border:1px solid #999;
+    background:#fff;
+    border-radius:3px;
+    outline:none;
+    padding:8px;
+    cursor:pointer;
+}
+#closeBtn {
+    float:right;
+
+    padding: 4px 8px;
+}
+#closeBtn:hover {
+    background: #F44336;
+    border-color:black;
+    color:white;
+}
+toast {
+    font-family:'Bahnschrift' , 'Courier  New';
+}
+#debug {
+    margin:10px;
+    text-shadow: 0px 0px 2px #999;
+    color: black;
+    position: fixed;
+    top: 0;
+}
+#flash, #collisions,#maxCollisions,#timeLeft,#pauseBtn{
+    position:fixed;
+    bottom: 18px;
+    left: 18px;
+    font-size: 21px;
+    color: #444;
+}
+
+#collisions {
+    left: 87px;
+}
+#maxCollisions {
+    left: 157px;
+}
+#timeLeft {
+    left: 227px;
+}
+#flash.on {
+    color:white;
+}
+#pauseBtn {
+    right:20px;
+    left:initial;
+}
+canvas#canv {
+    background-image: linear-gradient(#eee,white);
+}
+#powerups {
+    position:fixed;
+    top:calc(100% - 84px);
+    overflow:hidden;
+    bottom: 84px;
+    left:0;
+    right:0;
+    background: #fff;
+    padding:0px 30px;
+    transition:all .4s;
+}
+#powerups.on {
+    top:0;
+    padding: 30px;
+
+}
+[guide].on {
+    top:0;
+    
+}
+[guide] {
+    transition:all .2s;
+    font-family:Bahnschrift;
+    color:white;
+    font-weight: 300;
+    background:#666;
+    /* border-bottom:1px solid #444; */
+    font-size:17px;
+    overflow:auto;
+    position:fixed;
+    top:-250px;
+    left:0;
+    right:0;
+    box-shadow: 0px 0px 3px #666;
+    height:170px;
+    padding:20px;
+}
+#tutorialPlane.on {
+    position:fixed;
+    top:220px; left:0; right:0; bottom:75px;
+  
+    text-align:center;
+    padding-top:50%;
+    font-size:30px;
+    font-family:'Bahnschrift';
+    transition:all .4s;
+    text-shadow:0px 0px 1px #222;
+
+}
+#tutorialPlane.on:hover {
+    background:#f1f1f1;
+    cursor:pointer;
+}

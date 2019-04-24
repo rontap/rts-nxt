@@ -1,68 +1,134 @@
 <HTML>
      <head>
-        <title>lobby</title>
+        <title>No Mercy | Lobby</title>
         <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
         <script type="text/javascript" src="main.js"></script>
-        
+
+        <link rel="stylesheet" href="../NXTJS/input.css"  >
+        <link rel="stylesheet" href="../NXTJS/design.css"  >
+        <link rel="stylesheet" href="../NXTJS/elements.css"  >
+        <link rel="stylesheet" href="style.css"  >
+        <link rel="stylesheet" href="lobby.css"  >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
     </head>
     <body>
-        Room code: <div id="roomId">??</div>
+        <nav>
+            <span id="gamename">No Mercy</span>
+            <span style="color:white">Game Lobby</span>
+        </nav>
         <br>
-        <b>Invite Players with this link:</b>
-        <input id="invLink" style="width:400px;">
-        <br>
-        <h1>Players</h1>
-        You are <div id="yourPlayerName">??</div>
-        <hr>
-        Others:<br>
-        <div id="playerList">...</div>
-        <br>
-        <button onclick="" id="start" disabled>
-            Wait for admin to start the game
-        </button>
+        <content>
+            <card class="card">
+                <h1>Hello, <span id="yourName">Error :(</span></h1>
+                <h2>Room code: <i id="roomId">??</i></h2>
+                <br>
+                <span id="multiplayer">
+                    <b>Invite Players with this link:</b><br><br>
+                    <input id="invLink"><br>
+                </span>
+                <span id="localmulti">
+                    <button nxt onclick="aidiag.showModal()">Add a new AI...</button>
+                </span>
+                
+                
+                <br>
+                
+                <h1>Players</h1>
+                
+                <div id="playerList">...</div>
+               
+            </card>
+        
+            
+            <button  round onclick="" id="start" disabled round style="width:300px">
+                Wait for admin to start the game
+            </button>
+            <dialog nxt id="aidiag">
+                <h1 class="covered">Select AI</h1>
+                <action>
+                    <button>Exit</button>
+                    <button flr>Add Selected</button>
+                </action>
+            </dialog>
+            
+            
+        
+        </content>
         <script>
-            let ID = location.hash.slice(1)
+        lobbyTimeout= 3000
+            globalFile = 0
+            let ID =  location.hash.slice(1).split('&')[0]
+            
             invLink.value = location.origin + '/nomercy/room.html#' + ID
             
-            
-            let currUserID = localStorage.nomercyID
-            
+            let currUserID =  location.hash.slice(1).split('&')[1]
             
             roomId.innerHTML = ID;
+            yourName.innerHTML = currUserID;
+            
             function renderPlayers(arr) {
-                console.log(arr.users[0])
+                //console.log(arr.users[0])
                 if (arr.users[0].name == currUserID) {
                             //admin
                             start.disabled = false;
                             start.innerHTML = "Start Game Now";
+                            start.onclick = () => { //starts the game
+                                start.innerHTML = "Preparing to start...";
+                                nxt.ajax({
+                                    url:'./game.php?gameID='+ID+'&user='+currUserID+'&startGame=true&seed=' +Math.random()
+                                }).then((file)=>{console.log(file)})
+                            }
                         }
                 
                 let users = arr.users;
                 playerList.innerHTML = '';
                 for (let i=0; i<users.length-1;i++) {
-                    playerList.innerHTML += `<div>${users[i].name}</div>`
+                    if (currUserID == users[i].name) {
+                        playerList.innerHTML += `<div admin>${users[i].name}</div>`
+                    }
+                    else {
+                        playerList.innerHTML += `<div >${users[i].name}</div>`
+                    }
+                    
                 }
             }
+            
             function load() {
                 nxt.ajax({
                     url:  './files/' + ID + 'users.json'
                 }).then((file) => {
-                        console.log('{ "users" :  ' + file + '{}]}')   
-                        renderPlayers(JSON.parse('{ "users" :' + file + '{}]}'))
+                    
+                    nxt.ajax({
+                        url:  './files/' + ID + '.json'
+                    }).then((globalFile) => {
+                        globalFile=JSON.parse(globalFile)
+                        console.log(globalFile)
+                        if (globalFile.hasGameStarted){
+                            //game has started
+                            start.innerHTML="Game Is Starting Soon...";
+                            setTimeout(function(){
+                                location.pathname="/nomercy/"
+                            },1000)
+                            
+                        }
                         
-                        
-                        
-                        setTimeout(load,5000)
+                        else {
+                            //console.log('{ "users" :  ' + file + '{}]}')   
+                            renderPlayers(JSON.parse('{ "users" :' + file + '{}]}'))
+ 
+                            setTimeout(load,lobbyTimeout)
+                        }
+                    })//promise
                     }    
                 )
+                
+                
             }
+            
             load()
-            yourPlayerName.innerHTML = currUserID
-            
-            
-            
-
-            
+            //yourPlayerName.innerHTML = currUserID
         </script>
     </body>
 </HTML>

@@ -2,6 +2,7 @@
     <head>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Rontap Sites</title>
+        <meta charset="UTF-8">
     </head>
     <body class="lang-en" id="bod">
         <side>
@@ -13,7 +14,7 @@
         </side>
         <aside>
             <div id="langs">
-                <a onclick="bod.classList.add('lang-de');bod.classList.remove('lang-en','lang-hu')">Deutsch</a> / 
+                <!--a onclick="bod.classList.add('lang-de');bod.classList.remove('lang-en','lang-hu')">Deutsch</a-->  
                 <a onclick="bod.classList.add('lang-en');bod.classList.remove('lang-de','lang-hu')">English</a> /
                 <a onclick="bod.classList.add('lang-hu');bod.classList.remove('lang-en','lang-de')">Magyar</a>
             </div>
@@ -25,36 +26,39 @@
             </block>
             <block lang="en">
                 <h2>Rontap Sites</h2>
-                Rontap Sites is my personal collection of interesting proof-of concepts.<br> You can Access the website <a>index here</a> and a catalouge <a>here</a>
+                Rontap Sites is my personal collection of interesting proof-of concepts.<br> You can Access the website <a href="../index.html">index here</a></a>
             </block>
             <block lang="en">
                 <h2>Finished Projects</h2>
-                <a>Graphene</a> is a Graph Editor and analyser<br><br>
-                <a>Tools</a> is a collection of small APIs and projects.<br><br>
-                <a>projectX</a> is a small party application<br><br>
-                <a>XFiles</a> is a sound and music analysing software written entirely in JS<br><br>
-                <a>FlameWar</a> is a small project for igniting, well, flame wars. If you like it, try <a>Random</a><br><br>
-                <a>Clocks</a> have a lot of different implementations.<br><br>
-                <a>P1</a> Is a basic online counter.<br><br>
+                <a href="../graphs">Graphene</a> is a Graph Editor and analyser<br><br>
+                <a href="../random.html">Tools</a> is a collection of small APIs and projects.<br><br>
+                <!---a>projectX</a> is a small party application<br><br-->
+                <a href="../xfiles.html">XFiles</a> is a sound and music analysing software written entirely in JS<br><br>
+                <a href="../flamewar.html">FlameWar</a> is a small project for igniting, well, flame wars. If you like it, try <a>Random</a><br><br>
+                <!----a>Clocks</a> have a lot of different implementations.<br><br>
+                <a>P1</a> Is a basic online counter.<br><br-->
             </block>
             <block lang="en">
               <h2>Games</h2>
-              <b> Some fancy games, mostly written with Mate and Ago.</b><br><br>
-              <a>Cancer Simulator</a> is a enjoyable casual game with multiple modes and challanges.<br><br>
-              <a>Colour Awesome Game</a> is a rythm color matching game with powerups and more.<br><br>
-              <a>Mine</a> is a well-known classic.<br>
+              <b> Some fancy games, mostly written with friends.</b><br><br>
+              <a href="../games/cancer/cancer.html">Cancer Simulator</a> is a enjoyable casual game with multiple modes and challanges.<br><br>
+              <a href="../games/colorize/">Colour Awesome Game</a> is a rythm color matching game with powerups and more.<br><br>
+              <a href="../games/mine/mine.html">Mine</a> is a well-known classic, minesweeper.<br>
             </block>
             <block lang="en">
-                <h2>APIs that could be useful</h2>
-                <a>Ultron</a> redirecting API<br><br>
-                <a>NXT.js</a> is a design framework for easy bootstrapping.<br><br>
+                <h2>APIs that could be useful.</h2>
+                <b>these are private projects and are unpolised.</b><br><br>
+                <a>Ultron</a> redirecting API buildt using PHP<br><br>
+                <a>NXT.js</a> is a design framework for easy bootstrapping and designing.<br><br>
                 <a>jsplus</a> is a logical extension of multiple JS features providing comfy functions.<br>
             </block>
             <block lang="en">
                 <h2>CV</h2>
-                Check out my Computer Science CV here: <a>English</a> / <a>Hungarian</a> <br><br>
+                Check out my Computer Science CV here: 
+                <a href="cv_8_en.pdf">English</a> /
+                 <a href="cv_8_hu.pdf">Hungarian</a> <br><br>
 
-                Check out my general CV here: <a>Hungarian</a>
+            <!--Check out my general CV here: <a>Hungarian</a-->
             </block>
             <block lang="en">
                     <h2>Contact</h2>
@@ -63,8 +67,20 @@
             </block>
 
             <br><br>
-            <center lang="hu"><b>Készítette Tatai Áron, 2019.</b></center>
+            
+            <block lang="hu">
+                Kérlet nézd meg az angol változatot!
+            </block>
+            <block lang="hu">
+                <h2>Önéletrajz</h2>
+                Angol és magyar önéletrajzom:
+                <a href="cv_8_en.pdf">English</a> /
+                 <a href="cv_8_hu.pdf">Hungarian</a> <br><br>
+
+            <!--Check out my general CV here: <a>Hungarian</a-->
+            </block>
             <center lang="en de"><b>Created by rontap in 2019</b></center>
+            <center lang="hu"><b>Készítette Tatai Áron, 2019.</b></center>
             <br><br>
         </aside>
         <style>
