@@ -1,5 +1,5 @@
 // Text Input Convert
-function parseInfo(call,node ) {
+function parseInfo(/*cancer*/call,node ) {
     
     call = call.replace(/\[id\]/g , node.id)
                .replace(/\[x\]/g , node.name.x)

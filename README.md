@@ -2,12 +2,14 @@
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.3.3 RUBICON**
+**6.4 STARK**
 
   ## Recent Changes
 ```
 
 (+) Curriculum Vitae added
+(*) Graphs Updated
+(*) No Mercy v2.0 added
 
 ```
 
@@ -31,7 +33,7 @@
  (>) $_GET Extensions
 
 ```
-## Packages
+## Packages - section outdated
 
 ### EDUCATION
 * tapcalk 6 - advanced calculator _stage Design_
@@ -130,3 +132,5 @@ Split of from tools; RND.html
 > 6.4 STARK 24/04/2019 (RC)
 
 ### Upcoming versions
+
+> 7.0 ENDGAME 

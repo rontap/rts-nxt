@@ -101,8 +101,8 @@ class Brexit extends Promise {
     super();
     this.deadline = deadline;
   }
-  resolve( deal) {
-    return new Brexit(deadline - 1);
+  resolve() {
+    return false;
   }
   reject( deal) {
     
