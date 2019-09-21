@@ -1,4 +1,5 @@
 // Circle Object and its methods
+ccl = () => Math.randInt(90)
 class Circle {
 
     
@@ -70,7 +71,9 @@ class Circle {
         this.y = Math.random()*innerHeight
         this.deltaX = Math.random()*(stats.ampt)*2 -stats.ampt
         this.deltaY = Math.random()*(stats.ampt)*2 -stats.ampt
-        this.color = `rgba(${col()},${col()},${col()},0.5)` // col function returns an int 0-255
+        //this.color = `rgba(${col()},${col()},${col()},0.5)` // col function returns an int 0-255
+        this.hsl=[ccl(),ccl()]
+        this.color=`hsl(30,${this.hsl[0]}%,${this.hsl[1]}%,0.5)`
         this.isMoving = true
         this.collided = 0
         this.radius = (radius + ((Math.random()*2-1)*(radius*.2))) *stats.size
@@ -85,7 +88,11 @@ class Circle {
         }
     }
     collide() {
-        this.color = `rgba(${col()},${col()},${col()},0.5)`; 
+        //this.color = `rgba(${col()},${col()},${col()},0.5)`; 
+       
+        let k = Math.floor((this.collided/maxColls)*225+30);
+        
+        this.color=`hsla(${k},${this.hsl[0]}%,${this.hsl[1]}%,0.5)`
         this.collided++;
     }
     checkEdge() {

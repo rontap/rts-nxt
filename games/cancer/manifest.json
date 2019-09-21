@@ -1,6 +1,6 @@
 {
-  "short_name": "Cancer Game",
-  "name": "Cancer Game v3",
+  "short_name": "Populistic",
+  "name": "Populistic Game 4r0",
   "display": "standalone",
   "icons": [
     {
@@ -20,7 +20,7 @@
     }
 
   ],
-  "start_url": "cancer.html?launcher=true",
+  "start_url": "index.html?launcher=true",
   "background_color": "#f1f1f1",
   "theme_color":"#3F51B5"
 }

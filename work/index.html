@@ -12,16 +12,17 @@
         <link rel="stylesheet" href="style.css">
 
     </head>
-    <body class="toast-desktop">
+    <body class="toast-desktop pre-game">
         <canvas id="canv"></canvas>
         <canvas id="canvUI"></canvas>
         <canvas id="canvOverlay"></canvas>
         <div id="cover" onkeypress=handleKeys(e)>&nbsp;</div>
         <i id="flash" onclick="powerupsExpanded=!powerupsExpanded" class="material-icons">flash_on</i>
-        <i id="collisions" class="material-icons">scatter_plots</i>
+        <i id="timeLeft" class="material-icons" title="Sum Collisions">access_time</i>
+        <i id="collisions" class="material-icons" title="Circle Max Collisions">scatter_plots</i>
         <i id="maxCollisions" class="material-icons">compare_arrows</i>
-        <i id="timeLeft" class="material-icons">access_time</i>
-        <i id="pauseBtn" class="material-icons">pause</i>
+        
+        <i id="pauseBtn" class="material-icons" onclick="toggleGamePause()">pause</i>
         <div id="desc">
             <b>About</b>
             <button id="closeBtn" onclick="desc.innerHTML=''">×</button>
@@ -32,13 +33,26 @@
                
             </div>
         </div>
+        <div id="pre-game">
+            <h2>Circleio</h2>
+            <button onclick="startFromMenu('freeplay')">Freeplay</button><br>
+            <button onclick="startFromMenu('tutorial')">Tutorial</button><br>
+            <button>About</button><br>
+            1.2 beta
+        </div>
+        <div id="splash">
+            <div btn>Freeplay</div>
+            <div btn>Tutorial</div>
+            <div btn>About</div>
+        </div>
         <div id="debug">
-            circle.io alpha 0.5<br>
+           
             <span id="totalCollisions">zero</span> collisions<br>
             <span id="maximumCollisions">zero</span> max coll<br>
-            <span id="levelHolder">first</span> level<br>
+            <!--span id="levelHolder">first</span> level<br-->
             <span id="timeSpentOnLevel">zero</span> sec<br>
-            <button onclick="endGame()">END GAME</button><br>
+            <span id="debugPing">first</span> FPS<br>
+            
             <span id='levelStat'></span>
         </div>
         <div id="guide">
@@ -48,14 +62,13 @@
                 You can do that simply by tapping a circle.<br>
                 Beware, if you tap an inanimate circle, it will start moving again,<br>
                 unbeliveable, eh?<br>
-                Each time a circle collides with a wall, its counter increases, and its bad for us. This will be important later on.
+                You can die if you run out of time.
             </div>
             <div guide id="main2">
                     <b>Tutorial 1: How to survive</b><br><br>
-                    You can lose in 3 ways:
-                    <li>The sum of all collisions is too much (blue in the bottom part)</li>
-                    <li>Have a single circle with too many collisons (green)</li>
-                    <li>Run out of time (red)</li>
+                    Beware, because each time a circle touches a wall, its counter increases<br>
+                    If a specific circle has too many collisions, you lose.<br>
+                    Additionally, if the sum of all circles' collisions are too high, you die as well.
                     Later, you will also be able to use powerups, to fight of these basterds.
                     
                 </div>
@@ -80,8 +93,7 @@
             </div>
             <div guide id="killer">
                     <b>Tutorial 5: I have a bad feeling about this</b><br><br>
-                    They have warned me about the <b>killer</b> circle, and it looks that our time has come.<br>
-                    The killer is extremely dangerous, if its timer runs out, you are instantly going to die.<br>
+                    The <b>killer</b> is extremely dangerous, if its timer runs out, you are instantly going to die.<br>
                     Oh, also, it lays <b>Halflings</b> and <b>Regular Circles</b> every time it touches a wall...<wbr>
                     At least its as big as a barn.
                             </div>
@@ -98,7 +110,12 @@
         </div>
         
         <div id="powerups">
-            ceca
+            <h2>Powerups</h2>
+            <div><i class="material-icons">slow_motion_video</i><span>Freeze</span></div>
+            <div><i class="material-icons">vpn_lock</i><span>Advanced Circle Timer Lock</span></div>
+            <div><i class="material-icons">vertical_align_center</i><span>Collision Slowing</span></div>
+            <div><i class="material-icons">brightness_high</i><span>Halfling stopper</span></div>
+            <div><i class="material-icons">brightness_high</i><span>Halfling stopper</span></div>
         </div>
 
        

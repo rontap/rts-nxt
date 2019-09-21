@@ -31,7 +31,7 @@ xmlhttp.onreadystatechange = function() {
 if ( navigator.onLine ) {
   // if we are online try to reach the newest version
   STATUS = "online";
-  now = new Date().getTime()
+  now = new Date().getTime();
   xmlhttp.open("GET", 'version.json?'+now, true);
   xmlhttp.send();
 }

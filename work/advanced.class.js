@@ -7,7 +7,9 @@ class AdvCircle extends Circle {
         this.advancedClicksLeft = Math.randInt(stats.exp) + 1;
     }
     collide() {
-        this.color = `rgba(${col()},${col()},${col()},0.5)`; 
+        //this.color = `rgba(${col()},${col()},${col()},0.5)`; 
+        let k = Math.floor((this.collided/maxColls)*225+30);
+        this.color=`hsla(${k},${this.hsl[0]}%,${this.hsl[1]}%,0.5)`
         this.collided++;
 
         if (this.isAdvanced == 'killer') {

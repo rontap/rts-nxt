@@ -1,12 +1,12 @@
 
-var CACHE_NAME = 'cancer-cache-v2.6';
+var CACHE_NAME = 'rontap-populistic-cache-v4r0';
   var cacheWhitelist = [CACHE_NAME];
 
 var urlsToCache = [
-  './cancer.html',
-  './cancer.css',
-  './cancer-animate.css',
-  './cancer.js',
+  './index.html',
+  './main.css',
+  './animate.css',
+  './game.js',
   './powerups.js',
   './manifest.json',
   './service.js',
@@ -26,7 +26,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['cancer-cache-v2.7'];
+  var cacheWhitelist = ['rontap-populistic-cache-v4r0.1'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {

@@ -5,6 +5,9 @@
     right:0; 
     bottom:0;
 }
+* {
+    user-select:none;
+}
 #desc b {
     font-size:26px;
 }
@@ -62,6 +65,7 @@ toast {
     color: black;
     position: fixed;
     top: 0;
+    /* display: none; */
 }
 #flash, #collisions,#maxCollisions,#timeLeft,#pauseBtn{
     position:fixed;
@@ -70,14 +74,14 @@ toast {
     font-size: 21px;
     color: #444;
 }
-
-#collisions {
+ #timeLeft{
     left: 87px;
 }
 #maxCollisions {
     left: 157px;
 }
-#timeLeft {
+
+#collisions {
     left: 227px;
 }
 #flash.on {
@@ -86,9 +90,23 @@ toast {
 #pauseBtn {
     right:20px;
     left:initial;
+    border-radius: 100%;
+    border:1px solid transparent;
+}
+#pauseBtn.active {
+    background:#444;
+    color:white;
+    animation:rotatePauseBtn .5s;
+}
+@keyframes rotatePauseBtn {
+    0% { transform:rotate(180deg); }
+    100% {transform:rotate(360deg); }
+}
+#pauseBtn:hover {
+     border:1px solid #444;
 }
 canvas#canv {
-    background-image: linear-gradient(#eee,white);
+    background-image: linear-gradient(#EEEEEE,#FAFAFA);
 }
 #powerups {
     position:fixed;
@@ -129,17 +147,70 @@ canvas#canv {
 }
 #tutorialPlane.on {
     position:fixed;
-    top:220px; left:0; right:0; bottom:75px;
-  
+    top:220px;
+    left:0;
+    right:0;
+    transition: all 1s;
+    bottom:75px;
     text-align:center;
-    padding-top:50%;
+    padding-top: 100px;
     font-size:30px;
     font-family:'Bahnschrift';
-    transition:all .4s;
+    transition: all .4s cubic-bezier(0.85, -0.35, 0.58, 1);
     text-shadow:0px 0px 1px #222;
-
 }
 #tutorialPlane.on:hover {
-    background:#f1f1f1;
+    /* background:#f1f1f1; */
     cursor:pointer;
+    text-decoration: underline;
+}
+
+#powerups div {
+    border-radius:30px;
+    padding: 3px 35px;
+    border:2px solid #999;
+    margin:15px 5px;
+    transition:.25s;
+    vertical-align: -20px;
+}
+#powerups i {
+    border-radius:100%;
+    background: #9C27B0;
+    padding: 8px 8px;
+    margin-left: -32px;
+    color: white;
+    margin-right: 12px;
+} 
+#powerups div:hover {
+    background: #9C27B0;
+    color:white;
+    border-color:#9C27B0;
+    cursor: pointer;
+}
+#powerups span {
+    vertical-align: 6px;
+    font-family:'Bahnschrift';
+}
+.pre-game #pre-game {
+    position: fixed;
+    top: 100px;
+    bottom: 150px;
+    left: calc(50% - 200px);
+    width: 360px;
+    border-radius: 4px;
+    background: #ffffffeb;
+    padding: 20px;
+    border: 1px solid #999;
+    display:block;
+}
+#pre-game {
+    display:none;
+}
+#pre-game button {
+    display:block;
+    width:150px;
+    font-size: 19px;
+}
+body:not(.pre-game) {
+    cursor: crosshair;
 }

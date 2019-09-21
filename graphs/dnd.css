@@ -18,7 +18,8 @@
   border:1px solid transparent;
   border-radius: 4px;
   padding-bottom: 10px;
-  padding: 6px;
+  padding: 5px;
+  float: right;
   transition:all .15s;
 }
 [module="sidebar"]>i.material-icons:hover {
@@ -30,9 +31,26 @@
   background:  #2196f3;
   color:white;
 }
-[dragger] , [closer] {display:inline-block;margin-top: -56px;margin-left: 226px;color:#222;cursor:-webkit-grabbing !important;padding-bottom:0px;}
+[dragger] , [closer] {
+  display:inline-block;
+  margin-top: -71px;
+  margin-left: 226px;
+  color: white;
+  cursor:-webkit-grabbing !important;
+  padding-bottom:0px;
+}
+[dragger] {display:none;}
+[module="sidebar"]>h2 {
+  cursor:-webkit-grabbing;
+  background: #222;
+  color: white;
+  font-size: 18px;
+  padding: 8px;
+  /* margin-top: 0px; */
+  margin: -7px -13px 34px -13px;
+}
 [closer] {
-  margin-left:180px;
+  margin-left: 253px;
   cursor:pointer !important;
 }
 

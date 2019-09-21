@@ -8,7 +8,7 @@ const levels = {
     },
     'main2' : {
      normal: 6,
-     before:[false].times(4),
+     before:[false,false,false,false],
      els: [false],
      },
    'collider': {
@@ -41,6 +41,7 @@ const levels = {
 
 let tutorialStage = 0;
 tutorialPaddingTop = 0;
+
 let currentTutorialStage = 0;
 
 function tutorial(nth = 0) {
@@ -72,3 +73,5 @@ function startTutorial() {
      addMultiple([false].times(currLevel.normal));
      addMultiple(currLevel.els);
 }
+
+Array.prototype.times = function(times,acc=[]) {  while (times-->0) acc=acc.concat(this) ; return acc} 

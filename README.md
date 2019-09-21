@@ -1,15 +1,17 @@
-# RONTAP SITES 6
+# RONTAP SITES 7 Prerelease
 *Ported originally from version 4.3.2 of RTS4*
 *Rolling Stock version since 5.0:*
 
-**6.4 STARK**
+**7.0  - Cruiser Mark I**
 
   ## Recent Changes
 ```
 
-(+) Curriculum Vitae added
-(*) Graphs Updated
-(*) No Mercy v2.0 added
+(*) Cancer Game will be renamed to Populistic. Code Cleanup (v4r0)
+(*) Color Game Changes
+(~) SuperFarmer AI Test renamed to genomics
+(*) Minor Graph changes
+(+) New game added; circle.io  
 
 ```
 
@@ -17,20 +19,12 @@
 ```
  (-) removed old projects and restructured.
  (+) new API called NXT.js improving speed
- (+) graph modelling
-
- (*) Added (rewrote) most of RTS3&4 Projects
- (+) Dynamic loading, typing, modules, PHP-like $_GET in NXT.JS
- (+) MEK reader and searching
- (+) Ultron URL Shortener added with admin panel.
- (+) Notes++ and Counter with PHP support
- (+) Several new games
-
+ (*) Got a job
 ```
 ## Roadmap
 ```
- (>) get a job
- (>) $_GET Extensions
+ (>) move projects to npm
+ (>) New API based on react+nxt
 
 ```
 ## Packages - section outdated
@@ -131,6 +125,12 @@ Split of from tools; RND.html
 
 > 6.4 STARK 24/04/2019 (RC)
 
+> 7.0 Cruiser Mark I. 2019/09/21
+
 ### Upcoming versions
 
-> 7.0 ENDGAME 
+> 7.0 Cruiser
+> 7.1 Covenanter
+> 7.2 Cromwell
+> 7.3 Comet
+> 7.4 Centurion

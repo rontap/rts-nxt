@@ -96,7 +96,7 @@ function renderCircle(circle,text) {
         else ctx.fillText('+'+circle.advancedClicksLeft,circle.x,circle.y)
         
     }
-    else {
+    else if ((!tutorialMode || tutorialStage!=0) && (circle.isMoving)) {
         ctx.fillText(circle.collided, circle.x, circle.y)
     }
     
@@ -107,10 +107,14 @@ function renderCircle(circle,text) {
 // main render loop. 
 // in this implementation, the render and the tickspeed are linked,
 // however, the maximum speed can be changed via the 'speed' variable
-
+ping = [];
 tick = 0;
 level = 1;
+
+shouldDrawLines = true;
+
 function loop() {
+    let ts = performance.now();
     tick++;
     ctx.clearRect(0,0,innerWidth,innerHeight)
     for (let i=0; i< circles.length; i++) {
@@ -146,8 +150,15 @@ function loop() {
 
     if (tick % 20 == 0) renderUI(false)
 
-    if (isAllStopped() && circles.length > 2)  nextLevel(++level)
-    else   setTimeout( () => loop() , 1000 / tickSpeed )
+    if (isAllStopped() && circles.length > 2)  nextLevel(++level)   
+    else if (!isGamePaused)  setTimeout( () => {
+        ping.push( (performance.now() - ts) )
+        ping = ping.slice(-10);
+        let currFPS = tickSpeed - Math.avg( ping );
+        debugPing.innerHTML = (currFPS>0) ? currFPS : 'lagging';
+        loop()
+    
+    } , 1000 / tickSpeed )
 }
 
 powerupsExpanded = false
@@ -210,12 +221,16 @@ function renderUI(filled = false) {
     ctxUI.stroke();
 
     (filled) ? flash.classList.add('on') : flash.classList.remove('on')
-    let colors=['#3F51B5','#4CAF50','#f44336']
+    let colors=['#f44336','#3F51B5','#4CAF50']
+    let data=[.5,((timeSpentLevel/1000)/maxTime),(sumCollisions/sumColls),(maxCollisions/maxColls)]
+
+    let uiDrawTimes = (tutorialMode ? (tutorialStage > 3 ? 4 : tutorialStage+1) : 4 )
     for (let i =1; i<4;i++) {
+        
         ctxUI.beginPath()
         ctxUI.lineWidth=5
         ctxUI.strokeStyle=colors[i-1]
-        ctxUI.arc(40+(i*70), innerHeight-40,20, -Math.PI/2, (2 * Math.PI )*((Math.random()*1000-250) / 1000))    
+        ctxUI.arc(40+(i*70), innerHeight-40,20, -Math.PI/2, (2 * Math.PI )*((data[i]*1000-250) / 1000))    
         ctxUI.stroke()
         ctxUI.lineWidth=2
     }    
