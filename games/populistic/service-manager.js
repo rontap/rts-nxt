@@ -1,5 +1,5 @@
 // installing service manager
-const CURR_VER = 4.02;
+const CURR_VER = 4.03;
 
 
 var STATUS = null;
