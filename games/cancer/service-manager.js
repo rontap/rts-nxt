@@ -43,8 +43,18 @@ else {
 function resetService(to) {
   alert("Updating from version "+CURR_VER+" to "+to);
   navigator.serviceWorker.getRegistration().then(function(reg) {
-    reg.unregister().then(function() { window.location.reload(true); })
-    // removing all cache and reloading the site
+      try {
+          reg.unregister().then(function() { window.location.reload(true); })
+          // removing all cache and reloading the site
+      }
+      catch(e) {
+          console.error(e);
+          console.log('[ServiceWorker Unregister] Failed. Probably a corrupted version of SW was installed?');
+          setTimeout(function(){
+              window.location.reload(true);
+          },1000)
+      }
+
   })
 }
 
