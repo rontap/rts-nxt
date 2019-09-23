@@ -2,7 +2,6 @@
 
 function render(type,e) {//main rendering funcion
 
-
   if (type=='click') isMouseDown = true;
   else if (type=='up')isMouseDown=false;
 
@@ -63,6 +62,8 @@ function render(type,e) {//main rendering funcion
     //clickArea = false; //meaning -> we can draw
     clickArea = getGraphNodeDistance(x,y);
     updateShortcutKeys(type);
+
+
     //console.log(clickArea);
 
 
@@ -116,6 +117,9 @@ function render(type,e) {//main rendering funcion
     }
 
 
+  if (MODE == "Search" &&lastClickedElement != null && clickArea != false && clickArea != true) {
+    ConnectionHighlight = graph.dijkstra(clickArea,lastClickedElement);
+  }
 
   // HOLY DRAWING THING
   ctxbg.clearAll();
@@ -134,7 +138,7 @@ function render(type,e) {//main rendering funcion
         ctx.fillStyle = '#eeeeee';
       }
       else if (val == clickArea && type!='up') {//clicking on elementt
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = MAT_COLORS['blue-800'];
         sidebar.showEl(val,'#properties');
         ctx.lineWidth=1;
         ctx.stokeStyle="black";
@@ -181,18 +185,47 @@ function render(type,e) {//main rendering funcion
       ctx.arc(val.name.x,val.name.y,cRadius,0,2*Math.PI);
       ctx.fill();
 
+ 
 
-      if (val.name.text != null) {
-        ctx.fillStyle="#222";
-        ctx.font = '12px sans-serif';
+
+
+      
+        ctx.fillStyle= fontColor.value ||"#222";
+        let fontSize = sidebar.fontSize || 12
+        ctx.font = fontSize + 'px sans-serif';
         ctx.textAlign='center';
 
-        ctx.fillText(val.name.text, val.name.x, val.name.y+val.weight*2.5);
-      }
+        // text manipulation and defaults
+        let parsedText = '';
+       
+        if (val.name.text == null) {         
+          parsedText = parseInfo( textExtra[1] + textExtra[0] + textExtra[2] , val) ;
+        }
+        else {
+          parsedText = parseInfo( textExtra[1] + val.name.text + textExtra[2], val);
+        }
+        ctx.fillText(  parsedText , val.name.x, val.name.y+val.weight*2.5);
+      
 
 
       ctx.stroke();
 
+
+      if (val.treeRoot) {
+        if (circle.subGraphHas.has( val.subgraph )) {
+          // it was a root once but the container is no longer a tree so removing flag
+          delete val.treeRoot;
+        }
+        else {
+          ctx.beginPath();
+        
+          ctx.fillStyle="#222";
+          ctx.arc(val.name.x,val.name.y,(cRadius/2.5),0,2*Math.PI);
+          ctx.fill();
+          ctx.stroke();
+        }
+        
+      }
 
       val.edges.forEach( (w,edgeId) => {
 
@@ -218,10 +251,25 @@ function render(type,e) {//main rendering funcion
 
         // ---------------------------
         // Drawing connection color out
-        if (val == clickArea) {
-            ctxbg.lineWidth=6; //currSelNode
-            ctxbg.strokeStyle=MAT_COLORS['blue-500'];
+        
+        if (ConnectionHighlight.has(edgeId) && 
+            ConnectionHighlight.has(val.id) &&
+            Math.abs(ConnectionHighlight.indexOf(edgeId) - ConnectionHighlight.indexOf(val.id)) == 1) {
+                  ctx.lineWidth=1;
+                  ctx.fillStyle=MAT_COLORS['orange-500'];
+                  ctx.fill();
+                  ctx.arc(val.name.x,val.name.y,10,0,2*Math.PI);
+
+                  ctxbg.lineWidth=6; //currSelNode
+                  ctxbg.strokeStyle=MAT_COLORS['orange-500'];
         }
+        else if (val == clickArea) {
+          ctxbg.setLineDash([10,8]);
+          ctxbg.lineWidth=6; //currSelNode
+          ctxbg.strokeStyle=MAT_COLORS['blue-500'];
+         
+
+      }
         else {
           if (CONNECTION_SEL_MODE=='Default') ctxbg.strokeStyle="#222222";
           else if (CONNECTION_SEL_MODE=='FromWeight') {
@@ -249,9 +297,13 @@ function render(type,e) {//main rendering funcion
         }
 
 
+        // TREE RELATED FUNCTIONS
+   
+
         ctxbg.lineTo(connectedEdge.name.x,connectedEdge.name.y);
         //later adding width (weight)
         ctxbg.stroke();
+        ctxbg.setLineDash([]);
 
       });
 

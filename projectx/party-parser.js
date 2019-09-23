@@ -81,3 +81,6 @@ function toURL() {
     console.log(JSON.stringify(parser.record))
     location.hash = "#q="+btoa( JSON.stringify( parser.record ));
 }
+
+/// 2019 March Additions
+var slave;

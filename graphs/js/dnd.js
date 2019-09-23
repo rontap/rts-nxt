@@ -40,7 +40,6 @@ function dndFactory(el) {
   // (3) move the ball on mousemove
   document.addEventListener('mousemove', onMouseMove);
 
-  // (4) drop the ball, remove unneeded handlers
 
   function stopMove(event) {
 
@@ -67,11 +66,11 @@ window[el].ondragstart = function() {
 
 
 //assigning factory
-['sidebarProp','line','action','distance','viewer','textStyle','multiselect'].map( (x) => dndFactory(x));
+['sidebarProp','line','action','distance','viewer','textStyle','multiselect','treeObj'].map( (x) => dndFactory(x));
 
 
 minimiseFactory =(el) => {
-  console.log(el);
+  console.log(">Minimising " +el);
   $('#'+el).classList.remove('open','on');
   name = $('#'+el+' h2').innerHTML;
   footerBarHolder.innerHTML+=`<div linked=${el} onclick="$('#${el}').classList.add('open','on');this.parentNode.removeChild(this);">${name.replace(/(<(.*?)>)+/g,'')}</div>`
@@ -100,3 +99,11 @@ openWindow('textStyle');
 minimiseFactory('textStyle');
 
 openWindow('multiselect');
+
+minimiseFactory('multiselect');
+
+openWindow('treeObj');
+minimiseFactory('treeObj');
+
+//
+

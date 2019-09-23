@@ -7,10 +7,12 @@
 circle = {};
 
 circle.calculate = function() {
+  circle.subGraphHas = new Set();
   let sgs = graph.getGroup('subgraph'); //getting all subgraphs
   circle.data = [];
   graph.nodes.forEach(val => { //resetting
     delete val.circle;
+    val.inCircle = false;
   });
   sgs.forEach((val,key)=>{
     if (key!==null) { //skip ones without subgraph.
@@ -45,12 +47,16 @@ circle.dfs = function(node,route,parentNodeEl=-1) { // depth first search
 }
 
 circle.data = [];
+circle.subGraphHas = new Set();
 
 circle.asPairs = function(data = circle.data) {
   //return circle data as connection pairs
   let pairs = [];
   for (let h = 0; h<data.length; h++) {
     for (let i = 0; i<data[h].length-1 ; i++) {
+      graph.nodes.get(data[h][i]).inCircle = true;
+      graph.nodes.get(data[h][i+1]).inCircle = true;
+      circle.subGraphHas.add( graph.nodes.get(data[h][i]).subgraph);
       pairs.push([data[h][i],data[h][i+1]]);
     }
   }

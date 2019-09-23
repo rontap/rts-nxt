@@ -1,0 +1,39 @@
+.plot {
+    width: 120px !important;
+}
+
+/****************/
+.campaign #evolveBtn, .campaign #menu {
+    display: none !important;
+}
+
+.campaign canvas {
+    border:   0px !important;
+    margin:   0px !important;
+    position: fixed;
+    opacity:  0;
+
+}
+
+.campaign canvas.in-camp {
+    opacity:    1;
+    transition: all .3s;
+}
+
+.campaign #runAsCandidate {
+    bottom: 50px;
+}
+
+#runAsCandidate {
+    z-index:       99;
+    border-radius: 50px;
+    background:    #222;
+    position:      fixed;
+    bottom:        -80px;
+    left:          calc(50% - 90px);
+    margin:        0 auto;
+    padding:       14px 20px;
+    font-size:     18px;
+    box-shadow:    0px 1px 2px #111;
+
+}

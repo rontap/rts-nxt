@@ -1,33 +1,87 @@
 <html>
     <head>
+           <link rel="stylesheet" href="../NXTJS/elements.css"  >
             <link rel="stylesheet" href="style.css"  >
             <link rel="stylesheet" href="../NXTJS/single.css"  >
+             <link rel="stylesheet" href="../NXTJS/input.css"  >
+             <link rel="stylesheet" href="game.css"  >
+             
+            
             <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
             <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+            <script type="text/javascript" src="../NXTJS/notifications.js"></script>
             <script type="text/javascript" src="main.js"></script>
             <script type="text/javascript" src="game.js"></script>
-
+            <script type="text/javascript" src="drag.js"></script>
+            
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     </head>
-    <body>
+    <body class="toast-desktop">
+        <toast id="toast-yourturn">Its Your turn! Choose Now</toast>
+        <toast id="toast-finished" >The game has finished! <action flr onclick="location.pathname = '/nomercy/results.html'"> Go To results</action>
+            <action flr warning onclick="skipResults=true">Stay </action>
+        </toast>
+        <toast id="toast-finished-fv">The game has finished. 
+            <action flr location.pathname = '/nomercy/results.html' > Go To results page</action>
+        </toast>
+        
+        
         <nav>
             <span id="gamename">No Mercy</span>
             <span id="playerId">You Name: PlayerID</span>
         </nav>
         <br><br>
-        <div id=cards>  
-            <div class="chipgroup">
-                    <div class="chip">23</div>
-                    <div class="chip">34</div>
-                    <div class="chip">45</div>
-            </div>
-            <div class="chipgroup">
-                    <div class="chip">45</div>
-            </div>
+        
+        <div id=gamefield>
+        </div>
+        <div id=cardsLeft></div>
+        <div id="bottomfix">
+            <div id=yourCards></div>
             
+            <div id="otherUsers">
+                &loading;
+            </div>
+            <div id=cards></div>
             
         </div>
+        <div id=coins
+            draggable="true"
+            ondragstart="drag(event)" onclick="action(true)">
+            11
+        </div>
         
-        <div id="hugecard" class="chip">23</div>
+        <div id="hugecard" class="chip" 
+            onclick="action(false)"
+            ondrop="drop(event)" 
+            ontouchend="hugeCardTouchEnd()"
+            ondragover="event.preventDefault()"></div>
         <div id="force" class="chip material-icons" onclick="$('body').classList.toggle('force')">info</div>
+       <div id="coinsOnCard">99</div>
+       
+       <script>
+       nxt.location = '../NXTJS/'
+           document.addEventListener('contextmenu', event => event.preventDefault());
+       </script>
+       <style>
+           /*nav::after {
+                content: '';
+                position: fixed;
+                background: #00BCD4;
+                top: -1000px;
+                left: -100px;
+                right: -1000px;
+                height: 1333px;
+                z-index: -1;
+                transition:1s;
+                transform: rotate(-20deg);
+            }*/
+            #playerId {
+                color:white;
+            }
+            #hugecard.disabled {
+                cursor:not-allowed;
+            }
+       </style>
     </body>
 </html>

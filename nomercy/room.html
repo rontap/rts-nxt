@@ -1,57 +1,118 @@
 <HTML>
     <head>
-        <title>new room</title>
+        <title>No Mercy | Start A Game</title>
         <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+         <script type="text/javascript" src="../NXTJS/notifications.js"></script>
         <script type="text/javascript" src="main.js"></script>
-         <link rel="stylesheet" href="style.css"  >
-        <link rel="stylesheet" href="../NXTJS/design.css"  >
+         <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+
         <link rel="stylesheet" href="../NXTJS/elements.css"  >
+        <link rel="stylesheet" href="style.css"  >
+        <link rel="stylesheet" href="room.css"  >
       
     </head>
-    <body>
+    <body class="toast-desktop">
         <nav>
-            <div id="pageTitle">New / Join Room</div>
+            <span id="gamename">No Mercy</span>
+            <span id="sessionname">NEW game / join room</span>
         </nav>
+        <br><br><br> <br><br><br>
+        
+         
+        
         <holder>
-        <form action="room.php" method="get">
-            <input checked type="radio" name="action" value="new" id="newRadio">
-            <label for="newRadio">Create New</label>
-            
+        
+        <h1><span d>Welcome to No mercy.</span><span a>About No Mercy Game</span><span b>Select A Mode</span></h1>
+        <h2><span d>Let's get started, shall we?</span><span a>Who created this thingy</span></h2>
+        
+        
+        
+        <content>
             <br>
-            <input type="radio" name="action" value="join" id="joinRadio">
-            <label for="joinRadio">Join Game</label>
+                <input round class="input" id="username" placeholder="choose a nickname"  tabindex="-1">
+                <br><br>
+                <input round onclick="joinAnim()" id="joiner" value='Join a game' tabindex="-1">
+                <br>
+                <b id="orbtn">OR</b>
+                <br>
+                <input round onclick="preSend()" value="Create a new" id="sender"  tabindex="-1">
             
-            <br><br>
-            <input type="text" name="gameID" id=gameID placeholder="Game ID (if joining)">
+        </content>
+       
+        <about>
+            <card class="card" id="about">
+                <b>Created By</b>: Mate and Aron<br>
+                <b>Created In 2018 (Copyright)</b><br>
+                
+            </card>
             
-            <br>
-            <input type="text" name="name" id="name" placeholder="Username">
+            <br><br><br>
+            <button round style="margin-right:20px;">More Games...</button>
+            <button round>Home Site</button>
+        </about>
+        <div id="aboutText">
             
-            <br><br>
-            <input type="hidden"  id="cardHolder" name="cards">
-            
-            <input type="submit">
-        </form>
-        </holder>
-        <style>
-            * {
-                user-select:none;
-            }
-            holder {
-                display: block;
-                margin: 0 auto;
-                max-width: 300px;
-            }
-        </style>
+            v2 Beta / <u onclick="body.classList.toggle('about')">About</u>
+        </div>
+         </holder>
+        <div id="modeSelector">
+            <group>
+            <mode>
+                <div>Play in online with friends and family.</div>
+                <button round onclick="send()">Online Multi</button>
+            </mode>
+            <mode>
+                <div>Play with friends without a need for interet connection or multiple devices.</div>
+                <button round onclick="send()">Single-Device</button>
+            </mode>
+            <mode>
+                <div>Play against AI so you dont even need 'friends'</div>
+                <button round onclick="send()">Play Foreveralone</button>
+            </mode>
+            </group>
+        </div>
+        
         <script>
-            cardHolder.value = cards
-            
-            if (location.hash != '') {
-                id = location.hash.slice(1);
-                joinRadio.checked = true;
-                gameID.value = id;
+        function showModes() {
+            $('body').classList.add('modeSelect');
+        }
+            joinType = "new"
+            autoJoin = false
+            id = null
+            function preSend() {
+                if (joinType == "new")   $('body').classList.add('modeSelect');
+                else send();
+            }
+            function send() {
+                
+                window.location = `http://localhost/nomercy/room.php?action=${joinType}&gameID=${autoJoin ? id : joiner.value.toLowerCase()}&name=${username.value}&cards=${cards.shuffle()}`
+           
+                //window.location = `https://team-autism-rontap.c9users.io/nomercy/room.php?action=${joinType}&gameID=${autoJoin ? id : joiner.value.toLowerCase()}&name=${username.value}&cards=${cards.shuffle()}`
+            }
+            function joinAnim() {
+                joiner.classList.add('input');
+                joiner.contenteditable = true;
+                joiner.value="";
+                joiner.disabled=false
+                joiner.placeholder="enter game ID"
+                orbtn.style.opacity=0
+                sender.value="Join Game"
+                joinType = "join"
+            }
+              
+            if (location.hash.length >2 && location.hash.indexOf('!') == -1) {
+                joinType = "join"
+                autoJoin = true;
+                id=location.hash.slice(1)
+                orbtn.style.opacity=0
+                sender.style.opacity=0
+                joiner.onclick=function(){send()}
                 
             }
+            if (location.hash == '#!invalid-room-name') nxt.notify(8000,'Couldn\'t find a room with that id.')
+            
         </script>
+       
     </body>
 </HTML>

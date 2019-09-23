@@ -1,10 +1,15 @@
 body {
     background:#eee;
 }
-
-.chip {
+body {
+    font-family: 'Roboto', sans-serif;
+}
+nav,b {
+    font-family: 'Bungee', cursive !important;
+}
+.chip , #otherUsers div, #playerList div{
     border-radius: 3px;
-    margin:10px 2px;
+    margin:5px 2px;
     padding:6px 16px;
     width:20px;
     background-image:linear-gradient(hsl(199, 98%, 48%), hsl(208, 79%, 51%));
@@ -15,23 +20,26 @@ body {
     color:white;
     z-index: 1;
     transition:all .2s;
-    text-shadow:0px 1px 1px #333;
+    /* text-shadow:0px 1px 1px #333; */
 }
 body:not(.force) .chipgroup:not(:hover) .chip:not(:last-child) {
     color:transparent;
     background-image:linear-gradient(hsl(207, 90%, 54%), hsl(212, 80%, 42%));
     margin-right:-45px;
     text-shadow:none;
-    z-index: -1;
+    
 }
 
 nav {
     display: block;
-    background:white;
+
     position:absolute;
     left:0; right:0; top:0; 
     padding:10px 20px;
-    box-shadow:0px 2px 3px #999;
+    color:black;
+    height: initial;
+    background:#999;
+   
 }
 #gamename {
     margin-right:20px;
@@ -40,29 +48,46 @@ nav {
 * {
     user-select:none;
 }
-#hugecard {
-    font-size:46px;
-    width: 130px;
-    height:140px;
-    position:fixed;
-    top:20px;
-    right:30px;
-    padding-top:28px;
+i {
+    user-select:text;
 }
-#cards {
-    position:fixed;
-    bottom:0;
-    background:White;
-    display: block;
-    left:0; right:0;
-    padding:10px;
+#hugecard {
+     font-size: 46px;
+    width: 131px;
+    height: 143px;
+    position: fixed;
+    background:#2196F3 ;
+    top: 80px;
+    left: 200px;
+    padding-top: 28px;
+    cursor: grab;
+}
+#hugecard.chip:hover {
+    background: #1976D2 !important;
+    box-shadow: 0px 2px 7px #999;
+}
+#hugecard.disabled {
+    background-image:linear-gradient(#666, #444);
+}
+#bottomfix {
+ position: fixed;
+ bottom: 0;
+ background: White;
+ display: block;
+ left: 50%;
+ border-left: 10px solid #444;
+ top: 0;
+ right: 0;
+ padding: 10px;
 }
 #force {
     width:25px;
     position:fixed;
-    right:15px;
+    left: calc(50% - 60px);
     transition: all .2s;
-    bottom:10px;
+    box-shadow: 0px 0px 2px #999;
+    top: 32px;
+    border-radius: 100%;
 }
 body.force #force {
     background-image:linear-gradient(#FFC107, #FF9800)
@@ -89,4 +114,193 @@ input[type="text"]:hover {
 }
 input[type="submit"]:hover {
     box-shadow:0px 1px 2px #333;
+}
+#otherUsers {
+   background: #eee;
+   border-left: 1px solid #ddd;
+   padding:10;
+   /* margin:-10px; */
+   position: fixed;
+   /* margin-bottom: 5px; */
+   position: fixed;
+   right: 0;
+   width: 140px;
+   top: 0;
+   bottom: 0;
+}
+#coins {
+    position:fixed;
+    top:100px;
+    background:red;
+    width:100px;
+    color:transparent;
+}
+#coins:hover , #coins:active , #coins:focus, .force #coins {
+    color:white;
+}
+.current {
+    background: #64B5F6 !important;
+    border-color: white !important;
+}
+.extraClass {
+    border:1px solid blue;
+}
+
+#otherUsers div.selected {
+    /* text-decoration:underline; */
+    border-color: #2196F3 !important;
+}
+#otherUsers div, #playerList div {
+    cursor:pointer;
+    display:inline-grid;
+    transition:all .3s;
+    width: 110px;
+    padding: 10px 10px 10px 0px;
+    margin: 10px 4px;
+    display: block;
+    color:white;
+    background:white;
+    border: 3px solid #999;
+    border-left-width: 13px;
+    color:black;
+    font-family: 'Roboto', sans-serif !important;
+    box-shadow: 0px 1px 2px #999;
+}
+#otherUsers div:active {
+    box-shadow: 0px 1px 3px #444;
+}
+#coinsOnCard {
+       position: fixed;
+    z-index: 99;
+    border: 3px solid #F44336;
+    width: 40px;
+    text-align: center;
+    height: 30px;
+    background: linear-tra;
+    border-radius: 100%;
+    /* padding: 16px; */
+    padding-top: 10px;
+    left: 180px;
+    top: 233px;
+    background-image: linear-gradient(#F44336, #D32F2F);
+    color: white;
+    box-shadow: 0px 0px 3px 0px #666;
+}
+
+#coins {
+    position: fixed;
+    top: 100px;
+    background-image: linear-gradient(20deg, #F44336, #D32F2F);
+    width: 100px;
+    height: 70px;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 32px;
+   
+    box-shadow: 0px 0px 5px 0px #555;
+    padding-top: 30px;
+    left: 20px;
+    transition:all .2s;
+    border: 10px solid #F44336;
+    user-select:text;
+    cursor:grab;
+}
+
+#cards , #yourCards{
+    max-height: 350px;
+    overflow:auto;
+    margin-bottom: 15px;
+}
+@media screen and (max-width:500px) {
+    #otherUsers div {
+        width:79px;
+        padding:10px 5px;
+        
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin:0 5px;
+    }
+    #otherUsers div.selected::before {
+         margin-left: 36px;
+    }
+       
+}
+#playerList div {
+    min-width:121px;    
+    box-shadow:0px 1px 2px #666;
+    background-image:linear-gradient(#2196F3, #2196F3)
+}
+#playerList div[admin] {
+    
+    background-image:linear-gradient(#FF5722, #FF5722);
+}
+
+
+
+[round].input {
+    background:white !important;
+    color:black;
+    cursor:initial;
+}
+[round] {
+    outline:none;
+    border:1px solid #424242;
+    border-radius:30px;
+    
+    width:190px;
+    background:#424242;
+    border:0;
+    box-shadow:0px 1px 2px #444;
+    color:white;
+    font-family: 'Bungee', cursive !important;
+    padding:8px 15px;
+    text-align:center;
+    cursor:pointer;
+}
+[round]:hover {
+    background:#333;
+}
+[round].input:hover {
+    background:white;
+}
+
+
+#cardsLeft {
+        position: fixed;
+        left: 221px;
+        top: 75px;
+        width: 125px;
+        height: 20px;
+        border-radius: 3px;
+        background: white;
+        text-align: center;
+        z-index: 9;
+        box-shadow: 0px 1px 2px #444;
+}
+#cardsLeft:empty {
+    display: none;
+}
+
+toast {
+     font-family: 'Roboto', sans-serif !important;
+     left:20px;
+     right:inherit;
+     max-width:600px !important;
+}
+#cards {
+    position:fixed;
+    top: 7px;
+    left: calc(50% + 29px);
+    bottom:0;
+}
+#yourCards {
+    bottom: 2px;
+    left: 18px;
+    position:fixed;
+    width: calc(50% - 40px);
+}
+#playerList div {
+    display:inline-block;
+    text-shadow:none;
 }

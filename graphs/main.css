@@ -1,51 +1,7 @@
-body.module-sidebar [module="sidebar"]:not(.on), body.module-sidebar [module="sidebar"]:not(.on) *  {
-  display:none;
-  z-index: -1;
+h1 {
+  font-family: 'Bahnschrift' ;
+ 
 }
-body.module-sidebar [module="sidebar"] {
-  resize:both;
-  min-width:100px;
-  min-height:100px;
-}
-body.module-sidebar [module="sidebar"].on, body.module-sidebar [module="action"] {
-  display:block;
-  position:absolute;
-}
-body.module-sidebar [module="sidebar"].on.open {
-  right:30px;
-  top: 80px;
-  height: 50px;
-  width:250px;
-  padding: 5px 13px;
-  transition:box-shadow .4s;
-  overflow-x:hidden;
-  overflow-y:hidden;
-}
-body.module-sidebar [module="action"] {
-  top:calc(100% - 90px);
-  left:calc(50% - 300px);
-  border-radius:0px;
-  border:0px;
-}
-body.module-sidebar [module="sidebar"].on , body.search-mode #distance {
-  height: 390px ;
-  opacity:1;
-  z-index: 10;
-}
-#distance {
-  opacity:0;
-  z-index: -1;
-}
-[module]:hover {
-    box-shadow:0px 1px 3px #999;
-}
-
-[module] {
-  border:1px solid #999;
-  border-radius: 7px;
-  background: #eee;
-}
-
 body {
     background: #f1f1f1;
 }
@@ -69,7 +25,13 @@ body {
         cursor:crosshair;
   }
   body.move-mode canvas {
-    cursor:move;
+    cursor: grab;
+  }
+  body.move-mode canvas:focus {
+    cursor: grabbing;
+  }
+  body.search-mode canvas {
+    cursor: cell;
   }
   * {
       user-select:none;
@@ -90,10 +52,11 @@ body {
   holder h1 {
     display:inline-block;
     margin:0px;
+    font-family: 'Bahnschrift';
     padding-left: 10px;
     color: #fff;
     letter-spacing: 0px;
-    /* font-weight: 100; */
+    font-weight: 100;
     /* text-transform: capitalize; */
     font-size: 26px;
     vertical-align: 2px;
@@ -202,36 +165,13 @@ group {
   vertical-align: 5px;
 }
 
-button {}
 
   #footerBarHolder>*.open{
     position: fixed;
     top: 80px;
   }
 
-  #footerBarHolder>[module="sidebar"]:not(.open) .material-icons , #footerBarHolder>* {
-    /* display: none; */
-  }
-  /*
-  #footerBarHolder>[module="sidebar"]:not(.open).on {
-    background: white;
-    position: fixed;
-    padding: 6px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 0px;
-    border-right: 1px solid #999;
-  }
-  #footerBarHolder>[module="sidebar"]:not(.open).on h2 {
-    margin:0px !important;
-    font-size:14px;
-    font-weight: 400;
-    border-radius: 0px;
-  }
-  #sidebarProp {
-     display:none;
-  }
-*/
+
 
 div[linked] {
   display:inline-block;
@@ -256,10 +196,14 @@ div[linked]:hover {
 
 
 #textLP , sliderInput {
-border-radius: 4px;
-vertical-align: -3px;
-background: white !important;
-padding: 6px 10px;
+
+border-radius: 4px;
+
+vertical-align: -3px;
+
+background: white !important;
+
+padding: 6px 10px;
 }
 
 #textLP:hover , sliderInput:hover {
@@ -302,32 +246,7 @@ input[real][type="color"] {
 input[real][type="color"]:hover {
   background:#999;
 }
-@media only screen and (max-width: 1100px) {
-  holder button {
-    width: 70px;
-    overflow: hidden;
-    height: 40px;
-    color: transparent !important;
-  }
-  holder button i {
-    color:white !important;
-  }
-  #footerBarHolder>div {
-    max-width: 120px;
-    height:40px;
-    overflow:hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    transition:max-width .2s;
-  }
-    #footerBarHolder>div:hover {
-      max-width:300px;
 
-    }
-    .jump #jumpC {
-padding-bottom: 42px;
-    }
-}
 holder>button {
   vertical-align:6px;margin-left:10px;
 }
@@ -350,17 +269,28 @@ dialog>.elem>input[type="range"] {
 /********************************/
 
 #loadInd {
-position: absolute;
-padding: 4px !important;
-/* background: #ffffff55; */
-color: white;
-text-align: center;
-border-radius: 100%;
-/* float: right; */
-/* border: 1px solid #999; */
-margin-top: 20px;
-display:none;
-margin-left: calc(100% - 161px);
+
+position: absolute;
+
+padding: 4px !important;
+
+/* background: #ffffff55; */
+
+color: white;
+
+text-align: center;
+
+border-radius: 100%;
+
+/* float: right; */
+
+/* border: 1px solid #999; */
+
+margin-top: 20px;
+
+display:none;
+
+margin-left: calc(100% - 161px);
 }
 #loadInd.load {
   display:block;
@@ -394,9 +324,12 @@ dialog>.elem>input[type="range"] {
   transition:.2s;
 }
 .bottomfix[b1] button {
-display: block;
-width: 100%;
-padding: 13px 10px;
+
+display: block;
+
+width: 100%;
+
+padding: 13px 10px;
 }
 .bottomfix button:hover {
   background: #2196F3;
@@ -431,10 +364,20 @@ div#properties {
   resize:none;
   width:310px;
   min-height: 300px;
+
   height: initial;
   padding-bottom: 0px;
 }
 
+#treeObj {
+  max-height: 430px;
+  resize:none;
+  width:310px;
+  min-height: 300px;
+
+  height: initial;
+  padding-bottom: 0px;
+}
 d[dbox][bold] {
   font-weight: bold;
 }
@@ -471,17 +414,21 @@ d[dbox] {
   max-height:160px;
 }
 #msClose {
-position: absolute;
+
+position: absolute;
 }
 #msTypeSelect {
 display: block;
 position: absolute;
 margin-top: -57px;
-margin-left: 76px;
+margin-left: 64px;
+background: #222;
 width: 145px;
+border: 2px solid #2196F3;
 }
 #msbottomfix {
-margin-top: 10px;
+
+margin-top: 10px;
 }
 #msCurrList .elem {
   padding-left:8px;
@@ -493,4 +440,189 @@ a[nxt]:hover {
 }
 a[nxt] {
   padding:1px 10px;
+}
+.inPropIcon {
+  
+padding: 0px;
+font-size: 19px;
+padding-top: 5px;
+vertical-align: -5;
+color: #333;
+padding-left: 6px;
+}
+#saveElems {
+  transition:.3s;
+}
+
+.move-mode #action-move-mode,
+.search-mode #action-search-mode,
+.place-mode #action-place-mode{
+  background:#222;
+}
+
+#diagScrollable {
+  max-height:300px;
+  overflow:auto;
+  margin-left: 200px;
+  border-radius: 5px;
+  margin-right: -16px;
+  /* box-shadow: 0px 0px 15px 14px inset #ff9; */
+  margin-top: 0px;
+}
+#about {
+  width:650px;
+  padding-top: 0;
+}
+
+div#diagMenu {
+    position: absolute;
+    background: #eee;
+    margin-left: -16px;
+    width: 175px;
+    height: 316px;
+    z-index: 999;
+    max-height: 999;
+    border-right:1px solid #ccc;
+}
+div#diagMenu a {
+  display:block;
+  padding: 12px 18px;
+  margin: 5px 0px;
+  /* background: red; */
+  color: #222;
+  margin-right:-1px;
+  border-radius:4px;
+  text-decoration: none;
+  border:1px solid #eee;
+  transition: .1s;
+}
+div#diagMenu a:hover {
+  background:#ccc;
+}
+div#diagMenu>a:active , div#diagMenu>a:focus {
+
+}
+
+#projectName {
+  font-family:'Bahnschrift';
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+[dbox] {
+  overflow: hidden;
+  white-space: nowrap;
+  display: online;
+  max-width: 50px;
+  text-overflow: ellipsis;
+}
+
+/**/
+#selectNode {
+  position:fixed;
+  transition:all .3s;
+  /* height: 57px; */
+  left:0;
+  right:0;
+  top: -10px;
+  background:black;
+  padding: 17px;
+}
+.node-selection #selectNode {
+  top: 64px;
+  /* z-index: 99; */
+}
+.node-selection holder{
+  box-shadow: 0px 2px 3px #000;
+}
+#selectNode b {
+  font-family:'Bahnschrift';
+  color: white;
+}
+#confirmNode:hover {
+  cursor: pointer;
+  background:#2196F3;
+  border-color:black;
+}
+#confirmNode {
+transition:all .15s;
+outline:none;  
+position: absolute;
+border-radius: 4px;
+background: transparent;
+color: white;
+padding: 10px;
+margin: -8px;
+border: 1px solid #999;
+margin-left: 20px;
+right: 100px;
+}
+#selectNode i {
+  color:white;
+  position:absolute;
+  right:20px;
+  top: 3px;
+}
+#selectNode * {
+  color:white;
+}
+
+#clippy {
+width:120px  ;
+z-index: 99;
+  
+position: fixed;
+animation: showClippy .7s;
+opacity:0;
+animation-delay: .6s;
+animation-fill-mode: forwards;
+right: 15px;
+bottom:50px;
+
+}
+#clippyHelp {
+  width:180px  ;
+    z-index: 99; 
+    position: fixed;  
+    right: 15px;
+    bottom:170px;
+    background:#ccc;
+    border-radius:4px;
+    font-size:12px;
+    padding:4px;
+    border: 1px solid #444;
+    animation: showClippyHelp .7s;
+    opacity:0;
+    animation-delay: .6s;
+    animation-fill-mode: forwards;
+}
+#clippyHelp  button {
+  display: block;
+  border:none;
+  cursor:pointer;
+  font-size:12px;
+  text-align:left;
+  width:100%;
+  background:transparent;
+  padding-left:10px;
+  outline:none;
+}
+#clippyHelp  button:hover {
+  background:#eee;
+}
+#clippyHelp  button:before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #FFC107;
+  margin-top: 4px;
+  margin-left:-10px;
+}
+@keyframes showClippyHelp {
+  0% {bottom:130px; opacity:0;}
+  100% {bottom:170px;opacity:1;}
+}
+@keyframes showClippy {
+  0% {bottom:30px; opacity:0;}
+  100% {bottom:50px;opacity:1;}
 }

@@ -1,10 +1,11 @@
 <HTML>
 
 <HEAD>
-    <meta name="author" content="Team Autism" />
+    <meta name="author" content="Rontap, Team Autism" />
     <meta name="description" content="Graph Editor based on Mathematical Modell"/>
-    <meta name="keywords" content="RTS NXT Graph Generator">
+    <meta name="keywords" content="RTS NXT Graph Generator Graphene">
     <link rel="icon" href="../NXTJS/icons/graphisoft.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
 
     <!--importing essential data structures-->
     <script src="./node.class.js"></script>
@@ -31,10 +32,19 @@
        <i class="material-icons">archive</i>
        <span>Import<br>from a savefile</span>
      </div>
+     <div class="cat" onclick="store.export()">
+      <i class="material-icons">unarchive</i>
+      <span>Export As<br>Graphene file</span>
+    </div>
+    <div class="cat" onclick="store.export('Image/Png')">
+      <i class="material-icons">image</i>
+      <span>Export As<br>Image</span>
+    </div>
      <div class="cat" onclick="location.reload()">
        <i class="material-icons">clear</i>
        <span>Clear All<br>A fresh start</span>
      </div>
+     
 
   </div>
 
@@ -43,22 +53,22 @@
     <h1 class="">Graphene </h1>&nbsp;
 
     <button real flat title="Convert the Graph  using Algorithms"onclick="$('body').classList.toggle('jump')" id="jumpC">
-      <i class="material-icons" >create</i>&nbsp; New / Open...</button>
+      <i class="material-icons" >create</i>&nbsp; File...</button>
 
 
     <group  style="vertical-align:6px;">
       <button real flat onclick="store.undo()"><i class="material-icons">undo</i>&nbsp;</button>
       <button real flat onclick="store.redo()"><i class="material-icons">redo</i>&nbsp;</button>
     </group>
-    <group  style="vertical-align:6px;">
+    <!--group  style="vertical-align:6px;">
       <button title="Export Current Graph"real flat onclick="store.export();/*exportIt.showModal();*/"><i class="material-icons" >unarchive</i>&nbsp; Export</button>
-      <!--button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button-->
+      <!--button title="Import Current Graph"real flat  style="border-left:1px solid #333" onclick="importIt.showModal();"><i class="material-icons" >archive</i>&nbsp; Import</button>
 
-    </group>
+    </group-->
 
 
-    <button real flat title="Convert the Graph  using Algorithms"onclick="convertIt.showModal();">
-      <i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert Graph</button>
+    <button real flat title="Convert the Graph  using Algorithms"onclick="/*convertIt.showModal();*/$('body').classList.toggle('node-selection')">
+      <i class="material-icons" >swap_horizontal_circle</i>&nbsp; Convert</button>
 
     <!--button real flat title="Clear everything and reload"err onclick="store.flush(true)">
       <i class="material-icons" >clear</i>&nbsp; Clear All</button-->
@@ -75,26 +85,52 @@
 
     <button real flat id="statusHolder" disabled>...</button>
 </holder>
-<dialog nxt id="about" onclick="this.close()">
-    <h1 class="covered blue-500 white-text" style="margin-bottom:0px;">About Graphene (Beta 10)</h1>
+<dialog nxt id="about" ondblclick="this.close()">
+    <h1 class="covered blue-400 white-text" id="projectName" style="margin-bottom:0px;">Graphene - v12</h1>
+    <div id="diagMenu">
+      <a href="#aboutText">About</a>
+      <a href="#references">References</a>
+      <a href="#updatesw">Update</a>
+      <a href="#references">Developer</a>
+    </div>
+    <div id="diagScrollable">
 
-    <h2> Graph Generator and Editor</h2>
+    
+    
+    <br>
+    <h2 id="aboutText"> Graph Generator and Editor</h2>
     <table>
       <tr><td>Coding:</td><td>Aron Tatai</td></tr>
       <tr><td>Additional Coding:</td><td>Mate Cser</td></tr>
       <tr><td>Help & Testing:</td><td>Mate Csikos-Nagy, Agoston Csehi, Aron Tatai</td></tr>
     </table>
     <br>
-    Created in October 2018.<br>
+    Created from October 2018<br>
     Created in Javascript using NXT.js and coffee.<br><br><hr>
 
     <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Source Code </a> |
     <a nxt href="http://rontap.netne.net"> Website Index</a> |
     <a nxt href="https://github.com/rontap/rts-nxt/tree/master/graphs"> Graph API</a> |
+    
+    <div id="references"><br></div>
+    <h2 >References</h2>
+    <br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
+    <div id="updatesw"><br></div>
+    <h2 >Offline / Webapp</h2>
+    This application can be viewed and used even if offline.<br>
+    App version: <a id="appver">[not loaded]</a><br><br>
+    If you like it, wy not <a nxt>add to your homescreen</a>.<br><br>
+
+    <a nxt>Force Update</a> | 
+    <a nxt>Disable Webapp</a> |
+    <a nxt>Clear Storage</a>
+    <br><br><br><br><br><br><br><br>
     <a nxt href="ver.html"> Version History</a>
 
+  </div>
 </dialog>
-<dialog nxt id="generator">
+<dialog nxt id="generator" ondblclick="this.close();">
 
   <h1 class="covered" style="margin-bottom:0px;">Generate a Graph</h1>
 
@@ -112,16 +148,20 @@
   </span>
   <span class="elem">
     <span>Node Weight Randomness</span>
-    <input nxt value="5" type="range" min=0 max=35 id="weiN">
+    <input nxt value="0" type="range" min=0 max=35 id="weiN">
   </span>
   <span class="elem">
     <span>Connection Weight Randomness</span>
-    <input nxt value="1" type="range" min=0 max=20 id="weiC">
+    <input nxt value="1" type="range" min=0 max=30 id="weiC">
+  </span>
+  <span class="elem">
+    <span>Generate Names</span>
+    <toggle nxt value="1" onclick="this.classList.toggle('on')" checkbox id="randNamesGen"></toggle>
   </span>
   <i id="loadInd" class="material-icons">data_usage</i>
   <action color class="green-500">
     <button flr  onclick="genGraphFromInput();">GENERATE</button>
-    <button  warn onclick="generator.close();">EXIT</button>
+    <button  warn onclick="genGraphRandomly();">EXIT</button>
     <button  warn onclick="generator.close();">RANDOMIZE</button>
   </action>
 </dialog>
@@ -179,23 +219,23 @@
 
 
 <div module="sidebar" id="sidebarProp" onmouseup="this.classList.add('open');">
-  <h2 style="margin-top:10px">Properties</h2>
-  <i id="sidebarPropDrag" class="material-icons" style="" dragger>drag_indicator</i>
+  <h2 id="sidebarPropDrag" >Properties</h2>
+  <i  class="material-icons" style="" dragger>drag_indicator</i>
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="properties"></div>
   <div class="bottomfix" b3>
-    <button warn onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Delete<br>Node</buton><button>Copy Props</button><button disabled>Paste Props</button>
+    <button warn onclick="graph.nodes.delete( clickArea.id );closeWindow('sidebarProp');">Delete<br>Node</buton><button onclick="copyProps( propEl )">Copy Props</button><button onclick="pastePropsToCurrentNode()"disabled id="pasteProps">Paste Props</button>
   </div>
 </div>
 
   <group module="action" id="action" style="margin-left:0px">
-  <button real flat onclick="switchMode('Place')" data-text="Add or Modify Nodes and Links">
+  <button id="action-place-mode" real flat onclick="switchMode('Place')" data-text="Add or Modify Nodes and Links">
     <i class="material-icons" >touch_app</i>
   </button>
-  <button real flat onclick="switchMode('Move')" data-text="Move Field">
+  <button id="action-move-mode" real flat onclick="switchMode('Move')" data-text="Move Field">
     <i class="material-icons" >control_camera</i>
   </button>
-  <button real flat onclick="switchMode('Search')" data-text="Routes and Subgraphs">
+  <button id="action-search-mode" real flat onclick="switchMode('Search')" data-text="Routes and Subgraphs">
     <i class="material-icons" >swap_horizontal_circle</i>
   </button>
   <button real flat onclick="switchMode('Place')" data-text="???">
@@ -206,7 +246,7 @@
 
 
 <div module="sidebar" id="line" onmouseup="this.classList.add('open');" style="height:251px">
-  <h2 style="margin-top:10px" >Line </h2>
+  <h2 >Line </h2>
   <i id="lineDrag" class="material-icons" style="margin-left:218px" dragger>drag_indicator</i>
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
   <div id="linkProperties">
@@ -225,6 +265,26 @@
   </div>
 </div>
 
+<div module="sidebar" id="path" onmouseup="this.classList.add('open');" style="height:251px">
+    <h2 >Path </h2>
+    <i id="pathDrag" class="material-icons" style="margin-left:218px" dragger>drag_indicator</i>
+    <i id="pathClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
+    <div id="pathProperties">
+      <div id="pathkRef" style="margin-top:-15px">&nbsp;</div>
+      path Weight:
+      <br>
+  
+      <input type="range" nxt value="10" max="50" min="0" id="rangeLP" onchange="sidebar.updateLineWidth(this.value)"/>
+      <input id="textLP"type="number" nxt value='10'  onchange="sidebar.updateLineWidth(this.value)"/><span> </span><br><br>
+      <switch checked="true"><span>Bidirectional</span><span>Directed</span></switch><br>
+  
+  
+      <div class="bottomfix" b1>
+        <button warn onclick="sidebar.removeCurrLine();">Delete Connection</buton>
+      </div>
+    </div>
+  </div>
+
 <!--div module="sidebar" id="welcome" onmouseup="this.classList.add('open');" style="height:270px;width:480px;">
   <h2 style="margin-top:10px" >Welcome </h2>
   <i id="welcomeDrag" class="material-icons" style="margin-left:448px" dragger>drag_indicator</i>
@@ -237,8 +297,8 @@
 
 
 <div module="sidebar" id="distance"style="width:350px;"  onclick="this.classList.add('open','on')">
-    <h2 style="margin-top:10px">Measure Distance</h2>
-      <i id="distanceDrag" class="material-icons" style="margin-left:320px" dragger>drag_indicator</i>
+    <h2 id="distanceDrag">Measure Distance</h2>
+      <i  class="material-icons" style="margin-left:320px" dragger>drag_indicator</i>
     Measure Distance Between Two Nodes<br>
     <i>Drag and Drop from a Node to another.</i>
 </div>
@@ -246,8 +306,8 @@
 
 
 <div module="sidebar" id="multiselect"style=""  onmouseup="this.classList.add('open','on')">
-    <h2 style="margin-top:10px">LIST</h2>
-      <i id="multiselectDrag" class="material-icons" style="margin-left:270px" dragger>drag_indicator</i>
+    <h2  id="multiselectDrag">LIST</h2>
+      <i class="material-icons" style="margin-left:270px" dragger>drag_indicator</i>
       <i id="msClose" class="material-icons" style="margin-left: 225px;" onclick="minimiseFactory('multiselect')" closer>vertical_align_bottom</i>
       <select nxt flat id="msTypeSelect">
         <option>from Selection</option>
@@ -266,33 +326,44 @@
 </div>
 
 <div module="sidebar" id="textStyle" style="width:280px;height:380px;"onmouseup="this.classList.add('open');">
-  <h2 style="margin-top:10px">Text Style</h2>
-  <i id="textStyleDrag" class="material-icons" style="" dragger>drag_indicator</i>
+  <h2  id="textStyleDrag">Text Style</h2>
+  <i class="material-icons" style="" dragger>drag_indicator</i>
   <i id="lineClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i><br>
-  Node Text Styling (set text in Node properties)<br><br>
+  Node Text Styling<br><br>
   <div id="">
   <span class="elem">
     <span>Font Size</span>
-    <input double type="range" nxt="" value="10" max="50" min="0"  onchange="sidebar.updateLineWidth(this.value)">
-    <input  double type="number"  value="10" onchange="sidebar.updateLineWidth(this.value)">
+    <input id="rangeFontLP" step=".5" double type="range" nxt="" value="12" max="40" min="2"  onchange="sidebar.setFontSize(this.value)">
+    <input id="textFontLP" double type="number"  value="12" onchange="sidebar.setFontSize(this.value)">
   </span>
   <span class="elem">
     <span>Rotation</span>
-    <input double type="range" nxt="" value="10" max="50" min="0"  onchange="sidebar.updateLineWidth(this.value)">
-    <input  double type="number"  value="10" onchange="sidebar.updateLineWidth(this.value)">
+    <input double type="range" nxt="" value="10" max="50" min="0"  onchange="sidebar.(this.value)">
+    <input  double type="number"  value="10" onchange="sidebar.(this.value)">
   </span>
-
+  <span class="elem">
+    <span>Default Text</span>
+    <input real flat  onchange="textExtra[0]=this.value;render(null,{which:3})" value="" placeholder="if no text is set">
+  </span>
+  <span class="elem">
+    <span>Prefix Text</span>
+    <input real flat  onchange="textExtra[1]=this.value;render(null,{which:3})" value="" placeholder="before all text">
+  </span>
+  <span class="elem">
+    <span>Suffix Text</span>
+    <input real flat  onchange="textExtra[2]=this.value;render(null,{which:3})" value="" placeholder="after all text">
+  </span>
 
     <span class="elem">
       <span>Font Color</span>
-      <input real flat type="color">
+      <input real flat type="color" id="fontColor" onchange="render(null,{which:3})">
     </span>
   </div>
 </div>
 
-<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')" style="height:460px">
-    <h2 style="margin-top:10px">View and<br> highlighting</h2>
-    <i id="viewerDrag" class="material-icons" style="" dragger>drag_indicator</i>
+<div module="sidebar" id="viewer"  onmouseup="this.classList.add('on')" style="height:530px">
+    <h2 id="viewerDrag">View and<br> highlighting</h2>
+    <i  class="material-icons" style="" dragger>drag_indicator</i>
     <i id="viewerClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
 
     <span class="elem">
@@ -305,6 +376,7 @@
       <option value="NoColoring">No Coloring</option>
     </select>
   </span>
+
 
   <span class="elem">
     <span>Connection weight:</span>
@@ -328,7 +400,7 @@
       <option value="Default" default>Default (Black)</option>
       <option value="FromWeight">Calculate From Weight</option>
       <option value="HighlightCircles">Highlight Circles</option>
-      <option value="SE">Highlight Something Else</option>
+      <option value="SE">[not implemented]</option>
 
     </select>
 </span>
@@ -336,42 +408,84 @@
     <span>Background Color</span>
     <input real flat type="color" onchange="canvBgColor=this.value;render(null,{which:3})" value="#ffffff">
   </span>
+
+  <span class="elem" id="saveElems"><br>
+    Changes are not saved, only highlighed.<br> <button nxt>Apply Changes to elements</button>
+  </span>
+</div>
+
+<div module="sidebar" id="treeObj"  onmouseup="this.classList.add('on')" style="height:530px">
+  <h2  id="treeObjDrag">TREE</h2>
+  <i class="material-icons" style="" dragger>drag_indicator</i>
+  <i id="treeObjClose" class="material-icons" onclick="minimiseFactory(this.parentElement.id)" closer>vertical_align_bottom</i>
+  <br>
+  <select id="treeColouring">
+    <option disabled selected value="fromGlobal">Default (Inherit)</option>
+    <option value="fromGlobal">Inherit from Global Settins</option>
+    <option value="fromDST">From distance to root</option>
+  </select>
+  Zsaaa<br>
 </div>
 
 
+
 </div>
+
+<div id="selectNode">
+  <b>Select a Node for</b><c> to convert its subgraph to tree.</c>
+  <b>Selected: </b><c id="propElDesc">None.</c>
+  <button id="confirmNode" onclick="toTree();">Convert <span id="convertToText">Selected</span></button>
+  <i class="material-icons" onclick="$('body').classList.remove('node-selection') ">clear</i>
+  
+</div>
+
+
 <footer id="docFooter">
   <div id="footerBarHolder"></div>
-
-
   <div id="shortcutHelp">Click to add a new Node</div>
 </footer>
 
-
+<span id="clippyHolder">
+<img src="resources/clippy.png" id="clippy">
+<div id="clippyHelp">
+  It looks like you're trying to<br>
+  Create a New Graph. Let me help you!<br>
+  <button>Click anywhere to create a new node</button>
+  <button>Connect to nodes to create an edge</button>
+  <button>Try using ALT/DEL to move and delete edges</button>
+  <button>Keep in mind that this is a homemade proof-of-concept</button>
+  <button onclick="clippyHolder.innerHTML=''">Close Clippy :(</button>
+</div>
+</span>
 </BODY>
    <script src="../NXTJS/material-colors.js"></script>
 
-   <script src="./main.js"></script>
-   <script src="./window.js"></script>
-   <script src="./struct.js"></script>
-   <script src="./render.js"></script>
-   <script src="./sidebar.js"></script>
-   <script src="./keyboard.js"></script>
-   <script src="./dnd.js"></script>
-   <script src="./generator.js"></script>
-   <script src="./circle.js"></script>
-   <script src="./multi.js"></script>
+   <script src="./js/main.js"></script>
+   <script src="./js/window.js"></script>
+   <script src="./js/struct.js"></script>
+   <script src="./js/render.js"></script>
+   <script src="./js/sidebar.js"></script>
+   <script src="./js/keyboard.js"></script>
+   <script src="./js/dnd.js"></script>
+   <script src="./js/generator.js"></script>
+   <script src="./js/circle.js"></script>
+   <script src="./js/multi.js"></script>
+   <script src="./js/text.js"></script>
+   <script src="./js/convert.js"></script>
 
    <link rel="stylesheet" href="../NXTJS/design.css">
    <link rel="stylesheet" href="../NXTJS/elements.css">
    <link rel="stylesheet" href="../NXTJS/input.css">
    <link rel="stylesheet" href="../projectx/xfiles-ui.css">
 
+   <link rel="stylesheet" href="modules.css">
    <link rel="stylesheet" href="main.css">
    <link rel="stylesheet" href="dnd.css">
    <link rel="stylesheet" href="jumper.css">
+   <link rel="stylesheet" href="mediaquery.css">
 
    <script src="../NXTJS/design-input.js"></script>
+   <script src="service-manager.js" type="text/javascript"></script>
 
       <script>
       localStorage[''+NAME+VERSION+'MainStorage'] !== undefined ? store.load() : store.init();

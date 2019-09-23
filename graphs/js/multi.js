@@ -6,7 +6,8 @@ ms.selected = new Set(); //array of IDS
 
 ms.update = function() {
   ms.sumstore = [[],[],[],[],[]];
-  box = (data,title='',props=[]) => {
+  box = (data,title,props=[]) => {
+    title = title || data;
     data = isNaN(data) ? String(data) : data;
 
     return `<d dbox ${props.toString().replace(/,/g,' ')} title='${title}'>${['NaN','',NaN,undefined,null].has(data) ? '-' : data}</d>`

@@ -1,0 +1,216 @@
+#canv , #cover, #canvUI,#canvOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0; 
+    bottom:0;
+}
+* {
+    user-select:none;
+}
+#desc b {
+    font-size:26px;
+}
+#desc {
+    position:fixed;
+    width:460px;
+    left:calc(50% - 250px);
+    border-radius:4px 4px 0px 0px;
+    border:1px solid #666;
+    bottom: -184px;
+    font-family:'Bahnschrift' , 'Courier  New';
+    /*Bahnschrift buildt in font for Win10+,Courier new is a fallback */
+    padding:20px;
+    background:#eeeeee99;
+    transition:.2s;
+}
+#desc:hover, #desc.active {
+    bottom:0px;
+}
+th {
+    text-align:left;
+}
+td {
+    padding:0 10px 0px 0px;
+}
+#desc:hover button {
+    opacity:1;
+}
+button {
+    /* opacity:0; */
+    transition: .2s;
+    border:1px solid #999;
+    background:#fff;
+    border-radius:3px;
+    outline:none;
+    padding:8px;
+    cursor:pointer;
+}
+#closeBtn {
+    float:right;
+
+    padding: 4px 8px;
+}
+#closeBtn:hover {
+    background: #F44336;
+    border-color:black;
+    color:white;
+}
+toast {
+    font-family:'Bahnschrift' , 'Courier  New';
+}
+#debug {
+    margin:10px;
+    text-shadow: 0px 0px 2px #999;
+    color: black;
+    position: fixed;
+    top: 0;
+    /* display: none; */
+}
+#flash, #collisions,#maxCollisions,#timeLeft,#pauseBtn{
+    position:fixed;
+    bottom: 18px;
+    left: 18px;
+    font-size: 21px;
+    color: #444;
+}
+ #timeLeft{
+    left: 87px;
+}
+#maxCollisions {
+    left: 157px;
+}
+
+#collisions {
+    left: 227px;
+}
+#flash.on {
+    color:white;
+}
+#pauseBtn {
+    right:20px;
+    left:initial;
+    border-radius: 100%;
+    border:1px solid transparent;
+}
+#pauseBtn.active {
+    background:#444;
+    color:white;
+    animation:rotatePauseBtn .5s;
+}
+@keyframes rotatePauseBtn {
+    0% { transform:rotate(180deg); }
+    100% {transform:rotate(360deg); }
+}
+#pauseBtn:hover {
+     border:1px solid #444;
+}
+canvas#canv {
+    background-image: linear-gradient(#EEEEEE,#FAFAFA);
+}
+#powerups {
+    position:fixed;
+    top:calc(100% - 84px);
+    overflow:hidden;
+    bottom: 84px;
+    left:0;
+    right:0;
+    background: #fff;
+    padding:0px 30px;
+    transition:all .4s;
+}
+#powerups.on {
+    top:0;
+    padding: 30px;
+
+}
+[guide].on {
+    top:0;
+    
+}
+[guide] {
+    transition:all .2s;
+    font-family:Bahnschrift;
+    color:white;
+    font-weight: 300;
+    background:#666;
+    /* border-bottom:1px solid #444; */
+    font-size:17px;
+    overflow:auto;
+    position:fixed;
+    top:-250px;
+    left:0;
+    right:0;
+    box-shadow: 0px 0px 3px #666;
+    height:170px;
+    padding:20px;
+}
+#tutorialPlane.on {
+    position:fixed;
+    top:220px;
+    left:0;
+    right:0;
+    transition: all 1s;
+    bottom:75px;
+    text-align:center;
+    padding-top: 100px;
+    font-size:30px;
+    font-family:'Bahnschrift';
+    transition: all .4s cubic-bezier(0.85, -0.35, 0.58, 1);
+    text-shadow:0px 0px 1px #222;
+}
+#tutorialPlane.on:hover {
+    /* background:#f1f1f1; */
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+#powerups div {
+    border-radius:30px;
+    padding: 3px 35px;
+    border:2px solid #999;
+    margin:15px 5px;
+    transition:.25s;
+    vertical-align: -20px;
+}
+#powerups i {
+    border-radius:100%;
+    background: #9C27B0;
+    padding: 8px 8px;
+    margin-left: -32px;
+    color: white;
+    margin-right: 12px;
+} 
+#powerups div:hover {
+    background: #9C27B0;
+    color:white;
+    border-color:#9C27B0;
+    cursor: pointer;
+}
+#powerups span {
+    vertical-align: 6px;
+    font-family:'Bahnschrift';
+}
+.pre-game #pre-game {
+    position: fixed;
+    top: 100px;
+    bottom: 150px;
+    left: calc(50% - 200px);
+    width: 360px;
+    border-radius: 4px;
+    background: #ffffffeb;
+    padding: 20px;
+    border: 1px solid #999;
+    display:block;
+}
+#pre-game {
+    display:none;
+}
+#pre-game button {
+    display:block;
+    width:150px;
+    font-size: 19px;
+}
+body:not(.pre-game) {
+    cursor: crosshair;
+}
