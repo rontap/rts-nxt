@@ -4,10 +4,15 @@ var CACHE_NAME = 'rontap-populistic-cache-v4r0';
 
 var urlsToCache = [
   './index.html',
-  './main.css',
-  './animate.css',
-  './game.js',
-  './powerups.js',
+  './styles/main.css',
+  './styles/animate.css',
+  './styles/powerups.css',
+  './styles/upgrades.css',
+  './styles/media.css',
+  './js/game.js',
+  './js/powerups.js',
+  './js/main.js',
+  './js/render.js',
   './manifest.json',
   './service.js',
   './service-manager.js'
