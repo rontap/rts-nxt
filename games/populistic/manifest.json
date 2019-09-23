@@ -4,17 +4,17 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "./icon.png",
+      "src": "./media/icon.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "./icon.png",
+      "src": "./media/icon.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "./icon.png",
+      "src": "./media/icon.png",
       "type": "image/png",
       "sizes": "192x192"
     }
