@@ -28,11 +28,12 @@ self.addEventListener('install', function(event) {
         console.log('[ServiceWorker] Cache is Active');
         return cache.addAll(urlsToCache);
       })
+
   );
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['rontap-populistic-cache-v4r0'];
+  var cacheWhitelist = ['rontap-populistic-cache-v4r00'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {
