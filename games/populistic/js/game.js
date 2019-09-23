@@ -13,6 +13,21 @@
 // --- BASIC SETUP -------------------------------
 // -----------------------------------------------
 
+function forceUpdate() {
+    caches.keys().then(function(keyList) {
+        return Promise.all(keyList.map(function(key) {
+
+
+            caches.delete(key);
+
+        }));
+    });
+    alert('Force Updating App...');
+    location.reload();
+}
+
+
+
 let level = 0;
 //variables
 let size = 10;
