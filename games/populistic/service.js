@@ -12,6 +12,7 @@ var urlsToCache = [
   './js/game.js',
   './js/powerups.js',
   './js/main.js',
+  './js/modes.js',
   './js/render.js',
   './manifest.json',
   './service.js',
@@ -31,7 +32,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['rontap-populistic-cache-v4r0.1'];
+  var cacheWhitelist = ['rontap-populistic-cache-v4r0'];
 
   event.waitUntil(
     caches.keys().then(function(keyList) {
