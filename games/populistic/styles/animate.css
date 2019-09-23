@@ -1,0 +1,245 @@
+#winAnimate {
+    background: red;
+    display:    block;
+    left:       1px;
+    opacity:    1;
+    position:   fixed;
+    top:        1px;
+
+}
+
+#winAnimate.on {
+    transition: .75s ease-in;
+
+}
+
+selector span.on {
+    color: white;
+}
+
+#start {
+    background:  var(--bg);
+    box-shadow:  0px 2px 3px #222;
+    color:       #eee;
+    height:      25px;
+    margin-left: calc(50% + 146px);
+    margin-top:  213px;
+    position:    absolute;
+    width:       25px;
+}
+
+.started nav.fixed {
+    background: var(--bg);
+}
+
+#start.on {
+    animation:           matresize 1s;
+    animation-fill-mode: forwards;
+    display:             block !important;
+}
+
+#menu.hideall {
+    display: none;
+}
+
+#menu {
+    height:      352px;
+    margin-left: calc(50% - 177px);
+    margin-top:  0px;
+    padding:     0px;
+    position:    absolute;
+    text-align:  center;
+    width:       352px;
+}
+
+@keyframes matresize {
+    0% {
+    }
+    20% {
+        color: transparent;
+    }
+    70% {
+        margin-left:   calc(50% - 177px);
+        margin-top:    0px;
+        border-radius: 0px;
+        width:         320px;
+        height:        320px;
+        color:         transparent;
+        opacity:       1;
+    }
+    100% {
+        margin-left:   calc(50% - 177px);
+        margin-top:    0px;
+        border-radius: 0px;
+        width:         320px;
+        height:        320px;
+        opacity:       0;
+        display:       none;
+    }
+}
+
+#controls {
+    opacity:    0;
+    transition: all .4s;
+}
+
+.started #controls {
+    bottom:  60px;
+    opacity: 1;
+}
+
+#move, #level {
+    margin-top: 140px;
+    opacity:    0;
+    transition: all .4s;
+}
+
+.started #move, .started #level {
+    margin-top: 169px;
+    opacity:    1;
+}
+
+
+/* cancer mobile edition! */
+@media screen and (max-width: 800px) {
+    .started #controls {
+        bottom:      80px;
+        font-weight: bold;
+        left:        0px;
+        right:       0px;
+
+    }
+
+    #controls button {
+        border-radius: 0px;
+        display:       table-cell;
+        padding:       25px 10px;
+    }
+
+    #move {
+        border-radius: 0px !important;
+        bottom:        0;
+        right:         0;
+        width:         calc(50% - 50px);
+    }
+
+    #level {
+        border-radius: 0px !important;
+        bottom:        0;
+        left:          0;
+        width:         calc(50% - 50px);
+    }
+
+    #reload {
+        bottom:    80px !important;
+        display:   none;
+        font-size: 20px;
+        height:    65px;
+        margin:    0px calc(50% - 160px);
+        width:     300px;
+    }
+
+    #reload.on {
+        display: block;
+    }
+
+    #power_selection {
+        left:        0;
+        margin-left: 0px !important;
+        right:       0;
+        width:       initial;
+    }
+}
+
+@media screen and (max-width: 500px) ,
+(max-width: 800px) and (max-height: 700px) {
+    #start {
+        margin-left: calc(50% - 28px);
+        margin-top:  322px;
+    }
+
+    #NineDotMenu {
+        display: none;
+    }
+
+    #pageTitle {
+        color: #eee !important;
+    }
+
+    body:not(.started) nav {
+        height: 100% !important;
+    }
+
+    nav {
+        height:     42px !important;
+        transition: all .2s;
+    }
+
+    #menu {
+        box-shadow: 0px 1px 2px #444;
+    }
+
+    #pwrup {
+
+        border-radius: 0px !important;
+        bottom:        8px;
+        box-shadow:    0px 0px 0px black !important;
+        left:          0px;
+        position:      fixed;
+        right:         0px;
+        width:         calc(100% - 2px) !important;
+    }
+
+    #pwrup i {
+        padding:    18px 12px;
+        text-align: center;
+        width:      calc(25% - 22px);
+    }
+
+    .started #controls {
+        bottom: 140px;
+    }
+
+    #level, #move {
+        font-size: 15px;
+    }
+
+    body:not(.started) footer {
+        color:      #eee !important;
+        left:       0px !important;
+        text-align: center;
+
+    }
+
+    .started footer {
+        bottom:    120px;
+        font-size: 12px;
+        left:      0px;
+        padding:   8px;
+        width:     50px;
+    }
+
+
+}
+
+@media screen and (max-width: 650px)  and (max-height: 680px) {
+    #pwrup i {
+        padding: 10px 12px !important;
+    }
+    #pwrup_gradient {
+        height: 44px !important;
+    }
+    .started #controls {
+        bottom: 100px;
+    }
+    .started #controls button {
+        padding: 12px 10px !important;
+    }
+    .started #canv {
+        margin-top: 20px;
+        transition: all .2s;
+    }
+    #reload.on {
+        bottom: 100px !important;
+    }
+}

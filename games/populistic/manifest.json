@@ -1,0 +1,26 @@
+{
+  "short_name": "Populistic",
+  "name": "Populistic Game 4r0",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./icon.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "./icon.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "./icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+
+  ],
+  "start_url": "index.html?launcher=true",
+  "background_color": "#f1f1f1",
+  "theme_color":"#3F51B5"
+}

@@ -1,0 +1,326 @@
+#evolveBtn {
+    bottom:         60px;
+    box-shadow:     0px 1px 2px #999;
+    font-family:    'Montserrat';
+    font-size:      20px;
+    font-weight:    bold;
+    font-weight:    uppercase;
+    margin-left:    calc(50% - 176px);
+    margin-top:     371px;
+    padding-bottom: 15px;
+    padding-top:    15px;
+    position:       fixed;
+    width:          302px;
+}
+
+#evolveBtn:hover {
+    background: #ddd;
+    cursor:     pointer;
+}
+
+#evolveBtn:active {
+    background: white;
+    box-shadow: 0px 3px 4px #999;
+}
+
+footer {
+    bottom:   20px;
+    color:    #999;
+    left:     200px;
+    position: absolute;
+
+    right:    0;
+}
+
+body:not(.started) #pwrup {
+    display: none;
+}
+
+#pwrup {
+
+    border:        1px solid #999;
+    border-radius: 4px;
+    box-shadow:    0px 1px 2px #888;
+
+    display:       block;
+    margin:        40px auto;
+    width:         190px;
+}
+
+#pwrup i {
+    padding: 18px 12px;
+}
+
+#pwrup i:hover::before {
+    background:    white;
+    border-radius: 100%;
+    content:       '';
+    display:       block;
+    height:        36px;
+    margin-left:   -6px;
+    margin-top:    -6px;
+    opacity:       .85;
+    position:      absolute;
+    transition:    background .2s;
+    width:         36px;
+    z-index:       -1;
+}
+
+#pwrup_gradient {
+    background:   repeating-linear-gradient(
+                          60deg,
+                          #ddd,
+                          #ddd 8px,
+                          #ccc 8px,
+                          #ccc 16px
+                  );
+    border-right: 1px solid #aaa;
+    height:       61px;
+    position:     absolute;
+    transition:   all .2s linear;
+    width:        100px;
+    z-index:      -1;
+
+}
+
+div > a[target="_blank"] {
+    display: none !important;
+}
+
+div[dialog] {
+    background: #eee;
+    box-shadow: 0px 2px 3px #222;
+    height:     100px;
+    left:       calc(50% - 175px);
+    overflow:   hidden;
+    padding:    0px 25px 25px 25px;
+    position:   fixed;
+    top:        -200px;
+    width:      300px;
+}
+
+div[dialog].on {
+    border-radius: 4px;
+    height:        400px;
+    opacity:       1;
+    overflow:      show;
+    top:           80px;
+
+    transition:    all .4s;
+
+    z-index:       99;
+}
+
+#backdrop.on {
+    animation: showBackdrop .6s forwards;
+    bottom:    0;left: 0;position: fixed;right: 0;
+    top:       0;
+    z-index:   3;
+}
+
+@keyframes showBackdrop {
+    0% { background: rgba(160, 160, 160, 0);}
+    100% { background: rgba(60, 60, 60, 0.7);}
+}
+
+#restart {
+    text-align: center;
+
+}
+
+@keyframes showDialog {
+    0% {
+
+    }
+    100% {
+
+    }
+}
+
+button.fab {
+    border-radius: 20px;
+
+
+    box-shadow:    0px 2px 3px #222;
+}
+
+button.fab i {
+
+}
+
+.primary {
+    background: var(--primary) !important;
+}
+
+#inset {
+    font-size: 20px;
+}
+
+.ups {
+    background:    #FDD835;
+    border:        2px solid #FFEB3B;
+    border-radius: 4px;
+    margin:        0 auto;
+
+
+    padding:       10px;
+
+}
+
+#newGames {
+    border-radius: 0px 0px 4px 4px;
+    left:          0;
+    position:      absolute;
+    right:         0;
+    top:           350px;
+}
+
+
+.evolve .evolve {
+    background: linear-gradient(white, #eee);background-size: 11px 105px;border-bottom: 1px solid #999;margin: 0px -25px;padding: 12px 7px;transition: all .2s;width: 332px;}
+
+.evolve .evolve span {
+    color:      #444;
+    transition: all .2s;
+}
+
+.evolve .evolve:hover span {
+    color: #000;
+}
+
+.evolve .evolve:hover {
+    background-position: 60px;
+
+
+    cursor:              pointer;
+}
+
+.evolve:hover * {
+    cursor: pointer;
+}
+
+.evolve span {
+    display:      inline-block;
+    padding-left: 5px;
+    width:        100px;
+}
+
+.evolve item {
+    background:    white;
+    border:        1px solid transparent;
+    border-radius: 4px;
+    box-shadow:    0px 0px 2px #999;
+    display:       inline-block;
+    height:        24px;
+    margin:        0px 0px;
+    width:         24px;
+
+}
+
+.evolve span {
+    font-size:     15px;
+    padding-left:  10px;
+    padding-right: 20px;
+}
+
+.evolve item[on] {
+    background: rgb(33, 150, 243);
+}
+
+#traits .evolve item[on] {
+    background: rgb(244, 67, 54);
+}
+
+#traits .evolve item {
+    margin-left: 130px;
+}
+
+.evolveIO nav {
+    height:     38px !important;
+    transition: all .6s;
+}
+
+.evolveIO #pageTitle {
+    margin-top: -25px !important;
+    transition: all .6s;
+}
+
+.evolveIO #start {
+    height:     23px;
+    margin-top: 54px;
+    transition: all .6s;
+    width:      23px;
+}
+
+.evolveIO #menu {
+    opacity: 0;
+    z-index: -2;
+}
+
+.evolveIO #canv {
+    opacity: 0;
+    z-index: -2;
+}
+
+#evolveHolder {
+    display:    none;
+    margin:     0 auto;
+    margin-top: -170px;
+    opacity:    1;
+    width:      347px;
+}
+
+.evolve #menu {
+    display: none !important;
+}
+
+.evolve #evolveBtn, .evolve #canv {
+    display: none !important;
+}
+
+.evolve #evolveHolder {
+    display: block;
+}
+
+#evolveHolder .card {
+    width: 296px;
+}
+
+.evolveIO #evolveBtn {
+    opacity: 0;
+    z-index: -2;
+
+}
+
+.evolveIO #evolveHolder.on {
+    margin-top: 90px;
+    opacity:    1;
+    transition: all .4s;
+}
+
+.evolveIO h1 {
+    border-bottom: 0px solid black !important;
+    border-radius: 0px;
+    color:         white !important;
+    font-size:     20px;
+}
+
+.evolveIO h2 {
+    color:         white !important;
+    font-size:     16px;
+    margin-bottom: 0px !important;
+    text-align:    left;
+}
+
+#upgradeHeader {
+    background:    #eee;
+    margin-bottom: -25px;
+    padding:       30px 30px 30px 100px;}
+
+}
+
+#upgradeIcon {
+    color:       white;
+    margin-left: -80px;
+    margin-top:  -16px;
+}
