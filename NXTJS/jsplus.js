@@ -71,7 +71,7 @@ Array.prototype.isSame = function() {
   //this is not perfect. when all elements are false or 0, this will fail.
   //useful for checking whether even one element is valid/on.
   return !!this.reduce((a, b) => (a === b) ? a : NaN );
-}
+};
 
 Array.prototype.copy = function() {
   //returns deep copy of element. doesnt work if the array contains functions.

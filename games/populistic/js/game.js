@@ -13,47 +13,27 @@
 // --- BASIC SETUP -------------------------------
 // -----------------------------------------------
 
-function forceUpdate() {
-    caches.keys().then(function(keyList) {
-        return Promise.all(keyList.map(function(key) {
-
-
-            caches.delete(key);
-
-        }));
-    });
-    alert('Force Updating App...');
-    location.reload();
-}
-
-
-
 let level = 0;
 //variables
 let size = 10;
+
+let previousColor = null;
 let cellWidth = 10;
 let content = [];
 let validity = [];
 let movesTook = Array(99).fill(0);     //storing how many moves you took to complete each level!
 let isAllowed = true;
 
-gameMode = "normal";
-//gamemodes: Normal/Zen
+let gameMode = "normal";
+//gamemodes: Normal/Zen/TimeAttack
 var canvas = document.getElementById("canv");
 var ctx = canvas.getContext("2d");
 
-cancerMetastasis = [null, null];
-isMetastasis = false;
+let secondCenterPoint = [null, null];
+let isSecondCentrePointActive = false;
 
-
-schemeStore = [
-    ["f44336", "3F51B5", "009688", "FFEB3B", "795548", "8E24AA", "039BE5", "7CB342", "F4511E", "546E7A", "212121"],
-    ["E74856", "00CC6A", "0078D7", "C239B3", "FF8C00", "00B7C3", "6B69D6", "FFB900", "4C4A48", "515C6B", "212121"],
-    ["e74c3c", "2ecc71", "3498db", "e67e22", "9b59b6", "34495e", "1abc9c", "f1c40f", "95a5a6", "#ecf0f1", "212121"],
-    ["c62828", "e53935", "6A1B9A", "F06292", "E91E63", "C2185B", "f44336", "b71c1c", "d50000", "#9C27B0", "212121"]
-];
-scheme = schemeStore[2];
-colorRange = 3;
+let colorRange = CONST.defaultColorRange;
+let scheme =  CONST.schemeWallColor.concat(CONST.schemeStore[CONST.defaultScheme]);
 
 // -----------------------------------------------
 // --- DRAWING NEW LEVEL -------------------------
@@ -75,25 +55,36 @@ function paint() {
         content[line] = [];   //resetting every color
         validity[line] = [];  //resetting every validity
         for (cell = 0; cell < size; cell++) {  //looping through all cells
-            let selectedBrush = Math.randInt(colorRange);
+            let selectedBrush = Math.randInt(colorRange)+1;
             content[line][cell] = selectedBrush; //saving to array!!!
             validity[line][cell] = false; //filling up with false
             ctx.fillStyle = "#" + scheme[selectedBrush];
             ctx.fillRect(cell * cellWidth, line * cellWidth, cellWidth, cellWidth);
         }
     }
+    //drawWalls
+    let numberOfWalls = Math.min((level**2), CONST.maxWallPercent*size*size);
+    for (let iwall= 0; iwall<numberOfWalls;iwall++) {
+        let [cell,line] = [Math.randInt(size),Math.randInt(size)];
+
+        content[line][cell] = 0;
+        ctx.fillStyle = '#'+ CONST.schemeWallColor;
+        ctx.fillRect(cell * cellWidth, line * cellWidth, cellWidth, cellWidth);
+    }
+
+
     //paintCancerCell Center
-    isMetastasis = false; //resetting double center
-    cancerMetastasis = [null, null];
+    isSecondCentrePointActive = false; //resetting double center
+    secondCenterPoint = [null, null];
 
     //update center
     currColor = content[cancerOrigin[1]][cancerOrigin[0]];
     paintCentre(cancerOrigin[0], cancerOrigin[1]);
-    if (isMetastasis) paintCentre(cancerMetastasis[0], cancerMetastasis[1]);
+    if (isSecondCentrePointActive) paintCentre(secondCenterPoint[0], secondCenterPoint[1]);
 
     // updating controls
     $('#controls').innerHTML = '';
-    for (i = 0; i < colorRange; i++) {
+    for (i = 1; i < colorRange+1; i++) {
         $('#controls').innerHTML += "<button nxt onclick='clickTo(" + i + ")' style='background:#" + scheme[i] + "'>" + i + "</button>"
     }
 
@@ -123,7 +114,7 @@ function updatePaint(color) {
 
         //redraw cancer centers
         paintCentre(cancerOrigin[0], cancerOrigin[1]);
-        if (isMetastasis) paintCentre(cancerMetastasis[0], cancerMetastasis[1]);
+        if (isSecondCentrePointActive) paintCentre(secondCenterPoint[0], secondCenterPoint[1]);
     }
 }
 
@@ -139,7 +130,6 @@ function paintCentre(xPos, yPos) { //cancer center drawing
 // -----------------------------------------------
 // --- CHANGING CANCER COLOR ---------------------
 // -----------------------------------------------
-
 
 function clickTo(color) {
 
@@ -162,6 +152,10 @@ function clickTo(color) {
     }
 
     if (color > colorRange) return false; //invalid color
+    if (color === 0) return false;
+
+    if (color == previousColor) return false;
+    previousColor = color;
 
     powerup.stepStrength(level);
 
@@ -176,9 +170,9 @@ function clickTo(color) {
     x = cancerOrigin[1];
     y = cancerOrigin[0];
     expand(x, y, currColor);
-    if (isMetastasis) { //áttét
-        validity[cancerMetastasis[1]][cancerMetastasis[0]] = true;
-        expand(cancerMetastasis[1], cancerMetastasis[0], currColor);
+    if (isSecondCentrePointActive) { //áttét
+        validity[secondCenterPoint[1]][secondCenterPoint[0]] = true;
+        expand(secondCenterPoint[1], secondCenterPoint[0], currColor);
     }
     powerup.goArray.push(content);
 
@@ -189,13 +183,14 @@ function clickTo(color) {
 
     // [LEVEL PROGRESSION]
     movesTook[level - 1]++; //adding moves
+    let prevColor = null;
 
     if ((gameMode === "normal") || (gameMode === "time")) {
         reqMoves[level - 1]--;
         movesLeft.innerHTML = reqMoves[level - 1];
 
         // -- INCREASING HARDNESS --
-        if (content.map(x => x.isSame()).isSame()) {//you won
+        if ( isWon() ) {//you won
             reqMoves[level] += reqMoves[level - 1];
             size += 2;
             if (level % 3 === 1) {
@@ -219,7 +214,7 @@ function clickTo(color) {
     if (gameMode === "zen") {
         movesLeft.innerHTML = movesTook[level - 1];
         move_text.innerHTML = "Moves Used";
-        if (content.map(x => x.isSame()).isSame()) {//you won
+        if ( isWon() ) {//you won
 
             reqMoves[level] += reqMoves[level - 1];
             size += 2;
@@ -292,6 +287,10 @@ function isValid(x, y, color) {
 
 
     return isValid;
+}
+
+function isWon() {
+    return content.every( array => array.isSameOrZero(array) )
 }
 
 function startGame()//animtaion

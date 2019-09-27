@@ -167,7 +167,7 @@ selector span.on {
     }
 
     body:not(.started) nav {
-        height: 100% !important;
+        height: calc(100% - 150px) !important;
     }
 
     nav {
@@ -205,10 +205,9 @@ selector span.on {
     }
 
     body:not(.started) footer {
-        color:      #eee !important;
+        color: #5C6BC0 !important;
         left:       0px !important;
         text-align: center;
-
     }
 
     .started footer {

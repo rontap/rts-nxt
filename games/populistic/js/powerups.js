@@ -10,7 +10,7 @@
 */
 powerup = {};
 powerup.active = undefined ;// no powerups are active
-powerup.strength = 0 //0-100
+powerup.strength = 0; //0-100
 
 powerup.name = [ "Targeted Campaign", "Fundraiser" , "Postponed Election" ,"Vice President"];
 powerup.longname=["Select a single point in the field to change it to your current color.",
@@ -99,17 +99,17 @@ powerup.clear = function(xPos,yPos) {
 powerup.goArray = [];
 powerup.goBack = function(by) {
 
-}
+};
 powerup.metastasis = function(xPos,yPos) { //activate attet
   if (powerup.strength>90) {
-    cancerMetastasis=[xPos,yPos];
+    secondCenterPoint=[xPos,yPos];
     validity[xPos][yPos]=true;
-    isMetastasis=true;
+    isSecondCentrePointActive=true;
     powerup.active = null;
     powerup.updateStrength(-(90));
   }
 
-}
+};
 
 powerup.expand = function() {
     if (powerup.strength>50) {
@@ -118,7 +118,7 @@ powerup.expand = function() {
 
     powerup.updateStrength(-(50));
   }
-}
+};
 
 //inner function
 powerup.expandArr = function(a /*2D array*/) { //expands true values in every direction
