@@ -1,4 +1,4 @@
-#evolveBtn {
+#evolveBtn ,#aboutBtn {
     bottom: 50px;
     box-shadow:     0px 1px 2px #999;
     font-family:    'Montserrat';
@@ -13,12 +13,12 @@
     width:          302px;
 }
 
-#evolveBtn:hover {
+#evolveBtn:hover,#aboutBtn:hover {
     background: #ddd;
     cursor:     pointer;
 }
 
-#evolveBtn:active {
+#evolveBtn:active ,#aboutBtn:active{
     background: white;
     box-shadow: 0px 3px 4px #999;
 }
@@ -103,7 +103,6 @@ div[dialog].on {
     border-radius: 4px;
     height:        400px;
     opacity:       1;
-    overflow:      show;
     top:           80px;
 
     transition:    all .4s;
@@ -315,7 +314,7 @@ button.fab i {
 #upgradeHeader {
     background:    #eee;
     margin-bottom: -25px;
-    padding:       30px 30px 30px 100px;}
+    padding:       30px 30px 30px 100px;
 
 }
 

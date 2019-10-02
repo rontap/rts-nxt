@@ -1,0 +1,146 @@
+/** taken from Material Design Color Swatches
+  * https://material.io/guidelines/style/color.html#color-color-palette
+  * CSS created by Aron Tatai, rontap.netne.net
+  * GNU GPL v3 Licence, 2017
+  * part of NXT.JS core packages
+
+  * version 1 - 2017 December
+  * version 2 - 2018 January - Added More Colors
+  * version 3 - 2018 May - Added remaining colors
+ **/
+
+body .red-100 { background:#FFCDD2 !important ;}
+body .red-200 { background:#EF9A9A !important ;}
+body .red-300 { background:#E57373 !important ;}
+body .red-400 { background:#EF5350 !important ;}
+body .red-500 ,body .red {background:#F44336 !important;}
+body .red-600 { background:#E53935 !important ;}
+body .red-700 { background:#D32F2F !important ;}
+body .red-800 { background:#C62828 !important ;}
+body .red-900 {  background:#B71C1C !important ;}
+
+body .purple-100 { background:#E1BEE7 !important ;}
+body .purple-200 { background:#CE93D8 !important ;}
+body .purple-300 { background:#BA68C8 !important ;}
+body .purple-400 { background:#AB47BC !important ;}
+body .purple-500, body .purple { background:#9C27B0 !important ;}
+body .purple-600 { background:#8E24AA !important ;}
+body .purple-700 { background:#7B1FA2 !important ;}
+body .purple-800 { background:#6A1B9A !important ;}
+body .purple-900 { background:#4A148C !important ;}
+
+body .dp-100 { background:#D1C4E9 !important ;}
+body .dp-200 { background:#B39DDB !important ;}
+body .dp-300 { background:#9575CD !important ;}
+body .dp-400 { background:#7E57C2 !important ;}
+body .dp-500, body .deep-purple { background:#673AB7 !important ;}
+body .dp-600 { background:#5E35B1 !important ;}
+body .dp-700 { background:#512DA8 !important ;}
+body .dp-800 { background:#4527A0 !important ;}
+body .dp-900 { background:#311B92 !important ;}
+
+body .indigo-100 { background:#C5CAE9 !important ;}
+body .indigo-200 { background:#9FA8DA !important ;}
+body .indigo-300 { background:#7986CB !important ;}
+body .indigo-400 { background:#5C6BC0 !important ;}
+body .indigo-500, body .indigo { background:#3F51B5 !important ;}
+body .indigo-600 { background:#3949AB !important ;}
+body .indigo-700 { background:#303F9F !important ;}
+body .indigo-800 { background:#283593 !important ;}
+body .indigo-900 { background:#1A237E !important ;}
+
+body .blue-100 { background:#BBDEFB !important ;}
+body .blue-200 { background:#90CAF9 !important ;}
+body .blue-300 { background:#64B5F6 !important ;}
+body .blue-400 { background:#42A5F5 !important ;}
+body .blue-500 , body .blue { background:#2196F3 !important ;}
+body .blue-600 { background:#1E88E5 !important ;}
+body .blue-700 { background:#1976D2 !important ;}
+body .blue-800 { background:#1565C0 !important ;}
+body .blue-900 { background:#0D47A1 !important ;}
+
+body .lblue-100 { background:#B3E5FC !important ;}
+body .lblue-200 { background:#81D4FA !important ;}
+body .lblue-300 { background:#4FC3F7 !important ;}
+body .lblue-400 { background:#29B6F6 !important ;}
+body .lblue-500 , body .light-blue { background:#03A9F4 !important ;}
+body .lblue-600 { background:#039BE5 !important ;}
+body .lblue-700 { background:#0288D1 !important ;}
+body .lblue-800 { background:#0277BD !important ;}
+body .lblue-900 { background:#01579B !important ;}
+
+body .cyan-100 { background:#B2EBF2 !important ;}
+body .cyan-200 { background:#80DEEA !important ;}
+body .cyan-300 { background:#4DD0E1 !important ;}
+body .cyan-400 { background:#26C6DA !important ;}
+body .cyan-500 , body .cyan{ background:#00BCD4 !important ;}
+body .cyan-600 { background:#00ACC1 !important ;}
+body .cyan-700 { background:#0097A7 !important ;}
+body .cyan-800 { background:#00838F !important ;}
+body .cyan-900 { background:#006064 !important ;}
+
+body .teal-100 { background:#B2DFDB !important ;}
+body .teal-200 { background:#80CBC4 !important ;}
+body .teal-300 { background:#4DB6AC !important ;}
+body .teal-400 { background:#26A69A !important ;}
+body .teal-500 , body .teal{ background:#009688 !important ;}
+body .teal-600 { background:#00897B !important ;}
+body .teal-700 { background:#00796B !important ;}
+body .teal-800 { background:#00695C !important ;}
+body .teal-900 { background:#004D40 !important ;}
+
+body .green-100 { background:#C8E6C9 !important ;}
+body .green-200 { background:#A5D6A7 !important ;}
+body .green-300 { background:#81C784 !important ;}
+body .green-400 { background:#66BB6A !important ;}
+body .green-500 , body .green{ background:#4CAF50 !important ;}
+body .green-600 { background:#43A047 !important ;}
+body .green-700 { background:#388E3C !important ;}
+body .green-800 { background:#2E7D32 !important ;}
+body .green-900 { background:#1B5E20 !important ;}
+
+body .orange-100 { background:#FFE0B2 !important ;}
+body .orange-200 { background:#FFCC80 !important ;}
+body .orange-300 { background:#FFB74D !important ;}
+body .orange-400 { background:#FFA726 !important ;}
+body .orange-500, .orange { background:#FF9800 !important ;}
+body .orange-600 { background:#FB8C00 !important ;}
+body .orange-700 { background:#F57C00 !important ;}
+body .orange-800 { background:#EF6C00 !important ;}
+body .orange-900 { background:#E65100 !important ;}
+
+body .brown-100 { background:#D7CCC8 !important ;}
+body .brown-200 { background:#BCAAA4 !important ;}
+body .brown-300 { background:#A1887F !important ;}
+body .brown-400 { background:#8D6E63 !important ;}
+body .brown-500, .brown { background:#795548 !important ;}
+body .brown-600 { background:#6D4C41 !important ;}
+body .brown-700 { background:#5D4037 !important ;}
+body .brown-800 { background:#4E342E !important ;}
+body .brown-900 { background:#3E2723 !important ;}
+
+body .dgrey-100 { background:#CFD8DC !important ;}
+body .dgrey-200 { background:#B0BEC5 !important ;}
+body .dgrey-300 { background:#90A4AE !important ;}
+body .dgrey-400 { background:#78909C !important ;}
+body .dgrey-500  ,.dark-grey{ background:#607D8B !important ;}
+body .dgrey-600 { background:#546E7A !important ;}
+body .dgrey-700 { background:#455A64 !important ;}
+body .dgrey-800 { background:#37474F !important ;}
+body .dgrey-900 { background:#263238 !important ;}
+
+body .black-300 { background:#E0E0E0 !important ; }
+body .black-400 { background:#BDBDBD !important ; }
+body .black-500 { background:#9E9E9E !important ; }
+body .black-600 { background:#757575 !important ; }
+body .black-700 { background:#616161 !important ; }
+body .black-800 { background:#424242 !important ; }
+body .black-900 { background:#212121 !important ; }
+
+body .magenta-500 { background:#d81b60 !important;}
+body .black-900,body .black-800,body .black-700 {
+  color:#eee !important;
+}
+.white-text {
+    color:#fefefe !important;
+}

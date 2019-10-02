@@ -8,7 +8,12 @@
  * source: http://rontap.netne.net/games/cancer.html
 
 */
-powerup = {};
+/*eslint eqeqeq:0*/
+/*eslint-disable*/
+import nxt from '../nxtjs/jsplus';
+nxt.export();
+import CONST from '../constants';
+let powerup = {};
 powerup.active = undefined ;// no powerups are active
 powerup.strength = 0; //0-100
 
@@ -141,3 +146,4 @@ powerup.expandArr = function(a /*2D array*/) { //expands true values in every di
            }
            return output;
        }
+export default powerup;

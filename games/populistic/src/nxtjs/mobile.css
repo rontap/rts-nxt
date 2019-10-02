@@ -1,0 +1,106 @@
+nav header i.material-icons {
+  display: none ;
+}/*only screen and*/
+@media  (max-width:900px) {
+   container, .card {
+     margin:0px;
+     max-width:9999px;
+   }
+
+   .card h1.covered {
+     border-radius: 0px;
+     text-align: center;
+}
+holder {
+  margin-top:80px !important;
+}
+@keyframes slideUpCard {
+  0% { opacity: 0.2; margin-top:120px;}
+  100% {opacity:1; margin-top:80px;}
+}
+container.sidebar {
+  margin-top: 50px;
+}
+nav header i.material-icons {
+  display: inline-block !important;
+  position: fixed;
+  left: 4px;
+  font-size: 34px;
+  color: #444;
+}
+.sidebarMinimised container.sidebar {
+  left:-300px;
+}
+.sidebarMinimised header {
+  left:-300px;
+  transition:left .4s, color .1s;
+  color:transparent;
+}
+.sidebarMinimised holder {
+  margin-left:0px;
+}
+.sidebarMinimised #pageTitle {
+  margin-left:80px;
+  transition:all .4s;
+  font-size:20px;
+  padding-top:2px;
+  height:30px;
+  overflow: hidden;
+}
+   holder > container.on, holder > div.on {
+
+   }
+
+
+}/*only screen and*/
+@media (min-width:900px) and (max-width:1200px) {
+   .card {
+      max-width:640px;
+   }
+}
+@media  (max-width:640px) {
+
+     holder {
+       margin-left:0px !important;
+     }
+     container.sidebar {
+       z-index: 99;
+       background:#F1F1F1;
+     }
+     body:not(.sidebarMinimised) header {
+       box-shadow: 0px 3px 9px #666;
+     }
+     body:not(.sidebarMinimised) container.sidebar {
+         box-shadow: 3px 3px 9px #999;
+       }
+
+     body:not(.sidebarMinimised) #pageTitle {
+       color:transparent;
+       margin-top: -23px;
+     }
+     container.sidebar::after {
+       top: 0;
+       right: 0;
+       bottom: 0;
+       left:100%;
+       content: "";
+       position: fixed;
+       opacity:0;
+       transition:opacity .4s;
+     }
+     body:not(.sidebarMinimised) container.sidebar::after {
+       content: " ";
+       display: block;
+       position: fixed;
+       background: #333;
+       opacity: .5;
+       z-index: 95;
+       left: 300px;
+       /* animation:wait .8s; */
+     }
+}
+@keyframes wait {
+   0% {opacity: 0;}
+   40% {opacity: 0;}
+   100% {opacity: .5;}
+}

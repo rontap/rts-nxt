@@ -49,4 +49,4 @@ function resetService(to) {
 }
 
 //updating version in the footer
-setTimeout( () => $('footer').innerHTML="version " + CURR_VER , 1000 );
+//setTimeout( () => $('footer').innerHTML="version " + CURR_VER , 1000 );

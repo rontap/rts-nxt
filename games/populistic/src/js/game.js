@@ -8,11 +8,14 @@
  * source: http://rontap.netne.net/games/cancer.html
 
 */
-
+/*eslint eqeqeq:0*/
+/*eslint-disable*/
 // -----------------------------------------------
 // --- BASIC SETUP -------------------------------
 // -----------------------------------------------
-
+import nxt from '../nxtjs/jsplus';
+import CONST from '../constants';
+nxt.export();
 let level = 0;
 //variables
 let size = 10;
@@ -40,7 +43,7 @@ let scheme =  CONST.schemeWallColor.concat(CONST.schemeStore[CONST.defaultScheme
 // -----------------------------------------------
 
 function paint() {
-    actWidth = (300 + (size * 5));
+    let actWidth = (300 + (size * 5));
     cellWidth = (actWidth) / (size);
 
     canv.width = actWidth;
@@ -48,13 +51,13 @@ function paint() {
 
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    cancerOrigin = [Math.randInt(size), Math.randInt(size)]; //X,Y
+    let cancerOrigin = [Math.randInt(size), Math.randInt(size)]; //X,Y
 
     //repainting the document canvas
-    for (line = 0; line < size; line++) {
+    for (let line = 0; line < size; line++) {
         content[line] = [];   //resetting every color
         validity[line] = [];  //resetting every validity
-        for (cell = 0; cell < size; cell++) {  //looping through all cells
+        for (let cell = 0; cell < size; cell++) {  //looping through all cells
             let selectedBrush = Math.randInt(colorRange)+1;
             content[line][cell] = selectedBrush; //saving to array!!!
             validity[line][cell] = false; //filling up with false
@@ -78,7 +81,7 @@ function paint() {
     secondCenterPoint = [null, null];
 
     //update center
-    currColor = content[cancerOrigin[1]][cancerOrigin[0]];
+    let currColor = content[cancerOrigin[1]][cancerOrigin[0]];
     paintCentre(cancerOrigin[0], cancerOrigin[1]);
     if (isSecondCentrePointActive) paintCentre(secondCenterPoint[0], secondCenterPoint[1]);
 
@@ -99,8 +102,8 @@ function paint() {
 
 function updatePaint(color) {
     if (isAllowed) {
-        for (line = 0; line < size; line++) {
-            for (cell = 0; cell < size; cell++) {
+        for (let line = 0; line < size; line++) {
+            for (let cell = 0; cell < size; cell++) {
 
                 if (validity[line][cell]) { //if this is affected, force color change
                     content[line][cell] = color;
@@ -159,16 +162,16 @@ function clickTo(color) {
 
     powerup.stepStrength(level);
 
-    for (i = 0; i < validity.length; i++) { //resetting validity
-        for (j = 0; j < validity.length; j++) {
+    for (let i = 0; i < validity.length; i++) { //resetting validity
+        for (let j = 0; j < validity.length; j++) {
             validity[i][j] = false;
         }
     }
 
     // ------------ HACKING STARTING POINTS ----------
     //starting from main coordinates
-    x = cancerOrigin[1];
-    y = cancerOrigin[0];
+    let x = cancerOrigin[1];
+    let y = cancerOrigin[0];
     expand(x, y, currColor);
     if (isSecondCentrePointActive) { //áttét
         validity[secondCenterPoint[1]][secondCenterPoint[0]] = true;
@@ -176,7 +179,7 @@ function clickTo(color) {
     }
     powerup.goArray.push(content);
 
-    currColor = color;
+    let currColor = color;
 
     updatePaint(color);
     updatePaint(color);
@@ -205,7 +208,7 @@ function clickTo(color) {
             // YOU WON STILL
             if (gameMode === "time") {
                 setTimeout(function () {
-                    timeAttackSafeSpace = true;
+                    window.timeAttackSafeSpace = true;
                     timeAttackCount();
                 }, 100)
             }
@@ -310,7 +313,7 @@ function startGame()//animtaion
         colorRange = 2;
     }
 
-    isGameStarted = true;
+    window.isGameStarted = true;
     setDifficulty();
     menu.classList.add('hide');
     start.classList.add('on');
@@ -330,8 +333,8 @@ function startGame()//animtaion
 
 function clickEvent(e) {    //handeling
     console.log(e);
-    xPos = Math.round((e.offsetX - cellWidth / 2) / cellWidth);
-    yPos = Math.round((e.offsetY - cellWidth / 2) / cellWidth);
+    let xPos = Math.round((e.offsetX - cellWidth / 2) / cellWidth);
+    let yPos = Math.round((e.offsetY - cellWidth / 2) / cellWidth);
     console.log(xPos, yPos);
     if (powerup.active == "metastasis") powerup.metastasis(xPos, yPos);
     if (powerup.active == "clear") powerup.clear(xPos, yPos);

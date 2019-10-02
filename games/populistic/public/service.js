@@ -1,4 +1,5 @@
-
+/*eslint eqeqeq:0*/
+/*eslint-disable*/
 var CACHE_NAME = 'rontap-populistic-cache-v4r0';
   var cacheWhitelist = [CACHE_NAME];
 

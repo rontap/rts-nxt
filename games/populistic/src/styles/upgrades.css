@@ -1,0 +1,40 @@
+#aboutInfo button:hover {
+    background: black;
+}
+
+#aboutInfo button {
+    width:        180px;
+    margin-top:   15px;
+    margin-right: 12px;
+}
+
+#aboutInfo div {
+    max-width: 400px;
+    margin:    40px auto;
+    color:     #f1f1f1;
+    text-align: center;
+}
+
+#aboutInfo {
+    display: none;
+}
+
+.campaign #aboutInfo {
+    display:    block;
+    position:   fixed;
+    top:        0;
+    right:      0;
+    left:       0;
+    bottom:     0;
+    background: #3F51B5;
+    animation:  fillAboutInfo .4s;
+}
+
+@keyframes fillAboutInfo {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+.evolve #aboutBtn, .started #aboutBtn {
+    display: none !important;
+}

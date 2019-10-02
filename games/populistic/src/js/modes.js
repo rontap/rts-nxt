@@ -8,8 +8,11 @@
  * part of RTS NXT | created in 2018
 
 */
-
-
+/*eslint eqeqeq:0*/
+/*eslint-disable*/
+import nxt from '../nxtjs/jsplus';
+import CONST from '../constants';
+nxt.export();
 function selectMode(mode) {
 
       setTimeout(function(){
@@ -19,13 +22,13 @@ function selectMode(mode) {
   if (mode=="zen") {
     $('body').style.setProperty("--dark-primary", '#4CAF50');
     $('body').style.setProperty("--primary", '#4CAF50');
-    gameMode="zen";
+    window.gameMode="zen";
 
   }
   else if (mode=="normal") {
     $('body').style.setProperty("--dark-primary", '#3F51B5');
     $('body').style.setProperty("--primary", '#3F51B5');
-    gameMode="normal";
+    window.gameMode="normal";
 
   }
   else if (mode=="time") {
@@ -34,17 +37,17 @@ function selectMode(mode) {
     },100);
     $('body').style.setProperty("--dark-primary", '#FF9800');
     $('body').style.setProperty("--primary", '#FF9800');
-    gameMode="time";
+    window.gameMode="time";
 
 
 
   }
 }
-objects = [];
+let objects = [];
 
 
-timeAttackSafeSpace = true;
-timeFrozen = false;
+window.timeAttackSafeSpace = true;
+let timeFrozen = false;
 function timeAttackCount() {
   if (gameMode != "time") return false;
 
@@ -57,8 +60,8 @@ function timeAttackCount() {
     else {
         timeAttackBar.classList.add('frozen');
     }
-    if (timeAttackSafeSpace) {
-      timeAttackSafeSpace=false;
+    if (window.timeAttackSafeSpace) {
+      window.timeAttackSafeSpace=false;
       timeAttackBar.classList.add('warn');
     }
     else {
@@ -78,7 +81,7 @@ function timeAttackCount() {
 
 // not implemented at this point
 // for V 4.0
-
+/*
 function placeObject(x,y,type,random) {
   if (random) ctx.fillStyle = "rgba(10,10,10,.9)" ;
   else        ctx.fillStyle = "rgba(210,210,210,.9)" ;
@@ -95,3 +98,4 @@ function pickObject(type) {
     case 'remix' : //remixes everything
   }
 }
+*/

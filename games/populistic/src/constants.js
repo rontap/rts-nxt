@@ -1,3 +1,5 @@
+import nxt from './nxtjs/jsplus';
+
 let CONST = {};
 
 let schemeStore = [
@@ -15,7 +17,7 @@ CONST.schemeStore = schemeStore;
 
 CONST.size = 10;
 CONST.cellWidth = 10;
-
+let CURR_VER = Math.random();
 window.onload = () => {
     if (nxt.getStore('populistic-' + CURR_VER) === undefined) {
         nxt.setStore('populistic-'+  CURR_VER, {
@@ -31,3 +33,5 @@ window.onload = () => {
 CONST.m = {
   epicLocked : "You need to unlock the epic difficulty first!"
 };
+
+export default CONST;
