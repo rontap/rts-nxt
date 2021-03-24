@@ -158,12 +158,16 @@ circles.push(new Circle())
 
 // 
 
-if (location.hash == "#csateplease") {
+if (location.hash == "#tutorial") {
     tutorialMode=true;
     tutorial(0);
+    $('body').classList.remove('pre-game')
 }
-function startFromMenu() {
-   
+function startFromMenu(menu) {
+    if (menu === "tutorial") {
+   tutorialMode=true;
+    tutorial(0);
+	}
     $('body').classList.remove('pre-game')
 }
 loop();
