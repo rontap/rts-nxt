@@ -79,10 +79,10 @@ header a.active {
     border-bottom: 4px double var(--primary);
 }
 header a {
-    border-bottom: 4px dashed var(--primary);
+    border-bottom: 4px double transparent;
 }
 header a:visited {
-  border-bottom: 4px dotted var(--primary);
+  border-bottom: 4px double transparent;
 }
 
 nav {
@@ -101,11 +101,11 @@ nav a {
 }
 nav a:hover {
   background:var(--primary-lighter);
-  color:white !important;
+
 }
 nav a.active {
   background:var(--primary);
-  color:white !important;
+
 }
 #nav_media {
   display: inline-block;
@@ -155,7 +155,7 @@ label[for] {
   font-weight: bold;
   margin-top:20px;
 }
-input[type="email"], textarea {
+input[type="text"], textarea {
   width:min(300px , 100%) ;
   padding:10px;
 }
@@ -177,10 +177,10 @@ form {
 #bg_image {
   background-image: url('./images/bg1.jpg');
   margin-top:40px;
-  text-shadow: 0px 0px 3px black;
-  font-size:1.1em;
+  text-shadow: 0px 0px 5px black;
+  font-size:1.25em;
 
-  text-align: center;
+
   background-repeat: no-repeat;
   background-position: center;
   color:white;
