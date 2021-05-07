@@ -77,6 +77,7 @@ header a {
 }
 header a.active {
     border-bottom: 4px double var(--primary);
+
 }
 header a {
     border-bottom: 4px double transparent;
@@ -101,10 +102,11 @@ nav a {
 }
 nav a:hover {
   background:var(--primary-lighter);
-
+    color:white !important;
 }
 nav a.active {
   background:var(--primary);
+      color:white !important;
 
 }
 #nav_media {

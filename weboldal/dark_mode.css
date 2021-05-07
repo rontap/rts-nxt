@@ -23,3 +23,6 @@ details>summary {
 header {
   background:#444;
 }
+nav a:hover, nav a.active {
+      color:black !important;
+}
