@@ -1,8 +1,7 @@
-# RONTAP SITES 7 Prerelease
-*Ported originally from version 4.3.2 of RTS4*
-*Rolling Stock version since 5.0:*
+# RONTAP SITES
 
-**7.0  - Cruiser Mark I**
+
+**7.2 - Centurion**
 
   ## Recent Changes
 ```
@@ -30,15 +29,15 @@
 ## Packages - section outdated
 
 ### EDUCATION
-* tapcalk 6 - advanced calculator _stage Design_
+* tapcalk 6 - advanced calculator
 * wiki - wikipedia processor
-* MEK mek.oszk.hu reader **4.9 conway froze**  moved from web eaters
+* MEK mek.oszk.hu reader moved from web eaters
 
 ### GAMES
 * mine - Mine game (finished) **5.6** notifications added. co-written w/ deesnow97
-* SuperFarmer - simulation game **5.2** w/ agoston and mate
-* ColorGame - boring color game
-* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) **updated w/ ai in 5.6 archer**
+* ~SuperFarmer - simulation game **5.2**~ lost code i think w/ mate
+* ~ColorGame - boring color game~ lost code w/ agoston
+* SpeedGame - rewrite of old RTS2 game, with shortcuts and real gameplay (translation by csncsate) 
 * ProjectX - AKA: rontapparty, szemkieg. - includes six previous variants! slightly offensive
 * Cancer game v3.11 with PWA and actually enjoyable gameplay
 
@@ -58,14 +57,15 @@
 * text and color generator
 * music player
 * habit counter
-* **clocker  **
+* FlameWar Debate creator
+* **clocker**
   * timeflow clock -  fancy clock  
   * circle clock - set reminders and use stopwatch
   * binary clock - binary clock
   * Priest Canvas based round clock  
 * languages
 * **XFiles** music analyser
-* FlameWar Debate creator
+
 
 
 ### Random
@@ -83,6 +83,9 @@ Split of from tools; RND.html
 * Multiplix - lack of interest
 
 ## Previous versions
+*Ported originally from version 4.3.2 of RTS4*
+*Rolling Stock version since 5.0:*
+
 > 5.1 SOTON _main focus: random and tapcalk redesign_ 17/10/13-17/10/17
 
 > 5.2 SOTON _nxt.js and smaller projects_ 17/11/7
@@ -127,10 +130,8 @@ Split of from tools; RND.html
 
 > 7.0 Cruiser Mark I. 2019/09/21
 
-### Upcoming versions
+> 7.1 Covenanter ???
 
-> 7.0 Cruiser
-> 7.1 Covenanter
-> 7.2 Cromwell
-> 7.3 Comet
-> 7.4 Centurion
+> 7.2 Centurion 2021/12/16 
+
+### EOF
