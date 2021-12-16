@@ -4,26 +4,26 @@
             <link rel="stylesheet" href="style.css"  >
             <link rel="stylesheet" href="../NXTJS/single.css"  >
              <link rel="stylesheet" href="../NXTJS/input.css"  >
-             <link rel="stylesheet" href="game.css"  >
+           
              
             
             <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
-            <script  src="../NXTJS/jsplus.js"></script>
-            <script  src="../NXTJS/notifications.js"></script>
-            <script  src="main.js"></script>
-            <script  src="game.js"></script>
-            <script  src="drag.js"></script>
+            <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+            <script type="text/javascript" src="../NXTJS/notifications.js"></script>
+            <script type="text/javascript" src="main.js"></script>
+            <script type="text/javascript" src="game.js"></script>
+            <script type="text/javascript" src="drag.js"></script>
             
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     </head>
     <body class="toast-desktop">
         <toast id="toast-yourturn">Its Your turn! Choose Now</toast>
-        <toast id="toast-finished" >The game has finished! <action flr onclick="location.pathname = '/nomercy/results.html'"> Go To results</action>
+        <toast id="toast-finished" >The game has finished! <action flr onclick="location.pathname = 'results.html'"> Go To results</action>
             <action flr warning onclick="skipResults=true">Stay </action>
         </toast>
         <toast id="toast-finished-fv">The game has finished. 
-            <action flr location.pathname = '/nomercy/results.html' > Go To results page</action>
+            <action flr location.pathname = './nomercy/results.html' > Go To results page</action>
         </toast>
         
         
@@ -37,12 +37,15 @@
         </div>
         <div id=cardsLeft></div>
         <div id="bottomfix">
-            <div id=yourCards></div>
+            <div id=yourCards>
+                You have no cards
+            </div>
             
             <div id="otherUsers">
                 &loading;
             </div>
-            <div id=cards></div>
+            <div id=cards>  
+            </div>
             
         </div>
         <div id=coins
@@ -78,9 +81,6 @@
             }*/
             #playerId {
                 color:white;
-            }
-            #hugecard.disabled {
-                cursor:not-allowed;
             }
        </style>
     </body>

@@ -1,13 +1,13 @@
 <HTML>
     <head>
         <title>No Mercy | Start A Game</title>
-        <script  src="../NXTJS/jsplus.js"></script>
-         <script  src="../NXTJS/notifications.js"></script>
+        <script  src="../../NXTJS/jsplus.js"></script>
+         <script  src="../../NXTJS/notifications.js"></script>
         <script  src="main.js"></script>
          <link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
          <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
 
-        <link rel="stylesheet" href="../NXTJS/elements.css"  >
+        <link rel="stylesheet" href="../../NXTJS/elements.css"  >
         <link rel="stylesheet" href="style.css"  >
         <link rel="stylesheet" href="room.css"  >
       
@@ -86,7 +86,7 @@
             }
             function send() {
                 
-                window.location = `http://localhost/nomercy/room.php?action=${joinType}&gameID=${autoJoin ? id : joiner.value.toLowerCase()}&name=${username.value}&cards=${cards.shuffle()}`
+                window.location = `/room.php?action=${joinType}&gameID=${autoJoin ? id : joiner.value.toLowerCase()}&name=${username.value}&cards=${cards.shuffle()}`
            
                 //window.location = `https://team-autism-rontap.c9users.io/nomercy/room.php?action=${joinType}&gameID=${autoJoin ? id : joiner.value.toLowerCase()}&name=${username.value}&cards=${cards.shuffle()}`
             }

@@ -12,7 +12,7 @@ yourLastChipgroup=''
 startTime = new Date().getTime()
 
 //redirecting if not viewing
-if (location.hash.length < 2) location.pathname = "/nomercy/room.html";
+if (location.hash.length < 2) location.pathname = "room.html";
 
 function main(){
     
@@ -57,7 +57,7 @@ function endGame(){
     hugecard.innerHTML="End"
     cardsLeft.innerHTML="No Cards left"
     setTimeout(function(){
-        if (!skipResults)    location.pathname = '/nomercy/results.html' 
+        if (!skipResults)    location.pathname = 'results.html'
         else nxt.notify("#toast-finished-fv",1e10);
     },12000)
     
