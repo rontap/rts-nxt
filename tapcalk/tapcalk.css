@@ -1,0 +1,564 @@
+:root {
+    --light-primary: #5C6BC0;
+}
+
+.omenu:hover {
+  /* background:transparent !important; */
+}
+
+#moreinfo_icon {
+    position: fixed;
+    right: 7px;
+    top: 70px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.sideBar #infopanel,
+.sideBar #histh {
+    right: -350px;
+}
+
+.sideBar #tmain {
+    right: 0px;
+}
+
+/*
+.mainbtn {
+    padding: 10px !important;
+    position: fixed;
+    overflow: hidden;
+    z-index: 99;
+    top: 14px;
+    border-radius: 4px;
+    height: 50px;
+    border-radius: 3px;
+    background: #FFF;
+    border: none;
+    width: 140px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    transition: .2s all;
+    outline: none;
+    left: 370px;
+}
+
+.mainbtn:hover {
+    box-shadow: 0px 2px 3px #222;
+    background: #EEE;
+    cursor: pointer;
+}
+
+.mainbtn:active {
+
+    box-shadow: 0px 2px 3px #444 inset;
+}
+
+#graphbtn {
+    margin-left: 160px;
+    opacity: 0;
+    top: -20px;
+}
+
+#graphbtn.on {
+    opacity: 1;
+    z-index: 100;
+    top: 14px;
+}
+*/
+#AIO input {
+  display: block;
+  padding: 20px;
+  background: #FAFAFA;
+  transition: all .2s;
+  width:100%;
+  margin: 0px;
+  border-radius: 0px;
+  font-size:18px;
+}
+#AIO span {
+  padding:10px;
+  display:block;
+  font-size:19px;
+  color:#222;
+}
+#AIO span::before {
+  content:'The Gods Say:';
+  position:absolute;
+  margin-top:-30px;
+  color:#444;
+}
+#graphbtn {
+    position: fixed;
+    bottom: 24px;
+    z-index: 99;
+    color: white;
+    left: calc(50% + 520px);
+    background: #9C27B0;
+}
+
+@keyframes showitem {
+    from {
+        height: 0px;
+        opacity: 0.1;
+    }
+    to {
+        height: 24px;
+        opacity: 1;
+    }
+}
+
+#histh .item {
+    overflow: hidden;
+
+    padding: 9px 15px;
+    transition: all .2s;
+    min-height: 24px;
+}
+
+#histh .item:first-child {
+    animation: showitem .4s;
+}
+
+#histh .item:hover {
+    box-shadow: 0 0 5px #444;
+    cursor: pointer;
+
+}
+
+#histh .item:active {
+    background: #3F51B5;
+    cursor: grab !important;
+    color: white;
+}
+
+
+#nv3fel,
+#kero {
+    transition: all .2s;
+}
+
+#euclidean canvas {
+    height: 100%;
+}
+
+#euclidean {
+    transition: all .4s;
+    position: fixed;
+    top: 100%;
+    bottom: 0%;
+    right: 0;
+    left: 0;
+}
+
+.euclOn > #euclidean {
+    top: 50px;
+}
+
+.euclOn > #tmain {
+    opacity: 0;
+}
+
+.euclOn > #tnav > #tco {
+    left: -300px;
+}
+
+.euclOn > #infopanel,
+.euclOn > #histh {
+    right: -300px;
+}
+
+#kero {
+    /* position: fixed; */
+    /* top: 20px; */
+    /* width: 200px !important; */
+    /* margin-left: 28px; */
+    /* margin-top: 58px; */
+    border: 0px;
+    margin-left: -6px;
+    width: 278px;
+}
+
+#kera {
+    box-shadow: 0px 3px 8px #DDD;
+    font-size: 18px;
+    opacity: .9;
+    display: block;
+    margin-right: -15px;
+    border-radius: 0px;
+    border: none;
+    box-shadow: none;
+    padding: 13px;
+    /* margin-left: 0px; */
+    margin-left: -49px !important;
+    width: 280px !important;
+}
+
+#kera:hover {
+    opacity: 1;
+}
+
+#tco,
+#tci {
+    user-select: none;
+
+    user-select: none;
+}
+
+r {
+    color: #F44;
+}
+
+#terbox {
+    margin-left: 75px;
+}
+
+
+#infopanel,
+#histh {
+    /* position: fixed; */
+    overflow: hidden;
+    background: #e5e5e5;
+    color: #222;
+}
+
+#infopanel {
+
+/* right: 0px; */
+
+width: 300px;
+
+position: absolute;
+
+bottom: 0;
+
+overflow: hidden;
+
+background: #e5e5e5;
+
+top: 0;
+
+left: 698px;
+}
+
+#infopanell {
+    padding: 15px;
+    overflow-y: scroll;
+    height: 65%;
+}
+
+#histh {
+
+left: 400px;
+
+position: absolute;
+
+/* margin: 20px; */
+
+width: 300px;
+
+top: 0px;
+
+margin-top: 0;
+
+height: 300px;
+}
+
+#hist hr {
+    margin-top: 0px;
+    margin-top: 0;
+}
+
+#hist {
+    overflow-y: auto;
+    margin-top: -5px;
+
+
+}
+
+#hist .otitle {
+    position: fixed;
+    padding: 5px 0 5px 0;
+    margin: -5px;
+}
+
+#hist .btn-menu {
+    overflow: hidden;
+}
+
+body {
+    background: #DDD;
+    overflow: hidden;
+}
+
+
+containter {
+    position: fixed;
+    top: 35px;
+}
+
+#tco .otitle {
+    color: white;
+}
+
+container.sidebar {
+    /*navcentraloptions*/
+    position: fixed;
+    width: 299px;
+    top: 28px;
+    left: 0;
+    margin-left: 1px;
+    overflow-y: scroll;
+    background: #e5e5e5;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    margin-bottom: 0 !important;
+}
+
+#tmain {
+    position: fixed;
+    transition: opacity .3s, top .5s, width .5s, left .5, bottom .5s, right .5s;
+    left: 300px;
+    right: 0;
+    overflow-y: scroll;
+    top: 10px;
+    right: 0px;
+    bottom: 50px;
+    overflow: auto;
+}
+#graphDrawer {
+  position: fixed;
+  left: 300px;
+  border-top:1px solid #ddd;
+  background:white;
+  right: 0px;
+  height:20px;
+  padding:15px;
+  bottom: -53px;
+  padding-left:50px;
+  cursor: pointer;
+  transition:all .2s;
+}
+#graphDrawer:hover {
+  background:#eee;
+  border-top:1px solid #aaa;
+}
+#graphDrawer>i {
+  margin-left:-50px;
+  position: absolute;
+  margin-top:-12px;
+
+}
+body.moreInfoOn #graphDrawer>i {
+  transform:rotate(180deg);
+}
+body.moreInfoOn #graphDrawer{
+  bottom: 255px;
+  padding: 15px 15px 20px 50px;
+  height: 15px;
+  /* box-shadow: 0px -1px 1px #999; */
+  background: #9C27B0;
+  color:white;
+}
+body.moreInfoOn #graphbtn {
+  bottom:328px;
+  box-shadow: none;
+  color: #9C27B0;
+  background:white;
+  bottom: 309px;
+  /* border: 7px solid #009688; */
+  /* right: 174px; */
+  padding: 10px !important;
+  box-shadow: 0px 1px 3px #222 inset;
+}
+
+body.sideBar #graphDrawer {
+  right:0;
+}
+body.sideBar #graphInformationText {
+right:0 !important;
+}
+#graphInformationText {
+  transition: all .2s;
+}
+body.moreInfoOn #graphInformationText {
+  position: fixed;
+  left: 485px;
+  background:white;
+  /* right:300px; */
+  height: 275px;
+  padding:15px;
+  bottom: 0;
+  border-left: 1px solid #999;
+  border-right: 1px solid #999;
+  padding-left:50px;
+  width: 798px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+#tfill2 h1 {
+  background:#eee;
+  border-top:1px solid #ddd;
+}
+#mainFab {
+  position: absolute;
+  top: 171px !important;
+  z-index: 99;
+  color: white;
+  left: calc(50% + 521px);
+  background: #9C27B0;
+  box-shadow: 0px 1px 3px #444;
+}
+#tfill h1:first-child,
+#tfill2 h1:first-child {
+    margin-top: -11px !important;
+}
+
+.btn-menu {
+    width: 80%;
+    text-align: center;
+}
+
+#tcontent {
+    margin-left: 40.5%;
+}
+
+#treganwser {
+
+    margin-left: 42%;
+    font-size: 23px;
+
+}
+
+.inp-text {
+    width: 175px;
+    z-index: 9999;
+}
+
+#tfill,
+#tfill2 {
+    z-index: 999;
+    transition: all .15s;
+    margin: 10px;
+    word-wrap: break-word;
+}
+
+#tmain .btn-menu {
+    width: 120px;
+
+}
+
+
+.tc {
+    border: 1px solid #48F;
+}
+
+.fc {
+    border: 1px solid #F44;
+}
+
+.kc {
+    border: 1px solid #F84;
+}
+
+.gc {
+    border: 1px solid #49C42E;
+}
+
+.gc:hover {
+    background: #49C42E;
+}
+
+.tc:hover {
+    background: #48F;
+}
+
+.fc:hover {
+    background: #F44;
+}
+
+.kc:hover {
+    background: #F84;
+}
+
+#imgs {
+    position: relative;
+}
+
+.keyhint {
+    font-size: 15px;
+    text-align: right;
+    float: right;
+    background: white;
+    padding: 1px 3px 1px 3px;
+    border-radius: 3px;
+    color: rgb(68, 68, 68);
+    transition: opacity .6s, background .4s, color .4s;
+    opacity: 0;
+    border: 1px solid #999;
+}
+
+.omenu:hover .keyhint {
+    /*  */
+    box-shadow: 0px 0px 3px #888;
+    background: #666;
+    color: #000;
+
+}
+.moreInfoOn #tmain {
+    bottom: 348px !important;
+}
+#tmain textarea {
+    border-radius: 0px;
+    width: 100%;
+    padding: 5px;
+    resize: vertical;
+    border: 1px solid #3F51B5;
+    padding: 5px;
+    font-family: 'Open Sans', sans-serif;
+    transition: all .2s;
+    bottom: 0;
+}
+
+#tmain textarea:focus {
+    background: #EEE;
+    outline: none;
+}
+
+#tco,
+#histh,
+#infopanel,
+#tmain {
+    transition: opacity .6s, top .5s, width .5s, left .5s, bottom .5s, right .5s;
+}
+
+#dwnbtn {
+    padding: 5px 10% !important;
+    transition: all 1s;
+    opacity: 0;
+}
+
+
+.floatbox {
+    padding: 5px;
+    color: #f1f1f1;
+    margin: 10px;
+    padding: 5px;
+    color: #fff;
+    margin: 10px;
+    background: #9C27B0;
+    margin: 13px;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid hsl(291, 56%, 34%);
+}
+
+#aboluter {
+    z-index: 100;
+    position: fixed;
+    left: calc(50% - 300px);
+    width: 600px;
+    top: 100px;
+}
