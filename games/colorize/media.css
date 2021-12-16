@@ -1,0 +1,50 @@
+@media (max-width: 800px) {
+    #main_header {
+        width:calc( 400px - 30px );
+    }
+    container {
+        width:370px;
+        left: calc( 50% - 200px );
+        bottom:-450px;
+    }
+    #container_holder_selector {
+        width:400px;
+        left:calc( 50% - 200px );
+    }
+    #container_holder_selector span {
+         padding: 10px 5px;
+          width: calc( 25% - 10px );
+    }
+}
+
+
+@media (max-width: 450px) {
+    #main_header , container , #container_holder_selector ,  
+    #container_holder_selector span{
+        width:100%;
+    } 
+     #main_header  {
+         padding:15px 0;
+     }
+     container {
+         left:0;
+         bottom:-350px;
+         transition:all .6s;
+     }
+     container.on {
+         bottom:150px;
+     }
+     #container_holder_selector  { 
+         left:0;
+     }
+      #container_holder_selector span {
+          border-left:4px solid transparent;
+          border-top:none !important;
+      }
+     #container_holder_selector span.on {
+        background: #AAA;
+}
+    .ingame #container_holder_selector {
+        bottom:-350px;
+    }
+}
