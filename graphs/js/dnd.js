@@ -47,7 +47,7 @@ function dndFactory(el) {
     window[el].onmouseup = null;
 
     if (event==false)
-      if (['lineDrag','line','linkRef'].indexOf(event.srcElement.id) != -1)
+      if (['lineDrag','line','linkRef'].indexOf(event.srcElement.id) !== -1)
       window[el].style.zIndex = 800;
       else
       window[el].style.zIndex = 810;
