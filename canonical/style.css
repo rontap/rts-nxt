@@ -1,0 +1,41 @@
+:root {
+    --color-brand: #a87ca0;
+    --dotted-hr: #d7d7d7;
+    --title-lh: 1.4em;
+}
+
+.accent-card {
+    border: none;
+    border-top: 5px solid var(--color-brand);
+    border-radius: 4px 4px 2px 2px;
+    box-shadow: 0px 2px 6px #aaa;
+}
+
+.category {
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.group {
+    margin-top:5px;
+}
+
+hr.divider-hr {
+    border-bottom: 2px dotted var(--dotted-hr);
+    background: transparent;
+    width: 100%;
+}
+
+body {
+    max-width: 1280px;
+    margin: 100px auto;
+}
+h4.article-title {
+    /* simple line-height fix CSS-only: 
+    making sure there are at least and also maximum two lines in the title*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    line-height: var(--title-lh);
+    max-height: calc(2 * var(--title-lh));
+    height:calc(2 * var(--title-lh));
+}

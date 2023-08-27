@@ -2,103 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Canonical Sample</title>
     <link rel="stylesheet" href="https://assets.ubuntu.com/v1/vanilla-framework-version-4.2.0.min.css"/>
-    <style>
-        :root {
-            --color-brand: #a87ca0;
-            --dotted-hr: #d7d7d7;
-        }
+    <link rel="stylesheet" href="./style.css"/>
 
-        .accent-card {
-            border: none;
-            border-top: 5px solid var(--color-brand);
-            border-radius: 4px 4px 2px 2px;
-            box-shadow: 0px 2px 6px #aaa;
-        }
-
-        .category {
-            text-transform: uppercase;
-        }
-
-        .accent-card .p-divider__block:not(:first-child)::before {
-            border-bottom: 2px dotted var(--dotted-hr);
-            background: transparent;
-            width: 100%;
-            right: ;
-        }
-
-        body {
-            max-width: 1280px;
-            margin: 100px auto;
-        }
-
-    </style>
 </head>
 <body>
 
-<div class="row">
-    <div class="col-4">
-        <div class="p-card accent-card">
-            <div class="p-card__content ">
-                <div class=" category">
-                    dfg
-                </div>
-                <div class="p-divider__block">
-                    <img class="p-card__image" alt=""
-                         src="https://assets.ubuntu.com/v1/36f1139e-Design-and-Web-Team-Blog.jpg">
-                    <h4>
-                        <a href="#">Open Source Robotics Challenges</a>
-                    </h4>
-                    <p class="u-no-padding--bottom">Open Source Robotics Challenges is a series of blogs...</p>
-                </div>
-                <div class="p-divider__block">
-                    dfg
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="p-card accent-card">
-            <div class="p-card__content">
-                <div class="p-divider__block category">
-                    dfg
-                </div>
-                <div class="p-divider__block">
-                    <img class="p-card__image" alt="" height="185" width="330"
-                         src="https://assets.ubuntu.com/v1/36f1139e-Design-and-Web-Team-Blog.jpg">
-                    <h4>
-                        <a href="#">Open Source Robotics Challenges</a>
-                    </h4>
-                    <p class="u-no-padding--bottom">Open Source Robotics Challenges is a series of blogs...</p>
-                </div>
-                <div class="p-divider__block">
-                    dfg
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-4">
-        <div class="p-card accent-card">
-            <div class="p-card__content ">
-                <div class="p-divider__block category">
-                    dfg
-                </div>
-                <div class="p-divider__block">
-                    <img class="p-card__image" alt="" height="185" width="330"
-                         src="https://assets.ubuntu.com/v1/36f1139e-Design-and-Web-Team-Blog.jpg">
-                    <h4>
-                        <a href="#">Open Source Robotics Challenges</a>
-                    </h4>
-                    <p class="u-no-padding--bottom">Open Source Robotics Challenges is a series of blogs...</p>
-                </div>
-                <div class="p-divider__block">
-                    dfg
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="row" id="root">
 </div>
+<script>
+const URL = "https://people.canonical.com/~anthonydillon/wp-json/wp/v2/posts.json";
+
+// fetching the JSON. No error handling in this example
+const fetchUrl = () => {
+    return fetch(URL)
+        .then(res => res.json())
+        .then(renderArticles)
+}
+
+// some very minor utility functions
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+const dateToReadable = (dateStr) => {
+    const posted = new Date(dateStr)
+    return `${posted.getDay()} ${months[posted.getMonth()]} ${posted.getFullYear()}`
+}
+const capitalize = str =>  str[0].toUpperCase()+str.slice(1);
+
+// I could not find a definitve category label that was not a number, so I extract/guess the category 
+const guessBestPostCategory = article => {
+    const term = article?._embedded["wp:term"];
+    if (!term) return "Unknown";
+    if (term[2].length === 0) return term[0][0]?.name
+    else return term[2][0]?.name
+}
+
+// I am doing an unusual rendering in HTML.
+// My thought is, that this code can be easily refactored into React. I did not want to use
+// React for this assigment, because it seemed too much weight for a 100 line long example.
+// I am also assuming that the received JSON is not malformed.
+const renderArticles = (articles) => {
+    const html = articles.map(article => {
+        console.log(article)
+        return `<div class="col-4">
+            <div class="p-card accent-card">
+                <div class="p-card__content ">
+                    <div class="category">
+                        ${guessBestPostCategory(article)}
+                    </div>
+                    <hr class="divider-hr"/>
+                    <div>
+                        <img class="p-card__image" 
+                             alt="${article._embedded["wp"]}"
+                             src="${article.featured_media}"/>
+
+                        <h4 class="article-title">
+                            <a href="#${article.link}">
+                                ${article.title.rendered}
+                            </a>
+                        </h4>
+                        <p class="u-no-padding--bottom">
+                        <i>
+                            By <a href="${article._embedded.author[0]?.link}">
+                            ${article._embedded.author[0].name}
+                            </a>
+                            on ${dateToReadable(article.date)}
+                        </i>
+                        </p>
+                    </div>
+                    <hr class="divider-hr"/>
+                    <div class="group">
+                        ${capitalize(article.type || "")}
+                    </div>
+                </div>
+            </div>
+        </div>`
+    })
+    root.innerHTML = html.join("");
+}
+    fetchUrl();
+</script>
 
 </body>
 </html>
