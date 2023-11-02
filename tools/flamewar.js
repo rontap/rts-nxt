@@ -51,9 +51,11 @@ is = [
     "behind",
     "creating",
     "the reason why we have",
-    "the reusing why there is no",
-    "-",
-    "determined to achieve"
+    "the reason why there is no",
+    " ",
+    "determined to achieve",
+    "secretly beind",
+    "the true architect of"
 ];
 why = [
     "global warming",
@@ -78,8 +80,37 @@ why = [
     "turning the frickin' frogs gay",
     "tide pods",
     "christianity",
-    "supporting homeopathy"
+    "radical islam",
+    "supporting homeopathy",
 ];
+
+let EXT = {
+    ihm: true
+}
+if (EXT.ihm) {
+    who.push(...[
+        "Big pharma is",
+        "Big tech is",
+        "White people are",
+        "Black People are",
+        "Hipster soyboys are",
+        "Joe Biden is",
+        "Global warming is",
+        "The mainstream media is",
+        "Jeff Bezos is",
+        "Mark Zuckerberg is",
+        "Forced mass immigration is",
+        "Feminists are"
+    ])
+    why.push(...[
+        "labour rights",
+        "higher taxes",
+        "Hitler",
+        "drug legalisation",
+        "lowering the age of consent"
+    ])
+
+}
 
 function redo() {
     $("#who b").innerHTML = who[Math.randInt(who.length)];
