@@ -1,13 +1,13 @@
 
 searchMe = [
-    ['text editor format word write markdown','random.html#l=2','format_color_text','Text Editor'],
-    ['habits track multiple idea unique write task note','random.html#l=3','playlist_add_check','Habits'],
-    ['set hour clock timer stopwatch','random.html#l=6','alarm','Clocks'],
-    ['get random text generator password security','random.html#l=10','build','Password Generators'],
-    ['get color colour swatch random generator','random.html#l=11','invert_colors', "Random Color Generator"],
-    ['language l1 speaking compare mother foreing','random.html#l=12','languages','Language Tools'],
-    ['group grouping team member','random.html#l=13','group_work','Grouping'],
-    ['set music player vlc sound playlist media','random.html#l=15','album','Music Players'],
+    ['text editor format word write markdown','index.html#l=2','format_color_text','Text Editor'],
+    ['habits track multiple idea unique write task note','index.html#l=3','playlist_add_check','Habits'],
+    ['set hour clock timer stopwatch','index.html#l=6','alarm','Clocks'],
+    ['get random text generator password security','index.html#l=10','build','Password Generators'],
+    ['get color colour swatch random generator','index.html#l=11','invert_colors', "Random Color Generator"],
+    ['language l1 speaking compare mother foreing','index.html#l=12','languages','Language Tools'],
+    ['group grouping team member','index.html#l=13','group_work','Grouping'],
+    ['set music player vlc sound playlist media','index.html#l=15','album','Music Players'],
     ['meause habit change quit smoking unique counter','random/smoke.html','smoke_free','Quit Smoking'],
 
     ['text notes editor word idea write','tools/noteio.html','border_color','Basic Local Notepad'],
@@ -37,8 +37,8 @@ searchMe = [
 
     ['api nxt js material design','NXTJS/showcase.html','web','NXT.JS API'],
     ['api nxt js ultron url shortener design','api/ultron/index.html','short_text','Ultron URL Shortener'],
-    ['party szemkieg projectX rontapparty color','projectx.html','graphic_eq','Project X']
-    ['party projectX Xfiles rontapparty music record analyse edit','projectx.html','graphic_eq','Project X']
+    ['party szemkieg projectX rontapparty color','rontapparty.html','graphic_eq','Project X']
+    ['party projectX Xfiles rontapparty music record analyse edit','rontapparty.html','graphic_eq','Project X']
 
 ];
 

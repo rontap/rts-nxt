@@ -380,7 +380,7 @@ body.search #searchResults {
 
 
 }
-@import url('pinchbox.css');
+@import url('NXTJS/pinchbox.css');
 
 #socMedia span i {
         text-align: center;

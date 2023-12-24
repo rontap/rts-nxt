@@ -8,8 +8,8 @@ class Graph {
     if (edges.type == 'Array')  {
       if (edges.length > 0)
         if ( (edges[0]).type == 'Array') {
-          this.addEdge( ...edges.pop(),,isReverse);
-          this.addEdge( edges ,,isReverse);
+          this.addEdge( ...edges.pop(),undefined,isReverse);
+          this.addEdge( edges ,undefined,isReverse);
         }
         else this.addEdge( ...edges ,isReverse);
     }
@@ -23,7 +23,7 @@ class Graph {
         this.nodes.push(Node.name);
         Node.to.map( x => this.addEdge(Node.name,x) );
         Node.to.map( x => this.addEdge(x,Node.name) );
-    }
+
   }
 }
 

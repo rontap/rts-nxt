@@ -1,0 +1,115 @@
+<link href='../api/external/pulse.css' rel='stylesheet' type='text/css'>
+<polymer-element name="mw-nav-header-element" noscript>
+  <template>
+      <nav>
+        <div>WIKI</div>
+          <span></span>
+      </nav>
+
+      <style>
+      nav {
+          height:50px;
+          background:transparent;
+          position: fixed;
+         top:0px;
+          left:0;
+          right:0px;
+           transition: all .4s;
+          z-index: 99;
+		   box-shadow: 0px 1px 2px transparent;
+      }
+          nav div {
+              color: #white;
+            display: inline-block;
+            font-size: 35px;
+            font-weight: 600;
+            padding: 5px;
+            padding-left: 60px;
+              transition: all .4s;
+
+          }
+          nav.on {
+              background:#48F;
+              box-shadow: 0px 1px 2px #666;
+          }
+          nav.on div {
+              color:white;
+          }
+          nav.on span {
+              opacity: 1;
+          }
+          nav span {
+              color:white;
+              font-weight: 200;
+              opacity: 0;
+
+                font-size: 30px;
+              transition:all .4s;
+          }
+      </style>
+  </template>
+</polymer-element>
+
+
+          <footer>
+          <div class="fc">FOCUS</div>														  <div class="fc" onclick="linkstoggle();" id="fc_linkson">LINKS ON</div>
+			<div class="fc" id="night-toogle" onclick="$('body').toggleClass('night');$(this).toggleClass('on');">NIGHT MODE</div>
+</footer>
+
+          <style>
+              footer {
+              position:fixed;
+              bottom:0px;
+              height:25px;
+              left:0px;
+              right:0px;
+              background:white;
+              border-top:1px solid #ddd;
+              }
+              .fc {
+
+                  display: inline-block;
+                  padding: 5px 10px;
+				  margin-left:-5px;
+                  transition: all .4s;
+                  border-right:1px solid #ddd;
+                  font-size: 14px;
+                  -webkit-user-select:none;
+                  cursor: pointer;
+              }
+              .fc.on {
+                  background:#48f;
+                  color:white;
+              }
+
+
+
+          </style>
+          <script>
+
+          </script>
+      </template>
+    </polymer-element>
+
+<mw-bottom-navigator></mw-bottom-navigator>
+
+<script>
+console.log('hllo');
+    areLinksToggled=false;
+     function linkstoggle() {
+         if (!areLinksToggled)
+         {
+          $('html /deep/ #fc_linkson').addClass('on');
+          $('html /deep/ #fc_linkson').html("LINKS OFF");
+         areLinksToggled=true;
+             $('body').addClass('focus_links');
+         }
+         else {
+          $('html /deep/ #fc_linkson').removeClass('on');
+          $('html /deep/ #fc_linkson').html("LINKS ON");
+             areLinksToggled=false;
+             $('body').removeClass('focus_links');
+         }
+      }
+
+</script>

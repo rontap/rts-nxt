@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css?family=Montserrat|Roboto&amp;subset=latin-ext" rel="stylesheet">
+
+<script>
+y2s=1/31536000;
+y2names=["","másodperc","perc","óra"];
+y2state=1;
+curr=0;
+mat300=['4DB6AC','BA68C8','E57373','4DD0E1','FFD54F','8D6E63'];
+mat600=['00897B','8E24AA','E53935','00ACC1','FFB300','6D4C41'];
+
+function $(call) { return document.querySelectorAll(call) } ;
+
+koltseg=[1,1300,742000];
+koltseg_nev=['Forint','Big Mac Menü','Orbán Viktor vagyona']
+vagyon = {
+	'viktor':742,
+	'csanyi':260000000,
+	'meszaros':120000000,
+	'simicska':80000000,
+	'soros':  25200000*278,
+	'BG': 86000000*278
+};
+
+elozo_ev = {
+	'viktor':  930,
+	'csanyi':  200000000,
+	'meszaros':23800000,
+	'simicska':83000000,
+	'soros':  24900000*278,
+	'BG': 78000000*278
+};
+guys=[];
+function init() {
+	guys=Object.keys(vagyon);
+	for (i=0;i<guys.length;i++) {
+		$$('article span:nth-child(3)')[i].innerHTML="Teljes vagyon "+Comma(String(vagyon[guys[i]]))+".000 Forint";
+		$$('article span:nth-child(4)')[i].innerHTML="Vagyonának változása "+Comma(String(vagyon[guys[i]] - elozo_ev[guys[i]]))+".000 Forint";
+	}
+}
+ticktime=0;
+function tick() {
+	ticktime++;
+
+	for (i=0;i<guys.length;i++) {
+		var sep = ",";
+		base=Math.floor((y2s*(Math.pow(60,y2state-1))*( vagyon[guys[i]] - elozo_ev[guys[i]] )*ticktime)*1000*(1/2));
+		perpill=base/koltseg[curr];
+		$$('.delta')[i].innerHTML=Comma(String(perpill)) +' '+ koltseg_nev[curr];
+		$$('article')[i].style.background='#'+mat300[i];
+		$$('.delta')[i].style.background='#'+mat600[i];
+	}
+	secs.innerHTML=Math.floor(ticktime/2)+" "+y2names[y2state]+" alatt ennyi pénzt kerestek:";
+	setTimeout(function(){tick();},500);
+}
+
+
+
+function Comma(amount) {
+	var delimiter = "."; // replace comma if desired
+	var a = amount.split('.',2)
+	var i = parseInt(a[0]);
+	if(isNaN(i)) { return ''; }
+	var minus = '';
+	if(i < 0) { minus = '-'; }
+	i = Math.abs(i);
+	var n = new String(i);
+	var a = [];
+	while(n.length > 3) {
+		var nn = n.substr(n.length-3);
+		a.unshift(nn);
+		n = n.substr(0,n.length-3);
+	}
+	if(n.length > 0) { a.unshift(n); }
+	n = a.join(delimiter);
+	amount = n;
+	amount = minus + amount;
+	return amount;
+}
+</script>
+
+
+<style>
+article:hover span:nth-child(3), article:focus span:nth-child(3){
+opacity:1;
+margin-top:5px;
+}
+article:hover span:nth-child(4) {
+transition:.5s;
+margin-top:5px;
+}
+
+article span:nth-child(3),article span:nth-child(4) {
+opacity:0;
+transition:.4s;
+margin-top:0px;
+}
+
+article h1 {
+font-family: 'Montserrat', sans-serif;
+margin:0 !important;
+padding:10px 5px;
+}
+article {
+	margin: 50px;
+    background: #26A69A;
+    padding: 25px;
+    transition:.4s;
+    box-shadow:0px 2px 4px #AAA;
+}
+article:hover {
+	box-shadow:0px 2px 7px #888;
+}
+body { padding:0; margin:0;
+	font-family: 'Roboto', sans-serif;
+	max-width:800px;
+	margin:0 auto;
+	background:linear-gradient(#ECEFF1, white);
+	}
+
+
+article span {
+	padding:0px 10px; display:block;
+	color:#222;
+	}
+article:hover span {
+	color:black;
+	opacity:1;
+	}
+.delta {
+	    margin: 20px -25px -25px -25px;
+    padding: 20px;
+    background: #00796B;
+    font-weight:bold;
+    color:white;
+}
+nav {
+	text-align:center;
+	max-width:450px;
+	margin:0 auto;
+	padding:50px 20px 20px 20px;
+	font-family: 'Montserrat', sans-serif;
+}
+#buts {
+	background:white;
+	box-shadow:0px 2px 7px #888;
+	display:inline-block;
+}
+button {
+	border:none;
+	padding:20px;
+	display:inline-block;
+	margin:0 2px;
+	background:transparent;
+	cursor:pointer;
+}
+p {
+text-align:justify;
+    line-height: 24px;
+}
+
+
+</style>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="../NXTJS/sole-design.css" rel="stylesheet">
+    <script src="../NXTJS/jsplus.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div id="linkBack" >
+        <i class="material-icons"  onclick="location.href='index.html'">arrow_back</i>
+        <span  onclick="location.href='index.html'" style="background:#00796B;">Go back to index.</span>
+        <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
+    </div>
+
+<nav>
+<h1>Mennyivel lesz gazdagabb a Magyar?</h1>
+<p>
+Örömmel értesültünk a Gazdag és a Befolyásos magyarok 2016-2017<wbr> közötti gazdagodásáról.<br>
+Itt leosztva látható az egyes emberek gazdagodása valós időben.<wbr>
+A könnyebb megértés jegyében más fizetőeszközöket is ki lehet választani<wbr> alább.
+
+</p>
+<br>
+<div id="buts">
+	<br>
+	Mértékegység:
+	<br>
+	<button onclick="curr=0">Forint</button>
+	<button onclick="curr=1">BigMac menü</button>
+	<button onclick="curr=2">Orbán Viktor</button>
+</div>
+
+<br><br><br>
+<span id="secs" onclick="if(y2state<3)y2state++;"></span>
+
+</nav>
+
+
+<article>
+	<h1>Orbán Viktor</h1>
+	<span>Magyarország miniszterelnöke</span>
+	<span></span><span></span>
+	<img src="">
+<div class="delta"></div>
+</article>
+<article>
+	<h1>Csányi Sándor</h1>
+	<span>OTP vezérigazgatója</span>
+	<span></span><span></span>
+	<img src="">
+	<div class="delta"></div>
+</article>
+<article>
+	<h1>Mészáros Lőrinc</h1>
+	<span>Gázszerelő</span>
+	<span></span><span></span>
+	<img src="">
+<div class="delta"></div>
+</article><article>
+	<h1>Simicska Lajos</h1>
+	<span>Számkivetett</span>
+	<span></span><span></span>
+	<img src="">
+<div class="delta"></div>
+</article><article>
+	<h1>Soros György</h1>
+	<span>Az ördög maga</span>
+	<span></span><span></span>
+	<img src="">
+<div class="delta"></div>
+</article>
+</article><article>
+	<h1>Bill Gates</h1>
+	<span>Leggazdagabb ember a Földön</span>
+	<span></span><span></span>
+	<img src="">
+<div class="delta"></div>
+</article>
+
+<script>
+	init();
+tick();
+</script>
+</body>
+</html>
