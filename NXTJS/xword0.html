@@ -16,8 +16,8 @@ class XWord {
     this.words = words.split(' '); //array of words
     let wl = this.words.length;
 
-    this.matchMatrix = new Array(wl).fill().map(()=> new Array(wl));
-    this.matchNo =     new Array(wl).fill().map(()=> new Array(wl));
+    this.matchMatrix = new Array(wl).fill().map(() => new Array(wl));
+    this.matchNo =     new Array(wl).fill().map(() => new Array(wl));
     this.wordStrength = [];
 
     for (let i= 0;i<wl;i++) {

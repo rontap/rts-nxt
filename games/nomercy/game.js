@@ -153,7 +153,7 @@ function init() {
     main()
 }
 function renderUsers() {
-    let userNames = state.users.map( (el) => el.name)
+    let userNames = state.users.map((el) => el.name)
     let output ='';
     let admin = state.users[0].name;
     let yourIndex=userNames.indexOf(userName);
