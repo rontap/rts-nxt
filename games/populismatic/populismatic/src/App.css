@@ -1,12 +1,12 @@
 #root {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1rem;
     text-align: center;
 }
 
 .logo {
-    height: 6em;
+    height: 2em;
     padding: 1.5em;
     will-change: filter;
     transition: filter 300ms;
@@ -45,5 +45,106 @@
 
 .grid {
     display: grid;
+    transition: background .2s;
+}
 
+#GB {
+    margin: 0 auto;
+}
+
+.gb-selection .grid {
+    border: 4px solid #ffffff99;
+}
+
+.gb-selection .grid:hover {
+    border: 4px solid #444444cc;
+    cursor: pointer;
+}
+
+.grid.g-type-RAINBOW:not(.g-owned-true) {
+    background: linear-gradient(
+            45deg,
+            #F44336, /* Red */ #FF9800, /* Orange */ #FFEB3B, /* Yellow */ #4CAF50, /* Green */ #2196F3, /* Blue */ #9C27B0 /* Purple */
+    );
+}
+
+.grid {
+    color: #222222cc;
+    padding-top: 7px;
+}
+
+.gb-selection .grid {
+    padding-top: 3px;
+}
+
+.grid.g-type-ACTIVIST.g-owned-true {
+    animation: gb-activist .4s;
+}
+
+@keyframes gb-activist {
+    0% {
+        background: inherit;
+    }
+    30% {
+        background: #DDD;
+    }
+    40% {
+        background: #F44336;
+    }
+    60% {
+        background: #DDD;
+    }
+    80% {
+        background: #F44336;
+    }
+    88% {
+        background: white;
+    }
+    100% {
+        background: transparent;
+    }
+}
+
+.grid.g-owned-true {
+    color: white !important;
+}
+
+.g-faction-CON {
+    background: #add5ff;
+}
+
+.g-faction-LIB {
+    background: #ffc107;
+}
+
+.g-faction-SOC {
+    background: #f3594c;
+}
+
+.g-faction-GREEN {
+    background: #5dc561;
+}
+
+.g-faction-CENTR {
+    background: #00bcd4;
+}
+
+.g-faction-COMM {
+    background: #e65385;
+}
+
+.g-faction-FASH {
+    background: #444;
+}
+
+.g-faction-FAITH {
+    background: #7ea1b3;
+}
+
+.g-faction-FARM {
+    background: #cddc39;
+}
+
+.g-faction-NAT {
+    background: #ede7f6;
 }

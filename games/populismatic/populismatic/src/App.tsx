@@ -2,61 +2,73 @@ import {useEffect, useState} from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import {Board, Faction, getFactionColor, Run} from './Game'
+import {Board, Cell, Faction, getFactionColor, Kind, Run} from './Game'
 
-const singleRun = new Run(15);
-const baseBoard = new Board(10, 10, 6, singleRun.level);
+const singleRun = new Run(54594);
+const baseBoard = new Board(singleRun);
 
 function App() {
     const [count, setCount] = useState(0)
+    const [selectTiles, setSelectTiles] = useState(false);
     const expand = (faction: Faction) => {
         setCount(() => count + 1)
-        baseBoard.doPopulism(faction)
+        baseBoard.doPopulism(faction, setCount)
     }
     return (
         <>
             <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <button onClick={() => setCount(() => count + 1)}>fr {count}</button>
-            <h1>Vite + React</h1>
-            <div id={"GB"} style={{display: 'grid', grid: `repeat(${baseBoard.w},30px) / repeat(${baseBoard.h},30px)`}}>
-                {baseBoard.map(cell => {
-                    if (cell.owned) {
-                        return <div className={"grid"}
-                                    style={{background: getFactionColor(cell.faction), border: '2px ridge #f1f1f1'}}>
-                            *
-                        </div>
-                    }
-                    return (<div className={"grid"}
-                                 style={{background: getFactionColor(cell.faction)}}>
-                        {cell.faction}
-                    </div>)
-                })}
-            </div>
-            <div className="card">
-                {Object.values(Faction).filter(isNaN).map(faction => {
-                    return <button
-                        onClick={() => expand(Faction[faction] as Faction)}
-                        style={{background: getFactionColor(Faction[faction])}}>
-                        {faction}
-                    </button>
-                })}
+                <div>Level {singleRun.level} | {count}</div>
+                <button onClick={() => setSelectTiles(v => !v)}></button>
+                <div>Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |
+                    Game {baseBoard.score.game}</div>
+                <button onClick={() => setCount(() => count + 1)}>steps
+                    left {singleRun.getCurrentLevel.steps - baseBoard.moves}</button>
+                <h2>Junta</h2>
+                <div id={"GB"} className={selectTiles ? 'gb-selection' : ''} style={{
+                    display: 'grid',
+                    grid: `repeat(${singleRun.getCurrentLevel.size},40px) / repeat(${singleRun.getCurrentLevel.size},40px)`
+                }}>
+                    {baseBoard.map((cell, i) => {
+                        // if (cell.owned) {
+                        //     return <div key={i} className={"grid"}
+                        //                 style={{background: getFactionColor(cell.faction), border: '2px ridge #f1f1f1'}}>
+                        //         *
+                        //     </div>
+                        // }
+                        return (<CellItem key={i} cell={cell}>
+                            {cell.owned ? '×' : cell.faction}
+                        </CellItem>)
+                    })}
+                </div>
+                <div className="card">
+                    {Object.values(Faction).filter(isNaN).map(faction => {
+                        return <button
+                            onClick={() => expand(Faction[faction] as Faction)}
+                            style={{background: getFactionColor(Faction[faction])}}>
+                            {faction}
 
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
+                        </button>
+                    })}
+
+                </div>
+
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
         </>
     )
+}
+
+type CellItemProps = {
+    children: React.ReactNode,
+    cell: Cell
+}
+
+function CellItem(props: CellItemProps) {
+    return <div className={"grid " + props.cell.getFactionColor} onClick={() => console.log(props.cell)}
+    >
+        {props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST && "❎"}
+        {props.cell.owned && !props.cell.inProgress ? "×" : ""}
+        {(!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST && '💣'}
+    </div>
 }
 
 export default App
