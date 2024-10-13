@@ -49,7 +49,7 @@ export const getModifiers = () => {
         },
         defer:
             (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => {
-                return obj[key] || obj[DEFAULT]
+                return obj[key] ?? obj[DEFAULT]
             }
     } as Modifier;
 }

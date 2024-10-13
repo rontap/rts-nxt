@@ -1,90 +1,8 @@
 import {PRNG, RandGen, randGen, twoDimArray, upTo, upToSeed} from "./random.ts";
 import {Dispatch, ReactNode, SetStateAction} from "react";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
+import {Faction, Run} from "./Run.ts";
 
-export class Run {
-    root: PRNG;
-    shop: RandGen;
-    layout: RandGen;
-    bosses: RandGen;
-    levelGen: PRNG;
-    modifiers: Modifier;
-    level: number;
-
-    constructor(seed: number = Math.random()) {
-        this.root = new PRNG(seed);
-        this.shop = randGen(this.root.next());
-        this.layout = randGen(this.root.next());
-        this.bosses = randGen(this.root.next());
-        this.levelGen = new PRNG(this.root.next());
-        this.modifiers = getModifiers();
-        this.level = 1;
-    }
-
-    get getCurrentLevel(): Level {
-        return this.modifiers.levels[String(this.level)]
-    }
-
-    nextLevel(): Level {
-        this.level++;
-        return this.getCurrentLevel;
-    }
-}
-
-
-export enum Faction {
-    "CON",
-    "LIB",
-    "SOC",
-    "GREEN",
-    "CENTR",
-    "COMM",
-    "FASH",
-    "NAT",
-    "FAITH",
-    "FARM" // dyn*
-}
-
-type IdeologyH = {
-    AUTH: Faction[],
-    CENTER: Faction[],
-    LIB: Faction[],
-}
-type Ideology = {
-    LEFT: IdeologyH,
-    CENTER: IdeologyH,
-    RIGHT: IdeologyH,
-}
-
-export enum Ideologies {
-    AUTH_LEFT,
-    AUTH_CENTER,
-    AUTH_RIGHT,
-    CENTER_LEFT,
-    CENTER_CENTER,
-    CENTER_RIGHT,
-    LIB_LEFT,
-    LIB_CENTER,
-    LIB_RIGHT
-}
-
-const ideology: Ideology = {
-    LEFT: {
-        AUTH: [Faction.COMM],
-        CENTER: [Faction.GREEN],
-        LIB: [Faction.SOC]
-    },
-    CENTER: {
-        AUTH: [Faction.NAT],
-        CENTER: [Faction.CON],
-        LIB: [Faction.CENTR]
-    },
-    RIGHT: {
-        AUTH: [Faction.FASH],
-        CENTER: [Faction.FAITH],
-        LIB: [Faction.LIB]
-    }
-}
 type RGBC = string;
 
 export function getFactionColor(faction: Faction): RGBC {
@@ -102,7 +20,7 @@ export function getFactionColor(faction: Faction): RGBC {
         case Faction.COMM:
             return '#e65385';
         case Faction.FASH:
-            return '#444';
+            return '#959595 ';
         case Faction.FAITH:
             return '#7ea1b3';
         case Faction.FARM:
@@ -116,7 +34,7 @@ export enum Kind {
     NORMAL,
     DISENFRANCHISED,
     RAINBOW,
-    HEALTH,
+    STEPS,
     LUCKY,
     WALL,
     TACTICAL,
@@ -125,17 +43,19 @@ export enum Kind {
 }
 
 type Coord = number;
+export const PRE_OWNED: string = "" as const;
 
 export class Cell {
     faction: Faction;
-    owned: boolean;
+    owned: boolean | typeof PRE_OWNED;
     iterated: boolean;
     kind: Kind;
     valid: boolean;
     board: Board;
-    private h: Coord;
-    private w: Coord;
+    h: Coord;
+    w: Coord;
     inProgress: boolean;
+    isSource: boolean;
 
     constructor(faction: Faction, board: Board, h: Coord, w: Coord) {
         this.faction = faction
@@ -147,6 +67,7 @@ export class Cell {
         this.h = h;
         this.w = w;
         this.inProgress = false;
+        this.isSource = false;
     }
 
     meetsWinCondition(board: Board) {
@@ -198,6 +119,13 @@ export class Cell {
         }
         return 110;
     }
+
+    set source(to: boolean) {
+        this.isSource = to;
+        this.owned = to;
+        this.kind = Kind.NORMAL;
+    }
+
 }
 
 interface Score {
@@ -235,8 +163,7 @@ export class Board {
         this.w = level.size;
         const startH = upToSeed(this.run.levelGen.next(), h);
         const startW = upToSeed(this.run.levelGen.next(), w);
-        this.grid[startH][startW].owned = true;
-        this.grid[startH][startW].kind = Kind.NORMAL;
+        this.grid[startH][startW].source = true;
         this.origin = [startH, startW];
         this.moves = 0;
         this.inProgress = 0;
@@ -254,7 +181,8 @@ export class Board {
         return this.grid[this.origin[0]][this.origin[1]]
     }
 
-    doPopulism(faction: Faction, setCount: Dispatch<SetStateAction<number>>) {
+
+    async doPopulism(faction: Faction, setCount: Dispatch<SetStateAction<number>>) {
         this.score.step = 0;
         this.moves++;
         this.forEach(cell => {
@@ -262,7 +190,11 @@ export class Board {
                 cell.faction = faction;
             }
         });
-        this.expand(this.origin[0], this.origin[1], faction, setCount);
+        this.forEach(cell => {
+            if (cell.isSource) {
+                this.expand(cell.h, cell.w, faction, setCount);
+            }
+        })
         this.forEach(cell => {
             if (cell.owned) {
                 cell.faction = faction;
@@ -271,8 +203,7 @@ export class Board {
         })
         this.score.step **= 1.5;
         this.score.round += Math.floor(this.score.step);
-
-
+        this.score.step = 0;
     }
 
     checkStatus(setCount: Dispatch<SetStateAction<number>>) {
@@ -280,7 +211,6 @@ export class Board {
             if (this.win() && this.inProgress === 0) {
                 this.inProgress = 1;
                 setTimeout(() => {
-                    alert('you won lmao');
                     this.nextRound();
                     setCount(count => count + 1);
                 }, 600);
@@ -361,5 +291,6 @@ export class Board {
     }
 }
 
-
+export {Faction, Run}
+// @ts-ignore
 window._G = {Board, Run};

@@ -1,24 +1,42 @@
-import {useEffect, useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
 import {Board, Cell, Faction, getFactionColor, Kind, Run} from './Game'
+import {Leaders} from "./flavour.ts";
+import {Consumable, Consumables, Powerup, PowerupCtr} from "./Powerup.tsx";
 
-const singleRun = new Run(54594);
+const singleRun = new Run(54596);
 const baseBoard = new Board(singleRun);
 
 function App() {
     const [count, setCount] = useState(0)
-    const [selectTiles, setSelectTiles] = useState(false);
-    const expand = (faction: Faction) => {
+    const [selectTiles, setSelectTiles] = useState<undefined | PowerupCtr>(undefined);
+    const expand = async (faction: Faction) => {
+        await baseBoard.doPopulism(faction, setCount)
         setCount(() => count + 1)
-        baseBoard.doPopulism(faction, setCount)
+    }
+    const onClickPowerup = (consumable: Consumable) => {
+        if (consumable.self.boardInteraction) {
+            setSelectTiles(consumable.self);
+        } else {
+            consumable.self.onAction(undefined, baseBoard, setCount);
+            setCount(() => count + 1);
+        }
+    }
+
+    const onClickCell = (_event: SyntheticEvent, cell: Cell) => {
+        if (selectTiles) {
+            selectTiles.onAction(cell, baseBoard, setCount);
+            setSelectTiles(undefined);
+        } else {
+            expand(cell.faction);
+        }
+
     }
     return (
         <>
             <div>
                 <div>Level {singleRun.level} | {count}</div>
-                <button onClick={() => setSelectTiles(v => !v)}></button>
+                <button onClick={() => setSelectTiles(undefined)}>TGL</button>
                 <div>Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |
                     Game {baseBoard.score.game}</div>
                 <button onClick={() => setCount(() => count + 1)}>steps
@@ -35,21 +53,36 @@ function App() {
                         //         *
                         //     </div>
                         // }
-                        return (<CellItem key={i} cell={cell}>
+                        return (<CellItem key={i} cell={cell} click={onClickCell}>
                             {cell.owned ? '×' : cell.faction}
                         </CellItem>)
                     })}
                 </div>
                 <div className="card">
-                    {Object.values(Faction).filter(isNaN).map(faction => {
-                        return <button
-                            onClick={() => expand(Faction[faction] as Faction)}
-                            style={{background: getFactionColor(Faction[faction])}}>
-                            {faction}
+                    {Object.values(Faction)
+                        .filter(isNaN)
+                        .filter((faction, i) => i < singleRun.getCurrentLevel.factions)
+                        .map(faction => {
+                            return <div className={"populismActivator-outer"}>
+                                <button className={"populismActivator"}
+                                        style={{background: getFactionColor(Faction[faction])}}
+                                        onClick={() => expand(Faction[faction] as Faction)}
+                                >
+                                    {Leaders.Merkel.parties[Faction[faction] as Faction]}
 
-                        </button>
-                    })}
+                                </button>
+                            </div>
+                        })}
 
+                </div>
+                <hr/>
+                Powerups<br/>
+                <div className="grid x4x4">
+                    {
+                        Consumables.map(consumable => {
+                            return consumable.jsx({onSelect: () => onClickPowerup(consumable)})
+                        })
+                    }
                 </div>
 
             </div>
@@ -58,16 +91,27 @@ function App() {
 }
 
 type CellItemProps = {
-    children: React.ReactNode,
+    children: ReactNode,
     cell: Cell
+    click: (evt: SyntheticEvent, cell: Cell) => void
 }
 
 function CellItem(props: CellItemProps) {
-    return <div className={"grid " + props.cell.getFactionColor} onClick={() => console.log(props.cell)}
+    const getIcon = () => {
+        if (props.cell.isSource) return "🎯"
+        if (props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST) return "❎"
+
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST) return '💣'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.DISENFRANCHISED) return '🤷‍♀️'
+        if (props.cell.owned && !props.cell.inProgress) {
+            return "×"
+        } else
+            return ""
+    }
+
+    return <div className={"grid " + props.cell.getFactionColor} onClick={evt => props.click(evt, props.cell)}
     >
-        {props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST && "❎"}
-        {props.cell.owned && !props.cell.inProgress ? "×" : ""}
-        {(!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST && '💣'}
+        {getIcon()}
     </div>
 }
 

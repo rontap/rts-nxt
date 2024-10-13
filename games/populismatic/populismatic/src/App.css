@@ -50,6 +50,7 @@
 
 #GB {
     margin: 0 auto;
+    justify-content: center;
 }
 
 .gb-selection .grid {
@@ -66,6 +67,11 @@
             45deg,
             #F44336, /* Red */ #FF9800, /* Orange */ #FFEB3B, /* Yellow */ #4CAF50, /* Green */ #2196F3, /* Blue */ #9C27B0 /* Purple */
     );
+}
+
+.grid.g-type-DISENFRANCHISED:not(.g-owned-true) {
+    border: 4px solid #44444444;
+    padding-top: 3px;
 }
 
 .grid {
@@ -109,6 +115,10 @@
     color: white !important;
 }
 
+.grid.g-owned- {
+    background: #00BCD4 !important;
+}
+
 .g-faction-CON {
     background: #add5ff;
 }
@@ -134,7 +144,7 @@
 }
 
 .g-faction-FASH {
-    background: #444;
+    background: #959595;
 }
 
 .g-faction-FAITH {
@@ -147,4 +157,38 @@
 
 .g-faction-NAT {
     background: #ede7f6;
+}
+
+.populismActivator-outer:active {
+    border-bottom: 0px;
+    vertical-align: -4px;
+}
+
+.populismActivator-outer {
+    border-top: 0px;
+    border-bottom: 5px solid #999;
+    display: inline-block;
+    margin: 0 5px;
+    border-radius: 10px;
+}
+
+.populismActivator {
+    border: 2px solid #666;
+    border-radius: 8px;
+    padding: 8px 15px;
+    background: transparent;
+}
+
+.card {
+    display: grid;
+    grid: repeat(3, 50px) / repeat(3, 120px);
+}
+
+.populismActivator-outer {
+    display: grid;
+    margin: 4px;
+}
+
+.x4x4 {
+    grid-template: repeat(4, 1fr) / repeat(4, 1fr);
 }
