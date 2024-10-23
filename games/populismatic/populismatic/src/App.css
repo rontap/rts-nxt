@@ -1,8 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sixtyfour+Convergence&display=swap');
+
 #root {
     max-width: 1280px;
     margin: 0 auto;
     padding: 1rem;
     text-align: center;
+    background: #f1f1f1;
 }
 
 .logo {
@@ -51,6 +55,15 @@
 #GB {
     margin: 0 auto;
     justify-content: center;
+}
+
+#GB-inner {
+    width: min-content;
+    margin: 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 4px solid #444;
+    box-shadow: 0px 4px 4px #ccc;
 }
 
 .gb-selection .grid {
@@ -159,25 +172,14 @@
     background: #ede7f6;
 }
 
-.populismActivator-outer:active {
-    border-bottom: 0px;
-    vertical-align: -4px;
-}
 
 .populismActivator-outer {
     border-top: 0px;
-    border-bottom: 5px solid #999;
     display: inline-block;
     margin: 0 5px;
     border-radius: 10px;
 }
 
-.populismActivator {
-    border: 2px solid #666;
-    border-radius: 8px;
-    padding: 8px 15px;
-    background: transparent;
-}
 
 .card {
     display: grid;
@@ -191,4 +193,92 @@
 
 .x4x4 {
     grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+}
+
+/*** HEADSTYLE **/
+
+
+#header {
+    background: #ff5722;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: left;
+    padding: 12px;
+    box-shadow: 0px 2px 4px #ccc;
+    border-bottom: 1px solid #888;
+    color: whitesmoke;
+}
+
+#header #title {
+    color: #ffffffcc;
+    display: inline-block;
+    font-family: "Righteous", sans-serif;
+    padding: 0px 15px;
+    font-size: 36px;
+}
+
+#GB {
+}
+
+.populismActivator {
+    border-radius: 6px;
+    padding: 8px 15px;
+    background: transparent;
+    border: 2px solid #444;
+    font-family: "Righteous", sans-serif;
+    color: #444;
+    font-size: 16px;
+    text-shadow: 0px 0px 4px #ccc;
+    cursor: pointer;
+}
+
+#scoreboard {
+    position: fixed;
+    font-family: "Righteous", sans-serif;
+    right: 40px;
+    top: 48px;
+    background: white;
+    border: 3px solid #444;
+    border-radius: 30px;
+    box-shadow: 0px 3px 4px #ccc;
+    padding: 0 5px;
+    color: #444;
+}
+
+#scoreboard span {
+    padding: 10px;
+    display: inline-block;
+}
+
+#scoreboard .divider {
+    border-right: 3px solid #444;
+}
+
+.center {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    width: max-content;
+}
+
+.boxed {
+    border: 2px solid red;
+}
+
+#bleed {
+    margin-top: 150px;
+}
+
+.powerup, .btn {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 3px solid #444;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.powerup:hover, .btn:hover {
+    background: #ccc;
 }

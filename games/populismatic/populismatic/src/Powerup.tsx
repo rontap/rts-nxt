@@ -6,8 +6,10 @@ export type PowerupCtr = {
     name: string,
     icon: string,
     description: string,
-    onAction: (cell: Cell | undefined, board: Board, update: Dispatch<SetStateAction<number>>) => void,
+    onAction: (cell: Cell | undefined, board: Board, update: Dispatch<SetStateAction<number>>, nextStep: () => void) => void,
     boardInteraction?: boolean,
+    that?: Powerup,
+    rarity?: number[],
 
 }
 
@@ -30,10 +32,11 @@ export class Powerup {
 
     constructor(powerupCtr: PowerupCtr) {
         this.self = powerupCtr;
+        this.self.that = this;
     }
 
     jsx(props: PowerupJSX) {
-        return <button onClick={() => props.onSelect(this.self)}>
+        return <button className="powerup" onClick={() => props.onSelect(this.self)}>
             {this.self.icon}
             {this.self.name}
         </button>
@@ -97,11 +100,12 @@ export const Consumables: Consumable[] = [
         name: "Hold Rally",
         icon: "🏟️",
         description: "Hold a rally. People at the periphery of your control may join your ideology.",
-        onAction: (_cell, board, update) => {
+        onAction: (_cell, board, update, nextStage) => {
             board.forEach(baseCell => {
                 if (baseCell.owned) {
                     baseCell.eachNeighbour().forEach(cell => {
-                        if (!cell.owned) {
+                        const shouldJoin = Math.random() > 0.33;
+                        if (!cell.owned && shouldJoin) {
                             cell.owned = PRE_OWNED;
                             cell.faction = board.getOrigin.faction;
                         }
@@ -109,7 +113,7 @@ export const Consumables: Consumable[] = [
                 }
             })
             setTimeout(() => {
-                board.doPopulism(board.getOrigin.faction, update).then(() => false);
+                board.doPopulism(board.getOrigin.faction, update, nextStage).then(() => false);
             }, 300)
         },
         boardInteraction: false,

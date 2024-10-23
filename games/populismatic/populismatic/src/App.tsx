@@ -1,89 +1,167 @@
-import {ReactNode, SyntheticEvent, useState} from 'react'
+import React, {KeyboardEventHandler, ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
 import {Board, Cell, Faction, getFactionColor, Kind, Run} from './Game'
 import {Leaders} from "./flavour.ts";
 import {Consumable, Consumables, Powerup, PowerupCtr} from "./Powerup.tsx";
+import Shop from "./Shop.tsx";
 
-const singleRun = new Run(54596);
+const singleRun = new Run(123465);
 const baseBoard = new Board(singleRun);
+
+enum Stage {
+    Game,
+    Shop
+}
 
 function App() {
     const [count, setCount] = useState(0)
     const [selectTiles, setSelectTiles] = useState<undefined | PowerupCtr>(undefined);
+    const [powerup, setPowerup] = useState<undefined | PowerupCtr>(undefined);
+    const [stage, setStage] = useState<Stage>(Stage.Game);
     const expand = async (faction: Faction) => {
-        await baseBoard.doPopulism(faction, setCount)
+        await baseBoard.doPopulism(faction, setCount, nextStage)
         setCount(() => count + 1)
     }
-    const onClickPowerup = (consumable: Consumable) => {
+
+    const nextStage = () => {
+        if (stage === Stage.Game) {
+            setStage(Stage.Shop);
+        } else if (stage === Stage.Shop) {
+            baseBoard.nextLevel();
+            setStage(Stage.Game);
+        }
+    }
+
+
+    function PowerupDescription() {
+        return <div className="slip">
+            <div className="slip-inner">
+                Powerup Selected
+                {powerup?.icon}
+                {powerup?.name}
+                <br/>{powerup?.description}<br/>
+                <div>
+                    <button onClick={() => onActivatePowerup()}>Activate</button>
+                </div>
+                <div>
+                    <button onClick={() => {
+                        setPowerup(undefined)
+                        setSelectTiles(undefined)
+                    }}>Cancel
+                    </button>
+                </div>
+            </div>
+        </div>;
+    }
+
+    const onClickPowerup = (consumable: Consumable, i: number) => {
+        setPowerup(consumable.self);
         if (consumable.self.boardInteraction) {
             setSelectTiles(consumable.self);
-        } else {
-            consumable.self.onAction(undefined, baseBoard, setCount);
+        }
+    }
+    const onActivatePowerup = () => {
+        if (powerup) {
+            const currentPowerup = singleRun.usePowerup(powerup);
+            currentPowerup.self.onAction(undefined, baseBoard, setCount, nextStage);
             setCount(() => count + 1);
+            setPowerup(undefined);
         }
     }
 
     const onClickCell = (_event: SyntheticEvent, cell: Cell) => {
-        if (selectTiles) {
-            selectTiles.onAction(cell, baseBoard, setCount);
+        if (selectTiles && powerup) {
+            const currentPowerup = singleRun.usePowerup(powerup);
+            currentPowerup.self.onAction(cell, baseBoard, setCount, nextStage);
             setSelectTiles(undefined);
+            setPowerup(undefined);
         } else {
             expand(cell.faction);
         }
-
+    }
+    const expandKeyboard = (event: React.KeyboardEvent) => {
+        const {key} = event;
+        if (!isNaN(Number(key))) {
+            const faction = Number(key);
+            if (faction >= 0 && faction < singleRun.modifiers.levels[singleRun.level].factions) {
+                expand(faction);
+            }
+        }
     }
     return (
         <>
-            <div>
-                <div>Level {singleRun.level} | {count}</div>
-                <button onClick={() => setSelectTiles(undefined)}>TGL</button>
-                <div>Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |
-                    Game {baseBoard.score.game}</div>
-                <button onClick={() => setCount(() => count + 1)}>steps
-                    left {singleRun.getCurrentLevel.steps - baseBoard.moves}</button>
-                <h2>Junta</h2>
-                <div id={"GB"} className={selectTiles ? 'gb-selection' : ''} style={{
-                    display: 'grid',
-                    grid: `repeat(${singleRun.getCurrentLevel.size},40px) / repeat(${singleRun.getCurrentLevel.size},40px)`
-                }}>
-                    {baseBoard.map((cell, i) => {
-                        // if (cell.owned) {
-                        //     return <div key={i} className={"grid"}
-                        //                 style={{background: getFactionColor(cell.faction), border: '2px ridge #f1f1f1'}}>
-                        //         *
-                        //     </div>
-                        // }
-                        return (<CellItem key={i} cell={cell} click={onClickCell}>
-                            {cell.owned ? '×' : cell.faction}
-                        </CellItem>)
-                    })}
-                </div>
-                <div className="card">
-                    {Object.values(Faction)
-                        .filter(isNaN)
-                        .filter((faction, i) => i < singleRun.getCurrentLevel.factions)
-                        .map(faction => {
-                            return <div className={"populismActivator-outer"}>
-                                <button className={"populismActivator"}
-                                        style={{background: getFactionColor(Faction[faction])}}
-                                        onClick={() => expand(Faction[faction] as Faction)}
-                                >
-                                    {Leaders.Merkel.parties[Faction[faction] as Faction]}
+            <div onKeyDown={expandKeyboard} tabIndex={0}>
+                <div id="header">
+                    <div id="title">Junta</div>
+                    <span id="scoreboard">
+                        <span className="divider">
+                            Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |
+                            Game {baseBoard.score.game}
+                        </span>
+                        <span className="divider">
+                             Level {singleRun.level}
+                        </span>
+                            <span>
+                             Maneuvers {singleRun.getCurrentLevel.steps - baseBoard.moves}
+                        </span>
+                    </span>
 
-                                </button>
+                </div>
+                <div id="bleed"></div>
+                {stage === Stage.Game &&
+                    <div>
+                        <div id={"GB"}>
+                            <div className={selectTiles ? 'gb-selection' : ''}
+                                 id={"GB-inner"}
+                                 style={{
+                                     display: 'grid',
+                                     grid: `repeat(${singleRun.getCurrentLevel.size},40px) / repeat(${singleRun.getCurrentLevel.size},40px)`
+                                 }}>
+                                {baseBoard.map((cell, i) => {
+
+                                    return (<CellItem key={i} cell={cell} click={onClickCell}>
+                                        {cell.owned ? '×' : cell.faction}
+                                    </CellItem>)
+                                })}
                             </div>
-                        })}
+                        </div>
+                        <div className="center">
+                            <div className="card">
+                                {Object.values(Faction)
+                                    .filter(isNaN)
+                                    .filter((faction, i) => i < singleRun.getCurrentLevel.factions)
+                                    .map((faction, i) => {
+                                        return <div className={"populismActivator-outer"}>
+                                            <button className={"populismActivator"}
+                                                    style={{background: getFactionColor(Faction[faction])}}
+                                                    onClick={() => expand(Faction[faction] as Faction)}
+                                            >
+                                                {Leaders.Merkel.parties[Faction[faction] as Faction]} [{i}]
 
-                </div>
+                                            </button>
+                                        </div>
+                                    })}
+
+                            </div>
+                        </div>
+                    </div>
+                }
                 <hr/>
-                Powerups<br/>
-                <div className="grid x4x4">
+                <div>
+                    Powerups<br/>
                     {
-                        Consumables.map(consumable => {
-                            return consumable.jsx({onSelect: () => onClickPowerup(consumable)})
-                        })
+                        powerup ? <PowerupDescription/> : singleRun.powerups.map(((consumable, i) => {
+                            return consumable.jsx({
+                                onSelect: () => {
+                                    onClickPowerup(consumable, i)
+                                }
+                            })
+                        }))
                     }
                 </div>
+
+
+                {stage === Stage.Shop && <Shop run={singleRun} setCount={setCount} nextStage={nextStage}/>}
 
             </div>
         </>
@@ -102,6 +180,7 @@ function CellItem(props: CellItemProps) {
         if (props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST) return "❎"
 
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST) return '💣'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.BONUS) return '💵'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.DISENFRANCHISED) return '🤷‍♀️'
         if (props.cell.owned && !props.cell.inProgress) {
             return "×"

@@ -1,5 +1,6 @@
 import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
+import {Consumable, Powerup, PowerupCtr} from "./Powerup.tsx";
 
 export class Run {
     root: PRNG;
@@ -9,6 +10,7 @@ export class Run {
     levelGen: PRNG;
     modifiers: Modifier;
     level: number;
+    powerups: Consumable[];
 
     constructor(seed: number = Math.random()) {
         this.root = new PRNG(seed);
@@ -18,6 +20,7 @@ export class Run {
         this.levelGen = new PRNG(this.root.next());
         this.modifiers = getModifiers();
         this.level = 1;
+        this.powerups = [];
     }
 
     get getCurrentLevel(): Level {
@@ -27,6 +30,21 @@ export class Run {
     nextLevel(): Level {
         this.level++;
         return this.getCurrentLevel;
+    }
+
+    acquirePowerup(powerup: Powerup) {
+        if (this.canAcquirePowerup) {
+            this.powerups.push(powerup);
+        }
+    }
+
+    usePowerup(powerup: PowerupCtr): Powerup {
+        const i = this.powerups.findIndex(current => current.self.name === powerup.name)
+        return this.powerups.splice(i, 1)[0];
+    }
+
+    get canAcquirePowerup() {
+        return this.powerups.length < this.modifiers.powerups.max
     }
 }
 

@@ -1,15 +1,19 @@
 import {Kind} from "./Game.ts";
 
+export type int = number;
 export type RecordDefault<T extends string, K> = Record<T, K> & Record<"DEFAULT", K>;
 export type Level = {
-    size: number,
-    factions: number,
-    steps: number
+    size: int,
+    factions: int,
+    steps: int
 }
 export type Modifier = {
     scoring: RecordDefault<any, number>
     levels: Record<string, Level>
     defer: (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => any
+    powerups: {
+        max: int
+    }
 }
 export const DEFAULT = "DEFAULT" as const;
 export const getModifiers = () => {
@@ -46,6 +50,9 @@ export const getModifiers = () => {
             '8': {
                 size: 13, factions: 8, steps: 38
             },
+        },
+        powerups: {
+            max: 3
         },
         defer:
             (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => {
