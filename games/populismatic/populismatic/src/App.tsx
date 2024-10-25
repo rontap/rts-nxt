@@ -1,9 +1,10 @@
-import React, {KeyboardEventHandler, ReactNode, SyntheticEvent, useState} from 'react'
+import React, {ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
-import {Board, Cell, Faction, getFactionColor, Kind, Run} from './Game'
+import {Board, Cell, Faction, Kind, Run} from './Game'
 import {Leaders} from "./flavour.ts";
-import {Consumable, Consumables, Powerup, PowerupCtr} from "./Powerup.tsx";
+import {Consumable, KindDescriptions, PowerupCtr} from "./Powerup.tsx";
 import Shop from "./Shop.tsx";
+import {getFactionColor} from "./Factions.ts";
 
 const singleRun = new Run(123465);
 const baseBoard = new Board(singleRun);
@@ -25,7 +26,8 @@ function App() {
 
     const nextStage = () => {
         if (stage === Stage.Game) {
-            setStage(Stage.Shop);
+            setStage(Stage.Game);
+            baseBoard.nextLevel();
         } else if (stage === Stage.Shop) {
             baseBoard.nextLevel();
             setStage(Stage.Game);
@@ -54,7 +56,7 @@ function App() {
         </div>;
     }
 
-    const onClickPowerup = (consumable: Consumable, i: number) => {
+    const onClickPowerup = (consumable: Consumable, _i: number) => {
         setPowerup(consumable.self);
         if (consumable.self.boardInteraction) {
             setSelectTiles(consumable.self);
@@ -151,7 +153,7 @@ function App() {
                     Powerups<br/>
                     {
                         powerup ? <PowerupDescription/> : singleRun.powerups.map(((consumable, i) => {
-                            return consumable.jsx({
+                            return consumable.button({
                                 onSelect: () => {
                                     onClickPowerup(consumable, i)
                                 }
@@ -161,7 +163,10 @@ function App() {
                 </div>
 
 
-                {stage === Stage.Shop && <Shop run={singleRun} setCount={setCount} nextStage={nextStage}/>}
+                {stage === Stage.Shop && <>
+                    {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
+                    <Shop run={singleRun} setCount={setCount} nextStage={nextStage}/>
+                </>}
 
             </div>
         </>
@@ -179,6 +184,8 @@ function CellItem(props: CellItemProps) {
         if (props.cell.isSource) return "🎯"
         if (props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST) return "❎"
 
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.INFLUENCER) return '🤩'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.TACTICAL) return '🤡'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST) return '💣'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.BONUS) return '💵'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.DISENFRANCHISED) return '🤷‍♀️'
@@ -189,7 +196,7 @@ function CellItem(props: CellItemProps) {
     }
 
     return <div className={"grid " + props.cell.getFactionColor} onClick={evt => props.click(evt, props.cell)}
-    >
+                title={KindDescriptions[props.cell.kind]}>
         {getIcon()}
     </div>
 }

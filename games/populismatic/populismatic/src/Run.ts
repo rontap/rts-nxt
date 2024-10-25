@@ -1,6 +1,6 @@
 import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
-import {Consumable, Powerup, PowerupCtr} from "./Powerup.tsx";
+import {Advisor, Consumable, Powerup, PowerupCtr} from "./Powerup.tsx";
 
 export class Run {
     root: PRNG;
@@ -11,6 +11,7 @@ export class Run {
     modifiers: Modifier;
     level: number;
     powerups: Consumable[];
+    advisors: Advisor[];
 
     constructor(seed: number = Math.random()) {
         this.root = new PRNG(seed);
@@ -21,6 +22,7 @@ export class Run {
         this.modifiers = getModifiers();
         this.level = 1;
         this.powerups = [];
+        this.advisors = [];
     }
 
     get getCurrentLevel(): Level {
@@ -46,59 +48,15 @@ export class Run {
     get canAcquirePowerup() {
         return this.powerups.length < this.modifiers.powerups.max
     }
-}
 
+    acquireLeader(advisor: Advisor) {
+        if (this.canAcquireAdvisor) {
+            this.advisors.push(advisor);
+            advisor.self.onAcquire();
+        }
+    }
 
-export enum Faction {
-    "CON",
-    "LIB",
-    "SOC",
-    "GREEN",
-    "CENTR",
-    "COMM",
-    "FASH",
-    "NAT",
-    "FAITH",
-    "FARM" // dyn*
-}
-
-type IdeologyH = {
-    AUTH: Faction[],
-    CENTER: Faction[],
-    LIB: Faction[],
-}
-type Ideology = {
-    LEFT: IdeologyH,
-    CENTER: IdeologyH,
-    RIGHT: IdeologyH,
-}
-
-export enum Ideologies {
-    AUTH_LEFT,
-    AUTH_CENTER,
-    AUTH_RIGHT,
-    CENTER_LEFT,
-    CENTER_CENTER,
-    CENTER_RIGHT,
-    LIB_LEFT,
-    LIB_CENTER,
-    LIB_RIGHT
-}
-
-const ideology: Ideology = {
-    LEFT: {
-        AUTH: [Faction.COMM],
-        CENTER: [Faction.GREEN],
-        LIB: [Faction.SOC]
-    },
-    CENTER: {
-        AUTH: [Faction.NAT],
-        CENTER: [Faction.CON],
-        LIB: [Faction.CENTR]
-    },
-    RIGHT: {
-        AUTH: [Faction.FASH],
-        CENTER: [Faction.FAITH],
-        LIB: [Faction.LIB]
+    get canAcquireAdvisor() {
+        return this.advisors.length < this.modifiers.advisors.max
     }
 }

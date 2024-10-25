@@ -10,7 +10,12 @@ export function randGen(seed: number): RandGen {
 }
 
 export class PRNG {
-    constructor(seed) {
+    private seed: number;
+    private readonly modulus: number;
+    private readonly multiplier: number;
+    private readonly increment: number;
+
+    constructor(seed: number) {
         this.seed = seed; // Initialize seed
         this.modulus = 0x80000000; // 2^31
         this.multiplier = 0x4A39B70D; // Arbitrary multiplier
@@ -24,7 +29,7 @@ export class PRNG {
     }
 
     // Set a new seed for the generator
-    setSeed(newSeed) {
+    setSeed(newSeed: number) {
         this.seed = newSeed;
     }
 }

@@ -1,5 +1,9 @@
-import {Faction} from "./Run.ts";
 import {Board, Coord, Kind, PRE_OWNED} from "./Game.ts";
+import {Faction} from "./Factions.ts";
+
+export  type OnCaptureActions = {
+    preventBubbling?: boolean;
+}
 
 export class Cell {
     faction: Faction;
@@ -17,7 +21,7 @@ export class Cell {
         this.faction = faction
         this.owned = false;
         this.iterated = false;
-        this.kind = board.run.levelGen.next() > 0.2 ? Kind.NORMAL : [Kind.ACTIVIST, Kind.RAINBOW, Kind.DISENFRANCHISED][Math.floor(board.run.levelGen.next() * 3)];
+        this.kind = board.run.levelGen.next() > 0.2 ? Kind.NORMAL : [Kind.ACTIVIST, Kind.RAINBOW, Kind.DISENFRANCHISED/*, Kind.INFLUENCER, Kind.TACTICAL*/][Math.floor(board.run.levelGen.next() * 3)];
         this.valid = false;
         this.board = board;
         this.h = h;
@@ -53,12 +57,16 @@ export class Cell {
         ].join(" ");
     }
 
-    onCapture() {
+    onCapture(): OnCaptureActions {
         if (this.kind === Kind.ACTIVIST) {
             setTimeout(() => {
                 this.eachNeighbour().forEach(cell => cell.faction = this.faction)
             }, 300, this);
         }
+        if (this.kind === Kind.TACTICAL) {
+            return {preventBubbling: true}
+        }
+        return {};
     }
 
     eachNeighbour(): Cell[] {

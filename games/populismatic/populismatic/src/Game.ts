@@ -1,41 +1,17 @@
-import {PRNG, RandGen, randGen, twoDimArray, upTo, upToSeed} from "./random.ts";
-import {Dispatch, ReactNode, SetStateAction} from "react";
-import {getModifiers, Level, Modifier} from "./modifiers.ts";
-import {Faction, Run} from "./Run.ts";
-import {Cell} from "./Cell.ts";
+import {twoDimArray, upToSeed} from "./random.ts";
+import {Dispatch, SetStateAction} from "react";
+import {Level} from "./modifiers.ts";
+import {Run} from "./Run.ts";
+import {Cell, OnCaptureActions} from "./Cell.ts";
+import {Faction} from "./Factions.ts";
 
-type RGBC = string;
 
-export function getFactionColor(faction: Faction): RGBC {
-    switch (faction) {
-        case Faction.CON:
-            return '#add5ff';
-        case Faction.LIB:
-            return '#ffc107';
-        case Faction.SOC:
-            return '#f3594c';
-        case Faction.GREEN:
-            return '#5dc561';
-        case Faction.CENTR:
-            return '#00bcd4';
-        case Faction.COMM:
-            return '#e65385';
-        case Faction.FASH:
-            return '#959595 ';
-        case Faction.FAITH:
-            return '#7ea1b3';
-        case Faction.FARM:
-            return '#cddc39';
-        case Faction.NAT:
-            return '#ede7f6';
-    }
-}
 
 export enum Kind {
     NORMAL,
     DISENFRANCHISED,
     RAINBOW,
-    STEPS,
+    INFLUENCER,
     LUCKY,
     WALL,
     TACTICAL,
@@ -53,15 +29,15 @@ interface Score {
 }
 
 export class Board {
-    h: Coord;
-    w: Coord;
-    origin: [Coord, Coord]
-    grid: Cell[][];
+    h: Coord = -1;
+    w: Coord = -1;
+    origin: [Coord, Coord] = [-1, -1]
+    grid: Cell[][] = [];
     score: Score;
     run: Run;
     moves: number = 0;
+    usedMoves: number = 0;
     private inProgress: number;
-
 
     constructor(run: Run) {
         this.run = run;
@@ -71,7 +47,6 @@ export class Board {
         this.score = {
             game: 0, round: 0, step: 0
         };
-
     }
 
     private genBoard(h: number, w: number, factions: number) {
@@ -79,11 +54,13 @@ export class Board {
         const level: Level = this.run.getCurrentLevel;
         this.h = level.size;
         this.w = level.size;
+        // allocate starting point randomly
         const startH = upToSeed(this.run.levelGen.next(), h);
         const startW = upToSeed(this.run.levelGen.next(), w);
         this.grid[startH][startW].source = true;
         this.origin = [startH, startW];
         this.moves = 0;
+        this.usedMoves = 0;
         this.inProgress = 0;
     }
 
@@ -96,6 +73,7 @@ export class Board {
         this.score.game += this.score.round;
         this.score.step = 0;
         this.score.round = 0;
+        console.log(this.usedMoves, '<< swords');
     }
 
     get getOrigin(): Cell {
@@ -105,16 +83,21 @@ export class Board {
 
     async doPopulism(faction: Faction, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
         this.moves++;
+        this.usedMoves++;
+        this.score.step = 0;
         this.forEach(cell => {
             if (cell.owned) {
                 cell.faction = faction;
             }
         });
-        this.forEach(cell => {
+        const expansions = this.map(cell => {
             if (cell.isSource) {
-                this.expand(cell.h, cell.w, faction, setCount, nextStage);
+                return this.expand(cell.h, cell.w, faction, setCount, nextStage);
             }
+            return Promise.resolve(() => {
+            })
         })
+        await Promise.all(expansions)
         this.forEach(cell => {
             if (cell.owned) {
                 cell.faction = faction;
@@ -123,7 +106,7 @@ export class Board {
         })
         this.score.step **= 1.5;
         this.score.round += Math.floor(this.score.step);
-        this.score.step = 0;
+
     }
 
     checkStatus(setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
@@ -139,6 +122,7 @@ export class Board {
             const lose = this.lose();
             if (lose) {
                 alert('you loser\n' + lose);
+                window.location.reload()
             }
             setCount(count => count + 1);
         }
@@ -148,25 +132,28 @@ export class Board {
         const cell = this.grid[h][w];
         cell.iterated = true;
         cell.faction = faction;
+        let onCaptured: OnCaptureActions = {};
         let timeout: number = 0;
         if (!cell.owned) {
             cell.owned = true;
             this.score.step += cell.getScore();
-            cell.onCapture();
+            onCaptured = cell.onCapture();
             timeout = cell.onCaptureDelay();
             setCount(count => count + 1);
             cell.inProgress = true;
 
         }
         cell.owned = true;
-
-
+        if (!onCaptured.preventBubbling) {
+            await new Promise(resolve => setTimeout(resolve, timeout));
+            const nextIterations: Promise<void>[] = [];
+            if (this.isValid(h - 1, w, faction)) nextIterations.push(this.expand(h - 1, w, faction, setCount, nextStage));
+            if (this.isValid(h + 1, w, faction)) nextIterations.push(this.expand(h + 1, w, faction, setCount, nextStage));
+            if (this.isValid(h, w - 1, faction)) nextIterations.push(this.expand(h, w - 1, faction, setCount, nextStage));
+            if (this.isValid(h, w + 1, faction)) nextIterations.push(this.expand(h, w + 1, faction, setCount, nextStage));
+            await Promise.all(nextIterations);
+        }
         //looking in the four main directions
-        await new Promise(resolve => setTimeout(resolve, timeout));
-        if (this.isValid(h - 1, w, faction)) this.expand(h - 1, w, faction, setCount, nextStage);
-        if (this.isValid(h + 1, w, faction)) this.expand(h + 1, w, faction, setCount, nextStage);
-        if (this.isValid(h, w - 1, faction)) this.expand(h, w - 1, faction, setCount, nextStage);
-        if (this.isValid(h, w + 1, faction)) this.expand(h, w + 1, faction, setCount, nextStage);
         cell.inProgress = false;
         this.checkStatus(setCount, nextStage);
 
@@ -191,12 +178,11 @@ export class Board {
         this.grid.forEach(row => row.forEach(cb));
     }
 
-    map(cb: (cell: Cell, i?: number) => ReactNode | boolean) {
+    map(cb: (cell: Cell) => (Promise<void> | boolean)) {
         return this.grid.flat().map(cb);
     }
 
     win(): boolean {
-
         return this.map((cell: Cell) => {
             return cell.meetsWinCondition(this);
         }).every(value => value === true);

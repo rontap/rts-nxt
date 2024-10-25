@@ -282,3 +282,11 @@
 .powerup:hover, .btn:hover {
     background: #ccc;
 }
+
+.powerupChoice {
+    padding: 5px;
+    border-radius: 4px;
+}
+.powerupChoice .powerup {
+    width: 100%;
+}

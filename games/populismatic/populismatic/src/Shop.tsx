@@ -1,6 +1,7 @@
 import {Run} from "./Run.ts";
-import {Consumables} from "./Powerup.tsx";
-import {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction, useState} from "react";
+import {upTo} from "./random.ts";
+import {Consumables} from "./powerups/Consumables.ts";
 
 type ShopFC = {
     run: Run,
@@ -13,9 +14,35 @@ export default function Shop({run, setCount, nextStage}: ShopFC) {
         <div className="grid x4x4">
             {
                 Consumables.map(consumable => {
-                    return consumable.jsx({
+                    return consumable.extendedButton({
                         onSelect: () => {
                             run.acquirePowerup(consumable)
+                            setCount(count => count + 1)
+                        }
+                    })
+                })
+            }
+        </div>
+        <hr/>
+        <button onClick={nextStage} className="btn">Next Stage</button>
+    </>;
+}
+
+export function RandomShop({run, setCount, nextStage}: ShopFC) {
+    const {shop} = run.modifiers
+    const [rndConsumables, setRndConsumables] = useState(new Array(shop.consumables)
+        .fill(0)
+        .map(() => Consumables[upTo(Consumables.length)]));
+    return <>
+        <h2>Shop</h2>
+        <div className="grid x4x4">
+            {
+                rndConsumables.map((consumable, i: number) => {
+                    return consumable.extendedButton({
+                        onSelect: () => {
+                            run.acquirePowerup(consumable)
+                            rndConsumables.splice(i, 1);
+                            setRndConsumables(rndConsumables);
                             setCount(count => count + 1)
                         }
                     })

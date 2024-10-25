@@ -13,6 +13,12 @@ export type Modifier = {
     defer: (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => any
     powerups: {
         max: int
+    },
+    advisors: {
+        max: int
+    },
+    shop: {
+        consumables: int
     }
 }
 export const DEFAULT = "DEFAULT" as const;
@@ -52,7 +58,13 @@ export const getModifiers = () => {
             },
         },
         powerups: {
-            max: 3
+            max: 3,
+        },
+        advisors: {
+            max: 5,
+        },
+        shop: {
+            consumables: 9,
         },
         defer:
             (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => {
