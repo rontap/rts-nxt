@@ -1,6 +1,7 @@
 import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
-import {Advisor, Consumable, Powerup, PowerupCtr} from "./Powerup.tsx";
+import {Advisor, Consumable, Leader, LeaderNames, Leaders, Powerup, PowerupCtr} from "./Powerup.tsx";
+import {Cell} from "./Cell.ts";
 
 export class Run {
     root: PRNG;
@@ -12,6 +13,11 @@ export class Run {
     level: number;
     powerups: Consumable[];
     advisors: Advisor[];
+    ideology: number[];
+    leader: Leader;
+    influence: number;
+    tracked: Cell[];
+    leaderName: LeaderNames;
 
     constructor(seed: number = Math.random()) {
         this.root = new PRNG(seed);
@@ -23,6 +29,11 @@ export class Run {
         this.level = 1;
         this.powerups = [];
         this.advisors = [];
+        this.ideology = [];
+        this.tracked = [];
+        this.leader = Leaders[LeaderNames.MP];
+        this.leaderName = LeaderNames.MP;
+        this.influence = 0;
     }
 
     get getCurrentLevel(): Level {

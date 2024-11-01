@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Sixtyfour+Convergence&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Bungee&family=Krona+One&family=Righteous&family=Russo+One&display=swap');
 
 #root {
     max-width: 1280px;
     margin: 0 auto;
     padding: 1rem;
     text-align: center;
-    background: #f1f1f1;
+}
+
+:root {
+    background: #f1f1f1 !important;
+}
+
+body {
+    font-family: "Russo One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .logo {
@@ -62,8 +71,8 @@
     margin: 0 auto;
     border-radius: 6px;
     overflow: hidden;
-    border: 4px solid #444;
-    box-shadow: 0px 4px 4px #ccc;
+    border: 1px solid #666;
+    box-shadow: 0px 2px 4px #aaa;
 }
 
 .gb-selection .grid {
@@ -128,6 +137,29 @@
     color: white !important;
 }
 
+
+.grid.g-owned-true {
+    animation: pulse infinite 3.5s;
+}
+
+@keyframes pulse {
+    0% {
+        filter: saturate(110%) brightness(95%);
+    }
+    25% {
+        filter: saturate(100%) brightness(105%);
+    }
+    50% {
+        filter: saturate(90%) brightness(100%);
+    }
+    75% {
+        filter: saturate(100%) brightness(105%);
+    }
+    100% {
+        filter: saturate(110%) brightness(95%);
+    }
+}
+
 .grid.g-owned- {
     background: #00BCD4 !important;
 }
@@ -153,7 +185,7 @@
 }
 
 .g-faction-COMM {
-    background: #e65385;
+    background: #9575CD;
 }
 
 .g-faction-FASH {
@@ -183,7 +215,7 @@
 
 .card {
     display: grid;
-    grid: repeat(3, 50px) / repeat(3, 120px);
+    grid: repeat(3, 50px) / repeat(3, 160px);
 }
 
 .populismActivator-outer {
@@ -223,15 +255,15 @@
 }
 
 .populismActivator {
-    border-radius: 6px;
     padding: 8px 15px;
     background: transparent;
-    border: 2px solid #444;
-    font-family: "Righteous", sans-serif;
-    color: #444;
+    color: #222;
     font-size: 16px;
-    text-shadow: 0px 0px 4px #ccc;
+    text-shadow: 0px 0px 2px #ccc;
+    font-family: "Russo One", sans-serif;
     cursor: pointer;
+    border: 1px solid #666;
+    border-radius: 2px;
 }
 
 #scoreboard {
@@ -268,25 +300,128 @@
 }
 
 #bleed {
-    margin-top: 150px;
+    margin-top: 120px;
 }
 
 .powerup, .btn {
     padding: 5px 10px;
-    border-radius: 4px;
-    border: 3px solid #444;
+    border-radius: 2px;
+    border: 2px solid #666;
     margin: 5px;
     cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
 }
 
 .powerup:hover, .btn:hover {
-    background: #ccc;
+    background: #bcd4ff;
+    border-color: #48F;
 }
 
 .powerupChoice {
+    border: 1px solid #888;
     padding: 5px;
     border-radius: 4px;
+    background: white;
+    margin: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: "Alexandria", sans-serif;
+    align-content: space-between;
 }
+
 .powerupChoice .powerup {
-    width: 100%;
+    display: block;
+    width: -webkit-fill-available;
+    border: 0px;
+    border-bottom: 1px solid #666;
+    padding: 10px;
+    margin: -5px -5px 5px -5px;
+
+
+}
+
+.powerupCtr {
+    border-radius: 4px;
+    background: white;
+    padding: 4px;
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/***********************************/
+.slip {
+    background: white;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+#leaders {
+    position: fixed;
+    background: white;
+    border-radius: 4px;
+    top: 100px;
+    padding: 10px;
+}
+
+.leaderIcon {
+
+}
+
+.primary-btn {
+    position: fixed;
+    z-index: 99;
+    top: 45px;
+    border-radius: 25px;
+    padding: 15px 20px;
+    left: 140px;
+    border: 3px solid #444;
+    background: #48F;
+    color: white;
+    box-shadow: 0px 3px 3px #ccc;
+}
+
+.hr {
+    border: 0px solid red;
+    height: 1px;
+    background: #aaa;
+}
+
+.manouverCost {
+    border-top: 1px solid #ccc;
+    margin: 15px -5px -5px -5px;
+    padding: 8px 0;
+    background: #f3594c66;
+}
+
+#backsnake {
+    position: absolute;
+}
+
+.g-tracked-true {
+}
+
+.g-tracked-true::after {
+    width: 5px;
+    height: 5px;
+    content: '';
+    position: relative;
+    top: -3px;
+    left: 5px;
+    border-radius: 100%;
+    background: coral;
+    animation: glow 5s linear infinite;
+}
+
+@keyframes glow {
+    0% {
+        background: coral;
+    }
+    50% {
+        background: salmon;
+    }
+    100% {
+        background: coral;
+    }
 }

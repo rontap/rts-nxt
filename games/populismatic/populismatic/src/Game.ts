@@ -1,23 +1,14 @@
-import {twoDimArray, upToSeed} from "./random.ts";
+import {randomWeighted, twoDimArray, upToSeed} from "./random.ts";
 import {Dispatch, SetStateAction} from "react";
 import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";
 import {Cell, OnCaptureActions} from "./Cell.ts";
 import {Faction} from "./Factions.ts";
+import {Simulate} from "react-dom/test-utils";
+import transitionEnd = Simulate.transitionEnd;
+import {Leaders} from "./Powerup.tsx";
+import {Country} from "./flavour.ts";
 
-
-
-export enum Kind {
-    NORMAL,
-    DISENFRANCHISED,
-    RAINBOW,
-    INFLUENCER,
-    LUCKY,
-    WALL,
-    TACTICAL,
-    BONUS,
-    ACTIVIST
-}
 
 export type Coord = number;
 export const PRE_OWNED: string = "" as const;
@@ -50,7 +41,22 @@ export class Board {
     }
 
     private genBoard(h: number, w: number, factions: number) {
-        this.grid = twoDimArray(h, w, (i: number, j: number) => new Cell(upToSeed(this.run.levelGen.next(), factions), this, i, j));
+        this.run.tracked;
+
+        this.grid = twoDimArray(h, w, (i: number, j: number) => new Cell(undefined, this, i, j))
+        this.run.tracked.forEach(cell => {
+            cell.restore();
+            cell.track = true;
+            this.grid[cell.h][cell.w] = cell;
+        })
+        console.log(this.run.tracked, this.grid);
+        this.grid = twoDimArray(h, w, (i: number, j: number) => {
+            if (this.grid[i][j].track) {
+                return this.grid[i][j];
+            }
+            const type = randomWeighted(Object.values(Country[this.run.leaderName].parties).map(obj => obj.weight), [0,1,2,3,4,5,6,7,8].slice(0, factions), this.run.levelGen.next());
+            return new Cell(type, this, i, j);
+        });
         const level: Level = this.run.getCurrentLevel;
         this.h = level.size;
         this.w = level.size;
@@ -71,9 +77,9 @@ export class Board {
 
     onWin() {
         this.score.game += this.score.round;
+        this.run.influence += this.score.round;
         this.score.step = 0;
         this.score.round = 0;
-        console.log(this.usedMoves, '<< swords');
     }
 
     get getOrigin(): Cell {
@@ -182,10 +188,26 @@ export class Board {
         return this.grid.flat().map(cb);
     }
 
+    filter(cb: (cell: Cell) => (Promise<void> | boolean)) {
+        return this.grid.flat().filter(cb);
+    }
+
+    length() {
+        return this.grid.flat().length;
+    }
+
     win(): boolean {
-        return this.map((cell: Cell) => {
-            return cell.meetsWinCondition(this);
+        let winningCells = 0;
+        const classicalWin = this.map((cell: Cell) => {
+            if (cell.meetsWinCondition(this)) {
+                winningCells++;
+                return true;
+            }
+            return false;
         }).every(value => value === true);
+        const ownsEnough = winningCells * 100 / this.length() > this.run.modifiers.winConditions.required;
+        return ownsEnough || classicalWin;
+
     }
 
     lose(): boolean | string {

@@ -1,5 +1,7 @@
-import {Kind, PRE_OWNED} from "../Game.ts";
+import {Board, PRE_OWNED} from "../Game.ts";
 import {Consumable, KindDescriptions} from "../Powerup.tsx";
+import {Cell, Kind} from "../Cell.ts";
+import React from "react";
 
 export const Consumables: Consumable[] = [
     new Consumable({
@@ -10,6 +12,7 @@ export const Consumables: Consumable[] = [
             cell.kind = Kind.ACTIVIST;
         },
         boardInteraction: true,
+        cost: 60
     }),
     new Consumable({
         name: "Dedicated Follower",
@@ -21,6 +24,7 @@ export const Consumables: Consumable[] = [
             },
         boardInteraction:
             true,
+        cost: 60
     }),
     new Consumable({
         name: "Disenfranchised Voter",
@@ -30,6 +34,7 @@ export const Consumables: Consumable[] = [
             cell.kind = Kind.DISENFRANCHISED;
         },
         boardInteraction: true,
+        cost: 20
     }),
     new Consumable({
         name: "Tactical Voter",
@@ -39,6 +44,7 @@ export const Consumables: Consumable[] = [
             cell.kind = Kind.TACTICAL;
         },
         boardInteraction: true,
+        cost: 20
     }),
     new Consumable({
         name: "VP",
@@ -48,6 +54,7 @@ export const Consumables: Consumable[] = [
             cell.source = true;
         },
         boardInteraction: true,
+        cost: 180
     }),
     new Consumable({
         name: "Hold Rally",
@@ -70,16 +77,18 @@ export const Consumables: Consumable[] = [
             }, 300)
         },
         boardInteraction: false,
+        cost: 150
     }),
     new Consumable({
         name: "Recruit Donor",
         icon: "📈",
-        description: "Recruit a voter as a donor. When capturing it, it will give you extra maneuvers (steps).",
+        description: "Recruit a voter as a donor. When capturing it, it will give you extra influence.",
         onAction: (_cell, board) => {
-            const addMoves = 4;
-            board.moves += addMoves;
+            const addMoves = 10;
+            board.run.influence += addMoves;
         },
         boardInteraction: true,
+        cost: 80
     }),
     new Consumable({
         name: "Recruit Influencer",
@@ -89,6 +98,7 @@ export const Consumables: Consumable[] = [
             cell.kind = Kind.INFLUENCER;
         },
         boardInteraction: true,
+        cost: 60
     }),
     new Consumable({
         name: "Anonymus Donation",
@@ -98,6 +108,28 @@ export const Consumables: Consumable[] = [
             board.moves += 5;
         },
         boardInteraction: false,
+        cost: 60
     }),
+    new Consumable({
+        description: "Track Citzen, select a single tie to 'Keep' between rounds",
+        icon: "",
+        name: "Track Citizen",
+        cost: 0,
+        onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+            cell?.restore();
+            cell.track = true;
+            board.run.tracked.push(cell as Cell);
+        },
+        boardInteraction: true
+    }),
+    new Consumable({
+        cost: 40,
+        description: "Use gerrymandering techniques to lower your needed control by -1%",
+        icon: "",
+        name: "Gerrymander",
+        onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+            board.run.modifiers.winConditions.required -= 1;
+        }
+    })
 
 ] as const;

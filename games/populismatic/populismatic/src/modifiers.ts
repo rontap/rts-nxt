@@ -1,4 +1,4 @@
-import {Kind} from "./Game.ts";
+import {Kind} from "./Cell.ts";
 
 export type int = number;
 export type RecordDefault<T extends string, K> = Record<T, K> & Record<"DEFAULT", K>;
@@ -18,7 +18,12 @@ export type Modifier = {
         max: int
     },
     shop: {
-        consumables: int
+        consumables: int,
+        showConsumables: int,
+        consumableCost: int
+    },
+    winConditions: {
+        required: int
     }
 }
 export const DEFAULT = "DEFAULT" as const;
@@ -39,22 +44,34 @@ export const getModifiers = () => {
                 size: 9, factions: 4, steps: 18
             },
             '3': {
-                size: 10, factions: 5, steps: 24
+                size: 10, factions: 5, steps: 10
             },
             '4': {
-                size: 11, factions: 5, steps: 26
+                size: 11, factions: 5, steps: 22
             },
             '5': {
-                size: 12, factions: 6, steps: 28
+                size: 12, factions: 6, steps: 26
             },
             '6': {
-                size: 13, factions: 7, steps: 32
+                size: 13, factions: 7, steps: 28
             },
             '7': {
-                size: 14, factions: 8, steps: 36
+                size: 14, factions: 8, steps: 32
             },
             '8': {
-                size: 13, factions: 8, steps: 38
+                size: 14, factions: 9, steps: 34
+            },
+            '9': {
+                size: 15, factions: 9, steps: 34
+            },
+            '10': {
+                size: 16, factions: 9, steps: 34
+            },
+            '11': {
+                size: 17, factions: 9, steps: 34
+            },
+            '12': {
+                size: 18, factions: 9, steps: 34
             },
         },
         powerups: {
@@ -64,7 +81,12 @@ export const getModifiers = () => {
             max: 5,
         },
         shop: {
-            consumables: 9,
+            consumables: 11,
+            showConsumables: 14,
+            consumableCost: 60
+        },
+        winConditions: {
+            required: 100
         },
         defer:
             (obj: RecordDefault<any, any>, key: keyof RecordDefault<any, any>) => {

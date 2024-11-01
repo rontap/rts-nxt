@@ -11,6 +11,8 @@ export enum Faction {
     "FARM" // dyn*
 }
 
+export const NUM_OF_FACTIONS = 9 as const;
+
 type IdeologyH = {
     AUTH: Faction[],
     CENTER: Faction[],
@@ -53,6 +55,7 @@ const ideology: Ideology = {
 }
 
 type RGBC = string;
+
 export function getFactionColor(faction: Faction): RGBC {
     switch (faction) {
         case Faction.CON:
@@ -66,7 +69,7 @@ export function getFactionColor(faction: Faction): RGBC {
         case Faction.CENTR:
             return '#00bcd4';
         case Faction.COMM:
-            return '#f36492';
+            return '#9575CD';
         case Faction.FASH:
             return '#959595';
         case Faction.FAITH:
@@ -77,3 +80,4 @@ export function getFactionColor(faction: Faction): RGBC {
             return '#ede7f6';
     }
 }
+

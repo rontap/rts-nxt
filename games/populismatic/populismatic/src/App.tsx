@@ -1,12 +1,14 @@
 import React, {ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
-import {Board, Cell, Faction, Kind, Run} from './Game'
-import {Leaders} from "./flavour.ts";
-import {Consumable, KindDescriptions, PowerupCtr} from "./Powerup.tsx";
-import Shop from "./Shop.tsx";
+import {Board, Cell, Faction, Run} from './Game'
+import {Country} from "./flavour.ts";
+import {Consumable, KindDescriptions, LeaderNames, PowerupCtr} from "./Powerup.tsx";
+import Shop, {RandomShop} from "./Shop.tsx";
 import {getFactionColor} from "./Factions.ts";
+import LeaderJSX from "./Leader.tsx";
+import {Kind} from "./Cell.ts";
 
-const singleRun = new Run(123465);
+const singleRun = new Run(54666);
 const baseBoard = new Board(singleRun);
 
 enum Stage {
@@ -26,10 +28,9 @@ function App() {
 
     const nextStage = () => {
         if (stage === Stage.Game) {
-            setStage(Stage.Game);
+            setStage(Stage.Shop);
             baseBoard.nextLevel();
         } else if (stage === Stage.Shop) {
-            baseBoard.nextLevel();
             setStage(Stage.Game);
         }
     }
@@ -90,15 +91,26 @@ function App() {
             }
         }
     }
+
+    const ownedPercent = Math.floor(baseBoard.filter(cell => cell.owned).length * 100 / baseBoard.map(cell => cell).length);
     return (
         <>
             <div onKeyDown={expandKeyboard} tabIndex={0}>
                 <div id="header">
                     <div id="title">Junta</div>
                     <span id="scoreboard">
+                         {stage === Stage.Game && <span className="divider">
+                                 <div>
+                                {ownedPercent}% / {singleRun.modifiers.winConditions.required}% Control
+
+                                 </div>
+                             </span>
+                         }
                         <span className="divider">
-                            Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |
-                            Game {baseBoard.score.game}
+                            {stage === Stage.Game && <>
+                                Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |&nbsp;
+                            </>}
+                            Influence {baseBoard.run.influence}
                         </span>
                         <span className="divider">
                              Level {singleRun.level}
@@ -109,6 +121,7 @@ function App() {
                     </span>
 
                 </div>
+                <LeaderJSX run={singleRun}/>
                 <div id="bleed"></div>
                 {stage === Stage.Game &&
                     <div>
@@ -138,7 +151,8 @@ function App() {
                                                     style={{background: getFactionColor(Faction[faction])}}
                                                     onClick={() => expand(Faction[faction] as Faction)}
                                             >
-                                                {Leaders.Merkel.parties[Faction[faction] as Faction]} [{i}]
+                                                {Country[LeaderNames.MP].parties[Faction[faction] as Faction].name},
+                                                {i},{Country[LeaderNames.MP].parties[Faction[faction] as Faction].weight}
 
                                             </button>
                                         </div>
@@ -148,8 +162,7 @@ function App() {
                         </div>
                     </div>
                 }
-                <hr/>
-                <div>
+                <div className="powerupCtr">
                     Powerups<br/>
                     {
                         powerup ? <PowerupDescription/> : singleRun.powerups.map(((consumable, i) => {
@@ -165,7 +178,7 @@ function App() {
 
                 {stage === Stage.Shop && <>
                     {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
-                    <Shop run={singleRun} setCount={setCount} nextStage={nextStage}/>
+                    <RandomShop run={singleRun} setCount={setCount} nextStage={nextStage}/>
                 </>}
 
             </div>
@@ -189,6 +202,7 @@ function CellItem(props: CellItemProps) {
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST) return '💣'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.BONUS) return '💵'
         if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.DISENFRANCHISED) return '🤷‍♀️'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.SUSPICIOUS) return '🪨️'
         if (props.cell.owned && !props.cell.inProgress) {
             return "×"
         } else

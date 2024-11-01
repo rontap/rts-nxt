@@ -55,3 +55,22 @@ export function twoDimArray(h: number, w: number, map: (i: number, j: number) =>
             .fill(0)
             .map((_vv, j) => map(i, j)))
 }
+
+export function randomWeighted(weights: number[], items: any[], seeder = Math.random()): any | null {
+    const cutWeigths = weights.slice(0, items.length);
+    const cutItems = items.slice(0, weights.length);
+    // Calculate the total weight
+    const totalWeight = cutWeigths.reduce((sum, weight) => sum + weight, 0);
+
+    // Generate a random number between 0 and totalWeight
+    const random = seeder * totalWeight;
+
+    // Iterate over the weights to find the selected item
+    let cumulativeWeight = 0;
+    for (let i = 0; i < cutWeigths.length; i++) {
+        cumulativeWeight += cutWeigths[i];
+        if (random < cumulativeWeight) {
+            return cutItems[i];
+        }
+    }
+}

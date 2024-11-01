@@ -1,6 +1,7 @@
-import {Board, Cell, Faction, Kind} from "./Game.ts";
-import {Ideologies} from "./Run.ts";
+import {Board} from "./Game.ts";
+import {Ideologies, Faction} from "./Factions.ts";
 import React, {Dispatch, SetStateAction} from "react";
+import {Cell, Kind} from "./Cell.ts";
 
 export type PowerupCtr = {
     name: string,
@@ -15,17 +16,15 @@ export type PowerupCtr = {
 
 type Restr = Faction | Ideologies;
 
-type ConsumableCtr = PowerupCtr & {}
-type AdvisorCtr = PowerupCtr & {
-    faction: Faction;
-    restriction?: Restr[];
-    onAcquire: () => void;
+type ConsumableCtr = PowerupCtr & {
+    cost: number,
 }
 
 
 type ActCtr = PowerupCtr & {}
 type PowerupJSX = {
     onSelect: (consumable: ConsumableCtr) => void,
+
 }
 
 export class Powerup<T extends PowerupCtr> {
@@ -44,9 +43,10 @@ export class Powerup<T extends PowerupCtr> {
     }
 
     extendedButton(props: PowerupJSX) {
-        return <div className={"powerupChoice"}>
+        return <div className={"powerupChoice grid space-between"}>
             {this.button(props)}
-            <div>{this.self.description}</div>
+            <div className={"ml-2"}>{this.self.description}</div>
+            <div className="manouverCost">Cost {this.self.cost} Manouvers.</div>
         </div>
     }
 }
@@ -59,11 +59,57 @@ export class Consumable extends Powerup<ConsumableCtr> {
 }
 
 
+type AdvisorCtr = PowerupCtr & {
+    faction: Faction;
+    restriction?: Restr[];
+    onAcquire: () => void;
+}
+
 export class Advisor extends Powerup<AdvisorCtr> {
     constructor(props: AdvisorCtr) {
         super(props);
     }
 
+}
+
+type LeaderCtr = PowerupCtr & {
+    faction: Faction;
+    actionDescr: string;
+    action: string;
+}
+
+export enum LeaderNames {
+    Merkel, // Angela Merkel
+    MP // Magyar Péter
+}
+
+export class Leader extends Powerup<LeaderCtr> {
+    constructor(props: LeaderCtr) {
+        super(props);
+    }
+}
+
+export const Leaders = {
+    [LeaderNames.Merkel]: new Leader({
+        description: "Angela Merkel",
+        faction: Faction.COMM,
+        icon: "🫶",
+        name: "Angela Merkel",
+        action: "Wir Schaffen Das",
+        actionDescr: "Sth Sth Sth",
+        onAction(cell: | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+        }
+    }),
+    [LeaderNames.MP]: new Leader({
+        description: "Angela Merkel",
+        faction: Faction.COMM,
+        icon: "🇭🇺",
+        name: "Magyar Péter",
+        action: "Árad a Tisza",
+        actionDescr: "Sth Sth Sth",
+        onAction(cell: | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+        }
+    })
 }
 
 export const KindDescriptions: Record<any, string> = {
