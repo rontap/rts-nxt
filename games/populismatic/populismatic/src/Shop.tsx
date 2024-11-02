@@ -2,7 +2,7 @@ import {Run} from "./Run.ts";
 import {Dispatch, SetStateAction, useState} from "react";
 import {upTo} from "./random.ts";
 import {Consumables} from "./powerups/Consumables.ts";
-import {Consumable} from "./Powerup.tsx";
+import {Advisors} from "./powerups/Advisors.ts";
 
 type ShopFC = {
     run: Run,
@@ -34,6 +34,7 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
     const [rndConsumables, setRndConsumables] = useState(new Array(run.modifiers.shop.showConsumables)
         .fill(0)
         .map(() => Consumables[upTo(Consumables.length)]));
+    const rndAdvisors = Advisors;
     return <>
         <h2>Shop</h2>
         <div className="grid x4x4 gap-4">
@@ -41,17 +42,30 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
                 rndConsumables.map((consumable, i: number) => {
                     return consumable.extendedButton({
                         onSelect: () => {
-                            if (run.influence > run.modifiers.shop.consumableCost) {
+                            if (run.influence > consumable.self.cost) {
                                 run.influence -= consumable.self.cost;
-                                run.acquirePowerup(consumable)
+                                run.acquirePowerup(consumable);
                                 rndConsumables.splice(i, 1);
                                 setRndConsumables(rndConsumables);
-                                setCount(count => count + 1)
+                                setCount(count => count + 1);
                             }
                         }
                     })
                 })
             }
+            ---
+            {rndAdvisors.map((advisor => advisor.extendedButton({
+                onSelect(): void {
+                    if (run.influence > 10) {
+                        run.influence -= 10;
+                        run.acquireAdvisor(advisor);
+                        setCount(count => count + 1);
+                        advisor.onAcquireEffect(run)
+                    }
+                }
+            })))}
+            ---
+
         </div>
         <hr/>
         <button onClick={nextStage} className="btn primary-btn">Next Stage</button>

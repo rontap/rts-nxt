@@ -1,14 +1,15 @@
 import React, {ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
-import {Board, Cell, Faction, Run} from './Game'
+import {Board, Faction, Run} from './Game'
 import {Country} from "./flavour.ts";
 import {Consumable, KindDescriptions, LeaderNames, PowerupCtr} from "./Powerup.tsx";
-import Shop, {RandomShop} from "./Shop.tsx";
+import {RandomShop} from "./Shop.tsx";
 import {getFactionColor} from "./Factions.ts";
 import LeaderJSX from "./Leader.tsx";
-import {Kind} from "./Cell.ts";
+import {Cell, Kind} from "./Cell.ts";
+import PolCompass from "./PoliticalCompass.tsx";
 
-const singleRun = new Run(54666);
+const singleRun = new Run(344);
 const baseBoard = new Board(singleRun);
 
 enum Stage {
@@ -29,9 +30,9 @@ function App() {
     const nextStage = () => {
         if (stage === Stage.Game) {
             setStage(Stage.Shop);
-            baseBoard.nextLevel();
         } else if (stage === Stage.Shop) {
             setStage(Stage.Game);
+            baseBoard.nextLevel();
         }
     }
 
@@ -97,7 +98,7 @@ function App() {
         <>
             <div onKeyDown={expandKeyboard} tabIndex={0}>
                 <div id="header">
-                    <div id="title">Junta</div>
+                    <div id="title">Populism Trainer</div>
                     <span id="scoreboard">
                          {stage === Stage.Game && <span className="divider">
                                  <div>
@@ -121,7 +122,7 @@ function App() {
                     </span>
 
                 </div>
-                <LeaderJSX run={singleRun}/>
+
                 <div id="bleed"></div>
                 {stage === Stage.Game &&
                     <div>
@@ -138,7 +139,15 @@ function App() {
                                         {cell.owned ? '×' : cell.faction}
                                     </CellItem>)
                                 })}
+                                <div className={"sourceHighlight"} style={{
+                                    "--sh-top": baseBoard.origin[0] * 40 + "px",
+                                    "--sh-left": (baseBoard.origin[1]) * 40 + "px",
+                                    "--sh-bottom": (baseBoard.w - baseBoard.origin[0] - 1) * 40 + "px",
+                                    "--sh-right": (baseBoard.h - baseBoard.origin[1] - 1) * 40 + "px",
+                                    "--sh-bg": getFactionColor(baseBoard.getOrigin.faction)
+                                }}></div>
                             </div>
+
                         </div>
                         <div className="center">
                             <div className="card">
@@ -152,7 +161,7 @@ function App() {
                                                     onClick={() => expand(Faction[faction] as Faction)}
                                             >
                                                 {Country[LeaderNames.MP].parties[Faction[faction] as Faction].name},
-                                                {i},{Country[LeaderNames.MP].parties[Faction[faction] as Faction].weight}
+                                                {i},{singleRun.parties[Faction[faction] as Faction].weight}
 
                                             </button>
                                         </div>
@@ -162,6 +171,7 @@ function App() {
                         </div>
                     </div>
                 }
+                <PolCompass/>
                 <div className="powerupCtr">
                     Powerups<br/>
                     {
@@ -174,7 +184,7 @@ function App() {
                         }))
                     }
                 </div>
-
+                <LeaderJSX run={singleRun}/>
 
                 {stage === Stage.Shop && <>
                     {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
@@ -196,13 +206,12 @@ function CellItem(props: CellItemProps) {
     const getIcon = () => {
         if (props.cell.isSource) return "🎯"
         if (props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST) return "❎"
-
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.INFLUENCER) return '🤩'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.TACTICAL) return '🤡'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.ACTIVIST) return '💣'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.BONUS) return '💵'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.DISENFRANCHISED) return '🤷‍♀️'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind === Kind.SUSPICIOUS) return '🪨️'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.INFLUENCER) return '🤩'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.TACTICAL) return '🤡'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.ACTIVIST) return '💣'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.BONUS) return '💵'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.DISENFRANCHISED) return '🤷‍♀️'
+        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.SUSPICIOUS) return '🪨️'
         if (props.cell.owned && !props.cell.inProgress) {
             return "×"
         } else
@@ -211,6 +220,7 @@ function CellItem(props: CellItemProps) {
 
     return <div className={"grid " + props.cell.getFactionColor} onClick={evt => props.click(evt, props.cell)}
                 title={KindDescriptions[props.cell.kind]}>
+        <div className={"debug"}>{props.cell.kind} <br/> ${Math.round(props.cell.getScore() * 10) / 10}</div>
         {getIcon()}
     </div>
 }

@@ -114,7 +114,7 @@ export const Consumables: Consumable[] = [
         description: "Track Citzen, select a single tie to 'Keep' between rounds",
         icon: "",
         name: "Track Citizen",
-        cost: 0,
+        cost: 60,
         onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
             cell?.restore();
             cell.track = true;
@@ -124,7 +124,7 @@ export const Consumables: Consumable[] = [
     }),
     new Consumable({
         cost: 40,
-        description: "Use gerrymandering techniques to lower your needed control by -1%",
+        description: "Use gerrymandering techniques to lower your needed control by -1%. Increases disenfrenchised voter weight.",
         icon: "",
         name: "Gerrymander",
         onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {

@@ -2,6 +2,7 @@ import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
 import {Advisor, Consumable, Leader, LeaderNames, Leaders, Powerup, PowerupCtr} from "./Powerup.tsx";
 import {Cell} from "./Cell.ts";
+import {Country, LocalParties} from "./flavour.ts";
 
 export class Run {
     root: PRNG;
@@ -18,6 +19,7 @@ export class Run {
     influence: number;
     tracked: Cell[];
     leaderName: LeaderNames;
+    parties: LocalParties;
 
     constructor(seed: number = Math.random()) {
         this.root = new PRNG(seed);
@@ -34,6 +36,7 @@ export class Run {
         this.leader = Leaders[LeaderNames.MP];
         this.leaderName = LeaderNames.MP;
         this.influence = 0;
+        this.parties = window.structuredClone(Country[LeaderNames.MP]).parties;
     }
 
     get getCurrentLevel(): Level {
@@ -45,9 +48,15 @@ export class Run {
         return this.getCurrentLevel;
     }
 
-    acquirePowerup(powerup: Powerup) {
+    acquirePowerup(powerup: Powerup<PowerupCtr>) {
         if (this.canAcquirePowerup) {
             this.powerups.push(powerup);
+        }
+    }
+
+    acquireAdvisor(advisor: Advisor) {
+        if (this.canAcquirePowerup) {
+            this.advisors.push(advisor);
         }
     }
 

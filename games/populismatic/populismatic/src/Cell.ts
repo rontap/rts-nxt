@@ -1,11 +1,13 @@
 import {Board, Coord, PRE_OWNED} from "./Game.ts";
 import {Faction, NUM_OF_FACTIONS} from "./Factions.ts";
-import {upTo} from "./random.ts";
+import {randomWeighted, upTo} from "./random.ts";
 
 export  type OnCaptureActions = {
     preventBubbling?: boolean;
 }
 
+
+// ref:: order (modifiers.generation.kindShare)
 export enum Kind {
     NORMAL,
     DISENFRANCHISED,
@@ -35,7 +37,11 @@ export class Cell {
 
     constructor(faction: undefined | Faction, board: Board, h: Coord, w: Coord) {
         this.faction = faction;
-        this.kind = board.run.levelGen.next() > 0.2 ? Kind.NORMAL : [Kind.ACTIVIST, Kind.RAINBOW, Kind.DISENFRANCHISED, Kind.INFLUENCER, Kind.TACTICAL, Kind.SUSPICIOUS][Math.floor(board.run.levelGen.next() * 5)];
+        this.kind = randomWeighted(
+            Object.values(board.run.modifiers.generation.kindShare),
+            Object.keys(Kind),
+            board.run.levelGen.next()
+        ).toLowerCase();
         this.valid = false;
         this.board = board;
         this.h = h;
@@ -52,19 +58,22 @@ export class Cell {
     }
 
     meetsWinCondition(board: Board) {
-        if (this.kind === Kind.DISENFRANCHISED) return true;
+        if (this.kind == Kind.DISENFRANCHISED) return true;
         // baseline
         return this.isSameFaction(board.getOrigin.faction);
     }
 
     isSameFaction(faction: Faction) {
-        if (this.kind === Kind.RAINBOW) return true;
+        if (this.kind == Kind.RAINBOW) return true;
         // baseline
-        return this.faction === faction;
+        return this.faction == faction;
     }
 
     getScore() {
-        return this.modifiers.defer(this.modifiers.scoring, this.kind)
+        const pointsFromKind = this.modifiers.defer(this.modifiers.scoring, this.kind);
+        const pointFromEffects = this.board.run.parties[this.faction as Faction].score;
+        console.log(pointFromEffects, pointsFromKind);
+        return pointsFromKind + pointFromEffects;
     }
 
     get modifiers() {
@@ -75,19 +84,20 @@ export class Cell {
         return ["g-faction-" + Object.values(Faction)[this.faction],
             "g-type-" + Object.values(Kind)[this.kind],
             "g-owned-" + this.owned,
-            "g-tracked-" + this.track
+            "g-tracked-" + this.track,
+            "g-source-" + this.isSource
         ].join(" ");
     }
 
     onCapture(): OnCaptureActions {
-        if (this.kind === Kind.ACTIVIST) {
+        if (this.kind == Kind.ACTIVIST) {
             setTimeout(() => {
                 this.eachNeighbour().forEach(cell => cell.faction = this.faction)
             }, 300, this);
-        } else if (this.kind === Kind.SUSPICIOUS) {
+        } else if (this.kind == Kind.SUSPICIOUS) {
             this.faction = Faction[upTo(NUM_OF_FACTIONS)];
         }
-        if (this.kind === Kind.TACTICAL) {
+        if (this.kind == Kind.TACTICAL) {
             return {preventBubbling: true}
         }
         return {};
@@ -103,7 +113,7 @@ export class Cell {
     }
 
     onCaptureDelay() {
-        if (this.kind === Kind.ACTIVIST) {
+        if (this.kind == Kind.ACTIVIST) {
             return 400;
         }
         return 110;

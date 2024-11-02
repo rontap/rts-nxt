@@ -4,10 +4,6 @@ import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";
 import {Cell, OnCaptureActions} from "./Cell.ts";
 import {Faction} from "./Factions.ts";
-import {Simulate} from "react-dom/test-utils";
-import transitionEnd = Simulate.transitionEnd;
-import {Leaders} from "./Powerup.tsx";
-import {Country} from "./flavour.ts";
 
 
 export type Coord = number;
@@ -49,12 +45,16 @@ export class Board {
             cell.track = true;
             this.grid[cell.h][cell.w] = cell;
         })
-        console.log(this.run.tracked, this.grid);
         this.grid = twoDimArray(h, w, (i: number, j: number) => {
             if (this.grid[i][j].track) {
                 return this.grid[i][j];
             }
-            const type = randomWeighted(Object.values(Country[this.run.leaderName].parties).map(obj => obj.weight), [0,1,2,3,4,5,6,7,8].slice(0, factions), this.run.levelGen.next());
+            const type = randomWeighted(
+                    Object.values(this.run.parties).map(obj => obj.weight),
+                    [0, 1, 2, 3, 4, 5, 6, 7, 8].slice(0, factions),
+                    this.run.levelGen.next()
+                )
+            ;
             return new Cell(type, this, i, j);
         });
         const level: Level = this.run.getCurrentLevel;
@@ -110,7 +110,7 @@ export class Board {
             }
             cell.iterated = false;
         })
-        this.score.step **= 1.5;
+        this.score.step = Math.max(this.score.step, 0) ** 1.5;
         this.score.round += Math.floor(this.score.step);
 
     }
@@ -204,7 +204,7 @@ export class Board {
                 return true;
             }
             return false;
-        }).every(value => value === true);
+        }).every(value => value == true);
         const ownsEnough = winningCells * 100 / this.length() > this.run.modifiers.winConditions.required;
         return ownsEnough || classicalWin;
 

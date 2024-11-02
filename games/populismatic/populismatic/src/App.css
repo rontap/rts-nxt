@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sixtyfour+Convergence&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Bungee&family=Krona+One&family=Righteous&family=Russo+One&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 #root {
     max-width: 1280px;
     margin: 0 auto;
@@ -61,6 +64,15 @@ body {
     transition: background .2s;
 }
 
+.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#polComp div {
+    width: 50px;
+    height: 50px;
+}
+
 #GB {
     margin: 0 auto;
     justify-content: center;
@@ -73,6 +85,7 @@ body {
     overflow: hidden;
     border: 1px solid #666;
     box-shadow: 0px 2px 4px #aaa;
+    position: relative;
 }
 
 .gb-selection .grid {
@@ -362,7 +375,11 @@ body {
     background: white;
     border-radius: 4px;
     top: 100px;
+    left: 20px;
     padding: 10px;
+    border: 1px solid #888;
+    width: 280px;
+    font-font: bold 14px "Righteous", sans-serif;
 }
 
 .leaderIcon {
@@ -424,4 +441,95 @@ body {
     100% {
         background: coral;
     }
+}
+
+.sourceHighlight {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--sh-bg);
+    animation: source 1.5s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.4s;
+}
+
+@keyframes source {
+    0% {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+    75% {
+        background: var(--sh-bg);
+        opacity: 1;
+    }
+    80% {
+        left: var(--sh-left);
+        right: var(--sh-right);
+        top: var(--sh-top);
+        bottom: var(--sh-bottom);
+
+    }
+    100% {
+        opacity: 0;
+        left: var(--sh-left);
+        right: var(--sh-right);
+        top: var(--sh-top);
+        bottom: var(--sh-bottom);
+    }
+}
+
+.debug {
+    font-size: 9px;
+    position: absolute;
+    opacity: 0;
+}
+
+.grid:hover .debug {
+    opacity: 1;
+}
+
+.hover {
+    display: none
+}
+
+.hover-container:hover + .hover {
+    display: block;
+}
+
+.advisors {
+    border: 1px solid #888;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    text-align: left;
+    padding: 4px 10px;
+}
+
+#leader {
+    text-align: left;
+    background: #eee;
+    margin: -10px -10px 10px -10px;
+    border: none;
+    border-bottom: 1px solid #888;
+    border-radius: 0px;
+    padding: 10px 20px;
+    font-family: 'Alexandria';
+    font-size: 15px;    border-radius: 4px;
+}
+
+.leaderCard {
+    border-radius: 4px;
+    border: 1px solid #666;
+    position: absolute;
+    left: 285px;
+    width: 300px;
+    background: #f1f1f1ee;
+    font-family: 'Alexandria';
+    font-size: 14px;
+    margin-top: -50px;
+    z-index: 999;
+    padding: 6px;
 }

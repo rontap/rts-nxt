@@ -11,6 +11,10 @@ export enum Faction {
     "FARM" // dyn*
 }
 
+export const FactionLIB = [Faction.LIB, Faction.GREEN, Faction.FAITH];
+export const FactionLEFT = [Faction.COMM, Faction.GREEN, Faction.SOC];
+export const FactionAUTH = [Faction.COMM, Faction.NAT, Faction.FASH];
+export const FactionRIGHT = [Faction.NAT, Faction.FASH, Faction.FAITH];
 export const NUM_OF_FACTIONS = 9 as const;
 
 type IdeologyH = {

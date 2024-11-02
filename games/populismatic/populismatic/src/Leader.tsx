@@ -3,15 +3,29 @@ import {Run} from "./Run.ts";
 
 export default function LeaderJSX({run}: { run: Run }) {
     const leader = run.leader.self;
-    console.log(leader);
     return <div id={"leaders"}>
+        <div id={"leader"}>
         <div className={"leaderIcon"}>
-            {leader.icon}
+            {leader.icon}  {leader.name}
         </div>
-        {leader.name}
+        {run.leader.description()}
+
         <br/>
-        <button>
+        <button className={"btn"}>
             {leader.action}
         </button>
+        </div>
+        {run.advisors.map(advisor => <>
+                <div className={"hover-container advisors"}>
+                    {advisor.self.icon}&nbsp;
+                    {advisor.self.name}
+
+                </div>
+                <div className={"hover leaderCard"}>
+                    {advisor.description()}
+                </div>
+            </>
+        )}
+
     </div>
 }
