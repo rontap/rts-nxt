@@ -70,28 +70,28 @@ export const getModifiers = () => {
                 size: 11, factions: 6, steps: 20
             },
             '5': {
-                size: 12, factions: 6, steps: 24
+                size: 12, factions: 7, steps: 22
             },
             '6': {
-                size: 13, factions: 7, steps: 26
+                size: 13, factions: 8, steps: 24
             },
             '7': {
-                size: 14, factions: 8, steps: 28,
+                size: 14, factions: 8, steps: 26,
             },
             '8': {
-                size: 15, factions: 9, steps: 30,
+                size: 15, factions: 9, steps: 28,
             },
             '9': {
-                size: 16, factions: 9, steps: 32,
+                size: 16, factions: 9, steps: 28,
             },
             '10': {
-                size: 17, factions: 9, steps: 32,
+                size: 17, factions: 9, steps: 28,
             },
             '11': {
-                size: 18, factions: 9, steps: 32,
+                size: 18, factions: 9, steps: 28,
             },
             '12': {
-                size: 19, factions: 9, steps: 32,
+                size: 19, factions: 9, steps: 28,
             },
         },
         powerups: {

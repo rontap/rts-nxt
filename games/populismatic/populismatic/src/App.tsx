@@ -1,15 +1,13 @@
 import React, {ReactNode, SyntheticEvent, useState} from 'react'
 import './App.css'
 import {Board, Faction, Run} from './Game'
-import {Country} from "./flavour.ts";
-import {Consumable, KindDescriptions, LeaderNames, PowerupCtr} from "./Powerup.tsx";
+import {Consumable, KindDescriptions, PowerupCtr} from "./Powerup.tsx";
 import {RandomShop} from "./Shop.tsx";
-import {getFactionColor} from "./Factions.ts";
 import LeaderJSX from "./Leader.tsx";
 import {Cell, Kind} from "./Cell.ts";
 import PolCompass from "./PoliticalCompass.tsx";
 
-const singleRun = new Run(344);
+const singleRun = new Run(420);
 const baseBoard = new Board(singleRun);
 
 enum Stage {
@@ -93,10 +91,24 @@ function App() {
         }
     }
 
+    const opacity = "cc";
+    const injectCSS = {
+        "--faction-CON": singleRun.parties[Faction.CON].color + opacity,
+        "--faction-LIB": singleRun.parties[Faction.LIB].color + opacity,
+        "--faction-SOC": singleRun.parties[Faction.SOC].color + opacity,
+        "--faction-GREEN": singleRun.parties[Faction.GREEN].color + opacity,
+        "--faction-CENTR": singleRun.parties[Faction.CENTR].color + opacity,
+        "--faction-COMM": singleRun.parties[Faction.COMM].color + opacity,
+        "--faction-FASH": singleRun.parties[Faction.FASH].color + opacity,
+        "--faction-WILDCARD": singleRun.parties[Faction.WILDCARD]?.color + opacity,
+        "--faction-FAITH": singleRun.parties[Faction.FAITH]?.color + opacity,
+        "--faction-NAT": singleRun.parties[Faction.NAT].color + opacity,
+    }
+
     const ownedPercent = Math.floor(baseBoard.filter(cell => cell.owned).length * 100 / baseBoard.map(cell => cell).length);
     return (
         <>
-            <div onKeyDown={expandKeyboard} tabIndex={0}>
+            <div onKeyDown={expandKeyboard} tabIndex={0} style={injectCSS}>
                 <div id="header">
                     <div id="title">Populism Trainer</div>
                     <span id="scoreboard">
@@ -144,24 +156,23 @@ function App() {
                                     "--sh-left": (baseBoard.origin[1]) * 40 + "px",
                                     "--sh-bottom": (baseBoard.w - baseBoard.origin[0] - 1) * 40 + "px",
                                     "--sh-right": (baseBoard.h - baseBoard.origin[1] - 1) * 40 + "px",
-                                    "--sh-bg": getFactionColor(baseBoard.getOrigin.faction)
+                                    "--sh-bg": singleRun.parties[baseBoard.getOrigin.faction].color
                                 }}></div>
                             </div>
 
                         </div>
                         <div className="center">
                             <div className="card">
-                                {Object.values(Faction)
-                                    .filter(isNaN)
-                                    .filter((faction, i) => i < singleRun.getCurrentLevel.factions)
-                                    .map((faction, i) => {
+                                {Object.values(singleRun.parties)
+                                    .filter((party, i) => party.order <= singleRun.getCurrentLevel.factions)
+                                    .map((party, i) => {
                                         return <div className={"populismActivator-outer"}>
                                             <button className={"populismActivator"}
-                                                    style={{background: getFactionColor(Faction[faction])}}
-                                                    onClick={() => expand(Faction[faction] as Faction)}
+                                                    style={{background: party.color}}
+                                                    onClick={() => expand(Faction[party.faction] as Faction)}
                                             >
-                                                {Country[LeaderNames.MP].parties[Faction[faction] as Faction].name},
-                                                {i},{singleRun.parties[Faction[faction] as Faction].weight}
+                                                {party.name},
+                                                {i},{party.weight}
 
                                             </button>
                                         </div>
@@ -171,7 +182,7 @@ function App() {
                         </div>
                     </div>
                 }
-                <PolCompass/>
+                <PolCompass parties={Object.values(singleRun.parties)} run={singleRun}/>
                 <div className="powerupCtr">
                     Powerups<br/>
                     {

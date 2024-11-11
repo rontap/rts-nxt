@@ -7,8 +7,8 @@ export enum Faction {
     "COMM",
     "FASH",
     "NAT",
-    "FAITH",
-    "FARM" // dyn*
+    "WILDCARD",
+    "FAITH"
 }
 
 export const FactionLIB = [Faction.LIB, Faction.GREEN, Faction.FAITH];
@@ -76,10 +76,8 @@ export function getFactionColor(faction: Faction): RGBC {
             return '#9575CD';
         case Faction.FASH:
             return '#959595';
-        case Faction.FAITH:
+        case Faction.WILDCARD:
             return '#7ea1b3';
-        case Faction.FARM:
-            return '#cddc39';
         case Faction.NAT:
             return '#ede7f6';
     }

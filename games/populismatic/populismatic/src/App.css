@@ -68,10 +68,6 @@ body {
     grid-template-columns: repeat(3, 1fr);
 }
 
-#polComp div {
-    width: 50px;
-    height: 50px;
-}
 
 #GB {
     margin: 0 auto;
@@ -178,43 +174,61 @@ body {
 }
 
 .g-faction-CON {
-    background: #add5ff;
+    background: var(--faction-CON);
+    --faction: #add5ff;
 }
 
 .g-faction-LIB {
-    background: #ffc107;
+    background: var(--faction-LIB);
+    --faction: #ffc107;
+
 }
 
 .g-faction-SOC {
-    background: #f3594c;
+    background: var(--faction-SOC);
+    --faction: #f3594c;
+
 }
 
 .g-faction-GREEN {
-    background: #5dc561;
+    background: var(--faction-GREEN);
+    --faction: #5dc561;
+
 }
 
 .g-faction-CENTR {
-    background: #00bcd4;
+    background: var(--faction-CENTR);
+    --faction: #00bcd4;
+
 }
 
 .g-faction-COMM {
-    background: #9575CD;
+    background: var(--faction-COMM);
+    --faction: #9575CD;
+
 }
 
 .g-faction-FASH {
-    background: #959595;
+    background: var(--faction-FASH);
+    --faction: #959595;
+
+}
+
+.g-faction-WILDCARD {
+    background: var(--faction-WILDCARD);
+    --faction: #7ea1b3;
+
 }
 
 .g-faction-FAITH {
-    background: #7ea1b3;
-}
+    background: var(--faction-FAITH);
+    --faction: #cddc39;
 
-.g-faction-FARM {
-    background: #cddc39;
 }
 
 .g-faction-NAT {
-    background: #ede7f6;
+    background: var(--faction-NAT);
+    --faction: #ede7f6;
 }
 
 
@@ -461,12 +475,14 @@ body {
         right: 0;
         top: 0;
         bottom: 0;
+        opacity: 1;
     }
     75% {
         background: var(--sh-bg);
-        opacity: 1;
+        opacity: 0.95;
     }
     80% {
+
         left: var(--sh-left);
         right: var(--sh-right);
         top: var(--sh-top);
@@ -517,7 +533,8 @@ body {
     border-radius: 0px;
     padding: 10px 20px;
     font-family: 'Alexandria';
-    font-size: 15px;    border-radius: 4px;
+    font-size: 15px;
+    border-radius: 4px;
 }
 
 .leaderCard {

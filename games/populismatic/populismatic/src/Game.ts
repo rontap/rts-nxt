@@ -4,7 +4,7 @@ import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";
 import {Cell, OnCaptureActions} from "./Cell.ts";
 import {Faction} from "./Factions.ts";
-
+import {Party} from "./flavour.ts";
 
 export type Coord = number;
 export const PRE_OWNED: string = "" as const;
@@ -49,9 +49,10 @@ export class Board {
             if (this.grid[i][j].track) {
                 return this.grid[i][j];
             }
+            const parties = Object.values(this.run.parties).filter((party: Party) => party.order <= this.run.getCurrentLevel.factions);
             const type = randomWeighted(
-                    Object.values(this.run.parties).map(obj => obj.weight),
-                    [0, 1, 2, 3, 4, 5, 6, 7, 8].slice(0, factions),
+                    parties.map(obj => obj.weight),
+                    parties.map(obj => obj.faction),
                     this.run.levelGen.next()
                 )
             ;

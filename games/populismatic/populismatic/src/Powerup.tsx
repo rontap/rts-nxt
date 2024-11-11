@@ -89,7 +89,6 @@ export class Advisor<T extends AdvisorCtr> extends Powerup<T> {
     }
 
     onAcquireEffect(run: Run) {
-        console.log(this.self.effects, '<<');
         this.self.effects.map(effect => effect.doAction(run))
     }
 
