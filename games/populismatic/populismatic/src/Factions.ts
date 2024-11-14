@@ -80,6 +80,10 @@ export function getFactionColor(faction: Faction): RGBC {
             return '#7ea1b3';
         case Faction.NAT:
             return '#ede7f6';
+        case Faction.FAITH:
+            return '#ede7f6';
+        default:
+            throw Error(`getFactionColor: Unknown Faction ${faction}`);
     }
 }
 

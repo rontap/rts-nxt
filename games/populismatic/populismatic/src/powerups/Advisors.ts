@@ -1,4 +1,4 @@
-import {Advisor} from "../Powerup.tsx";
+import {Advisor} from "../components/Powerup.tsx";
 import {Faction, FactionLEFT, FactionRIGHT} from "../Factions.ts";
 import Effect, {Affect} from "../Effects.tsx";
 import {Kind} from "../Cell.ts";

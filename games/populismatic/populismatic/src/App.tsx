@@ -1,16 +1,17 @@
-import React, {ReactNode, SyntheticEvent, useState} from 'react'
+import React, {SyntheticEvent, useState} from 'react'
 import './App.css'
-import {Board, Faction, Run} from './Game'
-import {Consumable, KindDescriptions, PowerupCtr} from "./Powerup.tsx";
+import {Board, Faction, Run} from './Board.ts'
+import {Consumable, PowerupCtr} from "./components/Powerup.tsx";
 import {RandomShop} from "./Shop.tsx";
-import LeaderJSX from "./Leader.tsx";
-import {Cell, Kind} from "./Cell.ts";
-import PolCompass from "./PoliticalCompass.tsx";
+import LeaderJSX from "./components/Leader.tsx";
+import {Cell} from "./Cell.ts";
+import {CellItem} from "./components/CellItem.tsx";
+import Header from "./components/Header.tsx";
 
-const singleRun = new Run(420);
+const singleRun = new Run(42069);
 const baseBoard = new Board(singleRun);
 
-enum Stage {
+export enum Stage {
     Game,
     Shop
 }
@@ -105,35 +106,10 @@ function App() {
         "--faction-NAT": singleRun.parties[Faction.NAT].color + opacity,
     }
 
-    const ownedPercent = Math.floor(baseBoard.filter(cell => cell.owned).length * 100 / baseBoard.map(cell => cell).length);
+
     return (
         <>
             <div onKeyDown={expandKeyboard} tabIndex={0} style={injectCSS}>
-                <div id="header">
-                    <div id="title">Populism Trainer</div>
-                    <span id="scoreboard">
-                         {stage === Stage.Game && <span className="divider">
-                                 <div>
-                                {ownedPercent}% / {singleRun.modifiers.winConditions.required}% Control
-
-                                 </div>
-                             </span>
-                         }
-                        <span className="divider">
-                            {stage === Stage.Game && <>
-                                Step {Math.round(baseBoard.score.step)} | Round {baseBoard.score.round} |&nbsp;
-                            </>}
-                            Influence {baseBoard.run.influence}
-                        </span>
-                        <span className="divider">
-                             Level {singleRun.level}
-                        </span>
-                            <span>
-                             Maneuvers {singleRun.getCurrentLevel.steps - baseBoard.moves}
-                        </span>
-                    </span>
-
-                </div>
 
                 <div id="bleed"></div>
                 {stage === Stage.Game &&
@@ -146,7 +122,6 @@ function App() {
                                      grid: `repeat(${singleRun.getCurrentLevel.size},40px) / repeat(${singleRun.getCurrentLevel.size},40px)`
                                  }}>
                                 {baseBoard.map((cell, i) => {
-
                                     return (<CellItem key={i} cell={cell} click={onClickCell}>
                                         {cell.owned ? '×' : cell.faction}
                                     </CellItem>)
@@ -182,7 +157,6 @@ function App() {
                         </div>
                     </div>
                 }
-                <PolCompass parties={Object.values(singleRun.parties)} run={singleRun}/>
                 <div className="powerupCtr">
                     Powerups<br/>
                     {
@@ -196,6 +170,7 @@ function App() {
                     }
                 </div>
                 <LeaderJSX run={singleRun}/>
+                <Header stage={stage} run={singleRun} board={baseBoard}/>
 
                 {stage === Stage.Shop && <>
                     {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
@@ -207,33 +182,5 @@ function App() {
     )
 }
 
-type CellItemProps = {
-    children: ReactNode,
-    cell: Cell
-    click: (evt: SyntheticEvent, cell: Cell) => void
-}
-
-function CellItem(props: CellItemProps) {
-    const getIcon = () => {
-        if (props.cell.isSource) return "🎯"
-        if (props.cell.inProgress && props.cell.kind !== Kind.ACTIVIST) return "❎"
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.INFLUENCER) return '🤩'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.TACTICAL) return '🤡'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.ACTIVIST) return '💣'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.BONUS) return '💵'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.DISENFRANCHISED) return '🤷‍♀️'
-        if ((!props.cell.owned || props.cell.inProgress) && props.cell.kind == Kind.SUSPICIOUS) return '🪨️'
-        if (props.cell.owned && !props.cell.inProgress) {
-            return "×"
-        } else
-            return ""
-    }
-
-    return <div className={"grid " + props.cell.getFactionColor} onClick={evt => props.click(evt, props.cell)}
-                title={KindDescriptions[props.cell.kind]}>
-        <div className={"debug"}>{props.cell.kind} <br/> ${Math.round(props.cell.getScore() * 10) / 10}</div>
-        {getIcon()}
-    </div>
-}
 
 export default App

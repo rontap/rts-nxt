@@ -53,7 +53,7 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
                     })
                 })
             }
-            ---
+            <hr/>
             {rndAdvisors.map((advisor => advisor.extendedButton({
                 onSelect(): void {
                     if (run.influence > 10) {
@@ -64,7 +64,6 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
                     }
                 }
             })))}
-            ---
 
         </div>
         <hr/>

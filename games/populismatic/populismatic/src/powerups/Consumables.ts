@@ -1,5 +1,5 @@
-import {Board, PRE_OWNED} from "../Game.ts";
-import {Consumable, KindDescriptions} from "../Powerup.tsx";
+import {Board, PRE_OWNED} from "../Board.ts";
+import {Consumable, KindDescriptions} from "../components/Powerup.tsx";
 import {Cell, Kind} from "../Cell.ts";
 import React from "react";
 

@@ -36,9 +36,7 @@ export class Board {
         };
     }
 
-    private genBoard(h: number, w: number, factions: number) {
-        this.run.tracked;
-
+    private genBoard(h: number, w: number, _factions?: number) {
         this.grid = twoDimArray(h, w, (i: number, j: number) => new Cell(undefined, this, i, j))
         this.run.tracked.forEach(cell => {
             cell.restore();
@@ -185,7 +183,7 @@ export class Board {
         this.grid.forEach(row => row.forEach(cb));
     }
 
-    map(cb: (cell: Cell) => (Promise<void> | boolean)) {
+    map(cb: (cell: Cell) => (Promise<void> | boolean | Promise<() => void>)) {
         return this.grid.flat().map(cb);
     }
 

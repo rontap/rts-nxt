@@ -1,4 +1,4 @@
-import {Board, Coord, PRE_OWNED} from "./Game.ts";
+import {Board, Coord, PRE_OWNED} from "./Board.ts";
 import {Faction, NUM_OF_FACTIONS} from "./Factions.ts";
 import {randomWeighted, upTo} from "./random.ts";
 

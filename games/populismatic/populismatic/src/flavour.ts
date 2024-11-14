@@ -1,5 +1,5 @@
-import {Faction} from "./Game.ts";
-import {LeaderNames} from "./Powerup.tsx";
+import {Faction} from "./Board.ts";
+import {LeaderNames} from "./powerups/Leaders.tsx";
 
 type Color = `#${string}`;
 

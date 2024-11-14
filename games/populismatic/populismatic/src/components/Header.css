@@ -1,0 +1,39 @@
+#polComp {
+    border: 1px solid #ffffff88;
+    background: #ffffff22;
+    border-radius: 4px;
+    padding: 12px;
+    vertical-align: 6px;
+    display: inline-block;
+}
+
+#polCompCtr {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    animation: polCompShow .25s ease-out;
+
+}
+
+#polCompCtrInner {
+    border-radius: 4px;
+    border: 1px solid #444;
+    text-align: center;
+    background: #999999ee;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+@keyframes polCompShow {
+    0% {
+        opacity: 0;
+        transform: scale3d(0.7, 0.7, 0.7) translateY(200px);
+    }
+    25% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale3d(1, 1, 1) translateX(0px);
+    }
+}

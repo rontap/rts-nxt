@@ -1,9 +1,10 @@
-import './polcomp.css';
-import {Party} from "./flavour.ts";
-import {Faction} from "./Factions.ts";
-import {Run} from "./Run.ts";
+import '../polcomp.css';
+import {Party} from "../flavour.ts";
+import {Faction} from "../Factions.ts";
+import {Run} from "../Run.ts";
 
 export default function PolCompass({parties, run}: { run: Run, parties: Party[] }) {
+    const leader = run.leader.self;
     return <>
         <div className={""} id={"polComp"}>
             <div id={"polCompRegions"}>
@@ -20,18 +21,29 @@ export default function PolCompass({parties, run}: { run: Run, parties: Party[] 
             {parties
                 .filter(party => party.order <= run.getCurrentLevel.factions)
                 .map(party => <PartyJSX party={party}/>)}
+            <div
+                style={{
+                    left: pad(leader.right) - 32 + "px",
+                    top: pad(leader.lib) - 10 + "px",
+                    "--blop-outline": `var(--q-${Math.floor(leader.lib)}-${Math.floor(leader.right)}`,
+                    background: "#444444ee"
+                }} className={"blop blop-you"}>
+                {run.leader.self.icon} You
+            </div>
         </div>
+
     </>
 }
 type PartyJSXProps = { party: Party };
+const pad = (value: number) => {
+    let padded = value;
+    if (padded > 2.7) padded = 2.7;
+    if (padded < .3) padded = .3;
+    return padded * 150
+}
 
 export function PartyJSX({party}: PartyJSXProps) {
-    const pad = (value: number) => {
-        let padded = value;
-        if (padded > 2.7) padded = 2.7;
-        if (padded < .3) padded = .3;
-        return padded * 150
-    }
+
     return <>
         <div
             style={{

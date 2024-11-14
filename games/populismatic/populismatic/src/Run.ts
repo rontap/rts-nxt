@@ -1,8 +1,9 @@
 import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
-import {Advisor, Consumable, Leader, LeaderNames, Leaders, Powerup, PowerupCtr} from "./Powerup.tsx";
+import {Advisor, Consumable, Powerup, PowerupCtr} from "./components/Powerup.tsx";
 import {Cell} from "./Cell.ts";
 import {Country, LocalParties} from "./flavour.ts";
+import {Leader, LeaderNames, Leaders} from "./powerups/Leaders.tsx";
 
 export class Run {
     root: PRNG;

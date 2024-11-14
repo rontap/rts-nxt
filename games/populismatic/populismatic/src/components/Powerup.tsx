@@ -1,8 +1,8 @@
-import {Board, Run} from "./Game.ts";
-import {Faction, Ideologies} from "./Factions.ts";
+import {Board, Run} from "../Board.ts";
+import {Faction, Ideologies} from "../Factions.ts";
 import React, {Dispatch, SetStateAction} from "react";
-import {Cell, Kind} from "./Cell.ts";
-import Effect, {Affect} from "./Effects.tsx";
+import {Cell, Kind} from "../Cell.ts";
+import Effect from "../Effects.tsx";
 
 export type PowerupCtr = {
     name: string,
@@ -60,7 +60,7 @@ export class Consumable extends Powerup<ConsumableCtr> {
 }
 
 
-type AdvisorCtr = PowerupCtr & {
+export type AdvisorCtr = PowerupCtr & {
     faction: Faction;
     restriction?: Restr[];
     onAcquire: () => void;
@@ -92,56 +92,9 @@ export class Advisor<T extends AdvisorCtr> extends Powerup<T> {
         this.self.effects.map(effect => effect.doAction(run))
     }
 
-}
+    onSell() {
 
-type LeaderCtr = AdvisorCtr & {
-    faction: Faction;
-    actionDescr: string;
-    action: string;
-}
-
-export enum LeaderNames {
-    Merkel, // Angela Merkel
-    MP // Magyar Péter
-}
-
-export class Leader extends Advisor<LeaderCtr> {
-    constructor(props: LeaderCtr) {
-        super(props);
     }
-}
-
-export const Leaders = {
-    [LeaderNames.Merkel]: new Leader({
-        onAcquire(): void {
-        },
-        description: "Angela Merkel",
-        faction: Faction.COMM,
-        icon: "🫶",
-        name: "Angela Merkel",
-        action: "Wir Schaffen Das",
-        actionDescr: "Sth Sth Sth",
-        effects: [],
-        onAction(cell: | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
-        }
-    }),
-    [LeaderNames.MP]: new Leader({
-        onAcquire(): void {
-        },
-        description: "",
-        faction: Faction.COMM,
-        icon: "🇭🇺",
-        name: "Magyar Péter",
-        action: "Árad a Tisza",
-        actionDescr: "Add a Rally consumable.",
-        effects: [
-            new Effect(Affect.Parties, -0.5, "weight", [Faction.LIB, Faction.GREEN, Faction.SOC, Faction.COMM]),
-            new Effect(Affect.Personal, 2, "weight"),
-            new Effect(Affect.Kind, 2, "weight", Kind.ACTIVIST),
-        ],
-        onAction(cell: | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
-        }
-    })
 }
 
 export const KindDescriptions: Record<any, string> = {

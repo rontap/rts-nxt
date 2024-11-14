@@ -43,39 +43,39 @@
 }
 
 #polCompRegions div:nth-child(1) {
-    background-color: #E57373aa;
+    background-color: #E57373ee;
 }
 
 #polCompRegions div:nth-child(2) {
-    background-color: #c0c0c0aa;
+    background-color: #c0c0c0ee;
 }
 
 #polCompRegions div:nth-child(3) {
-    background-color: #8d6e63aa;
+    background-color: #8d6e63ee;
 }
 
 #polCompRegions div:nth-child(4) {
-    background-color: #f06292aa;
+    background-color: #f06292ee;
 }
 
 #polCompRegions div:nth-child(5) {
-    background-color: #90CAF9aa;
+    background-color: #90CAF9ee;
 }
 
 #polCompRegions div:nth-child(6) {
-    background-color: #4dd0e1aa;
+    background-color: #4dd0e1ee;
 }
 
 #polCompRegions div:nth-child(7) {
-    background-color: #81c784aa;
+    background-color: #81c784ee;
 }
 
 #polCompRegions div:nth-child(8) {
-    background-color: #ffd54faa;
+    background-color: #ffd54fee;
 }
 
 #polCompRegions div:nth-child(9) {
-    background-color: #ffb74daa;
+    background-color: #ffb74dee;
 }
 
 .blop {
@@ -96,14 +96,25 @@
     letter-spacing: 0.4px;
 }
 
+.blop-you {
+    animation: blop-anim 2s infinite;
+}
+
 @keyframes blop-anim {
     0% {
         outline: 0px double var(--blop-outline);
+        filter: saturate(110%) brightness(95%);
     }
     8% {
         outline: 3px double var(--blop-outline);
     }
+    50% {
+        filter: saturate(90%) brightness(120%);
+
+    }
     100% {
         outline: 12px double transparent;
+        filter: saturate(110%) brightness(95%);
+
     }
 }

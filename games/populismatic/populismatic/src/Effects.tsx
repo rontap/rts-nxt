@@ -1,6 +1,7 @@
-import {Faction, getFactionColor} from "./Factions.ts";
+import {Faction, getFactionColor, Ideologies} from "./Factions.ts";
 import {Kind} from "./Cell.ts";
 import {Run} from "./Run.ts";
+import {Party} from "./flavour.ts";
 
 export enum Affect {
     Personal,
@@ -8,7 +9,8 @@ export enum Affect {
     Kind
 }
 
-type Selector = `*` | any[] | any;
+type Selectable = Faction | Ideologies | Party
+type Selector = `*` | Selectable[] | Selectable;
 
 export default class Effect {
     affect: Affect;
@@ -53,7 +55,7 @@ export default class Effect {
             if (!this.selector.length) {
                 return <b style={{color: getFactionColor(this.selector)}}>{Object.values(Faction)[this.selector]}</b>;
             }
-            return this.selector.map(sel => {
+            return this.selector.map((sel: string | number) => {
                 const faction = Object.values(Faction)[sel] as Faction;
                 const color = getFactionColor(sel);
                 return <b style={{color: color}}>{faction} </b>
@@ -89,8 +91,8 @@ export default class Effect {
     }
 
     get deferFaction(): Faction[] {
-        if (this.selector == "*") return Object.values(Faction).filter(f => !isNaN(f as number));
-        if (Array.isArray(this.selector)) return this.selector;
-        return [this.selector]
+        if (this.selector == "*") return Object.values(Faction).filter(f => !isNaN(f as number)) as Faction[];
+        if (Array.isArray(this.selector)) return this.selector as Faction[];
+        return [this.selector as Faction]
     }
 }
