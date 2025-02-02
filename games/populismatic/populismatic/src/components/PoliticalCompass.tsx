@@ -21,15 +21,15 @@ export default function PolCompass({parties, run}: { run: Run, parties: Party[] 
             {parties
                 .filter(party => party.order <= run.getCurrentLevel.factions)
                 .map(party => <PartyJSX party={party}/>)}
-            <div
-                style={{
-                    left: pad(leader.right) - 32 + "px",
-                    top: pad(leader.lib) - 10 + "px",
-                    "--blop-outline": `var(--q-${Math.floor(leader.lib)}-${Math.floor(leader.right)}`,
-                    background: "#444444ee"
-                }} className={"blop blop-you"}>
-                {run.leader.self.icon} You
-            </div>
+            {/*<div*/}
+            {/*    style={{*/}
+            {/*        left: pad(leader.right) - 32 + "px",*/}
+            {/*        top: pad(leader.lib) - 10 + "px",*/}
+            {/*        "--blop-outline": `var(--q-${Math.floor(leader.lib)}-${Math.floor(leader.right)}`,*/}
+            {/*        background: "#444444ee"*/}
+            {/*    }} className={"blop blop-you"}>*/}
+            {/*    {run.leader.self.icon} You*/}
+            {/*</div>*/}
         </div>
 
     </>

@@ -9,7 +9,7 @@ export enum Affect {
     Kind
 }
 
-type Selectable = Faction | Ideologies | Party
+type Selectable = Faction | Ideologies | Party | Kind;
 type Selector = `*` | Selectable[] | Selectable;
 
 export default class Effect {
@@ -28,7 +28,7 @@ export default class Effect {
     get affectText() {
         switch (this.affect) {
             case Affect.Personal:
-                return "Your party or ideology";
+                return "Your party";
             case Affect.Parties:
                 return "Parties";
         }
@@ -82,17 +82,22 @@ export default class Effect {
 
     doAction(run: Run) {
         if (this.affect == Affect.Parties) {
-            this.deferFaction.map(faction => {
-                console.log("effect", this.property, run.parties[faction])
+            this.deferAs<Faction>(Object.values(Faction)).map(faction => {
                 run.parties[faction][this.property as "weight" | "score"] += this.change;
             })
 
+        } else if (this.affect == Affect.Kind) {
+            this.deferAs<Kind>(Object.values(Kind)).map(kind => {
+                run.modifiers.generation.kindShare[kind][this.property as "weight"] += this.change;
+            })
+        } else if (this.affect == Affect.Personal) {
+            run.parties[run.leader.self.faction][this.property as "weight" | "score" | "lib" | "right"] += this.change
         }
     }
 
-    get deferFaction(): Faction[] {
-        if (this.selector == "*") return Object.values(Faction).filter(f => !isNaN(f as number)) as Faction[];
-        if (Array.isArray(this.selector)) return this.selector as Faction[];
-        return [this.selector as Faction]
+    deferAs<T>(prop: any[]): T[] {
+        if (this.selector == "*") return prop.filter(f => !isNaN(f as number)) as T[];
+        if (Array.isArray(this.selector)) return this.selector as T[];
+        return [this.selector as T]
     }
 }

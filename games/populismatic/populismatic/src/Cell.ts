@@ -38,7 +38,7 @@ export class Cell {
     constructor(faction: undefined | Faction, board: Board, h: Coord, w: Coord) {
         this.faction = faction;
         this.kind = randomWeighted(
-            Object.values(board.run.modifiers.generation.kindShare),
+            Object.values(board.run.modifiers.generation.kindShare).map(kinds => kinds.weight),
             Object.keys(Kind),
             board.run.levelGen.next()
         ).toLowerCase();
@@ -72,7 +72,6 @@ export class Cell {
     getScore() {
         const pointsFromKind = this.modifiers.defer(this.modifiers.scoring, this.kind);
         const pointFromEffects = this.board.run.parties[this.faction as Faction].score;
-        console.log(pointFromEffects, pointsFromKind);
         return pointsFromKind + pointFromEffects;
     }
 

@@ -1,4 +1,6 @@
 import {Kind} from "./Cell.ts";
+import {RGBC} from "./Factions.ts";
+import {KindDescriptions} from "./components/Powerup.tsx";
 
 export type int = number;
 export type RecordDefault<T extends string, K> = Record<T, K> & Record<"DEFAULT", K>;
@@ -6,6 +8,12 @@ export type Level = {
     size: int,
     factions: int,
     steps: int,
+}
+export type KindShare = {
+    weight: number
+    icon: string
+    color: RGBC
+    description?: string
 }
 export type Modifier = {
     scoring: RecordDefault<any, number>
@@ -26,7 +34,7 @@ export type Modifier = {
         required: int
     },
     generation: {
-        kindShare: Record<Kind, number>
+        kindShare: Record<Kind, KindShare>
     }
 }
 export const DEFAULT = "DEFAULT" as const;
@@ -41,16 +49,61 @@ export const getModifiers = () => {
             },
         generation: {
             kindShare: {
-                [Kind.NORMAL]: 200,
-                [Kind.DISENFRANCHISED]: 10,
-                [Kind.RAINBOW]: 10,
-                [Kind.INFLUENCER]: 10,
-                [Kind.LUCKY]: 10,
-                [Kind.WALL]: 0,
-                [Kind.TACTICAL]: 10,
-                [Kind.BONUS]: 0,
-                [Kind.ACTIVIST]: 10,
-                [Kind.SUSPICIOUS]: 0
+                [Kind.NORMAL]: {
+                    weight: 200,
+                    icon: '@empty',
+                    color: '#c5c5c5',
+                },
+                [Kind.DISENFRANCHISED]: {
+                    weight: 10,
+                    icon: '🤷‍♀️',
+                    color: '#454545',
+                    description: KindDescriptions[Kind.DISENFRANCHISED]
+                },
+                [Kind.RAINBOW]: {
+                    weight: 10,
+                    icon: '🌈',
+                    color: "linear-gradient(   60deg,    #F44336, #FF9800, #FFEB3B, #4CAF50, #2196F3, #9C27B0)",
+                    description: KindDescriptions[Kind.RAINBOW]
+                },
+                [Kind.INFLUENCER]: {
+                    weight: 10,
+                    icon: '🤩',
+                    color: '#4488FF',
+                    description: KindDescriptions[Kind.INFLUENCER]
+                },
+                [Kind.LUCKY]: {
+                    weight: 10,
+                    icon: '💰',
+                    color: '#5dc561',
+                },
+                [Kind.WALL]: {
+                    weight: 0,
+                    icon: '🧱',
+                    color: '#353535',
+                },
+                [Kind.TACTICAL]: {
+                    weight: 10,
+                    icon: '🤡',
+                    color: '#f36492',
+                    description: KindDescriptions[Kind.TACTICAL]
+                },
+                [Kind.BONUS]: {
+                    weight: 0,
+                    icon: '💵',
+                    color: '#5dc561',
+                },
+                [Kind.ACTIVIST]: {
+                    weight: 10,
+                    icon: '💣',
+                    color: '#8fb2f3',
+                    description: KindDescriptions[Kind.ACTIVIST]
+                },
+                [Kind.SUSPICIOUS]: {
+                    weight: 0,
+                    icon: '🪨️',
+                    color: '#e65385',
+                }
             }
         },
         levels: {

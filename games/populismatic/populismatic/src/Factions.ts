@@ -58,7 +58,7 @@ const ideology: Ideology = {
     }
 }
 
-type RGBC = string;
+export type RGBC = string | `#${string}`;
 
 export function getFactionColor(faction: Faction): RGBC {
     switch (faction) {

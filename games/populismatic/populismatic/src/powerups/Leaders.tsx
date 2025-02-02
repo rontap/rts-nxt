@@ -44,7 +44,7 @@ export const Leaders = {
         onAcquire(): void {
         },
         description: "",
-        faction: Faction.COMM,
+        faction: Faction.CENTR,
         icon: "🇭🇺",
         name: "Magyar Péter",
         action: "Árad a Tisza",
@@ -53,7 +53,7 @@ export const Leaders = {
         actionDescr: "Add a Rally consumable.",
         effects: [
             new Effect(Affect.Parties, -0.5, "weight", [Faction.LIB, Faction.GREEN, Faction.SOC, Faction.COMM]),
-            new Effect(Affect.Personal, 2, "weight"),
+            new Effect(Affect.Personal, 1, "weight"),
             new Effect(Affect.Kind, 2, "weight", Kind.ACTIVIST),
         ],
         onAction(cell: | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {

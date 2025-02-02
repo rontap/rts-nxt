@@ -3,6 +3,8 @@ import {Faction, Ideologies} from "../Factions.ts";
 import React, {Dispatch, SetStateAction} from "react";
 import {Cell, Kind} from "../Cell.ts";
 import Effect from "../Effects.tsx";
+import {Rarity} from "../powerups";
+import {Badge} from "@radix-ui/themes";
 
 export type PowerupCtr = {
     name: string,
@@ -65,18 +67,35 @@ export type AdvisorCtr = PowerupCtr & {
     restriction?: Restr[];
     onAcquire: () => void;
     effects: Effect[];
+    rarity: Rarity;
 }
 
 export class Advisor<T extends AdvisorCtr> extends Powerup<T> {
-    constructor(props: T) {
+    constructor(props: {
+        onAction: (_, _a) => boolean;
+        effects: any[];
+        onAcquire: () => boolean;
+        faction: Faction;
+        icon: string;
+        name: string;
+        description: string;
+        rarity: Rarity
+    }) {
         super(props);
     }
 
     extendedButton(props: PowerupJSX) {
         return <div className={"powerupChoice grid space-between"}>
             {this.button(props)}
+            <span>
+            <Badge variant="solid" color={["blue", "purple", "orange"][this.self.rarity]}>
+                {this.self.rarity === Rarity.COMMON && "Common"}
+                {this.self.rarity === Rarity.RARE && "Rare"}
+                {this.self.rarity === Rarity.LEGENDARY && "Legendary"}
+            </Badge>
+            </span>
             <div className={"ml-2"}>{this.self.description}</div>
-            <div className={"ml-2"}>{this.self.effects.map(effect => effect.jsx())}</div>
+            <div className={"ml-2 text-left"}>{this.self.effects.map(effect => effect.jsx())}</div>
             <div className="manouverCost">Cost {this.self.cost} Manouvers.</div>
         </div>
     }
@@ -89,6 +108,7 @@ export class Advisor<T extends AdvisorCtr> extends Powerup<T> {
     }
 
     onAcquireEffect(run: Run) {
+        console.log(this.self.effects)
         this.self.effects.map(effect => effect.doAction(run))
     }
 

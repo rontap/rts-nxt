@@ -2,6 +2,7 @@ import {Advisor} from "../components/Powerup.tsx";
 import {Faction, FactionLEFT, FactionRIGHT} from "../Factions.ts";
 import Effect, {Affect} from "../Effects.tsx";
 import {Kind} from "../Cell.ts";
+import {Rarity} from "./index.ts";
 
 export const Advisors: Advisor[] = [
     new Advisor({
@@ -12,20 +13,24 @@ export const Advisors: Advisor[] = [
         name: "Karl Marx",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.COMMON
 
     }),
     new Advisor({
         description: "",
-        effects: [new Effect(Affect.Personal, +1, "LEFT")],
+        effects: [new Effect(Affect.Personal, -1, "right"),
+            new Effect(Affect.Personal, +1, "weight"),
+            new Effect(Affect.Kind, -3, "weight", Kind.DISENFRANCHISED)],
         faction: Faction.COMM,
         icon: "🫨",
         name: "Jeremy Corbyn",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.COMMON
     }),
     new Advisor({
         description: "",
-        effects: [new Effect(Affect.Personal, +1, "LEFT"),
+        effects: [new Effect(Affect.Personal, -1, "right"),
             new Effect(Affect.Parties, +0.2, "score", Faction.SOC),
             new Effect(Affect.Parties, -0.2, "score", FactionRIGHT),
             new Effect(Affect.Parties, +2, "weight", FactionLEFT)],
@@ -34,6 +39,7 @@ export const Advisors: Advisor[] = [
         name: "Noam Chomsky",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.RARE
     }),
     new Advisor({
         description: "",
@@ -47,6 +53,7 @@ export const Advisors: Advisor[] = [
         name: "Ayn Rand",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.LEGENDARY
     }),
     new Advisor({
         description: "",
@@ -58,6 +65,7 @@ export const Advisors: Advisor[] = [
         name: "Margaret Thatcher",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.RARE
     }),
     new Advisor({
         description: "The People's Revolution",
@@ -73,6 +81,7 @@ export const Advisors: Advisor[] = [
         name: "Vladimir Lenin",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.LEGENDARY
     }),
     new Advisor({
         description: "Woke Pope lololol",
@@ -89,6 +98,7 @@ export const Advisors: Advisor[] = [
         name: "Woke Pope",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.COMMON
     }),
     new Advisor({
         description: "Generally just an awful guy",
@@ -104,6 +114,7 @@ export const Advisors: Advisor[] = [
         name: "Pol Pot",
         onAction: (_, _a) => false,
         onAcquire: () => false,
+        rarity: Rarity.LEGENDARY
     }),
     new Advisor({
         description: "Let the Free market flow through your veins",
@@ -120,5 +131,6 @@ export const Advisors: Advisor[] = [
         name: "Milton Friedman",
         onAction: (_, _a) => false,
         onAcquire: () => false,
-    })
+        rarity: Rarity.RARE
+    }),
 ]
