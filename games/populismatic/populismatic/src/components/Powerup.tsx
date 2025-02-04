@@ -118,7 +118,7 @@ export class Advisor<T extends AdvisorCtr> extends Powerup<T> {
 }
 
 export const KindDescriptions: Record<any, string> = {
-    [Kind.ACTIVIST]: "Recruit Activist, place a bomb which explodex in a + shape when convinced.",
+    [Kind.ACTIVIST]: "Recruit Activist, place a bomb which explodes in a ➕ shape when convinced.",
     [Kind.RAINBOW]: "Recruit a dedicated follower, who will join regardless of your current ideology. They just like you. Earns 1/2 Score",
     [Kind.DISENFRANCHISED]: "This voter cannot or will not vote. You dont need them to win the level. Earns 0 Score.",
     [Kind.TACTICAL]: "This guy does not like you, but will vote for you regardless because they dislike the opposition more. They will not propagate your ideology however. Earns 2 Score.",

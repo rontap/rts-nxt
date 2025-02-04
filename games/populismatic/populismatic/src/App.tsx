@@ -4,15 +4,16 @@ import {Board, Faction, Run} from './Board.ts'
 import {Consumable, KindDescriptions, PowerupCtr} from "./components/Powerup.tsx";
 import {RandomShop} from "./Shop.tsx";
 import LeaderJSX from "./components/Leader.tsx";
-import {Cell, Kind} from "./Cell.ts";
+import {Cell} from "./Cell.ts";
 import {CellItem} from "./components/CellItem.tsx";
 import Header from "./components/Header.tsx";
 import Share from "./components/Share.tsx";
 import {Party} from "./flavour.ts";
 import "@radix-ui/themes/styles.css";
 import {Theme} from "@radix-ui/themes";
+import Card from "./components/card/Card.tsx";
 
-const singleRun = new Run(555);
+const singleRun = new Run(6945);
 const baseBoard = new Board(singleRun);
 
 export enum Stage {
@@ -25,6 +26,7 @@ function App() {
     const [selectTiles, setSelectTiles] = useState<undefined | PowerupCtr>(undefined);
     const [powerup, setPowerup] = useState<undefined | PowerupCtr>(undefined);
     const [stage, setStage] = useState<Stage>(Stage.Game);
+    const [hoveredCell, setHoveredCell] = useState<null | Cell>(null);
     const expand = async (faction: Faction) => {
         await baseBoard.doPopulism(faction, setCount, nextStage)
         setCount(() => count + 1)
@@ -43,15 +45,16 @@ function App() {
     function PowerupDescription() {
         return <div className="slip">
             <div className="slip-inner">
-                Powerup Selected
-                {powerup?.icon}
-                {powerup?.name}
+                <b> Powerup Selected
+                    {powerup?.icon}
+                    {powerup?.name}
+                </b>
                 <br/>{powerup?.description}<br/>
-                <div>
+                {!powerup?.boardInteraction && <div>
                     <button onClick={() => onActivatePowerup()}>Activate</button>
-                </div>
+                </div>}
                 <div>
-                    <button onClick={() => {
+                    <button className={"btn"} onClick={() => {
                         setPowerup(undefined)
                         setSelectTiles(undefined)
                     }}>Cancel
@@ -112,10 +115,14 @@ function App() {
 
     const kinds = Object.values(singleRun.modifiers.generation.kindShare)
     const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
-
     return (
         <>
             <Theme>
+                <div className={`powerupCtr ${powerup && "powerupCtrOn"}`}>
+                    {
+                        powerup && <PowerupDescription/>
+                    }
+                </div>
                 <div onKeyDown={expandKeyboard} tabIndex={0} style={injectCSS}>
 
                     <div id="bleed"></div>
@@ -137,7 +144,10 @@ function App() {
                                          grid: `repeat(${singleRun.getCurrentLevel.size},40px) / repeat(${singleRun.getCurrentLevel.size},40px)`
                                      }}>
                                     {baseBoard.map((cell, i) => {
-                                        return (<CellItem key={i} cell={cell} click={onClickCell}>
+                                        return (<CellItem key={i} cell={cell}
+                                                          onMouseEnter={() => setHoveredCell(cell)}
+                                                          onMouseLeave={() => setHoveredCell(null)}
+                                                          click={onClickCell}>
                                             {cell.owned ? '×' : cell.faction}
                                         </CellItem>)
                                     })}
@@ -150,40 +160,55 @@ function App() {
                                     }}></div>
                                 </div>
 
+
                             </div>
                             <div className="center">
-                                <div className="card">
-                                    {Object.values(singleRun.parties)
-                                        .filter((party, i) => party.order <= singleRun.getCurrentLevel.factions)
-                                        .map((party, i) => {
-                                            return <div className={"populismActivator-outer"}>
-                                                <button className={"populismActivator"}
-                                                        style={{background: party.color}}
-                                                        onClick={() => expand(Faction[party.faction] as Faction)}
-                                                >
-                                                    {party.name},
-                                                    {i},{party.weight}
+                                <div className="cards">
+                                    {parties.map((party, i, arr) => {
+                                        return <Card
+                                            nth={i}
+                                            total={parties.length + singleRun.powerups.length}
+                                            bg={party.color}
+                                            title={party.name}
+                                            icon={"👀"} onClick={() => expand(party.faction)}>
+                                            Political Party {party.name}
 
-                                                </button>
-                                            </div>
-                                        })}
-
+                                        </Card>
+                                    })}
+                                    {
+                                        singleRun.powerups.map(((consumable, i) => {
+                                            return <Card
+                                                bg={"#444"}
+                                                onClick={() => onClickPowerup(consumable, i)}
+                                                toggle={() => {
+                                                    setPowerup(undefined)
+                                                    setSelectTiles(undefined)
+                                                }}
+                                                icon={consumable.self.icon}
+                                                title={"Powerup"}
+                                                total={parties.length + singleRun.powerups.length}
+                                                nth={parties.length + i}
+                                            >
+                                                <>{consumable.self.name}</>
+                                            </Card>
+                                        }))
+                                    }
                                 </div>
                             </div>
                         </div>
                     }
-                    <div className="powerupCtr">
-                        Powerups<br/>
-                        {
-                            powerup ? <PowerupDescription/> : singleRun.powerups.map(((consumable, i) => {
-                                return consumable.button({
-                                    onSelect: () => {
-                                        onClickPowerup(consumable, i)
-                                    }
-                                })
-                            }))
-                        }
-                    </div>
+                    {hoveredCell && <div className={"cellDescription"}>
+                        <b style={{color: singleRun.parties[hoveredCell?.faction].color}}>
+                            {singleRun.parties[hoveredCell?.faction || 0].name}
+                        </b>
+                        <br/>
+                        score: {hoveredCell?.getScore()} {" | "}
+                        {hoveredCell?.owned ? "Owned" : "Not owned"}
+                        <br/>
+                        <div className={"cellKindDescription"}>{KindDescriptions[hoveredCell?.kind || 0] || ""}</div>
+
+                    </div>}
+
                     <LeaderJSX run={singleRun}/>
                     <Header stage={stage} run={singleRun} board={baseBoard}/>
 

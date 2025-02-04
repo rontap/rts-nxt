@@ -51,9 +51,6 @@ body {
     }
 }
 
-.card {
-    padding: 2em;
-}
 
 .read-the-docs {
     color: #888;
@@ -240,11 +237,6 @@ body {
 }
 
 
-.card {
-    display: grid;
-    grid: repeat(3, 50px) / repeat(3, 160px);
-}
-
 .populismActivator-outer {
     display: grid;
     margin: 4px;
@@ -254,20 +246,26 @@ body {
     grid-template: repeat(4, 1fr) / repeat(4, 1fr);
 }
 
+.radix-themes:where([data-is-root-theme='true']) {
+    min-height: 10dvh !important;
+    background: transparent !important;
+}
+
 /*** HEADSTYLE **/
 
 
 #header {
-    background: #ff5722;
+    background: #ff5722ee;
     position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
+    left: 10px;
+    top: 10px;
+    right: 10px;
     text-align: left;
-    padding: 12px;
-    box-shadow: 0px 2px 4px #ccc;
+    padding: 10px 8px;
+    box-shadow: inset 0px 0px 4px #444;
     border-bottom: 1px solid #888;
     color: whitesmoke;
+    border-radius: 4px;
 }
 
 #header #title {
@@ -296,12 +294,12 @@ body {
 #scoreboard {
     position: fixed;
     font-family: "Righteous", sans-serif;
-    right: 40px;
-    top: 48px;
+    right: 25px;
+    top: 25px;
     background: white;
-    border: 3px solid #444;
-    border-radius: 30px;
-    box-shadow: 0px 3px 4px #ccc;
+    border: 1px solid #444;
+    border-radius: 4px;
+    box-shadow: inset 0px 0px 2px #444;
     padding: 0 5px;
     color: #444;
 }
@@ -312,7 +310,7 @@ body {
 }
 
 #scoreboard .divider {
-    border-right: 3px solid #444;
+    border-right: 1.5px solid #444;
 }
 
 .center {
@@ -373,8 +371,10 @@ body {
     background: white;
     padding: 4px;
     display: block;
-    max-width: 500px;
-    margin: 0 auto;
+    position: absolute;
+    top: 85px;
+    right: 0px;
+    border: 1px solid #666;
 }
 
 /***********************************/
@@ -564,4 +564,19 @@ body {
     border-radius: 1px;
     padding: 2px 6px;
     font-size: 13px;
+}
+
+/***/
+.cellDescription {
+    width: 400px;
+    padding: 6px 10px;
+    background: white;
+    margin: 10px auto;
+    text-align: justify;
+    border: 1px solid #666;
+    border-radius:4px;
+    font-family: "Roboto", sans-serif;
+}
+.cellKindDescription {
+    font-size:13px;
 }

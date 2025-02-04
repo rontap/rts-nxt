@@ -7,7 +7,7 @@ import {Faction} from "./Factions.ts";
 import {Party} from "./flavour.ts";
 
 export type Coord = number;
-export const PRE_OWNED: string = "" as const;
+export const PRE_OWNED: string = "PRE_OWNED" as const;
 
 interface Score {
     step: number;

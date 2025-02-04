@@ -5,7 +5,9 @@ import {KindDescriptions} from "./Powerup.tsx";
 export type CellItemProps = {
     children: ReactNode,
     cell: Cell
-    click: (evt: SyntheticEvent, cell: Cell) => void
+    click: (evt: SyntheticEvent, cell: Cell) => void,
+    onMouseEnter: () => any,
+    onMouseLeave: () => any
 }
 
 export function CellItem(props: CellItemProps) {
@@ -28,7 +30,10 @@ export function CellItem(props: CellItemProps) {
             return ""
     }
 
-    return <div className={"grid " + props.cell.getFactionColor} onClick={evt => props.click(evt, props.cell)}
+    return <div className={"grid " + props.cell.getFactionColor}
+                onClick={evt => props.click(evt, props.cell)}
+                onMouseEnter={props.onMouseEnter}
+                onMouseLeave={props.onMouseLeave}
                 title={KindDescriptions[props.cell.kind]}>
         <div className={"debug"}>{props.cell.kind} <br/> ${Math.round(props.cell.getScore() * 10) / 10}</div>
         {getIcon()}

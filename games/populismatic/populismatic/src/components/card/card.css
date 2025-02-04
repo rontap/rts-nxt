@@ -1,0 +1,59 @@
+.card {
+    width: 135px;
+    height: 180px;
+    border-radius: 4px;
+    margin: 6px -4px;
+    background: #999;
+    cursor: pointer;
+    transition: all .2s;
+    background: color-mix(in srgb, var(--card-bg) 75%, #fff);
+    border: 4px solid color-mix(in srgb, var(--card-bg) 55%, #444);
+    /*translate**/
+    /**/
+    transform: translateY(var(--offset)) rotate(calc(var(--total-card) * -5deg + var(--nth-card) * 5deg));
+}
+
+.cardHeader {
+    background: color-mix(in srgb, var(--card-bg) 55%, #666);
+    height: 30px;
+    color: whitesmoke;
+    font-family: "Righteous", sans-serif;
+    text-transform: uppercase;
+}
+
+.card .icon, .cardCost {
+
+}
+
+.card .icon {
+    display: inline-block;
+    width: 35px;
+
+}
+
+.cardCost {
+    display: inline-block;
+
+    width: calc(100% - 35px);
+}
+
+.cardOuter {
+    transition: transform .2s;
+}
+
+.cardOuter:hover, .cardOuter.cardToggled {
+    z-index: 99;
+    transform: scale(1.1) translateY(-15px);
+}
+
+.cards {
+    display: flex;
+    position: fixed;
+    left: 20%;
+    right: 20%;
+    text-align: center;
+    margin: 0 auto;
+    bottom: -20px;
+    width: 60%;
+    justify-content: center;
+}
