@@ -14,6 +14,7 @@ export type KindShare = {
     icon: string
     color: RGBC
     description?: string
+    name: string
 }
 export type Modifier = {
     scoring: RecordDefault<any, number>
@@ -51,57 +52,68 @@ export const getModifiers = () => {
             kindShare: {
                 [Kind.NORMAL]: {
                     weight: 200,
-                    icon: '@empty',
+                    icon: 'Standard',
+                    name: 'Standard',
                     color: '#c5c5c5',
+                    description: KindDescriptions[Kind.NORMAL]
                 },
                 [Kind.DISENFRANCHISED]: {
                     weight: 10,
                     icon: '🤷‍♀️',
+                    name: 'Disenfranchised',
                     color: '#454545',
                     description: KindDescriptions[Kind.DISENFRANCHISED]
                 },
                 [Kind.RAINBOW]: {
                     weight: 10,
                     icon: '🌈',
+                    name: 'Dedicated',
                     color: "linear-gradient(   60deg,    #F44336, #FF9800, #FFEB3B, #4CAF50, #2196F3, #9C27B0)",
                     description: KindDescriptions[Kind.RAINBOW]
                 },
                 [Kind.INFLUENCER]: {
                     weight: 10,
                     icon: '🤩',
+                    name: 'Influencer',
                     color: '#4488FF',
                     description: KindDescriptions[Kind.INFLUENCER]
                 },
                 [Kind.LUCKY]: {
                     weight: 10,
                     icon: '💰',
+                    name: 'Lucky',
                     color: '#5dc561',
                 },
                 [Kind.WALL]: {
                     weight: 0,
                     icon: '🧱',
+                    name: 'Wall',
                     color: '#353535',
                 },
                 [Kind.TACTICAL]: {
                     weight: 10,
                     icon: '🤡',
+                    name: 'Tactical',
                     color: '#f36492',
                     description: KindDescriptions[Kind.TACTICAL]
                 },
                 [Kind.BONUS]: {
                     weight: 0,
                     icon: '💵',
+                    name: 'standard',
                     color: '#5dc561',
                 },
                 [Kind.ACTIVIST]: {
                     weight: 10,
                     icon: '💣',
                     color: '#8fb2f3',
+                    name: 'activist',
                     description: KindDescriptions[Kind.ACTIVIST]
                 },
                 [Kind.SUSPICIOUS]: {
                     weight: 0,
                     icon: '🪨️',
+                    name: 'suspicious',
                     color: '#e65385',
                 }
             }

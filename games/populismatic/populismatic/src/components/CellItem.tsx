@@ -31,7 +31,9 @@ export function CellItem(props: CellItemProps) {
     }
 
     return <div className={"grid " + props.cell.getFactionColor}
-                onClick={evt => props.click(evt, props.cell)}
+                onClick={evt => {
+                    props.click(evt, props.cell)
+                }}
                 onMouseEnter={props.onMouseEnter}
                 onMouseLeave={props.onMouseLeave}
                 title={KindDescriptions[props.cell.kind]}>

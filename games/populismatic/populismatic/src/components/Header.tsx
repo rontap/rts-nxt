@@ -4,6 +4,8 @@ import {Stage} from "../App.tsx";
 import './Header.css';
 import React, {useState} from "react";
 import PolCompass from "./PoliticalCompass.tsx";
+import Share from "./Share.tsx";
+import {Party} from "../flavour.ts";
 
 interface HeaderProps {
     stage: Stage,
@@ -14,7 +16,8 @@ interface HeaderProps {
 export default function Header({stage, run, board}: HeaderProps) {
     const [polComp, setPolComp] = useState(false);
     const ownedPercent = Math.floor(board.filter(cell => cell.owned).length * 100 / board.map(cell => cell).length);
-
+    const kinds = Object.values(run.modifiers.generation.kindShare)
+    const parties = Object.values(run.parties).filter((party: Party) => party.order <= run.getCurrentLevel.factions);
     return <div id="header">
         <div id="title">Populism Trainer</div>
         <span id="scoreboard">
@@ -43,8 +46,22 @@ export default function Header({stage, run, board}: HeaderProps) {
 
         {polComp &&
             <div id={"polCompCtr"}>
+
                 <div id={"polCompCtrInner"}>
+
+                    <h2>Voter Types</h2>
+                    <Share shares={kinds.map(sh => sh.weight)}
+                           desc={kinds.map(sh => sh.description || "")}
+                           colors={kinds.map(kind => kind.color)}
+                           text={kinds.map(kind => kind.icon)}/>
+                    <h2>Party Share</h2>
+                    <Share shares={parties.map(sh => sh.weight)}
+                           colors={parties.map(party => party.color)}
+                           text={parties.map(sh => sh.name)}/>
+                    <h2>Political Compass</h2>
+
                     <PolCompass parties={Object.values(run.parties)} run={run}/>
+                    <br/><br/>
                 </div>
             </div>}
 

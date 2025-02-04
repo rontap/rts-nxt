@@ -11,15 +11,17 @@ import Share from "./components/Share.tsx";
 import {Party} from "./flavour.ts";
 import "@radix-ui/themes/styles.css";
 import {Theme} from "@radix-ui/themes";
-import Card from "./components/card/Card.tsx";
+import {Deck} from "./components/VirtualDeck.tsx";
 
-const singleRun = new Run(6945);
+const singleRun = new Run(12348);
 const baseBoard = new Board(singleRun);
 
 export enum Stage {
     Game,
     Shop
 }
+
+let powerupCb = () => false;
 
 function App() {
     const [count, setCount] = useState(0)
@@ -31,12 +33,14 @@ function App() {
         await baseBoard.doPopulism(faction, setCount, nextStage)
         setCount(() => count + 1)
     }
+    const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
 
     const nextStage = () => {
         if (stage === Stage.Game) {
             setStage(Stage.Shop);
         } else if (stage === Stage.Shop) {
             setStage(Stage.Game);
+
             baseBoard.nextLevel();
         }
     }
@@ -64,11 +68,12 @@ function App() {
         </div>;
     }
 
-    const onClickPowerup = (consumable: Consumable, _i: number) => {
+    const onClickPowerup = (consumable: Consumable, _i: number, cb) => {
         setPowerup(consumable.self);
         if (consumable.self.boardInteraction) {
             setSelectTiles(consumable.self);
         }
+        powerupCb = cb;
     }
     const onActivatePowerup = () => {
         if (powerup) {
@@ -76,13 +81,17 @@ function App() {
             currentPowerup.self.onAction(undefined, baseBoard, setCount, nextStage);
             setCount(() => count + 1);
             setPowerup(undefined);
+            console.log(powerupCb)
+            powerupCb();
         }
     }
 
     const onClickCell = (_event: SyntheticEvent, cell: Cell) => {
         if (selectTiles && powerup) {
             const currentPowerup = singleRun.usePowerup(powerup);
+            console.log(powerupCb, powerup, currentPowerup)
             currentPowerup.self.onAction(cell, baseBoard, setCount, nextStage);
+            powerupCb();
             setSelectTiles(undefined);
             setPowerup(undefined);
         } else {
@@ -113,9 +122,7 @@ function App() {
         "--faction-NAT": singleRun.parties[Faction.NAT].color + opacity,
     }
 
-    const kinds = Object.values(singleRun.modifiers.generation.kindShare)
-    const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
-    return (
+      return (
         <>
             <Theme>
                 <div className={`powerupCtr ${powerup && "powerupCtrOn"}`}>
@@ -129,13 +136,7 @@ function App() {
                     {stage === Stage.Game &&
                         <div>
                             <div id={"GB"}>
-                                <Share shares={kinds.map(sh => sh.weight)}
-                                       desc={kinds.map(sh => sh.description || "")}
-                                       colors={kinds.map(kind => kind.color)}
-                                       text={kinds.map(kind => kind.icon)}/>
-                                <Share shares={parties.map(sh => sh.weight)}
-                                       colors={parties.map(party => party.color)}
-                                       text={parties.map(sh => sh.name)}/>
+
 
                                 <div className={selectTiles ? 'gb-selection' : ''}
                                      id={"GB-inner"}
@@ -164,35 +165,39 @@ function App() {
                             </div>
                             <div className="center">
                                 <div className="cards">
-                                    {parties.map((party, i, arr) => {
-                                        return <Card
-                                            nth={i}
-                                            total={parties.length + singleRun.powerups.length}
-                                            bg={party.color}
-                                            title={party.name}
-                                            icon={"👀"} onClick={() => expand(party.faction)}>
-                                            Political Party {party.name}
+                                    {/*{parties.map((party, i, arr) => {*/}
+                                    {/*    return <Card*/}
+                                    {/*        nth={i}*/}
+                                    {/*        total={parties.length + singleRun.powerups.length}*/}
+                                    {/*        bg={party.color}*/}
+                                    {/*        title={party.name}*/}
+                                    {/*        icon={"👀"} onClick={() => expand(party.faction)}>*/}
+                                    {/*        Political Party {party.name}*/}
 
-                                        </Card>
-                                    })}
-                                    {
-                                        singleRun.powerups.map(((consumable, i) => {
-                                            return <Card
-                                                bg={"#444"}
-                                                onClick={() => onClickPowerup(consumable, i)}
-                                                toggle={() => {
-                                                    setPowerup(undefined)
-                                                    setSelectTiles(undefined)
-                                                }}
-                                                icon={consumable.self.icon}
-                                                title={"Powerup"}
-                                                total={parties.length + singleRun.powerups.length}
-                                                nth={parties.length + i}
-                                            >
-                                                <>{consumable.self.name}</>
-                                            </Card>
-                                        }))
-                                    }
+                                    {/*    </Card>*/}
+                                    {/*})}*/}
+                                    {/*{*/}
+                                    {/*    singleRun.powerups.map(((consumable, i) => {*/}
+                                    {/*        return <Card*/}
+                                    {/*            bg={"#444"}*/}
+                                    {/*            onClick={() => onClickPowerup(consumable, i)}*/}
+                                    {/*            toggle={() => {*/}
+                                    {/*                setPowerup(undefined)*/}
+                                    {/*                setSelectTiles(undefined)*/}
+                                    {/*            }}*/}
+                                    {/*            icon={consumable.self.icon}*/}
+                                    {/*            title={"Powerup"}*/}
+                                    {/*            total={parties.length + singleRun.powerups.length}*/}
+                                    {/*            nth={parties.length + i}*/}
+                                    {/*        >*/}
+                                    {/*            <>{consumable.self.name}</>*/}
+                                    {/*        </Card>*/}
+                                    {/*    }))*/}
+                                    {/*}*/}
+                                    <Deck expand={expand} onClickPowerup={onClickPowerup}
+                                          setPowerup={setPowerup}
+                                          setSelectTiles={setSelectTiles}
+                                          initialCards={[...parties, ...singleRun.powerups]}/>
                                 </div>
                             </div>
                         </div>

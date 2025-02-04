@@ -10,15 +10,16 @@ type CardProps = {
     title: string,
     total: number,
     nth: number,
-    toggle: () => any
+    toggle: () => any,
+    selected: boolean
 }
-export default function Card({icon, toggle, children, onClick, bg, title, nth, total}: CardProps) {
-    const [toggled, setToggled] = useState(false);
+export default function Card({selected, icon, toggle, children, onClick, bg, title, nth, total}: CardProps) {
+
     const offset = (Math.abs(Math.floor(total / 2) - nth) * 13) + "px";
     const totalRounted = Math.floor(total / 2);
-    return <div className={`cardOuter ${toggled ? "cardToggled" : ""}`} onClick={() => toggle && setToggled(v => !v)}
+    return <div className={`cardOuter ${selected ? "cardToggled" : ""}`}
                 style={{"--card-bg": bg, "--nth-card": nth, "--total-card": totalRounted, "--offset": offset}}>
-        <div className={"card "} onClick={toggle ? (toggled ? toggle : onClick) : onClick}>
+        <div className={"card "} onClick={toggle ? (selected ? toggle : onClick) : onClick}>
 
             <div className={"cardHeader"}>
                 <div className={"icon"}>{icon}</div>
