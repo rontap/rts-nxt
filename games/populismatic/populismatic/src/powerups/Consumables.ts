@@ -74,7 +74,7 @@ export const Consumables: Consumable[] = [
             })
             setTimeout(() => {
                 board.doPopulism(board.getOrigin.faction, update, nextStage).then(() => false);
-            }, 300)
+            }, 400)
         },
         boardInteraction: false,
         cost: 150
@@ -102,10 +102,10 @@ export const Consumables: Consumable[] = [
     }),
     new Consumable({
         name: "Anonymus Donation",
-        icon: "💶💷💵",
+        icon: "💷",
         description: "Arrange an anonymous donation. Earn 5 maneuvers.",
         onAction: (_cell, board) => {
-            board.moves += 5;
+            board.moves -= 5;
         },
         boardInteraction: false,
         cost: 60

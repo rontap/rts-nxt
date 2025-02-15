@@ -7,18 +7,22 @@ import LeaderJSX from "./components/Leader.tsx";
 import {Cell} from "./Cell.ts";
 import {CellItem} from "./components/CellItem.tsx";
 import Header from "./components/Header.tsx";
-import Share from "./components/Share.tsx";
 import {Party} from "./flavour.ts";
 import "@radix-ui/themes/styles.css";
 import {Theme} from "@radix-ui/themes";
 import {Deck} from "./components/VirtualDeck.tsx";
+import Results from "./components/Results.tsx";
+import Lose from "./components/Lose.tsx";
 
-const singleRun = new Run(12348);
+const singleRun = new Run(612348);
 const baseBoard = new Board(singleRun);
 
 export enum Stage {
     Game,
-    Shop
+    Shop,
+    Results,
+    Lose,
+    Win
 }
 
 let powerupCb = () => false;
@@ -35,12 +39,17 @@ function App() {
     }
     const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
 
-    const nextStage = () => {
+    const nextStage = (override: Stage) => {
+        if (override) {
+            setStage(override);
+            return;
+        }
         if (stage === Stage.Game) {
+            setStage(Stage.Results);
+        } else if (stage === Stage.Results) {
             setStage(Stage.Shop);
         } else if (stage === Stage.Shop) {
             setStage(Stage.Game);
-
             baseBoard.nextLevel();
         }
     }
@@ -122,7 +131,7 @@ function App() {
         "--faction-NAT": singleRun.parties[Faction.NAT].color + opacity,
     }
 
-      return (
+    return (
         <>
             <Theme>
                 <div className={`powerupCtr ${powerup && "powerupCtrOn"}`}>
@@ -136,8 +145,6 @@ function App() {
                     {stage === Stage.Game &&
                         <div>
                             <div id={"GB"}>
-
-
                                 <div className={selectTiles ? 'gb-selection' : ''}
                                      id={"GB-inner"}
                                      style={{
@@ -202,7 +209,7 @@ function App() {
                             </div>
                         </div>
                     }
-                    {hoveredCell && <div className={"cellDescription"}>
+                    {stage === Stage.Game && hoveredCell && <div className={"cellDescription"}>
                         <b style={{color: singleRun.parties[hoveredCell?.faction].color}}>
                             {singleRun.parties[hoveredCell?.faction || 0].name}
                         </b>
@@ -223,7 +230,8 @@ function App() {
                             <RandomShop run={singleRun} setCount={setCount} nextStage={nextStage}/>
                         </>
                     }
-
+                    {stage === Stage.Results && <Results nextStage={nextStage} board={baseBoard}/>}
+                    {stage === Stage.Lose && <Lose run={singleRun}/>}
                 </div>
             </Theme>
         </>

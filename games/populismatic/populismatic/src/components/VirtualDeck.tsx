@@ -84,7 +84,10 @@ export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelec
 
                     selected={i === selected}
                 >
-                    <>{card.self.name}</>
+                    <>
+                        <b>{card.self.name}</b>
+                        <br/>
+                        {card.self.description}</>
                 </Card>
             } else if (isParty(card)) {
                 return <Card
@@ -98,7 +101,10 @@ export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelec
                     playCard(i)
                     expand(card.faction)
                 }}>
-                    <>Political Party {card.name}</>
+                    <>
+                        <b>Political Party</b>
+                        <br/>
+                        {card.name}</>
                 </Card>
             } else {
                 console.log("unknown type", card);

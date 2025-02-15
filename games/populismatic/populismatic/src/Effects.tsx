@@ -51,7 +51,6 @@ export default class Effect {
         } else if (this.affect === Affect.Parties) {
 
             if (this.selector === "*") return "Every";
-            console.log(this)
             if (!this.selector.length) {
                 return <b style={{color: getFactionColor(this.selector)}}>{Object.values(Faction)[this.selector]}</b>;
             }

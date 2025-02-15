@@ -19,7 +19,7 @@ export default function Header({stage, run, board}: HeaderProps) {
     const kinds = Object.values(run.modifiers.generation.kindShare)
     const parties = Object.values(run.parties).filter((party: Party) => party.order <= run.getCurrentLevel.factions);
     return <div id="header">
-        <div id="title">Populism Trainer</div>
+        <div id="title">Vox populi</div>
         <span id="scoreboard">
                          {stage === Stage.Game && <span className="divider">
                                  <div>

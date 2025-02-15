@@ -123,5 +123,6 @@ export const KindDescriptions: Record<any, string> = {
     [Kind.RAINBOW]: "Recruit a dedicated follower, who will join regardless of your current ideology. They just like you. Earns 1/2 Score",
     [Kind.DISENFRANCHISED]: "This voter cannot or will not vote. You dont need them to win the level. Earns 0 Score.",
     [Kind.TACTICAL]: "This guy does not like you, but will vote for you regardless because they dislike the opposition more. They will not propagate your ideology however. Earns 2 Score.",
-    [Kind.INFLUENCER]: "Recruit a voter as an influencer. Earns 3 score."
+    [Kind.INFLUENCER]: "Recruit a voter as an influencer. Earns 3 score.",
+    [Kind.DONOR]: "Recruit a donor that gives you 1 extra maneuver."
 } as const

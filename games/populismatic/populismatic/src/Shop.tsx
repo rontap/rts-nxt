@@ -3,11 +3,12 @@ import {Dispatch, SetStateAction, useState} from "react";
 import {upTo} from "./random.ts";
 import {Consumables} from "./powerups/Consumables.ts";
 import {Advisors} from "./powerups/Advisors.ts";
+import {Stage} from "./App.tsx";
 
 type ShopFC = {
     run: Run,
     setCount: Dispatch<SetStateAction<number>>,
-    nextStage: () => void,
+    nextStage: (stage?: Stage) => void,
 }
 export default function Shop({run, setCount, nextStage}: ShopFC) {
     return <>
@@ -25,7 +26,7 @@ export default function Shop({run, setCount, nextStage}: ShopFC) {
             }
         </div>
         <hr/>
-        <button onClick={nextStage} className="btn">Next Stage</button>
+        <button onClick={() => nextStage()} className="btn">Next Stage</button>
     </>;
 }
 
@@ -67,6 +68,6 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
 
         </div>
         <hr/>
-        <button onClick={nextStage} className="btn primary-btn">Next Stage</button>
+        <button onClick={() => nextStage()} className="btn primary-btn">Next Stage</button>
     </>;
 }

@@ -5,9 +5,11 @@ import {Run} from "./Run.ts";
 import {Cell, OnCaptureActions} from "./Cell.ts";
 import {Faction} from "./Factions.ts";
 import {Party} from "./flavour.ts";
+import {BoardStats} from "./components/BoardStats.tsx";
+import {Stage} from "./App.tsx";
 
 export type Coord = number;
-export const PRE_OWNED: string = "PRE_OWNED" as const;
+export const PRE_OWNED: string = "" as const;
 
 interface Score {
     step: number;
@@ -25,6 +27,7 @@ export class Board {
     moves: number = 0;
     usedMoves: number = 0;
     private inProgress: number;
+    stats: BoardStats
 
     constructor(run: Run) {
         this.run = run;
@@ -34,6 +37,7 @@ export class Board {
         this.score = {
             game: 0, round: 0, step: 0
         };
+        this.stats = new BoardStats(this);
     }
 
     private genBoard(h: number, w: number, _factions?: number) {
@@ -67,6 +71,7 @@ export class Board {
         this.moves = 0;
         this.usedMoves = 0;
         this.inProgress = 0;
+        this.stats = new BoardStats(this);
     }
 
     nextLevel() {
@@ -111,12 +116,14 @@ export class Board {
         })
         this.score.step = Math.max(this.score.step, 0) ** 1.5;
         this.score.round += Math.floor(this.score.step);
+        this.stats.saveLevel(this.grid)
 
     }
 
-    checkStatus(setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
+    checkStatus(setCount: Dispatch<SetStateAction<number>>, nextStage: (stage?: Stage) => void) {
         if (this.map(cell => cell.inProgress).every(value => value === false)) {
             if (this.win() && this.inProgress === 0) {
+                // win
                 this.inProgress = 1;
                 setTimeout(() => {
                     this.onWin();
@@ -126,8 +133,7 @@ export class Board {
             }
             const lose = this.lose();
             if (lose) {
-                alert('you loser\n' + lose);
-                window.location.reload()
+                nextStage(Stage.Lose);
             }
             setCount(count => count + 1);
         }
@@ -139,16 +145,19 @@ export class Board {
         cell.faction = faction;
         let onCaptured: OnCaptureActions = {};
         let timeout: number = 0;
-        if (!cell.owned) {
+        if (cell.canCapture) {
+            if (!cell.owned) {
+                cell.owned = true;
+                this.score.step += cell.getScore();
+                onCaptured = cell.onCapture();
+                timeout = cell.onCaptureDelay();
+                setCount(count => count + 1);
+                cell.inProgress = true;
+            }
             cell.owned = true;
-            this.score.step += cell.getScore();
-            onCaptured = cell.onCapture();
-            timeout = cell.onCaptureDelay();
-            setCount(count => count + 1);
-            cell.inProgress = true;
-
+        } else {
+            return {preventBubbling: true}
         }
-        cell.owned = true;
         if (!onCaptured.preventBubbling) {
             await new Promise(resolve => setTimeout(resolve, timeout));
             const nextIterations: Promise<void>[] = [];
@@ -161,6 +170,7 @@ export class Board {
         //looking in the four main directions
         cell.inProgress = false;
         this.checkStatus(setCount, nextStage);
+
 
     }
 

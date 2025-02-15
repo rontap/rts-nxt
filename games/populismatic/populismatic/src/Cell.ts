@@ -13,7 +13,7 @@ export enum Kind {
     DISENFRANCHISED,
     RAINBOW,
     INFLUENCER,
-    LUCKY,
+    DONOR,
     WALL,
     TACTICAL,
     BONUS,
@@ -59,6 +59,7 @@ export class Cell {
 
     meetsWinCondition(board: Board) {
         if (this.kind == Kind.DISENFRANCHISED) return true;
+        if (this.kind == Kind.WALL) return true;
         // baseline
         return this.isSameFaction(board.getOrigin.faction);
     }
@@ -88,13 +89,22 @@ export class Cell {
         ].join(" ");
     }
 
+    get canCapture() {
+        console.log(this.kind == Kind.WALL);
+        if (this.kind == Kind.WALL) return false;
+        return true;
+    }
+
     onCapture(): OnCaptureActions {
+
         if (this.kind == Kind.ACTIVIST) {
             setTimeout(() => {
                 this.eachNeighbour().forEach(cell => cell.faction = this.faction)
             }, 300, this);
         } else if (this.kind == Kind.SUSPICIOUS) {
             this.faction = Faction[upTo(NUM_OF_FACTIONS)];
+        } else if (this.kind == Kind.DONOR) {
+            this.board.moves -= 1;
         }
         if (this.kind == Kind.TACTICAL) {
             return {preventBubbling: true}

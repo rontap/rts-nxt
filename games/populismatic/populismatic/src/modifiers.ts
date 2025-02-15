@@ -36,7 +36,8 @@ export type Modifier = {
     },
     generation: {
         kindShare: Record<Kind, KindShare>
-    }
+    },
+    handSize: int
 }
 export const DEFAULT = "DEFAULT" as const;
 export const getModifiers = () => {
@@ -51,7 +52,7 @@ export const getModifiers = () => {
         generation: {
             kindShare: {
                 [Kind.NORMAL]: {
-                    weight: 200,
+                    weight: 250,
                     icon: 'Standard',
                     name: 'Standard',
                     color: '#c5c5c5',
@@ -78,14 +79,15 @@ export const getModifiers = () => {
                     color: '#4488FF',
                     description: KindDescriptions[Kind.INFLUENCER]
                 },
-                [Kind.LUCKY]: {
-                    weight: 10,
-                    icon: '💰',
-                    name: 'Lucky',
+                [Kind.DONOR]: {
+                    weight: 3,
+                    icon: '💵',
+                    name: 'Donor',
                     color: '#5dc561',
+                    description: KindDescriptions[Kind.DONOR]
                 },
                 [Kind.WALL]: {
-                    weight: 0,
+                    weight: 10,
                     icon: '🧱',
                     name: 'Wall',
                     color: '#353535',
@@ -121,15 +123,12 @@ export const getModifiers = () => {
         levels: {
             '1': {
                 size: 8, factions: 3, steps: 13,
-
             },
             '2': {
                 size: 9, factions: 4, steps: 15,
-
             },
             '3': {
                 size: 10, factions: 5, steps: 18,
-
             },
             '4': {
                 size: 11, factions: 6, steps: 20
@@ -172,12 +171,13 @@ export const getModifiers = () => {
             [DEFAULT]: 1
         },
         shop: {
-            consumables: 11,
+            consumables: 6  ,
             showConsumables: 6,
             consumableCost: 60
         },
         winConditions: {
             required: 100
-        }
+        },
+        handSize: 4
     } as Modifier;
 }

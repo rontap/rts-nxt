@@ -2,7 +2,7 @@ import {PRNG, randGen, RandGen} from "./random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
 import {Advisor, Consumable, Powerup, PowerupCtr} from "./components/Powerup.tsx";
 import {Cell} from "./Cell.ts";
-import {Country, LocalParties} from "./flavour.ts";
+import {Country, LocalParties, Party} from "./flavour.ts";
 import {Leader, LeaderNames, Leaders} from "./powerups/Leaders.tsx";
 import {Consumables} from "./powerups/Consumables.ts";
 
@@ -43,6 +43,10 @@ export class Run {
 
     get getCurrentLevel(): Level {
         return this.modifiers.levels[String(this.level)]
+    }
+
+    get getCurrentParties(): Party[] {
+        return Object.values(this.parties).filter((party: Party) => party.order <= this.getCurrentLevel.factions);
     }
 
     nextLevel(): Level {
