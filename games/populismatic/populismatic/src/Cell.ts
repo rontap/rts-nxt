@@ -34,6 +34,7 @@ export class Cell {
     inProgress: boolean = false; // is the cell expansion in progress?
     isSource: boolean = false; // does the expansion process start from this cell
     track: boolean = false; // track a citizen between runs
+    _attained: boolean = false;
 
     constructor(faction: undefined | Faction, board: Board, h: Coord, w: Coord) {
         this.faction = faction;
@@ -90,7 +91,6 @@ export class Cell {
     }
 
     get canCapture() {
-        console.log(this.kind == Kind.WALL);
         if (this.kind == Kind.WALL) return false;
         return true;
     }

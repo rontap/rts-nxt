@@ -28,6 +28,7 @@ export class Board {
     usedMoves: number = 0;
     private inProgress: number;
     stats: BoardStats
+    private pathFromRoot: Cell[];
 
     constructor(run: Run) {
         this.run = run;
@@ -42,35 +43,47 @@ export class Board {
 
     private genBoard(h: number, w: number, _factions?: number) {
         this.grid = twoDimArray(h, w, (i: number, j: number) => new Cell(undefined, this, i, j))
-        this.run.tracked.forEach(cell => {
-            cell.restore();
-            cell.track = true;
-            this.grid[cell.h][cell.w] = cell;
-        })
-        this.grid = twoDimArray(h, w, (i: number, j: number) => {
-            if (this.grid[i][j].track) {
-                return this.grid[i][j];
+        let invalid = 1;
+        while (invalid) {
+            this.run.tracked.forEach(cell => {
+                cell.restore();
+                cell.track = true;
+                this.grid[cell.h][cell.w] = cell;
+            })
+            this.grid = twoDimArray(h, w, (i: number, j: number) => {
+                if (this.grid[i][j].track) {
+                    return this.grid[i][j];
+                }
+                const parties = Object.values(this.run.parties).filter((party: Party) => party.order <= this.run.getCurrentLevel.factions);
+                const type = randomWeighted(
+                        parties.map(obj => obj.weight),
+                        parties.map(obj => obj.faction),
+                        this.run.levelGen.next()
+                    )
+                ;
+                return new Cell(type, this, i, j);
+            });
+            const level: Level = this.run.getCurrentLevel;
+            this.h = level.size;
+            this.w = level.size;
+            // allocate starting point randomly
+            const startH = upToSeed(this.run.levelGen.next(), h);
+            const startW = upToSeed(this.run.levelGen.next(), w);
+            this.grid[startH][startW].source = true;
+            this.origin = [startH, startW];
+            this.moves = 0;
+            this.usedMoves = 0;
+            this.inProgress = 0;
+            if (this.isWinnable) {
+                invalid = 0;
+            } else {
+                invalid++;
+                if (invalid > 99) {
+                    alert("Bruh I cannot generate a valid map here, good luck");
+                    invalid = 0;
+                }
             }
-            const parties = Object.values(this.run.parties).filter((party: Party) => party.order <= this.run.getCurrentLevel.factions);
-            const type = randomWeighted(
-                    parties.map(obj => obj.weight),
-                    parties.map(obj => obj.faction),
-                    this.run.levelGen.next()
-                )
-            ;
-            return new Cell(type, this, i, j);
-        });
-        const level: Level = this.run.getCurrentLevel;
-        this.h = level.size;
-        this.w = level.size;
-        // allocate starting point randomly
-        const startH = upToSeed(this.run.levelGen.next(), h);
-        const startW = upToSeed(this.run.levelGen.next(), w);
-        this.grid[startH][startW].source = true;
-        this.origin = [startH, startW];
-        this.moves = 0;
-        this.usedMoves = 0;
-        this.inProgress = 0;
+        }
         this.stats = new BoardStats(this);
     }
 
@@ -88,6 +101,49 @@ export class Board {
 
     get getOrigin(): Cell {
         return this.grid[this.origin[0]][this.origin[1]]
+    }
+
+    get isWinnable(): boolean {
+        this.forEach((cell: Cell) => cell._attained = false)
+        this.getOrigin._attained = true;
+        this.pathFromRoot = [this.getOrigin];
+        return this.winnableRecurse();
+    }
+
+
+    winnableRecurse() {
+        const nextPaths = this.pathFromRoot.map(el => {
+            const {h, w} = el;
+
+            const adjecency = [];
+            if (this.maybeGrid(h + 1, w) && !this.grid[h + 1][w]._attained && this.grid[h + 1][w].canCapture) {
+                adjecency.push(this.grid[h + 1][w]);
+                this.grid[h + 1][w]._attained = true;
+            }
+            if (this.maybeGrid(h - 1, w) && !this.grid[h - 1][w]._attained && this.grid[h - 1][w].canCapture) {
+                adjecency.push(this.grid[h - 1][w]);
+                this.grid[h - 1][w]._attained = true;
+            }
+            if (this.maybeGrid(h, w + 1) && !this.grid[h][w + 1]._attained && this.grid[h][w + 1].canCapture) {
+                adjecency.push(this.grid[h][w + 1]);
+                this.grid[h][w + 1]._attained = true;
+            }
+            if (this.maybeGrid(h, w - 1) && !this.grid[h][w - 1]._attained && this.grid[h][w - 1].canCapture) {
+                adjecency.push(this.grid[h][w - 1]);
+                this.grid[h][w - 1]._attained = true;
+            }
+            return adjecency;
+        }).flat();
+        if (nextPaths.length === 0) {
+            const allCaptured = this.map(cell => cell._attained || cell.meetsWinCondition(this)).every(c => c)
+            if (allCaptured) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        this.pathFromRoot = nextPaths;
+        return this.winnableRecurse();
     }
 
 

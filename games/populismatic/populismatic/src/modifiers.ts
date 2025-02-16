@@ -122,7 +122,7 @@ export const getModifiers = () => {
         },
         levels: {
             '1': {
-                size: 8, factions: 3, steps: 13,
+                size: 8, factions: 4, steps: 13,
             },
             '2': {
                 size: 9, factions: 4, steps: 15,

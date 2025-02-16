@@ -19,7 +19,7 @@ export default function Results(props: ResultsFC) {
                                                             "--delays": i + "s",
                                                             opacity: (i / board.stats.levelTable.length) / 3 + 0.66
                                                         }}
-                                                        colors={["#67A"].concat(board.run.getCurrentParties.map(party => party.color))}
+                                                        colors={["#67A","#444"].concat(board.run.getCurrentParties.map(party => party.color))}
         />)}
         <div className={"controlPercent"}>
 
