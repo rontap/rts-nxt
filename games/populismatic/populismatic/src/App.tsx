@@ -157,7 +157,7 @@ function App() {
                                                           onMouseLeave={() => setHoveredCell(null)}
                                                           click={onClickCell}>
                                             {cell.owned ? '×' : cell.faction}
-                                            {cell._attained && "A"}
+                                           
                                         </CellItem>)
                                     })}
                                     <div className={"sourceHighlight"} style={{
@@ -218,8 +218,8 @@ function App() {
                         score: {hoveredCell?.getScore()} {" | "}
                         {hoveredCell?.owned ? "Owned" : "Not owned"}
                         <br/>
-                        {hoveredCell._attained ? "AT" : "Not"}
-                        <br/>
+                      
+
                         <div className={"cellKindDescription"}>{KindDescriptions[hoveredCell?.kind || 0] || ""}</div>
 
                     </div>}
