@@ -147,7 +147,10 @@ export class Board {
     }
 
 
-    async doPopulism(faction: Faction, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
+    async doPopulism(faction: Faction | undefined, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
+        if (faction == undefined) {
+            console.error("Cannot have undefined Faction for populism");
+        }
         this.moves++;
         this.usedMoves++;
         this.score.step = 0;
@@ -253,7 +256,7 @@ export class Board {
         return this.grid.flat().map(cb);
     }
 
-    filter(cb: (cell: Cell) => (Promise<void> | boolean)) {
+    filter(cb: (cell: Cell) => (Promise<void> | boolean | string)) {
         return this.grid.flat().filter(cb);
     }
 

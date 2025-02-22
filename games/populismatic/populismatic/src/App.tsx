@@ -38,6 +38,7 @@ function App() {
         setCount(() => count + 1)
     }
     const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
+    console.log("init populistic")
 
     const nextStage = (override: Stage) => {
         if (override) {
@@ -98,13 +99,16 @@ function App() {
     const onClickCell = (_event: SyntheticEvent, cell: Cell) => {
         if (selectTiles && powerup) {
             const currentPowerup = singleRun.usePowerup(powerup);
-            console.log(powerupCb, powerup, currentPowerup)
             currentPowerup.self.onAction(cell, baseBoard, setCount, nextStage);
             powerupCb();
             setSelectTiles(undefined);
             setPowerup(undefined);
         } else {
-            expand(cell.faction);
+            if (cell.faction != undefined) {
+                expand(cell.faction).then();
+            } else {
+                console.error("Cell does not have faction");
+            }
         }
     }
     const expandKeyboard = (event: React.KeyboardEvent) => {

@@ -60,13 +60,13 @@ export class Run {
         }
     }
 
-    acquireAdvisor(advisor: Advisor) {
+    acquireAdvisor(advisor: Advisor<any>) {
         if (this.canAcquirePowerup) {
             this.advisors.push(advisor);
         }
     }
 
-    usePowerup(powerup: PowerupCtr): Powerup {
+    usePowerup(powerup: PowerupCtr): Powerup<any> {
         const i = this.powerups.findIndex(current => current.self.name === powerup.name)
         return this.powerups.splice(i, 1)[0];
     }
@@ -75,7 +75,7 @@ export class Run {
         return this.powerups.length < this.modifiers.powerups.max
     }
 
-    acquireLeader(advisor: Advisor) {
+    acquireLeader(advisor: Advisor<any>) {
         if (this.canAcquireAdvisor) {
             this.advisors.push(advisor);
             advisor.self.onAcquire();

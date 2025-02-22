@@ -2,7 +2,7 @@ import {Run} from "../Run.ts";
 import {Board} from "../Board.ts";
 import {Stage} from "../App.tsx";
 import './Header.css';
-import React, {useState} from "react";
+import {useState} from "react";
 import PolCompass from "./PoliticalCompass.tsx";
 import Share from "./Share.tsx";
 import {Party} from "../flavour.ts";
@@ -15,7 +15,7 @@ interface HeaderProps {
 
 export default function Header({stage, run, board}: HeaderProps) {
     const [polComp, setPolComp] = useState(false);
-    const ownedPercent = Math.floor(board.filter(cell => cell.owned).length * 100 / board.map(cell => cell).length);
+    const ownedPercent = Math.floor(board.filter(cell => cell.owned).length * 100 / board.length());
     const kinds = Object.values(run.modifiers.generation.kindShare)
     const parties = Object.values(run.parties).filter((party: Party) => party.order <= run.getCurrentLevel.factions);
     return <div id="header">

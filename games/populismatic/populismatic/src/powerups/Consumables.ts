@@ -115,7 +115,7 @@ export const Consumables: Consumable[] = [
         icon: "",
         name: "Track Citizen",
         cost: 60,
-        onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+        onAction(cell: Cell | undefined, board: Board, _update: React.Dispatch<React.SetStateAction<number>>, _nextStep: () => void): void {
             cell?.restore();
             cell.track = true;
             board.run.tracked.push(cell as Cell);
@@ -127,7 +127,7 @@ export const Consumables: Consumable[] = [
         description: "Use gerrymandering techniques to lower your needed control by -1%. Increases disenfrenchised voter weight.",
         icon: "",
         name: "Gerrymander",
-        onAction(cell: Cell | undefined, board: Board, update: React.Dispatch<React.SetStateAction<number>>, nextStep: () => void): void {
+        onAction(_cell: Cell | undefined, board: Board, _update: React.Dispatch<React.SetStateAction<number>>, _nextStep: () => void): void {
             board.run.modifiers.winConditions.required -= 1;
         }
     })
