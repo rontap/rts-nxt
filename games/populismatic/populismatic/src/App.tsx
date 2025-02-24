@@ -13,11 +13,13 @@ import {Theme} from "@radix-ui/themes";
 import {Deck} from "./components/VirtualDeck.tsx";
 import Results from "./components/Results.tsx";
 import Lose from "./components/Lose.tsx";
+import ShopSelection from "./shop/ShopSelection.tsx";
 
-const singleRun = new Run(612348);
+const singleRun = new Run(Math.floor(Math.random() * 4100));
 const baseBoard = new Board(singleRun);
 
 export enum Stage {
+    Lobby,
     Game,
     Shop,
     Results,
@@ -38,7 +40,6 @@ function App() {
         setCount(() => count + 1)
     }
     const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
-    console.log("init populistic")
 
     const nextStage = (override: Stage) => {
         if (override) {
@@ -160,8 +161,6 @@ function App() {
                                                           onMouseEnter={() => setHoveredCell(cell)}
                                                           onMouseLeave={() => setHoveredCell(null)}
                                                           click={onClickCell}>
-                                            {cell.owned ? '×' : cell.faction}
-                                           
                                         </CellItem>)
                                     })}
                                     <div className={"sourceHighlight"} style={{
@@ -177,35 +176,6 @@ function App() {
                             </div>
                             <div className="center">
                                 <div className="cards">
-                                    {/*{parties.map((party, i, arr) => {*/}
-                                    {/*    return <Card*/}
-                                    {/*        nth={i}*/}
-                                    {/*        total={parties.length + singleRun.powerups.length}*/}
-                                    {/*        bg={party.color}*/}
-                                    {/*        title={party.name}*/}
-                                    {/*        icon={"👀"} onClick={() => expand(party.faction)}>*/}
-                                    {/*        Political Party {party.name}*/}
-
-                                    {/*    </Card>*/}
-                                    {/*})}*/}
-                                    {/*{*/}
-                                    {/*    singleRun.powerups.map(((consumable, i) => {*/}
-                                    {/*        return <Card*/}
-                                    {/*            bg={"#444"}*/}
-                                    {/*            onClick={() => onClickPowerup(consumable, i)}*/}
-                                    {/*            toggle={() => {*/}
-                                    {/*                setPowerup(undefined)*/}
-                                    {/*                setSelectTiles(undefined)*/}
-                                    {/*            }}*/}
-                                    {/*            icon={consumable.self.icon}*/}
-                                    {/*            title={"Powerup"}*/}
-                                    {/*            total={parties.length + singleRun.powerups.length}*/}
-                                    {/*            nth={parties.length + i}*/}
-                                    {/*        >*/}
-                                    {/*            <>{consumable.self.name}</>*/}
-                                    {/*        </Card>*/}
-                                    {/*    }))*/}
-                                    {/*}*/}
                                     <Deck expand={expand} onClickPowerup={onClickPowerup}
                                           setPowerup={setPowerup}
                                           setSelectTiles={setSelectTiles}
@@ -222,8 +192,6 @@ function App() {
                         score: {hoveredCell?.getScore()} {" | "}
                         {hoveredCell?.owned ? "Owned" : "Not owned"}
                         <br/>
-                      
-
                         <div className={"cellKindDescription"}>{KindDescriptions[hoveredCell?.kind || 0] || ""}</div>
 
                     </div>}
@@ -234,6 +202,7 @@ function App() {
                     {
                         stage === Stage.Shop && <>
                             {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
+                            <ShopSelection/>
                             <RandomShop run={singleRun} setCount={setCount} nextStage={nextStage}/>
                         </>
                     }

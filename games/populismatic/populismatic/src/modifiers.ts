@@ -34,6 +34,11 @@ export type Modifier = {
     winConditions: {
         required: int
     },
+    laws: {
+        solidarity: int,
+        traditionalism: int,
+        modifierForSolidarityAndTraditionalism: int
+    },
     generation: {
         kindShare: Record<Kind, KindShare>
     },
@@ -122,7 +127,7 @@ export const getModifiers = () => {
         },
         levels: {
             '1': {
-                size: 8, factions: 4, steps: 13,
+                size: 8, factions: 3, steps: 13,
             },
             '2': {
                 size: 9, factions: 4, steps: 15,
@@ -171,9 +176,14 @@ export const getModifiers = () => {
             [DEFAULT]: 1
         },
         shop: {
-            consumables: 6  ,
+            consumables: 6,
             showConsumables: 6,
             consumableCost: 60
+        },
+        laws: {
+            solidarity: 1,
+            traditionalism: 0,
+            modifierForSolidarityAndTraditionalism: 0.08
         },
         winConditions: {
             required: 100

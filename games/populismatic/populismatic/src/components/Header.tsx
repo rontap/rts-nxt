@@ -15,8 +15,9 @@ interface HeaderProps {
 
 export default function Header({stage, run, board}: HeaderProps) {
     const [polComp, setPolComp] = useState(false);
-    const ownedPercent = Math.floor(board.filter(cell => cell.owned).length * 100 / board.length());
+    const ownedPercent = Math.floor(board.filter(cell => cell.owned || !cell.canCapture).length * 100 / board.length());
     const kinds = Object.values(run.modifiers.generation.kindShare)
+
     const parties = Object.values(run.parties).filter((party: Party) => party.order <= run.getCurrentLevel.factions);
     return <div id="header">
         <div id="title">Vox populi</div>

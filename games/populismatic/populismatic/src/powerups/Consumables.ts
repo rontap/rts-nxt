@@ -123,6 +123,16 @@ export const Consumables: Consumable[] = [
         boardInteraction: true
     }),
     new Consumable({
+        description: "Intimidate Citizen. They will vote for you out of fear for their life.",
+        icon: "🔫",
+        name: "intimidate",
+        cost: 60,
+        onAction(cell: Cell | undefined, board: Board, _update: React.Dispatch<React.SetStateAction<number>>, _nextStep: () => void): void {
+            cell.owned = true;
+        },
+        boardInteraction: true
+    }),
+    new Consumable({
         cost: 40,
         description: "Use gerrymandering techniques to lower your needed control by -1%. Increases disenfrenchised voter weight.",
         icon: "",

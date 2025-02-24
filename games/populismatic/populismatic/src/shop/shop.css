@@ -1,0 +1,53 @@
+#polCompRegions.polCompLaws .lawLevels {
+    position: absolute;
+    bottom: 2px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    width: calc(100% - 12px);
+    background: transparent;
+    border: none;
+    margin: 0 6px;
+}
+
+.lawLevels div {
+    height: 6px;
+    border-radius: 5px;
+    background-color: #eee !important;
+    width: calc(100% - 4px);
+    margin: 5px 2px;
+    border: 1px solid #22222299 !important;
+}
+
+.lawLevels div.acquired {
+    background: #22222299 !important;
+    border: 1px solid #222222ee !important;
+    height: 6px;
+}
+
+#polCompRegions.polCompLaws > div:hover .lawLevels .notacquired {
+    background: #fff !important;
+    border: 1px solid #222 !important;
+
+}
+
+
+#polCompRegions.polCompLaws {
+    width: 660px;
+}
+
+#polCompRegions.polCompLaws > div {
+    margin: 5px;
+    border-radius: 3px;
+    position: relative;
+    opacity: 0.95;
+    cursor: pointer;
+}
+
+#polCompRegions.polCompLaws > div:hover {
+    opacity: 1;
+    border-color: #444;
+}
+
+#polCompRegions.polCompLaws div span {
+    transform: rotate(0deg);
+}

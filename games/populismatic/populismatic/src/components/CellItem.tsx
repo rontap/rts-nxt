@@ -30,7 +30,7 @@ export function CellItem(props: CellItemProps) {
             return ""
     }
 
-    return <div className={"grid " + props.cell.getFactionColor}
+    return <div className={`grid ${props.cell.getFactionColor} ${props.cell._solidarity && "solidarity"}`}
                 onClick={evt => {
                     props.click(evt, props.cell)
                 }}
@@ -39,5 +39,6 @@ export function CellItem(props: CellItemProps) {
                 title={KindDescriptions[props.cell.kind]}>
         {/*<div className={"debug"}>{props.cell.kind} <br/> ${Math.round(props.cell.getScore() * 10) / 10}</div>*/}
         {getIcon()}
+        {props.children}
     </div>
 }

@@ -119,6 +119,23 @@ body {
     animation: gb-activist .4s;
 }
 
+.grid.solidarity {
+    animation: gb-solidarity 1s, pulse infinite 3.5s !important;
+}
+
+@keyframes gb-solidarity {
+    0% {
+        border-radius: 0px;
+    }
+    50% {
+        border-radius: 20px;
+        filter: saturate(150%) brightness(150%);
+    }
+    100% {
+        border-radius: 0px;
+    }
+}
+
 @keyframes gb-activist {
     0% {
         background: inherit;

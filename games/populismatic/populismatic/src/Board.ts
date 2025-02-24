@@ -2,7 +2,7 @@ import {randomWeighted, twoDimArray, upToSeed} from "./random.ts";
 import {Dispatch, SetStateAction} from "react";
 import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";
-import {Cell, OnCaptureActions} from "./Cell.ts";
+import {Cell, Kind, OnCaptureActions} from "./Cell.ts";
 import {Faction} from "./Factions.ts";
 import {Party} from "./flavour.ts";
 import {BoardStats} from "./components/BoardStats.tsx";
@@ -29,6 +29,7 @@ export class Board {
     private inProgress: number;
     stats: BoardStats
     private pathFromRoot: Cell[];
+
 
     constructor(run: Run) {
         this.run = run;
@@ -78,6 +79,7 @@ export class Board {
                 invalid = 0;
             } else {
                 invalid++;
+                console.log("trying", invalid);
                 if (invalid > 99) {
                     alert("Bruh I cannot generate a valid map here, good luck");
                     invalid = 0;
@@ -110,29 +112,29 @@ export class Board {
         return this.winnableRecurse();
     }
 
+    adjacentCells(cell: Cell) {
+        const {h, w} = cell;
+        const adjacent = [];
+        if (this.maybeGrid(h + 1, w)) adjacent.push(this.grid[h + 1][w])
+        if (this.maybeGrid(h - 1, w)) adjacent.push(this.grid[h - 1][w])
+        if (this.maybeGrid(h, w + 1)) adjacent.push(this.grid[h][w + 1])
+        if (this.maybeGrid(h, w - 1)) adjacent.push(this.grid[h][w - 1])
+        return adjacent;
+    }
+
 
     winnableRecurse() {
         const nextPaths = this.pathFromRoot.map(el => {
             const {h, w} = el;
 
             const adjecency = [];
-            if (this.maybeGrid(h + 1, w) && !this.grid[h + 1][w]._attained && this.grid[h + 1][w].canCapture) {
-                adjecency.push(this.grid[h + 1][w]);
-                this.grid[h + 1][w]._attained = true;
-            }
-            if (this.maybeGrid(h - 1, w) && !this.grid[h - 1][w]._attained && this.grid[h - 1][w].canCapture) {
-                adjecency.push(this.grid[h - 1][w]);
-                this.grid[h - 1][w]._attained = true;
-            }
-            if (this.maybeGrid(h, w + 1) && !this.grid[h][w + 1]._attained && this.grid[h][w + 1].canCapture) {
-                adjecency.push(this.grid[h][w + 1]);
-                this.grid[h][w + 1]._attained = true;
-            }
-            if (this.maybeGrid(h, w - 1) && !this.grid[h][w - 1]._attained && this.grid[h][w - 1].canCapture) {
-                adjecency.push(this.grid[h][w - 1]);
-                this.grid[h][w - 1]._attained = true;
-            }
-            return adjecency;
+
+            return this.adjacentCells(el).filter((cell: Cell) => {
+                if (!cell._attained && cell.canCapture) {
+                    cell._attained = true;
+                    return true;
+                } else return false;
+            })
         }).flat();
         if (nextPaths.length === 0) {
             const allCaptured = this.map(cell => cell._attained || cell.meetsWinCondition(this)).every(c => c)
@@ -150,6 +152,7 @@ export class Board {
     async doPopulism(faction: Faction | undefined, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
         if (faction == undefined) {
             console.error("Cannot have undefined Faction for populism");
+            return;
         }
         this.moves++;
         this.usedMoves++;
@@ -173,13 +176,47 @@ export class Board {
             }
             cell.iterated = false;
         })
+
+        // this.triggers.onAfterDoPopulism
+        this.triggerSolidarityAndTradition(faction);
+
+
         this.score.step = Math.max(this.score.step, 0) ** 1.5;
         this.score.round += Math.floor(this.score.step);
         this.stats.saveLevel(this.grid)
 
     }
 
-    checkStatus(setCount: Dispatch<SetStateAction<number>>, nextStage: (stage?: Stage) => void) {
+    private triggerSolidarityAndTradition(faction: Faction) {
+        const {laws} = this.run.modifiers;
+        if (laws.solidarity > 0 || laws.traditionalism > 0) {
+            this.forEach(cell => {
+                if (cell.owned) {
+                    this.adjacentCells(cell).forEach(adjCell => {
+                        if (!adjCell.owned && adjCell.canCapture && adjCell.kind == Kind.NORMAL) {
+                            if ([Faction.LIB, Faction.GREEN, Faction.SOC].includes(faction) && [Faction.LIB, Faction.GREEN, Faction.SOC].includes(adjCell.faction)) {
+                                if (Math.random() > (1 - laws.solidarity * laws.modifierForSolidarityAndTraditionalism)) {
+                                    adjCell._solidarity = true;
+                                }
+                            } else if ([Faction.FASH, Faction.CON, Faction.NAT].includes(faction) && [Faction.FASH, Faction.CON, Faction.NAT].includes(adjCell.faction)) {
+                                if (Math.random() > (1 - laws.traditionalism * laws.modifierForSolidarityAndTraditionalism)) {
+                                    adjCell._solidarity = true;
+                                }
+                            }
+                        }
+                    })
+                }
+            })
+            this.forEach(cell => {
+                if (cell._solidarity) {
+                    cell.owned = true;
+                }
+            })
+        }
+    }
+
+    checkStatus(setCount: Dispatch<SetStateAction<number>>, nextStage: (stage?: Stage) => void
+    ) {
         if (this.map(cell => cell.inProgress).every(value => value === false)) {
             if (this.win() && this.inProgress === 0) {
                 // win

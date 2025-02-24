@@ -35,6 +35,7 @@ export class Cell {
     isSource: boolean = false; // does the expansion process start from this cell
     track: boolean = false; // track a citizen between runs
     _attained: boolean = false;
+    _solidarity: boolean = false;
 
     constructor(faction: undefined | Faction, board: Board, h: Coord, w: Coord) {
         this.faction = faction;
