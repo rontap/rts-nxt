@@ -29,8 +29,9 @@ export function CellItem(props: CellItemProps) {
         } else
             return ""
     }
+    const canBeInteractedWith = props.cell.canConsumableInteract();
 
-    return <div className={`grid ${props.cell.getFactionColor} ${props.cell._solidarity && "solidarity"}`}
+    return <div className={`grid ${props.cell.getFactionColor} ${!canBeInteractedWith&&"g-nointeract"} ${props.cell._solidarity && "solidarity"}`}
                 onClick={evt => {
                     props.click(evt, props.cell)
                 }}

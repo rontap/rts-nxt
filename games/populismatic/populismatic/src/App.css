@@ -81,11 +81,21 @@ body {
     position: relative;
 }
 
+
+.gb-selection .grid:not(.g-nointeract) {
+    padding-top: 3px;
+}
+
 .gb-selection .grid {
     border: 4px solid #ffffff99;
 }
 
-.gb-selection .grid:hover {
+.gb-selection .grid.g-nointeract {
+    border: 0px;
+    cursor: not-allowed;
+}
+
+.gb-selection .grid:not(.g-nointeract):hover {
     border: 4px solid #444444cc;
     cursor: pointer;
 }
@@ -111,9 +121,6 @@ body {
     padding-top: 7px;
 }
 
-.gb-selection .grid {
-    padding-top: 3px;
-}
 
 .grid.g-type-ACTIVIST.g-owned-true {
     animation: gb-activist .4s;
@@ -235,6 +242,12 @@ body {
 .g-faction-WILDCARD {
     background: var(--faction-WILDCARD);
     --faction: #7ea1b3;
+
+}
+
+.g-faction-FAITH {
+    background: var(--faction-LIBER);
+    --faction: #cddc39;
 
 }
 

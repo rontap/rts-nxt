@@ -1,7 +1,7 @@
 import {Run} from "./Run.ts";
 import {Dispatch, SetStateAction, useState} from "react";
 import {upTo} from "./random.ts";
-import {Consumables} from "./powerups/Consumables.ts";
+import {Consumables, ConsumableTypes} from "./powerups/Consumables.ts";
 import {Advisors} from "./powerups/Advisors.ts";
 import {Stage} from "./App.tsx";
 
@@ -34,8 +34,9 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
     const {shop} = run.modifiers
     const [rndConsumables, setRndConsumables] = useState(new Array(run.modifiers.shop.showConsumables)
         .fill(0)
-        .map(() => Consumables[upTo(Consumables.length)]));
+        .map(() => Consumables[String(upTo(Object.values(Consumables).length)) as ConsumableTypes]));
     const rndAdvisors = Advisors;
+    console.log(rndConsumables, '<<');
     return <>
         <h2>Shop</h2>
         <div className="grid x4x4 gap-4">
@@ -55,16 +56,16 @@ export function RandomShop({run, setCount, nextStage}: ShopFC) {
                 })
             }
             <hr/>
-            {rndAdvisors.map((advisor => advisor.extendedButton({
-                onSelect(): void {
-                    if (run.influence > 10) {
-                        run.influence -= 10;
-                        run.acquireAdvisor(advisor);
-                        setCount(count => count + 1);
-                        advisor.onAcquireEffect(run)
-                    }
-                }
-            })))}
+            {/*{rndAdvisors.map((advisor => advisor.extendedButton({*/}
+            {/*    onSelect(): void {*/}
+            {/*        if (run.influence > 10) {*/}
+            {/*            run.influence -= 10;*/}
+            {/*            run.acquireAdvisor(advisor);*/}
+            {/*            setCount(count => count + 1);*/}
+            {/*            advisor.onAcquireEffect(run)*/}
+            {/*        }*/}
+            {/*    }*/}
+            {/*})))}*/}
 
         </div>
         <hr/>

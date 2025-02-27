@@ -33,7 +33,7 @@ function App() {
     const [count, setCount] = useState(0)
     const [selectTiles, setSelectTiles] = useState<undefined | PowerupCtr>(undefined);
     const [powerup, setPowerup] = useState<undefined | PowerupCtr>(undefined);
-    const [stage, setStage] = useState<Stage>(Stage.Game);
+    const [stage, setStage] = useState<Stage>(Stage.Shop);
     const [hoveredCell, setHoveredCell] = useState<null | Cell>(null);
     const expand = async (faction: Faction) => {
         await baseBoard.doPopulism(faction, setCount, nextStage)
@@ -99,11 +99,14 @@ function App() {
 
     const onClickCell = (_event: SyntheticEvent, cell: Cell) => {
         if (selectTiles && powerup) {
-            const currentPowerup = singleRun.usePowerup(powerup);
-            currentPowerup.self.onAction(cell, baseBoard, setCount, nextStage);
-            powerupCb();
-            setSelectTiles(undefined);
-            setPowerup(undefined);
+            if (cell.canConsumableInteract(powerup)) {
+                const currentPowerup = singleRun.usePowerup(powerup);
+                currentPowerup.self.onAction(cell, baseBoard, setCount, nextStage);
+                powerupCb();
+                setSelectTiles(undefined);
+                setPowerup(undefined);
+            }
+
         } else {
             if (cell.faction != undefined) {
                 expand(cell.faction).then();

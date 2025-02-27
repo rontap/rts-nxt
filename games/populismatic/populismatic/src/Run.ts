@@ -4,7 +4,7 @@ import {Advisor, Consumable, Powerup, PowerupCtr} from "./components/Powerup.tsx
 import {Cell} from "./Cell.ts";
 import {Country, LocalParties, Party} from "./flavour.ts";
 import {Leader, LeaderNames, Leaders} from "./powerups/Leaders.tsx";
-import {Consumables} from "./powerups/Consumables.ts";
+import {Consumables, ConsumableTypes} from "./powerups/Consumables.ts";
 
 export class Run {
     root: PRNG;
@@ -31,7 +31,7 @@ export class Run {
         this.levelGen = new PRNG(this.root.next());
         this.modifiers = getModifiers();
         this.level = 1;
-        this.powerups = [Consumables[0]];
+        this.powerups = [Consumables[ConsumableTypes.HQ]];
         this.advisors = [];
         this.ideology = [];
         this.tracked = [];

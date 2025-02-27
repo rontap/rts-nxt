@@ -11,10 +11,14 @@ export enum Faction {
     "FAITH"
 }
 
+
 export const FactionLIB = [Faction.LIB, Faction.GREEN, Faction.FAITH];
 export const FactionLEFT = [Faction.COMM, Faction.GREEN, Faction.SOC];
 export const FactionAUTH = [Faction.COMM, Faction.NAT, Faction.FASH];
-export const FactionRIGHT = [Faction.NAT, Faction.FASH, Faction.FAITH];
+export const FactionRIGHT = [Faction.CON, Faction.FASH, Faction.FAITH];
+export const FactionC_AUTH_LIB = [Faction.SOC, Faction.CENTR, Faction.CON];
+export const FactionC_RIGHT_LEFT = [Faction.NAT, Faction.CENTR, Faction.LIB];
+export const FactionALL = [...FactionLIB, ...FactionC_AUTH_LIB, ...FactionAUTH, Faction.WILDCARD];
 export const NUM_OF_FACTIONS = 9 as const;
 
 type IdeologyH = {

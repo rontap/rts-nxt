@@ -1,6 +1,7 @@
 import {Board, Coord, PRE_OWNED} from "./Board.ts";
 import {Faction, NUM_OF_FACTIONS} from "./Factions.ts";
 import {randomWeighted, upTo} from "./random.ts";
+import {ConsumableTypes} from "./powerups/Consumables.ts";
 
 export  type OnCaptureActions = {
     preventBubbling?: boolean;
@@ -64,6 +65,15 @@ export class Cell {
         if (this.kind == Kind.WALL) return true;
         // baseline
         return this.isSameFaction(board.getOrigin.faction);
+    }
+
+    canConsumableInteract(consumable?: ConsumableTypes): boolean {
+        if (this.kind == Kind.WALL) return false;
+        if (this.kind == Kind.DISENFRANCHISED) return false;
+        if (this.isSource) return false;
+        if (!consumable) return true;
+
+        return true;
     }
 
     isSameFaction(faction: Faction) {

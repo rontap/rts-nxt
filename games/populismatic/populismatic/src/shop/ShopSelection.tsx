@@ -4,6 +4,10 @@ import CardShop from "./CardShop.tsx";
 
 export default function ShopSelection() {
     return <>
+        <h2>Shop</h2>
+        <br/>
+        <br/>
+        <br/>
         Buy Cards
         <CardShop/>
         <br/>
