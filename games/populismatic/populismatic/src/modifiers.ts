@@ -29,7 +29,8 @@ export type Modifier = {
     shop: {
         consumables: int,
         showConsumables: int,
-        consumableCost: int
+        consumableCost: int,
+        canReroll: boolean
     },
     winConditions: {
         required: int
@@ -37,6 +38,8 @@ export type Modifier = {
     laws: {
         solidarity: int,
         traditionalism: int,
+        freeMarket: int,
+        centrist: int,
         modifierForSolidarityAndTraditionalism: int
     },
     generation: {
@@ -178,15 +181,18 @@ export const getModifiers = () => {
         shop: {
             consumables: 6,
             showConsumables: 6,
-            consumableCost: 60
+            consumableCost: 60,
+            canReroll: false // Law.FreeMarket
         },
         laws: {
-            solidarity: 1,
-            traditionalism: 0,
+            solidarity: 1, // Law.Solidarity
+            traditionalism: 1, // Law.Traditionalism
+            freeMarket: 0,
+            centrist: 0,
             modifierForSolidarityAndTraditionalism: 0.08
         },
         winConditions: {
-            required: 100
+            required: 100 // Law.Gerrymander
         },
         handSize: 4
     } as Modifier;

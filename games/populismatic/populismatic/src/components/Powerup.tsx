@@ -21,6 +21,7 @@ type Restr = Faction | Ideologies;
 
 type ConsumableCtr = PowerupCtr & {
     cost: number,
+    bg?: string,
     factions: Faction[]
 }
 

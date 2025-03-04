@@ -1,21 +1,30 @@
 import {Consumables} from "../powerups/Consumables.ts";
 import Card from "../components/card/Card.tsx";
 import {Consumable} from "../components/Powerup.tsx";
+import {Run} from "../Run.ts";
 
-export default function CardShop() {
+type CardShopProps = {
+    run: Run
+}
+export default function CardShop(props: CardShopProps) {
     return <>
         <div className={"shopCardSelection"}>
-        {
-            Object.values(Consumables).map((el: Consumable) => {
-                return <>
-                    <Card icon={el.self.icon} onClick={() => false} bg={"#444666"} title={el.self.name}
-                          standalone={true} total={0} nth={0} toggle={() => false} selected={false}
-                          faction={el.self.factions}>
-                        {el.self.description}
-                    </Card>
-                </>
-            })
-        }
+            {
+                Object.values(Consumables).map((el: Consumable) => {
+                    return <>
+                        <Card icon={el.self.icon} onClick={() => props.run.acquirePowerup(el)}
+                              title={el.self.name}
+                              standalone={true} total={0}
+                              cost={el.self.cost}
+                              nth={0}
+                              toggle={() => false} selected={false}
+                              bg={el.self.bg || "#666"}
+                              faction={el.self.factions}>
+                            {el.self.description}
+                        </Card>
+                    </>
+                })
+            }
         </div>
     </>
 }

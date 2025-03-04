@@ -205,7 +205,7 @@ function App() {
                     {
                         stage === Stage.Shop && <>
                             {singleRun.powerups.length} / {singleRun.modifiers.powerups.max} Powerup Slots
-                            <ShopSelection/>
+                            <ShopSelection run={singleRun}/>
                             <RandomShop run={singleRun} setCount={setCount} nextStage={nextStage}/>
                         </>
                     }

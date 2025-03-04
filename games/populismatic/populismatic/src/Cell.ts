@@ -1,5 +1,5 @@
 import {Board, Coord, PRE_OWNED} from "./Board.ts";
-import {Faction, NUM_OF_FACTIONS} from "./Factions.ts";
+import {Faction, FactionMatch, matchFaction, NUM_OF_FACTIONS} from "./Factions.ts";
 import {randomWeighted, upTo} from "./random.ts";
 import {ConsumableTypes} from "./powerups/Consumables.ts";
 
@@ -76,10 +76,11 @@ export class Cell {
         return true;
     }
 
-    isSameFaction(faction: Faction) {
+    isSameFaction(faction: FactionMatch) {
         if (this.kind == Kind.RAINBOW) return true;
+        if (this.faction == undefined) return false;
         // baseline
-        return this.faction == faction;
+        return matchFaction(faction, this.faction);
     }
 
     getScore() {

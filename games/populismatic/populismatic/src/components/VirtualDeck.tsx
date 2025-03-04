@@ -67,25 +67,31 @@ export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelec
         {sortedCards.map((card, i) => {
             if (card instanceof Consumable) {
                 return <Card
-                    bg={"#444"}
                     onClick={() => {
-                        onClickPowerup(card, i, () => useCard(i))
-                        setSelected(i);
+                        if (card.self.boardInteraction) {
+                            onClickPowerup(card, i, () => useCard(i))
+                            setSelected(i);
+                        } else {
+                            useCard(i);
+                        }
+
+
                     }}
                     toggle={() => {
                         setPowerup(undefined)
                         setSelectTiles(undefined)
                     }}
                     icon={card.self.icon}
-                    title={"Powerup"}
+                    title={card.self.name}
                     total={cards.length}
                     nth={i}
                     key={i}
-
+                    bg={card.self.bg}
+                    cost={card.self.cost}
                     selected={i === selected}
+                    faction={card.self.factions}
                 >
                     <>
-                        <b>{card.self.name}</b>
                         <br/>
                         {card.self.description}</>
                 </Card>
@@ -96,6 +102,8 @@ export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelec
                     total={cards.length}
                     bg={card.color}
                     title={card.name}
+                    cost={1}
+                    faction={[card.faction]}
                     selected={i === selected}
                     icon={"👀"} onClick={() => {
                     playCard(i)

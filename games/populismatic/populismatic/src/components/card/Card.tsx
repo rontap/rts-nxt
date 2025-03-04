@@ -1,5 +1,6 @@
 import './card.css';
 import {Faction, RGBC} from "../../Factions.ts";
+import {int} from "../../modifiers.ts";
 
 type CardProps = {
     icon: string,
@@ -12,6 +13,7 @@ type CardProps = {
     toggle: () => any,
     selected: boolean,
     faction: Faction[]
+    cost: int
 }
 export default function Card({
                                  faction = [],
@@ -23,23 +25,33 @@ export default function Card({
                                  bg,
                                  title,
                                  nth,
-                                 total
+                                 total,
+                                 cost
                              }: CardProps) {
 
     const offset = (Math.abs(Math.floor(total / 2) - nth) * 13) + "px";
     const totalRounted = Math.ceil((total - 1) / 2);
-    return <div className={`cardOuter ${selected ? "cardToggled" : ""}`}
-                style={{"--card-bg": bg, "--nth-card": nth, "--total-card": totalRounted, "--offset": offset}}>
+    const alt = bg.startsWith("linear-gradient")
+    return <div className={`cardOuter ${selected ? "cardToggled" : ""} ${alt ? "alt" : ""}`}
+                style={{
+                    "--card-bg-alt": bg,
+                    "--card-bg": bg,
+                    "--nth-card": nth,
+                    "--total-card": totalRounted,
+                    "--offset": offset
+                }}>
 
         <div className={"card "} onClick={toggle ? (selected ? toggle : onClick) : onClick}>
             <div className={"cardCost"}>
-                1
+                {cost}
             </div>
             <div className={"cardHeader"}>
-                <div className={"icon"}>{icon}</div>
                 <div className={"cardTitle"}>{title}</div>
             </div>
             <div className={"cardContent"}>
+                <div className={"cardImage"}>
+                    <div className={"icon"}>{icon}</div>
+                </div>
                 {children}
             </div>
             <div className={"cardLower"}>
@@ -47,7 +59,6 @@ export default function Card({
             </div>
 
             <div className={"minipolcom"}>
-                {console.log(faction, Faction.CON)}
                 <div className={faction.filter(el => el == Faction.COMM).length ? "active" : "inactive"}></div>
                 <div className={faction.filter(el => el == Faction.NAT).length ? "active" : "inactive"}></div>
                 <div className={faction.filter(el => el == Faction.FASH).length ? "active" : "inactive"}></div>

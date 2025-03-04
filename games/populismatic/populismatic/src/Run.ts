@@ -31,7 +31,7 @@ export class Run {
         this.levelGen = new PRNG(this.root.next());
         this.modifiers = getModifiers();
         this.level = 1;
-        this.powerups = [Consumables[ConsumableTypes.HQ]];
+        this.powerups = [Consumables[ConsumableTypes.UnityLeft]];
         this.advisors = [];
         this.ideology = [];
         this.tracked = [];
@@ -39,6 +39,10 @@ export class Run {
         this.leaderName = LeaderNames.MP;
         this.influence = 0;
         this.parties = window.structuredClone(Country[LeaderNames.MP]).parties;
+    }
+
+    triggerUI() {
+        //noop
     }
 
     get getCurrentLevel(): Level {
@@ -57,6 +61,7 @@ export class Run {
     acquirePowerup(powerup: Powerup<PowerupCtr>) {
         if (this.canAcquirePowerup) {
             this.powerups.push(powerup);
+            this.triggerUI()
         }
     }
 

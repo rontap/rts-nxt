@@ -3,7 +3,7 @@ import {Dispatch, SetStateAction} from "react";
 import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";
 import {Cell, Kind, OnCaptureActions} from "./Cell.ts";
-import {Faction} from "./Factions.ts";
+import {Faction, FactionMatch, matchFaction, unwrapFaction} from "./Factions.ts";
 import {Party} from "./flavour.ts";
 import {BoardStats} from "./components/BoardStats.tsx";
 import {Stage} from "./App.tsx";
@@ -149,7 +149,7 @@ export class Board {
     }
 
 
-    async doPopulism(faction: Faction | undefined, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
+    async doPopulism(faction: FactionMatch, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) {
         if (faction == undefined) {
             console.error("Cannot have undefined Faction for populism");
             return;
@@ -159,7 +159,7 @@ export class Board {
         this.score.step = 0;
         this.forEach(cell => {
             if (cell.owned) {
-                cell.faction = faction;
+                cell.faction = unwrapFaction(faction);
             }
         });
         const expansions = this.map(cell => {
@@ -172,12 +172,13 @@ export class Board {
         await Promise.all(expansions)
         this.forEach(cell => {
             if (cell.owned) {
-                cell.faction = faction;
+                cell.faction = unwrapFaction(faction);
             }
             cell.iterated = false;
         })
 
         // this.triggers.onAfterDoPopulism
+        console.log('onbeforetrigger')
         this.triggerSolidarityAndTradition(faction);
 
 
@@ -187,18 +188,20 @@ export class Board {
 
     }
 
-    private triggerSolidarityAndTradition(faction: Faction) {
+    private triggerSolidarityAndTradition(faction: FactionMatch) {
         const {laws} = this.run.modifiers;
         if (laws.solidarity > 0 || laws.traditionalism > 0) {
             this.forEach(cell => {
                 if (cell.owned) {
                     this.adjacentCells(cell).forEach(adjCell => {
                         if (!adjCell.owned && adjCell.canCapture && adjCell.kind == Kind.NORMAL) {
-                            if ([Faction.LIB, Faction.GREEN, Faction.SOC].includes(faction) && [Faction.LIB, Faction.GREEN, Faction.SOC].includes(adjCell.faction)) {
+                            if (matchFaction(faction, [Faction.LIB, Faction.GREEN, Faction.SOC]) &&
+                                matchFaction(adjCell.faction, [Faction.LIB, Faction.GREEN, Faction.SOC])) {
                                 if (Math.random() > (1 - laws.solidarity * laws.modifierForSolidarityAndTraditionalism)) {
                                     adjCell._solidarity = true;
                                 }
-                            } else if ([Faction.FASH, Faction.CON, Faction.NAT].includes(faction) && [Faction.FASH, Faction.CON, Faction.NAT].includes(adjCell.faction)) {
+                            } else if (matchFaction(faction, [Faction.FASH, Faction.CON, Faction.NAT]) &&
+                                matchFaction(adjCell.faction, [Faction.FASH, Faction.CON, Faction.NAT])) {
                                 if (Math.random() > (1 - laws.traditionalism * laws.modifierForSolidarityAndTraditionalism)) {
                                     adjCell._solidarity = true;
                                 }
@@ -235,10 +238,10 @@ export class Board {
         }
     }
 
-    async expand(h: Coord, w: Coord, faction: Faction, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) { //this does the acual expanding of the project
+    async expand(h: Coord, w: Coord, faction: FactionMatch, setCount: Dispatch<SetStateAction<number>>, nextStage: () => void) { //this does the acual expanding of the project
         const cell = this.grid[h][w];
         cell.iterated = true;
-        cell.faction = faction;
+        cell.faction = unwrapFaction(faction);
         let onCaptured: OnCaptureActions = {};
         let timeout: number = 0;
         if (cell.canCapture) {
@@ -275,7 +278,7 @@ export class Board {
         return this.grid[h][w];
     }
 
-    isValid(h: number, w: number, faction: Faction
+    isValid(h: number, w: number, faction: FactionMatch
     ) {
         let isValid = true;
         if (!this.maybeGrid(h, w)) isValid = false;

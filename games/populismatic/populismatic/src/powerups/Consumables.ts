@@ -15,17 +15,19 @@ import {
 export enum ConsumableTypes {
     Activist,
     Follower,
-    VP,
-    Rally,
     Donor,
     Influencer,
-    Donation,
     Track,
-    Intimidate,
     PoliceBrutality,
+    Intimidate,
+    VP,
+    Rally,
     HQ,
+    Donation,
     Reroll,
     Cheat,
+    FreeSpeech,
+    FiveYearPlan,
     //
     UnityLeft,
     UnityCenterLEFTRIGHT,
@@ -36,14 +38,38 @@ export enum ConsumableTypes {
     UnityAll
 }
 
+const consumableBgs = {
+    interact: '#3f51b5',
+    dyn: '#673ab7',
+    base: '#444'
+};
+
 export const Consumables: Record<ConsumableTypes, Consumable> = {
+    [ConsumableTypes.FreeSpeech]: new Consumable({
+        name: "Free Speech",
+        icon: "🔊",
+        description: "Draw 3 cards (without changing your hand size)",
+        onAction: (cell, _board) => {
+        },
+        cost: 1,
+        factions: [Faction.CENTR, Faction.LIB, Faction.WILDCARD],
+    }),
+    [ConsumableTypes.FiveYearPlan]: new Consumable({
+        name: "Five Year Plan",
+        icon: "⭐",
+        description: "Gain 6 Manuevers in _next round_",
+        onAction: (cell, _board) => {
+        },
+        cost: 1,
+        factions: [Faction.COMM, Faction.SOC, Faction.NAT]
+    }),
     [ConsumableTypes.Cheat]: new Consumable({
         name: "Cheat",
         icon: "😈",
         description: "Cheat in elections",
         onAction: (cell, _board) => {
         },
-        cost: 60,
+        cost: 4,
         factions: [Faction.FASH, Faction.COMM, Faction.NAT]
     }),
     [ConsumableTypes.Reroll]: new Consumable({
@@ -52,7 +78,7 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
         description: "Reshuffle Deck",
         onAction: (cell, _board) => {
         },
-        cost: 60,
+        cost: 0,
         factions: [Faction.CENTR, Faction.CON, Faction.WILDCARD, Faction.SOC, Faction.COMM]
     }),
     [ConsumableTypes.HQ]: new Consumable({
@@ -65,62 +91,78 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
             board.grid[cell.h][cell.w].isSource = true;
             return;
         },
-        cost: 60,
+        cost: 3,
         boardInteraction: true,
+        bg: consumableBgs.dyn,
         factions: [Faction.CENTR, Faction.LIB, Faction.SOC, Faction.NAT]
     }),
     [ConsumableTypes.UnityLeft]: new Consumable({
         name: "Leftist Unity",
         icon: "❤️",
         description: "Leftist Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.GREEN, Faction.SOC, Faction.COMM], update, next).then();
         },
-        cost: 60,
+        cost: 5,
+        bg: "linear-gradient(in srgb to right, var(--faction-COMM) 5%, var(--faction-SOC) 50%, var(--faction-GREEN) 95%)",
         factions: FactionLEFT
     }),
     [ConsumableTypes.UnityRight]: new Consumable({
         name: "Righwing Unity",
         icon: "💙",
         description: "Righwing Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.FASH, Faction.CON, Faction.WILDCARD], update, next).then();
         },
-        cost: 60,
+        cost: 5,
+        bg: "linear-gradient(in srgb to right, var(--faction-FASH) 5%, var(--faction-CON) 50%, var(--faction-WILDCARD) 95%)",
+
         factions: FactionRIGHT
     }),
     [ConsumableTypes.UnityCenterLEFTRIGHT]: new Consumable({
         name: "Centrist Unity",
         icon: "💗",
         description: "Centrist Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.NAT, Faction.CENTR, Faction.LIB], update, next).then();
         },
-        cost: 60,
+        bg: "linear-gradient(in srgb to right, var(--faction-NAT) 5%, var(--faction-CENTR) 50%, var(--faction-LIB) 95%)",
+        cost: 5,
         factions: FactionC_RIGHT_LEFT
     }),
     [ConsumableTypes.UnityAuth]: new Consumable({
-        name: "Authoritarian Unity",
+        name: "Auth. Unity",
         icon: "🖤",
         description: "Authoritarian Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.COMM, Faction.NAT, Faction.FASH], update, next).then();
         },
-        cost: 60,
+        cost: 5,
+        bg: "linear-gradient(in srgb to right, var(--faction-COMM) 5%, var(--faction-NAT) 50%, var(--faction-FASH) 95%)",
+
         factions: FactionAUTH
     }),
     [ConsumableTypes.UnityCenterAUTHLIB]: new Consumable({
         name: "Centrist Unity",
         icon: "💓",
         description: "Centrist Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.SOC, Faction.CENTR, Faction.CON], update, next).then();
         },
-        cost: 60,
+        cost: 5,
+        bg: "linear-gradient(in srgb to right, var(--faction-SOC) 5%, var(--faction-CENTR) 50%, var(--faction-CON) 95%)",
         factions: FactionC_AUTH_LIB
     }),
     [ConsumableTypes.UnityLib]: new Consumable({
         name: "Liberal Unity",
         icon: "💛",
         description: "Liberal Unity",
-        onAction: (cell, _board) => {
+        onAction: (cell, board, update, next) => {
+            board.doPopulism([Faction.GREEN, Faction.LIB, Faction.WILDCARD], update, next).then();
         },
-        cost: 60,
+        cost: 5,
+        bg: "linear-gradient(in srgb to right, var(--faction-GREEN) 5%, var(--faction-LIB) 50%, var(--faction-WILDCARD) 95%)",
+
         factions: FactionLIB
     }),
 
@@ -132,23 +174,25 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
             cell.kind = Kind.ACTIVIST;
         },
         boardInteraction: true,
-        cost: 60,
-        factions: FactionLEFT
+        cost: 3,
+        factions: FactionLEFT,
+        bg: consumableBgs.interact
     }),
     [ConsumableTypes.PoliceBrutality]: new Consumable({
         name: "police brutality",
         icon: "👮",
         description: "Police Brutality :)",
         onAction: (cell, _board) => {
-
+            //TODO
         },
         boardInteraction: true,
-        cost: 60,
-        factions: [Faction.NAT, Faction.FASH, Faction.CON]
+        cost: 3,
+        factions: [Faction.NAT, Faction.FASH, Faction.CON],
+        bg: consumableBgs.interact
     }),
     [ConsumableTypes.Follower]:
         new Consumable({
-            name: "Dedicated Follower",
+            name: "recruit ultra",
             icon: "🌈",
             description: KindDescriptions[Kind.RAINBOW],
             onAction:
@@ -157,8 +201,9 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
                 },
             boardInteraction:
                 true,
-            cost: 60,
-            factions: FactionALL
+            cost: 2,
+            factions: FactionALL,
+            bg: consumableBgs.interact
         }),
 
     [ConsumableTypes.VP]:
@@ -170,9 +215,9 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
                 cell.source = true;
             },
             boardInteraction: true,
-            cost: 180,
-
-            factions: [Faction.SOC, Faction.CENTR, Faction.GREEN]
+            cost: 6,
+            factions: [Faction.SOC, Faction.CENTR, Faction.GREEN],
+            bg: consumableBgs.dyn
         }),
     [ConsumableTypes.Rally]:
         new Consumable({
@@ -184,7 +229,7 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
                     if (baseCell.owned) {
                         baseCell.eachNeighbour().forEach(cell => {
                             const shouldJoin = Math.random() > 0.33;
-                            if (!cell.owned && shouldJoin) {
+                            if (!cell.owned && shouldJoin && cell.canCapture) {
                                 cell.owned = PRE_OWNED;
                                 cell.faction = board.getOrigin.faction;
                             }
@@ -196,8 +241,9 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
                 }, 400)
             },
             boardInteraction: false,
-            cost: 150,
-            factions: [Faction.SOC, Faction.FASH, Faction.CON, Faction.GREEN]
+            cost: 5,
+            factions: [Faction.SOC, Faction.FASH, Faction.CON, Faction.GREEN],
+            bg: consumableBgs.dyn
         }),
     [ConsumableTypes.Donor]:
         new Consumable({
@@ -209,45 +255,48 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
                 board.run.influence += addMoves;
             },
             boardInteraction: true,
-            cost: 80,
-            factions: [Faction.CON, Faction.FASH, Faction.FAITH]
+            cost: 1,
+            factions: [Faction.CON, Faction.FASH, Faction.FAITH],
+            bg: consumableBgs.interact
         }),
     [ConsumableTypes.Influencer]:
         new Consumable({
-            name: "Recruit Influencer",
+            name: "recruit celebrity",
             icon: "🤩",
             description: KindDescriptions[Kind.INFLUENCER],
             onAction: (cell, _board) => {
                 cell.kind = Kind.INFLUENCER;
             },
             boardInteraction: true,
-            cost: 60,
-            factions: [Faction.SOC, Faction.CENTR, Faction.CON]
+            cost: 1,
+            factions: [Faction.SOC, Faction.CENTR, Faction.CON],
+            bg: consumableBgs.interact
         }),
     [ConsumableTypes.Donation]:
         new Consumable({
-            name: "Anonymus Donation",
+            name: "Donation",
             icon: "💷",
             description: "Arrange an anonymous donation. Earn 5 maneuvers.",
             onAction: (_cell, board) => {
                 board.moves -= 5;
             },
             boardInteraction: false,
-            cost: 60,
-            factions: [Faction.CENTR, Faction.LIB, Faction.WILDCARD]
+            cost: 0,
+            factions: [Faction.CENTR, Faction.LIB, Faction.WILDCARD],
         }),
     [ConsumableTypes.Track]:
         new Consumable({
-            description: "Track Citzen, select a single tie to 'Keep' between rounds",
+            description: "Track Citizen, select a single tie to 'Keep' between rounds",
             icon: "🖲️",
             name: "Track Citizen",
-            cost: 60,
+            cost: 0,
             onAction(cell: Cell | undefined, board: Board, _update: React.Dispatch<React.SetStateAction<number>>, _nextStep: () => void): void {
                 cell?.restore();
                 cell.track = true;
                 board.run.tracked.push(cell as Cell);
             },
             boardInteraction: true,
+            bg: consumableBgs.interact,
             factions: [Faction.NAT, Faction.LIB, Faction.COMM, Faction.WILDCARD]
         }),
     [ConsumableTypes.Intimidate]:
@@ -255,12 +304,13 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
             description: "Intimidate Citizen. They will vote for you out of fear for their life.",
             icon: "🔫",
             name: "intimidate",
-            cost: 60,
+            cost: 1,
             onAction(cell: Cell | undefined, board: Board, _update: React.Dispatch<React.SetStateAction<number>>, _nextStep: () => void): void {
                 cell.owned = true;
             },
             boardInteraction: true,
-            factions: FactionAUTH
+            factions: FactionAUTH,
+            bg: consumableBgs.interact
         }),
 // new Consumable({
 //     cost: 40,

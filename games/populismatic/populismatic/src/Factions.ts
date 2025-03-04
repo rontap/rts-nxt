@@ -11,6 +11,32 @@ export enum Faction {
     "FAITH"
 }
 
+export type FactionMatch = Faction | Faction[] | undefined;
+export const matchFaction = (faction: FactionMatch, to: Faction | Faction[]) => {
+    if (faction === undefined) {
+        return false;
+    }
+    if (Array.isArray(faction)) {
+        if (Array.isArray(to)) {
+            return to.some(el => faction.includes("" + el));
+        }
+        return faction.includes(to);
+    }
+    if (Array.isArray(to)) {
+        return to.includes(faction);
+    }
+    return faction == to;
+}
+export const unwrapFaction = (faction: FactionMatch): Faction => {
+    if (faction == undefined) {
+        throw ("Cannot unwrap undefined faction");
+    }
+    if (Array.isArray(faction) && faction.length) {
+        return faction[0];
+    }
+    return faction as Faction;
+}
+
 
 export const FactionLIB = [Faction.LIB, Faction.GREEN, Faction.FAITH];
 export const FactionLEFT = [Faction.COMM, Faction.GREEN, Faction.SOC];
