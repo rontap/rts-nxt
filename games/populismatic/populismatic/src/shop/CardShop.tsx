@@ -19,6 +19,7 @@ export default function CardShop(props: CardShopProps) {
                               nth={0}
                               toggle={() => false} selected={false}
                               bg={el.self.bg || "#666"}
+                              kind={String(el.self.use)}
                               faction={el.self.factions}>
                             {el.self.description}
                         </Card>

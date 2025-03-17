@@ -3,6 +3,7 @@ import {Party} from "../flavour.ts";
 import Card from "./card/Card.tsx";
 import React, {useState} from "react";
 import {Faction} from "../Factions.ts";
+import {int} from "../modifiers.ts";
 
 type CardAble = Party | Consumable;
 
@@ -10,7 +11,7 @@ function isParty(party: CardAble): party is Party {
     return party?.name != undefined;
 }
 
-type DeckJSX = {
+type DeckProps = {
     expand: (f: Faction) => any,
     onClickPowerup: (c: Consumable, i: number, cb: () => void) => any
     setPowerup: (a: any) => void
@@ -27,8 +28,52 @@ const sorter = (a: CardAble, b: CardAble) => {
     }
     return 1;
 }
+type DeckI = {
+    initialCards: CardAble[]
+}
 
-export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelectTiles}: DeckJSX) {
+export class DeckC {
+    deck: CardAble[];
+    draw: CardAble[];
+    hand: CardAble[];
+    handsize: int;
+    selected: CardAble | null;
+
+    constructor(initialCards: CardAble[]) {
+        this.deck = initialCards;
+        this.draw = [];
+        this.hand = [];
+        this.selected = null;
+        this.handsize = 4;
+    }
+
+    playCard(i: int) {
+        if (this.draw.length + this.deck.length <= this.handsize) {
+            // do nothing
+        } else {
+            this.draw = this.draw.concat(this.hand.filter((_, ii) => ii == i)).slice(1)
+            this.hand = this.hand.filter((_, ii) => ii != i).concat(this.draw[0]);
+        }
+        this.selected = null;
+    }
+
+    useCard(i: int) {
+        if (this.draw.length + this.hand.length <= this.handsize) {
+            // do nothing
+        } else {
+            this.draw = this.draw.slice(1);
+            this.hand = this.hand.filter((_, ii) => ii != i).concat(this.draw[0]);
+
+        }
+        this.selected = null;
+    }
+
+    set replace(newCards: CardAble[]) {
+        this.deck = newCards;
+    }
+}
+
+export function Deck({initialCards, expand, onClickPowerup, setPowerup, setSelectTiles}: DeckProps) {
 
     const scards = initialCards;
     const handSize = 4;

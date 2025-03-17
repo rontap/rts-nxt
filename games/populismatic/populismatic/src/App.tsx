@@ -18,6 +18,7 @@ import ShopSelection from "./shop/ShopSelection.tsx";
 const singleRun = new Run(Math.floor(Math.random() * 4100));
 const baseBoard = new Board(singleRun);
 
+
 export enum Stage {
     Lobby,
     Game,
@@ -35,11 +36,14 @@ function App() {
     const [powerup, setPowerup] = useState<undefined | PowerupCtr>(undefined);
     const [stage, setStage] = useState<Stage>(Stage.Shop);
     const [hoveredCell, setHoveredCell] = useState<null | Cell>(null);
+    const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
     const expand = async (faction: Faction) => {
         await baseBoard.doPopulism(faction, setCount, nextStage)
         setCount(() => count + 1)
     }
-    const parties = Object.values(singleRun.parties).filter((party: Party) => party.order <= singleRun.getCurrentLevel.factions);
+    // useEffect(() => {
+    //     singleRun.ui = setCount;
+    // }, [count, setCount]);
 
     const nextStage = (override: Stage) => {
         if (override) {
@@ -52,6 +56,7 @@ function App() {
             setStage(Stage.Shop);
         } else if (stage === Stage.Shop) {
             setStage(Stage.Game);
+            singleRun.deck.replace = [...parties, ...singleRun.powerups];
             baseBoard.nextLevel();
         }
     }

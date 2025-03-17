@@ -1,5 +1,5 @@
 import {Kind} from "./Cell.ts";
-import {RGBC} from "./Factions.ts";
+import {Faction, RGBC} from "./Factions.ts";
 import {KindDescriptions} from "./components/Powerup.tsx";
 
 export type int = number;
@@ -30,20 +30,23 @@ export type Modifier = {
         consumables: int,
         showConsumables: int,
         consumableCost: int,
-        canReroll: boolean
+        rerolls: int // number of rerolls allowed in the shop
     },
     winConditions: {
         required: int
+        extraSteps: int
     },
     laws: {
         solidarity: int,
         traditionalism: int,
         freeMarket: int,
         centrist: int,
+        enacted: Record<Faction, int>
         modifierForSolidarityAndTraditionalism: int
     },
     generation: {
-        kindShare: Record<Kind, KindShare>
+        kindShare: Record<Kind, KindShare>,
+        spawnBias: int
     },
     handSize: int
 }
@@ -126,7 +129,8 @@ export const getModifiers = () => {
                     name: 'suspicious',
                     color: '#e65385',
                 }
-            }
+            },
+            spawnBias: 0,
         },
         levels: {
             '1': {
@@ -182,18 +186,32 @@ export const getModifiers = () => {
             consumables: 6,
             showConsumables: 6,
             consumableCost: 60,
-            canReroll: false // Law.FreeMarket
+            rerolls: 0 // Law.FreeMarket
         },
         laws: {
             solidarity: 1, // Law.Solidarity
             traditionalism: 1, // Law.Traditionalism
-            freeMarket: 0,
+            enacted: {
+                [Faction.CON]: 0, // or Redlining or Szalámitaktika or Census
+                [Faction.LIB]: 0, // RW solidarity
+                [Faction.SOC]: 0, // LF solidarity
+                [Faction.GREEN]: 0, // +1 handsize
+                [Faction.CENTR]: 0, // + maneuvers
+                [Faction.COMM]: 0, // [+maneuvers, <negative>card, +card in shop]
+                [Faction.FASH]: 0, // [+1reroll, +1card in shop, <sponsored>card]
+                [Faction.NAT]: 0, //
+                [Faction.WILDCARD]: 0, //
+                [Faction.FAITH]: 0, //
+            },
             centrist: 0,
+            freeMarket: 0,
             modifierForSolidarityAndTraditionalism: 0.08
+
         },
         winConditions: {
-            required: 100 // Law.Gerrymander
+            required: 100, // Law.Gerrymander
+            extraSteps: 0
         },
-        handSize: 4
+        handSize: 4 // @deprecate!
     } as Modifier;
 }

@@ -5,6 +5,7 @@ import {Cell} from "./Cell.ts";
 import {Country, LocalParties, Party} from "./flavour.ts";
 import {Leader, LeaderNames, Leaders} from "./powerups/Leaders.tsx";
 import {Consumables, ConsumableTypes} from "./powerups/Consumables.ts";
+import {DeckC} from "./components/VirtualDeck.tsx";
 
 export class Run {
     root: PRNG;
@@ -22,6 +23,8 @@ export class Run {
     tracked: Cell[];
     leaderName: LeaderNames;
     parties: LocalParties;
+    deck: DeckC;
+    ui: Function;
 
     constructor(seed: number = Math.random()) {
         this.root = new PRNG(seed);
@@ -39,10 +42,13 @@ export class Run {
         this.leaderName = LeaderNames.MP;
         this.influence = 0;
         this.parties = window.structuredClone(Country[LeaderNames.MP]).parties;
+        this.deck = new DeckC([]);
+        this.ui = () => false
     }
 
     triggerUI() {
         //noop
+        this.ui();
     }
 
     get getCurrentLevel(): Level {

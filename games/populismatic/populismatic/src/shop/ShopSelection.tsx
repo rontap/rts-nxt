@@ -14,7 +14,7 @@ export default function ShopSelection({run}: { run: Run }) {
         <br/>
         <hr/>
         Laws
-        <Laws/>
+        <Laws run={run}/>
         <br/>
         <hr/>
     </>

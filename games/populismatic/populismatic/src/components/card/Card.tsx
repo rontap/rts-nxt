@@ -13,7 +13,8 @@ type CardProps = {
     toggle: () => any,
     selected: boolean,
     faction: Faction[]
-    cost: int
+    cost: int,
+    kind: string,
 }
 export default function Card({
                                  faction = [],
@@ -26,7 +27,8 @@ export default function Card({
                                  title,
                                  nth,
                                  total,
-                                 cost
+                                 cost,
+                                 kind
                              }: CardProps) {
 
     const offset = (Math.abs(Math.floor(total / 2) - nth) * 13) + "px";
@@ -41,7 +43,7 @@ export default function Card({
                     "--offset": offset
                 }}>
 
-        <div className={"card "} onClick={toggle ? (selected ? toggle : onClick) : onClick}>
+        <div className={`card card-kind-${kind}`} onClick={toggle ? (selected ? toggle : onClick) : onClick}>
             <div className={"cardCost"}>
                 {cost}
             </div>
@@ -50,12 +52,19 @@ export default function Card({
             </div>
             <div className={"cardContent"}>
                 <div className={"cardImage"}>
-                    <div className={"icon"}>{icon}</div>
+
+                    <div className={"icon"}>
+                        {icon}
+                    </div>
                 </div>
                 {children}
             </div>
             <div className={"cardLower"}>
-
+                {kind == "0" && "1️⃣"}
+                {kind == "2" && "♾️"}
+                {kind == "0" && "Single-Use"}
+                {kind == "1" && "Exhaust"}
+                {kind == "2" && "Eternal"}
             </div>
 
             <div className={"minipolcom"}>

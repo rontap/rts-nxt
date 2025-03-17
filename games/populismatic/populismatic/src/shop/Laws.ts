@@ -1,6 +1,7 @@
 import {Faction} from "../Factions.ts";
+import {Run} from "../Run.ts";
 
-enum Law {
+export enum Law {
     Gerrymander, // or Redlining or Szalámitaktika or Census
     Traditionalism, // RW solidarity
     Solidarity, // LF solidarity
@@ -19,7 +20,43 @@ enum Law {
  * L1-4: LIB/WC share ++
  */
 
-const lawCombinations: Record<Faction, Law[]> = {
+const enactLaw = (run: Run, law: Law) => {
+    switch (law) {
+        case Law.Gerrymander:
+            run.modifiers.winConditions.required -= 1;
+            break;
+        case Law.Traditionalism:
+            run.modifiers.laws.traditionalism++;
+            break;
+        case Law.Solidarity:
+            run.modifiers.laws.solidarity++;
+            break;
+        case Law.Strategist:
+            run.deck.handsize++;
+            break;
+        case Law.Donor:
+            run.modifiers.winConditions.extraSteps += 2;
+            break;
+        case Law.ExpandState:
+            // todo
+            break;
+        case Law.FreeMarket:
+            run.modifiers.shop.consumables++;
+            break;
+        case Law.Centrist:
+            run.modifiers.generation.spawnBias++;
+            break;
+
+    }
+}
+
+export const enactFactionLaw = (run: Run, faction: Faction, law: Law) => {
+    enactLaw(run, law);
+    run.modifiers.laws.enacted[faction]++;
+    run.triggerUI();
+}
+
+export const lawCombinations: Record<Faction, Law[]> = {
     [Faction.COMM]: [Law.Gerrymander, Law.ExpandState, Law.ExpandState],
     [Faction.NAT]: [Law.Gerrymander, Law.Traditionalism, Law.ExpandState],
     [Faction.FASH]: [Law.Gerrymander, Law.Gerrymander, Law.Traditionalism],
@@ -29,4 +66,5 @@ const lawCombinations: Record<Faction, Law[]> = {
     [Faction.GREEN]: [Law.ExpandState, Law.Solidarity],
     [Faction.LIB]: [Law.Centrist, Law.Solidarity, Law.Strategist, Law.FreeMarket],
     [Faction.WILDCARD]: [Law.FreeMarket, Law.Donor, Law.FreeMarket],
+    [Faction.FAITH]: [],
 }
