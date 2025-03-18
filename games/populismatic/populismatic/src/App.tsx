@@ -2,7 +2,7 @@ import React, {SyntheticEvent, useState} from 'react'
 import './App.css'
 import {Board, Faction, Run} from './Board.ts'
 import {Consumable, KindDescriptions, PowerupCtr} from "./components/Powerup.tsx";
-import {RandomShop} from "./Shop.tsx";
+import {RandomShop} from "./shop/Shop.tsx";
 import LeaderJSX from "./components/Leader.tsx";
 import {Cell} from "./Cell.ts";
 import {CellItem} from "./components/CellItem.tsx";

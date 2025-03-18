@@ -1,4 +1,4 @@
-import {randomWeighted, twoDimArray, upToSeed} from "./random.ts";
+import {randomWeighted, twoDimArray, upToSeed} from "./utils/random.ts";
 import {Dispatch, SetStateAction} from "react";
 import {Level} from "./modifiers.ts";
 import {Run} from "./Run.ts";

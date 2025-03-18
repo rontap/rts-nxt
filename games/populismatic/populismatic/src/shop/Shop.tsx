@@ -1,9 +1,9 @@
-import {Run} from "./Run.ts";
+import {Run} from "../Run.ts";
 import {Dispatch, SetStateAction, useState} from "react";
-import {upTo} from "./random.ts";
-import {Consumables, ConsumableTypes} from "./powerups/Consumables.ts";
-import {Advisors} from "./powerups/Advisors.ts";
-import {Stage} from "./App.tsx";
+import {upTo} from "../utils/random.ts";
+import {Consumables, ConsumableTypes} from "../powerups/Consumables.ts";
+import {Advisors} from "../powerups/Advisors.ts";
+import {Stage} from "../App.tsx";
 
 type ShopFC = {
     run: Run,

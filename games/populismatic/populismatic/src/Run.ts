@@ -1,4 +1,4 @@
-import {PRNG, randGen, RandGen} from "./random.ts";
+import {PRNG, randGen, RandGen} from "./utils/random.ts";
 import {getModifiers, Level, Modifier} from "./modifiers.ts";
 import {Advisor, Consumable, Powerup, PowerupCtr} from "./components/Powerup.tsx";
 import {Cell} from "./Cell.ts";

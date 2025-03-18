@@ -1,6 +1,6 @@
 import {Board, Coord, PRE_OWNED} from "./Board.ts";
 import {Faction, FactionMatch, matchFaction, NUM_OF_FACTIONS} from "./Factions.ts";
-import {randomWeighted, upTo} from "./random.ts";
+import {randomWeighted, upTo} from "./utils/random.ts";
 import {ConsumableTypes} from "./powerups/Consumables.ts";
 
 export  type OnCaptureActions = {

@@ -11,15 +11,14 @@
     border: 1px solid #666;
 }
 
-#polCompRegions div {
+#polCompRegions > div {
     border: 1px solid #666;
     text-align: center;
     align-self: stretch;
     justify-content: center;
-    align-items: center;
     display: flex;
     opacity: 0.8;
-
+    padding-top: 15px;
 }
 
 #polCompRegions div span {
@@ -42,11 +41,11 @@
     --blop-outline: red;
 }
 
-#polCompRegions div:nth-child(1) {
+#polCompRegions > div:nth-child(1) {
     background-color: #E57373ee;
 }
 
-#polCompRegions div:nth-child(2) {
+#polCompRegions > div:nth-child(2) {
     background-color: #c0c0c0ee;
 }
 

@@ -100,3 +100,8 @@ export default class Effect {
         return [this.selector as T]
     }
 }
+
+
+export function stencil() {
+
+}

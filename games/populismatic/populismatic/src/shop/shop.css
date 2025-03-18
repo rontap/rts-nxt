@@ -7,6 +7,7 @@
     background: transparent;
     border: none;
     margin: 0 6px;
+    left: 0;
 }
 
 .lawLevels div {
@@ -24,15 +25,37 @@
     height: 6px;
 }
 
+.lawDescription {
+    display: block;
+    font-family: 'Bahnschrift Condensed';
+    font-weight: 300;
+    font-size: 14px;
+    margin: 8px 10px;
+    text-align: center;
+}
+
+.lawDescription i {
+    color: white;
+}
+
+#polCompRegions.polCompLaws b {
+    font-family: 'Bahnschrift';
+}
+
 #polCompRegions.polCompLaws > div:hover .lawLevels .notacquired {
     background: #fff !important;
     border: 1px solid #222 !important;
 
 }
 
+.polCompLaws div:has(.locked) {
+    background: #aaaaaaee !important;
+    cursor: not-allowed !important;
+}
 
 #polCompRegions.polCompLaws {
-    width: 660px;
+    width: 720px;
+    transition: all .2s;
 }
 
 #polCompRegions.polCompLaws > div {
@@ -45,10 +68,11 @@
 
 #polCompRegions.polCompLaws > div:hover {
     opacity: 1;
-    border-color: #444;
+    border-color: #222 !important;
+    outline: 2px solid #666;
 }
 
-#polCompRegions.polCompLaws div span {
+#polCompRegions.polCompLaws > div > span {
     transform: rotate(0deg);
 }
 
@@ -57,8 +81,8 @@
 .shopCardSelection {
     position: relative;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr 1fr 1fr 1fr;
 }
 
 .shopCardSelection > div {
