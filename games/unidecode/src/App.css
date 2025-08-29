@@ -1,0 +1,92 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.logo {
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
+}
+
+.logo:hover {
+    filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+    filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    a:nth-of-type(2) .logo {
+        animation: logo-spin infinite 20s linear;
+    }
+}
+
+.card {
+    padding: 2em;
+}
+
+.read-the-docs {
+    color: #888;
+}
+
+#emojictr {
+    font-size: 80px;
+}
+
+.bs {
+    font-family: "Bahnschrift" !important;
+}
+
+h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 72px !important;
+    margin: 1em;
+}
+
+.largeText {
+    font-size: 2em;
+}
+
+#gameCard {
+    text-align: center;
+    background: white;
+    padding:1.5em;
+}
+
+body, .radix-themes {
+    background: whitesmoke !important;
+    font-family: 'Bahnschrift' !important;
+}
+* {
+    font-family: 'Bahnschrift semicondensed' !important;
+}
+
+.trophies {
+    font-size: 44px !important;
+}
+.radix-themes {
+
+}
+h1 span {
+    font-family: 'Bahnschrift condensed' !important;
+    font-weight: lighter;
+    color: #123167;
+}
+@keyframes whoosh {
+    0% {min-width:}
+}

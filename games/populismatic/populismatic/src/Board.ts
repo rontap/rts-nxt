@@ -159,6 +159,7 @@ export class Board {
         this.score.step = 0;
         this.forEach(cell => {
             if (cell.owned) {
+                console.log(unwrapFaction(faction));
                 cell.faction = unwrapFaction(faction);
             }
         });

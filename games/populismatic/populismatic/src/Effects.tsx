@@ -80,6 +80,7 @@ export default class Effect {
     }
 
     doAction(run: Run) {
+        console.log('<í');
         if (this.affect == Affect.Parties) {
             this.deferAs<Faction>(Object.values(Faction)).map(faction => {
                 run.parties[faction][this.property as "weight" | "score"] += this.change;

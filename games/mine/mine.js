@@ -36,14 +36,14 @@
 
     function bombh(h,v,b)
     {
-        for (var i = 0; i < b; i++) {
-            y = Math.floor(Math.random()*h);
-            x = Math.floor(Math.random()*v);
+        for (var i = 0; i < b; i++) { // ism b
+            // i <---
+            y = Math.floor(Math.random()*h); // 0 - height
+            x = Math.floor(Math.random()*v); // 0 - width
 
-            if (!bomba[y][x]) {
+            if (bomba[y][x] == false) {
                 bomba[y][x] = true;
                 //document.getElementsByTagName('tr')[y].getElementsByTagName('td')[x].style.background="red";
-
             } else {
                console.log(i+'_'+x+y);
                b++
@@ -54,22 +54,23 @@
     function create(h,v) {
 
         a='<TABLE id="jatekter" ontontextmenu="alert();return false;" class="norjsx">'
-        for (var i = 0; i < h; i++) {
+        for (var sor = 0; sor < h; sor++) {
 
-            bomba[i] = [];
-            volte[i] = [];
+            bomba[sor] = [];
+            volte[sor] = [];
             a+='<tr>';
-            for (var j = 0; j < v; j++) {
+            for (var oszlop = 0; oszlop < v; oszlop++) {
 
-                bomba[i][j]=false;
-                volte[i][j]=false;
-                a+='<td onClick="check('+i+','+j+')" onContextMenu="flag('+i+','+j+');return false;">-</td>';
+                bomba[sor][oszlop]=false; // minden egyes cellára
+                volte[sor][oszlop]=false;
+                a+='<td onClick="check('+sor+','+oszlop+')" onContextMenu="flag('+sor+','+oszlop+');return false;">-</td>';
 
             }
             a+='</tr>';
         }
         a+='</TABLE>';
         c.innerHTML = a;
+
 
     }//create
 
@@ -82,10 +83,8 @@
 
             if (bomba[h][v]) {
                 end();
-
             }
             else {
-
                korulotte=hanypont(h,v);
                 if (korulotte==0)
                 {

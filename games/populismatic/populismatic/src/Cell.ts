@@ -19,7 +19,8 @@ export enum Kind {
     TACTICAL,
     BONUS,
     ACTIVIST,
-    SUSPICIOUS
+    SUSPICIOUS,
+    NATIONALIST
 }
 
 

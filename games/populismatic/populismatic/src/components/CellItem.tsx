@@ -23,6 +23,7 @@ export function CellItem(props: CellItemProps) {
             if (props.cell.kind == Kind.SUSPICIOUS) return '🪨️'
             if (props.cell.kind == Kind.WALL) return '🧱'
             if (props.cell.kind == Kind.DONOR) return '💵'
+            if (props.cell.kind == Kind.NATIONALIST) return '🚩'
         }
         if (props.cell.owned && !props.cell.inProgress) {
             return "×"

@@ -107,6 +107,7 @@ export const Consumables: Record<ConsumableTypes, Consumable> = {
         icon: "❤️",
         description: "Leftist Unity",
         onAction: (cell, board, update, next) => {
+            console.log('>>');
             board.doPopulism([Faction.GREEN, Faction.SOC, Faction.COMM], update, next).then();
         },
         cost: 5,
