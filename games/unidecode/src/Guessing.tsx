@@ -18,6 +18,7 @@ export function Guessing({engine}: { engine: Engine }) {
     const [isStarted, setStarted] = useState(false);
     const [fail, setFail] = useState(false);
     const [begin, setBegin] = useState(false);
+    const [totalScore, setTotalScore] = useState(0);
     const doFail = () => {
         const end = new Date();
         setFail(true);
@@ -25,6 +26,7 @@ export function Guessing({engine}: { engine: Engine }) {
     }
     const onNext = (penalty = true) => {
         setCurr(engine.next());
+        setTotalScore(prev => prev + score)
         if (penalty) {
             setTotalTime(totalTime => totalTime - timeLost(score))
         }
@@ -119,7 +121,7 @@ export function Guessing({engine}: { engine: Engine }) {
 
             </>}
             {fail && <>
-                Game over. I was lazy to implement stats for now.
+                Game over. Total score {totalScore}. Total correct guesses: {correctGuesses.length}
             </>}
 
         </Card>
