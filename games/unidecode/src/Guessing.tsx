@@ -4,6 +4,7 @@ import {calloutRootPropDefs} from "@radix-ui/themes/dist/esm/components/callout.
 import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
 
+const saved = JSON.parse(localStorage.trophies || "[]");
 const TIME = 300;
 const PENALTY = 30;
 const timeLost = (score) => ((100 - score) / 100) * PENALTY
@@ -20,6 +21,12 @@ export function Guessing({engine}: { engine: Engine }) {
     const [begin, setBegin] = useState(false);
     const [totalScore, setTotalScore] = useState(0);
     const doFail = () => {
+        setCorrectGuesses(guesses => {
+            console.log(saved, [...new Set(saved.concat(guesses))], guesses)
+            localStorage.trophies = JSON.stringify([...new Set(saved.concat(guesses))]);
+            return guesses;
+        })
+
         const end = new Date();
         setFail(true);
         setTotalTime(undefined);
@@ -27,11 +34,15 @@ export function Guessing({engine}: { engine: Engine }) {
     const onNext = (penalty = true) => {
         setCurr(engine.next());
         setTotalScore(prev => prev + score)
+        if (score === 0) {
+            engine.noClue.push(curr);
+        }
         if (penalty) {
             setTotalTime(totalTime => totalTime - timeLost(score))
         }
         setScore(0);
         setGuess(undefined);
+        setText("")
     }
     const start = () => {
         onNext();
@@ -106,7 +117,7 @@ export function Guessing({engine}: { engine: Engine }) {
 
 
             {isStarted && !fail && <>
-                <TextField.Root radius="large" placeholder="Emoji Name"
+                <TextField.Root radius="large" placeholder="Emoji Name. Press ENTER to submit"
                                 value={text}
                                 onChange={(event) => setText(event.target.value)}
                                 onKeyDown={onKey}/>
@@ -130,10 +141,35 @@ export function Guessing({engine}: { engine: Engine }) {
         {
             correctGuesses.length > 0 && <>
                 <hr/>
-                <Heading className={"trophies"}>Trophies: {correctGuesses.length}</Heading>
-                <span className={"largeText"}>{correctGuesses}</span>
+                <Heading
+                    className={"trophies"}>Trophies: {correctGuesses.length} (total {correctGuesses.concat(saved).length})
+                    / {engine.emojis.length}</Heading>
+                <span className={"largeText"}>{correctGuesses}</span><br/>
             </>
+
         }
+        <span className={"largeText"}>Collection {saved.length} emojis: {saved}</span>
+
+
+        {fail && <>
+            <Heading className={"trophies"}>You had no clue about {engine.noClue.length} Emojis</Heading>
+            Here are some of them:
+            <table>
+                <thead>
+                <tr>
+                    <th>Emoji</th>
+                    <th>Name</th>
+                    <th>Keywords</th>
+                </tr>
+                </thead>
+                {engine.noClue.slice(0, 5).map(el => <tr>
+                    <td className={"large"}>{el?.emoji}</td>
+                    <td>{el?.description}</td>
+                    <td>{el?.keywords.join(", ")}</td>
+                </tr>)}
+            </table>
+
+        </>}
     </>
 }
 

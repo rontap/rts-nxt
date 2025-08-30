@@ -87,6 +87,6 @@ h1 span {
     font-weight: lighter;
     color: #123167;
 }
-@keyframes whoosh {
-    0% {min-width:}
+.large {
+    font-size:32px;
 }

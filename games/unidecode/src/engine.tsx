@@ -21,12 +21,14 @@ export default class Engine {
     had: number[];
     current: Emoji | undefined;
     keywordsCorrect: string[];
+    noClue: (Emoji|undefined)[];
 
     constructor() {
         this.emojis = emojis;
         this.had = [];
         this.current = undefined;
         this.keywordsCorrect = [];
+        this.noClue = [];
     }
 
     next() {
