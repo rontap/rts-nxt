@@ -8,6 +8,7 @@ class Node {
         this.weight=10;
 
     }
+
     addEdge(to/*Map or edgeId*/,weight/*Boolean or edgeId*/) {
         if (to.type=="Map") {
             // weight is boolean which determines whether tog override original edges

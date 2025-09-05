@@ -47,6 +47,7 @@
 
 #emojictr {
     font-size: 80px;
+    text-align: center;
 }
 
 .bs {
@@ -64,10 +65,10 @@ h1 {
     font-size: 2em;
 }
 
-#gameCard {
+.gameCard {
     text-align: center;
     background: white;
-    padding: 1.5em;
+    padding: 1.5em !important;
 }
 
 body, .radix-themes {
@@ -106,5 +107,11 @@ h1 span {
     background: #ccc;
     position: relative;
     font-size: 36px;
-    padding:0;
+    padding: 0;
+}
+
+.flr-emoji {
+    position: absolute;
+    right: 46px;
+    font-size: 48px;
 }

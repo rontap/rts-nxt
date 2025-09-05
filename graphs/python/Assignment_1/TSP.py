@@ -64,7 +64,7 @@ class TSP:
 
         print("Read in all points, start computing distance matrix")
 
-        #self.points = points
+        self.points = points
         self.nCities = len(points)
         self.cities = list(range(self.nCities))
 
@@ -118,17 +118,27 @@ class TSP:
 
         return tour
 
+    def furthestCity(self, city, notInTour):
+        closestDist = -1
+        closestCity = None
+        for j in notInTour:
+            dist = self.distMatrix[city][j]
+            closestDist = dist
+            closestCity = j
+        return [closestCity, closestDist]
+
     def getCitiesCopy(self):
         return self.cities.copy()
 
     def evaluateSolution(self, tour):
         print(tour)
-        print(points)
         if self.isFeasible(tour):
             costs = self.computeCosts(tour)
             print("The solution is feasible with costs " + str(costs))
+            return costs
         else:
             print("The solution is infeasible")
+            return None
 
     def isFeasible(self, tour):
         """
@@ -179,11 +189,41 @@ class TSP:
         costs += self.distMatrix[tour[-1], tour[0]]
         return costs
 
+    def initGRASP(self, start):
+        tour = [start]
+        notInTour = self.cities.copy()
+        notInTour.remove(start)
 
-##############################################################################   
+
+def testMultiple():
+    """
+    Task 1: Make a selection of 5 small, 3 medium and 2 large instances
+    # TODO MAKE SEEDED-RANDOM
+    """
+    smallPrefix = "Instances/Small/"
+    medPrefix = "Instances/Medium/"
+    largePrefix = "Instances/Large/"
+    smallFiles = map(lambda v: smallPrefix + v, os.listdir(smallPrefix)[:5])
+    medFiles = map(lambda v: medPrefix + v, os.listdir(medPrefix)[:3])
+    largeFiles = map(lambda v: largePrefix + v, os.listdir(largePrefix)[:2])
+
+    totalCosts = 0
+    for f in smallFiles:
+        inst = TSP(f)
+        tour = inst.getTour_NN(0)
+        totalCosts += inst.evaluateSolution(tour)
+
+
+##############################################################################
 
 instFilename = "Instances/Small/berlin52.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
 inst.evaluateSolution(tour)
+
+inst.initGRASP(startPointNN)
+
+print(inst.points)
+
+testMultiple()

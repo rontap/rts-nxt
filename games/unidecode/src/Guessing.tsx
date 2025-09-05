@@ -3,6 +3,7 @@ import Engine, {GUESS} from "./engine.tsx";
 import {calloutRootPropDefs} from "@radix-ui/themes/dist/esm/components/callout.props";
 import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
+import Examples from "./Examples.tsx";
 
 
 const TIME = 300;
@@ -86,8 +87,8 @@ export function Guessing({engine}: { engine: Engine }) {
     }
     const progress = Math.round(totalTime / TIME * 100)
     return <>
-        <Card id={"gameCard"}>
-            {!fail && <>
+        <Card className={"gameCard"}>
+            {!fail && isStarted && <>
                 <div>Time Left ( Each unsolved puzzle subtracts from the time )</div>
                 <Progress size="3" color={progress > 40 ? "green" : progress > 15 ? "orange" : "red"}
                           value={progress > 100 ? 100 : progress}/>
@@ -111,6 +112,7 @@ export function Guessing({engine}: { engine: Engine }) {
                     </li>
                 </Callout.Root>
                     <br/>
+                    <Examples engine={engine}/>
                     <br/>
                     <Button onClick={start} size={"4"} color={"green"}>BEGIN</Button>
                 </>}
@@ -138,39 +140,41 @@ export function Guessing({engine}: { engine: Engine }) {
 
         </Card>
         <br/>
-        <br/>
-        {
-            correctGuesses.length > 0 && <>
-                <hr/>
-                <Heading
-                    className={"trophies"}>Trophies: {correctGuesses.length} (total {correctGuesses.concat(saved).length})
-                    / {engine.emojis.length}</Heading>
-                <span className={"largeText"}>{correctGuesses}</span><br/>
-            </>
+        <Card className={"gameCard"}>
+            {
+                correctGuesses.length > 0 && <>
+                    <hr/>
+                    <Heading
+                        className={"trophies"}>Trophies: {correctGuesses.length} (total {correctGuesses.concat(saved).length})
+                        / {engine.emojis.length}</Heading>
+                    <span className={"largeText"}>{correctGuesses}</span><br/>
+                </>
 
-        }
-        <span className={"largeText"}>Collection {saved.length} emojis: {saved.slice(0, 99)}</span>
+            }
+            <span className={"largeText"}>Collection {saved.length} emojis <br/> {saved.slice(0, 99)}</span>
+        </Card>
 
 
-        {fail && <>
-            <Heading className={"trophies"}>You had no clue about {engine.noClue.length} Emojis</Heading>
-            Here are some of them:
-            <table>
-                <thead>
-                <tr>
-                    <th>Emoji</th>
-                    <th>Name</th>
-                    <th>Keywords</th>
-                </tr>
-                </thead>
-                {engine.noClue.slice(0, 5).map(el => <tr>
-                    <td className={"large"}>{el?.emoji}</td>
-                    <td>{el?.description}</td>
-                    <td>{el?.keywords.join(", ")}</td>
-                </tr>)}
-            </table>
+            {fail && <Card className={"gameCard"}>
+                <Heading className={"trophies"}>You had no clue about {engine.noClue.length} Emojis</Heading>
+                Here are some of them:
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Emoji</th>
+                        <th>Name</th>
+                        <th>Keywords</th>
+                    </tr>
+                    </thead>
+                    {engine.noClue.slice(0, 5).map(el => <tr>
+                        <td className={"large"}>{el?.emoji}</td>
+                        <td>{el?.description}</td>
+                        <td>{el?.keywords.join(", ")}</td>
+                    </tr>)}
+                </table>
 
-        </>}
+            </Card>}
+
     </>
 }
 
@@ -199,13 +203,15 @@ const getTextFromGuess = (guess: GUESS): string => {
         case GUESS.CLOSE_EXTRA:
             return "This is not the main emoji name, but a keyword"
         case GUESS.CLOSE_EXTRA_REPEAT:
-            return "This is not the main emoji name, but a keyword (and you already used it)"
+            return "You have already guessed this keyword or part of the solution"
         case GUESS.CLOSE_SUBSTR:
             return "Your guess is part of the emoji name."
         case GUESS.WRONG:
             return "Incorrect word"
         case GUESS.SHORT:
             return "Your guess is too short"
+        default:
+            return "The programmer is bad at his job"
     }
 }
 

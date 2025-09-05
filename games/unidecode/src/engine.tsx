@@ -1,6 +1,7 @@
 import type {Emoji} from "unicode-emoji";
 import * as ue from 'unicode-emoji';
 import {Text} from '@radix-ui/themes'
+import {intersection, isEqual} from "lodash";
 
 export enum GUESS {
     _BRUH_REACT,
@@ -61,12 +62,29 @@ export default class Engine {
 
         if (guess.length < 2) return GUESS.SHORT;
 
-        if (guess === description) return GUESS.CORRECT;
+        // if the two guesses are identical, CORRECT
+        if (compare(guess, description)) return GUESS.CORRECT;
 
+
+        // if the whole text section has partial match, CLOSE_SUBSTR
         if (description.includes(guess) || guess.includes(description)) {
+            // if this was already a guess, do not include it.
+            if (this.keywordsCorrect.includes(guess)) {
+                return GUESS.CLOSE_EXTRA_REPEAT;
+            }
+            this.keywordsCorrect.push(guess)
             return GUESS.CLOSE_SUBSTR
         }
+
+        // if the intersection of the tokenisation is not ZERO, CLOSE_SUBSTR
+        if (partiallyIncludes(guess, description)) {
+            return GUESS.CLOSE_SUBSTR
+        }
+
+        // if any keyword completely match, CLOSE EXTRA
         if (this.current?.keywords.includes(guess)) {
+
+            // if this was already a guess, do not include it.
             if (this.keywordsCorrect.includes(guess)) {
                 return GUESS.CLOSE_EXTRA_REPEAT;
             }
@@ -78,8 +96,24 @@ export default class Engine {
 
 }
 
-const prune = (text: string) => {
-    return text.replace(/flag: /, "").replace(/’/, "").replace(/'/, "").toLowerCase();
+export const prune = (text: string) => {
+    return text
+        .replace(/flag: /, "")
+        .replace(/’/g, "")
+        .replace(/'/g, "")
+        .replace(/:/g, "")
+        .toLowerCase()
+}
+const tokenize = (text: string) => {
+    return prune(text)
+        .split(" ")
+        .sort()
+}
+const compare = (a: string, b: string) => {
+    return isEqual(tokenize(a), tokenize(b))
+}
+const partiallyIncludes = (a: string, b: string) => {
+    return intersection(tokenize(a), tokenize(b)).length
 }
 
 export function Emojis() {
