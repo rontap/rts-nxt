@@ -1,5 +1,7 @@
+@import "tailwindcss";
+
 #root {
-    max-width: 1280px;
+    max-width: 960px;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
@@ -65,13 +67,14 @@ h1 {
 #gameCard {
     text-align: center;
     background: white;
-    padding:1.5em;
+    padding: 1.5em;
 }
 
 body, .radix-themes {
     background: whitesmoke !important;
     font-family: 'Bahnschrift' !important;
 }
+
 * {
     font-family: 'Bahnschrift semicondensed' !important;
 }
@@ -79,14 +82,29 @@ body, .radix-themes {
 .trophies {
     font-size: 44px !important;
 }
+
 .radix-themes {
 
 }
+
 h1 span {
     font-family: 'Bahnschrift condensed' !important;
     font-weight: lighter;
     color: #123167;
 }
+
 .large {
-    font-size:32px;
+    font-size: 32px;
+}
+
+.emojism {
+    border-radius: 4px;
+}
+
+.emojism:hover {
+    cursor: pointer;
+    background: #ccc;
+    position: relative;
+    font-size: 36px;
+    padding:0;
 }

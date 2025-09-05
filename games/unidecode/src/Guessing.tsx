@@ -4,12 +4,13 @@ import {calloutRootPropDefs} from "@radix-ui/themes/dist/esm/components/callout.
 import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
 
-const saved = JSON.parse(localStorage.trophies || "[]");
+
 const TIME = 300;
 const PENALTY = 30;
 const timeLost = (score) => ((100 - score) / 100) * PENALTY
 
 export function Guessing({engine}: { engine: Engine }) {
+    const saved = engine.saved;
     const [text, setText] = useState<string>("");
     const [curr, setCurr] = useState<Emoji | undefined>();
     const [guess, setGuess] = useState<GUESS>();
@@ -148,7 +149,7 @@ export function Guessing({engine}: { engine: Engine }) {
             </>
 
         }
-        <span className={"largeText"}>Collection {saved.length} emojis: {saved}</span>
+        <span className={"largeText"}>Collection {saved.length} emojis: {saved.slice(0, 99)}</span>
 
 
         {fail && <>

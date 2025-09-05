@@ -21,7 +21,7 @@ export default class Engine {
     had: number[];
     current: Emoji | undefined;
     keywordsCorrect: string[];
-    noClue: (Emoji|undefined)[];
+    noClue: (Emoji | undefined)[];
 
     constructor() {
         this.emojis = emojis;
@@ -29,6 +29,10 @@ export default class Engine {
         this.current = undefined;
         this.keywordsCorrect = [];
         this.noClue = [];
+    }
+
+    get saved() {
+        return JSON.parse(localStorage.trophies || "[]");
     }
 
     next() {
@@ -55,7 +59,7 @@ export default class Engine {
         guess = prune(guess);
         const description = prune(this.current?.description);
 
-        if (guess.length < 3) return GUESS.SHORT;
+        if (guess.length < 2) return GUESS.SHORT;
 
         if (guess === description) return GUESS.CORRECT;
 
@@ -75,7 +79,7 @@ export default class Engine {
 }
 
 const prune = (text: string) => {
-    return text.replace(/flag: /, "").replace(/’/,"").replace(/'/,"").toLowerCase();
+    return text.replace(/flag: /, "").replace(/’/, "").replace(/'/, "").toLowerCase();
 }
 
 export function Emojis() {

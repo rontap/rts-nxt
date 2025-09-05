@@ -1,0 +1,189 @@
+# -*- coding: utf-8 -*-
+"""
+@author: Rolf van Lieshout
+"""
+
+import numpy as np
+import math
+import os
+
+
+class Point2D:
+    """Class for representing a point in 2D space"""
+
+    def __init__(self, id, x, y):
+        self.id = id
+        self.x = x
+        self.y = y
+
+    # method that computes the rounded euclidian distance between two 2D points
+    def getDistance(c1, c2):
+        dx = c1.x - c2.x
+        dy = c1.y - c2.y
+        return math.sqrt(dx ** 2 + dy ** 2)
+
+
+class TSP:
+    """
+    Class for representing a Traveling Salesman Problem
+    
+    Attributes
+    ----------
+    nCities : int
+        the number of cities
+    cities : list of ints
+        the cities, all represented by integers
+    distMatrix : 2D array
+        matrix with all distances between cities. Distance between city i and city j is distMatrix[i-1][j]
+    
+    """
+
+    def __init__(self, tspFileName):
+        """
+        Reads a .tsp file and constructs an instance. 
+        We assume that it is an Euclidian TSP
+
+        Parameters
+        ----------
+        tspFileName : str
+            name of the file
+        """
+        points = list()  # add all points to list
+        f = open(tspFileName)
+        for line in f.readlines()[6:-1]:  # start reading from line 7, skip last line
+            asList = line.split()
+            floatList = list(map(float, asList))
+
+            id = int(floatList[0]) - 1  # convert to int, subtract 1 because Python indices start from 0
+            x = floatList[1]
+            y = floatList[2]
+
+            c = Point2D(id, x, y)
+            points.append(c)
+        f.close()
+
+        print("Read in all points, start computing distance matrix")
+
+        #self.points = points
+        self.nCities = len(points)
+        self.cities = list(range(self.nCities))
+
+        # compute distance matrix, assume Euclidian TSP
+        self.distMatrix = np.zeros((self.nCities, self.nCities))  # init as nxn matrix
+        for i in range(self.nCities):
+            for j in range(i + 1, self.nCities):
+                distItoJ = Point2D.getDistance(points[i], points[j])
+                self.distMatrix[i, j] = distItoJ
+                self.distMatrix[j, i] = distItoJ
+
+        print("Finished computing distance matrix")
+
+    def getTour_NN(self, start):
+        """
+        Performs the nearest neighbour algorithm
+
+        Parameters
+        ----------
+        start : int
+            starting point of the tour
+
+        Returns
+        -------
+        tour : list of ints
+            order in which the cities are visitied.
+
+        """
+        tour = [start]
+        notInTour = self.cities.copy()
+        notInTour.remove(start)
+
+        print("Start computing NN tour")
+        for i in range(self.nCities - 1):
+            curCity = tour[i]
+            closestDist = -1  # initialize with -1
+            closestCity = None  # initialize with None
+
+            # find closest city not yet in tour
+            for j in notInTour:
+                dist = self.distMatrix[curCity][j]
+                if dist < closestDist or closestCity is None:
+                    # update the closest city and distance
+                    closestDist = dist
+                    closestCity = j
+
+            tour.append(closestCity)
+            notInTour.remove(closestCity)
+
+        print("Finished computing NN tour")
+
+        return tour
+
+    def getCitiesCopy(self):
+        return self.cities.copy()
+
+    def evaluateSolution(self, tour):
+        print(tour)
+        print(points)
+        if self.isFeasible(tour):
+            costs = self.computeCosts(tour)
+            print("The solution is feasible with costs " + str(costs))
+        else:
+            print("The solution is infeasible")
+
+    def isFeasible(self, tour):
+        """
+        Checks if tour is feasible
+
+        Parameters
+        ----------
+        tour : list of integers
+            order in which cities are visited. For a 4-city TSP, an example tour is [3, 1, 4, 2]
+
+        Returns
+        -------
+        bool
+            TRUE if feasible, FALSE if infeasible.
+
+        """
+        # first check if the length of the tour is correct
+        if len(tour) != self.nCities:
+            print("Length of tour incorrect")
+            return False
+        else:
+            # check if all cities in the tour
+            for city in self.cities:
+                if city not in tour:
+                    return False
+        return True
+
+    def computeCosts(self, tour):
+        """
+        Computes the costs of a tour
+
+        Parameters
+        ----------
+        tour : list of integers
+            order of cities.
+
+        Returns
+        -------
+        costs : int
+            costs of tour.
+
+        """
+        costs = 0
+        for i in range(len(tour) - 1):
+            costs += self.distMatrix[tour[i], tour[i + 1]]
+
+        # add the costs to complete the tour back to the start
+        costs += self.distMatrix[tour[-1], tour[0]]
+        return costs
+
+
+##############################################################################   
+
+instFilename = "Instances/Small/berlin52.tsp"
+inst = TSP(instFilename)
+startPointNN = 0
+tour = inst.getTour_NN(startPointNN)
+inst.evaluateSolution(tour)
