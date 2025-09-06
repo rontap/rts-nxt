@@ -1,4 +1,4 @@
-import {Button, Callout, Card, Heading, Progress, TextField} from "@radix-ui/themes";
+import {Button, Callout, Card, Flex, Heading, Progress, Switch, Text, TextField} from "@radix-ui/themes";
 import Engine, {GUESS} from "./engine.tsx";
 import {calloutRootPropDefs} from "@radix-ui/themes/dist/esm/components/callout.props";
 import {useState} from "react";
@@ -21,6 +21,7 @@ export function Guessing({engine}: { engine: Engine }) {
     const [isStarted, setStarted] = useState(false);
     const [fail, setFail] = useState(false);
     const [begin, setBegin] = useState(false);
+    const [update, setUpdate] = useState({});
     const [totalScore, setTotalScore] = useState(0);
     const doFail = () => {
         setCorrectGuesses(guesses => {
@@ -64,12 +65,13 @@ export function Guessing({engine}: { engine: Engine }) {
         }, 495, totalTime);
         return () => clearInterval(intval);
     };
-    const onKey = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            const result = engine.submit(event.target.value);
+    const onKey = (event: React.ChangeEvent<HTMLInputElement>, enter = false) => {
+        if (enter || event.key === 'Enter') {
+            const result = engine.submit(enter ? text : event.target.value);
             setGuess(result);
             if (result == GUESS.CORRECT) {
                 setText("");
+                setScore(100);
                 setCorrectGuesses(correctGuesses.concat(engine.current?.emoji))
                 setTotalTime(totalTime => totalTime + 6);
                 setTimeout(function () {
@@ -86,12 +88,24 @@ export function Guessing({engine}: { engine: Engine }) {
         }
     }
     const progress = Math.round(totalTime / TIME * 100)
+    const scoreprogress = 565.48 - (score * 5.6548)
     return <>
         <Card className={"gameCard"}>
             {!fail && isStarted && <>
                 <div>Time Left ( Each unsolved puzzle subtracts from the time )</div>
                 <Progress size="3" color={progress > 40 ? "green" : progress > 15 ? "orange" : "red"}
                           value={progress > 100 ? 100 : progress}/>
+
+                <svg id="progress" width="200" height="200" viewBox="-25 -25 250 250" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style={{transform: "rotate(-90deg)"}}>
+                    <circle r="90" cx="100" cy="100" fill="transparent" stroke="#e0e0e0" strokeWidth="16px"></circle>
+                    <circle r="90" cx="100" cy="100" stroke="#48F" strokeWidth="16px" strokeLinecap="round"
+                            strokeDashoffset={scoreprogress + "px"} fill="transparent"
+                            stroke-dasharray={"565.48px"}></circle>
+                </svg>
+
+
                 <div id={"emojictr"}>
                     {curr?.emoji}
                 </div>
@@ -113,24 +127,85 @@ export function Guessing({engine}: { engine: Engine }) {
                 </Callout.Root>
                     <br/>
                     <Examples engine={engine}/>
-                    <br/>
-                    <Button onClick={start} size={"4"} color={"green"}>BEGIN</Button>
-                </>}
-            <br/>
+                    {saved.length > 10 && <>
+                        <Callout.Root color={"amber"} className={"mt-3"}>
+                            <Text as="label" size="3">
+                                <Flex gap="2">
+                                    <Switch size="2"
+                                            onCheckedChange={val => {
+                                                setUpdate({})
+                                                engine.emojisettings.flag = val
+                                            }}/> Hardcore
+                                    Mode
+                                    (+{engine.emojigroup.flag.length + engine.emojigroup.flag.length + engine.emojigroup.japan.length + engine.emojigroup.new.length} Emojis)
+                                </Flex>
+                            </Text>
+                            You have now more than 10 emojis unlocked, so you can play in hard mode too.<br/>
+                            Hard mode adds back all emojis: original japanese emojis like 🈯, flags like 🇬🇷, new emojis
+                            like 🧑‍🦼‍➡️ or 🪾.
+                        </Callout.Root>
+                    </>
+                    }
+                    {saved.length > 50 && <>
+                        <Callout.Root color={"mint"} className={"mt-3"}>
+                            <Text as="label" size="3">
+                                <Flex gap="2">
+                                    <Switch size="2"/> Does not Work yet . Equality Mode
+                                    (+{engine.emojigroup.inclusive.length} Emojis)
+                                </Flex>
+                            </Text>
+                            <b>You have now more than 50 emojis unlocked, so you can play in equality mode too.</b>
+                            Emojis can have modifiers attached to them, such as skin tone. 👨‍💼 "man office worker" can
+                            be 👨🏽‍💼👨🏾‍💼 - skintones range from: light, medium-light, medium, medium-dark to dark. So
+                            👨🏿‍💼 is "man office worker dark skin tone"<br/>
+                            Emojis with multiple people can be constructed with skin tone modifier and gender modifier.
+                            For example
+                            💏 "kiss" can be 🧑🏽‍❤️‍💋‍🧑🏼 "kiss person, person, medium skin tone, medium-light skin tone",
+                            and adding gender:
+                            👩🏻‍❤️‍💋‍👨🏼 "kiss woman, man, light skin tone, medium-light skin tone". <br/>
+                            Sometimes, the number of people is flexible, from 🧑‍🧒 "family adult, child" 👩‍👩‍👦‍👦 "family
+                            woman, woman, boy, boy"
+                            <br/>
+                            20% of the emojis will be of this type.
+                        </Callout.Root>
+                    </>
+                    }
+                    {saved.length > 250 && <>
+                        <Callout.Root color={"red"} className={"mt-3"}>
+                            <Text as="label" size="3">
+                                <Flex gap="2">
+                                    <Switch size="2"/> Does Not Work Yet. Completionist Mode
+                                </Flex>
+                            </Text>
+                            You have now more than 250 emojis unlocked, so you can play in completionist mode too.
+                            <br/>
+                            Only emojis that you do not already know will be asked.
+                        </Callout.Root>
+                    </>
+                    }
 
+                    <Button className={"!w-full !mt-3"} onClick={start} size={"4"} color={"green"}>BEGIN
+                        GUESSING {engine.count} EMOJIS</Button>
+                </>}
 
             {isStarted && !fail && <>
                 <TextField.Root radius="large" placeholder="Emoji Name. Press ENTER to submit"
                                 value={text}
+                                className={"!mb-3"}
                                 onChange={(event) => setText(event.target.value)}
                                 onKeyDown={onKey}/>
-                <br/>
-                {guess && <Guesswork guess={guess}/>}
 
-                <Progress value={score} size="2" color={score >= 79 ? "purple" : "blue"}/>
-                <br/>
-                <br/>
-                <Button onClick={onNext}>[TAB] SKIP (lose {Math.ceil(timeLost(score))} seconds)</Button>
+                {guess && <Guesswork guess={guess}/>}
+                <div>
+                    <Button className={"!w-full"} onClick={() => onKey(undefined, true)}>GUESS [ENTER]
+                    </Button>
+
+                    <Button
+                        variant={"outline"}
+                        color={"red"}
+                        className={"!w-full !mt-3"} onClick={onNext}>SKIP [TAB]
+                        (lose {Math.ceil(timeLost(score))} seconds)</Button>
+                </div>
 
 
             </>}
@@ -143,37 +218,42 @@ export function Guessing({engine}: { engine: Engine }) {
         <Card className={"gameCard"}>
             {
                 correctGuesses.length > 0 && <>
-                    <hr/>
-                    <Heading
-                        className={"trophies"}>Trophies: {correctGuesses.length} (total {correctGuesses.concat(saved).length})
-                        / {engine.emojis.length}</Heading>
-                    <span className={"largeText"}>{correctGuesses}</span><br/>
+                    <span
+                        className={"largeText"}>New Findings {correctGuesses.length}
+                    </span>
+                    <br/>
+                    <span className={"largeText"}>{correctGuesses}</span>
+                    <span className={"largeText"}>
+                        <br/>In total you know {correctGuesses.concat(saved).length} out of
+                        / {engine.emojis.length} emojis</span>
+                    <br/>
                 </>
 
             }
-            <span className={"largeText"}>Collection {saved.length} emojis <br/> {saved.slice(0, 99)}</span>
+            <span className={"largeText"}>Previously Collected {saved.length} emojis <br/> {saved.slice(0, 99)}</span>
         </Card>
+        <br/>
 
 
-            {fail && <Card className={"gameCard"}>
-                <Heading className={"trophies"}>You had no clue about {engine.noClue.length} Emojis</Heading>
-                Here are some of them:
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Emoji</th>
-                        <th>Name</th>
-                        <th>Keywords</th>
-                    </tr>
-                    </thead>
-                    {engine.noClue.slice(0, 5).map(el => <tr>
-                        <td className={"large"}>{el?.emoji}</td>
-                        <td>{el?.description}</td>
-                        <td>{el?.keywords.join(", ")}</td>
-                    </tr>)}
-                </table>
+        {fail && <Card className={"gameCard"}>
+            <Heading className={"trophies"}>You had no clue about {engine.noClue.length} Emojis</Heading>
+            Here are some of them:
+            <table>
+                <thead>
+                <tr>
+                    <th>Emoji</th>
+                    <th>Name</th>
+                    <th>Keywords</th>
+                </tr>
+                </thead>
+                {engine.noClue.slice(0, 5).map(el => <tr>
+                    <td className={"large"}>{el?.emoji}</td>
+                    <td>{el?.description}</td>
+                    <td>{el?.keywords.join(", ")}</td>
+                </tr>)}
+            </table>
 
-            </Card>}
+        </Card>}
 
     </>
 }
@@ -216,7 +296,7 @@ const getTextFromGuess = (guess: GUESS): string => {
 }
 
 function Guesswork({guess}: { guess: GUESS }) {
-    return <Callout.Root color={getColorFromGuess(guess)}>
+    return <Callout.Root variant={"surface"} className={"mt-3 mb-3"} color={getColorFromGuess(guess)}>
         <Callout.Text>
             {getTextFromGuess(guess)}
         </Callout.Text>

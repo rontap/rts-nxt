@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 #root {
-    max-width: 960px;
+    max-width: 840px;
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
@@ -48,6 +48,7 @@
 #emojictr {
     font-size: 80px;
     text-align: center;
+    margin: 43px 0 40px 0;
 }
 
 .bs {
@@ -81,7 +82,7 @@ body, .radix-themes {
 }
 
 .trophies {
-    font-size: 44px !important;
+    font-size: 32px !important;
 }
 
 .radix-themes {
@@ -114,4 +115,13 @@ h1 span {
     position: absolute;
     right: 46px;
     font-size: 48px;
+}
+
+#progress {
+    position: absolute;
+    left: calc(50% - 100px);
+    z-index: 0;
+}
+#progress circle {
+    transition: all .2s ease-out;
 }

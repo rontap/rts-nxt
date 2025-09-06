@@ -7,7 +7,7 @@ import Collection from "./Collection.tsx";
 import {Guessing} from "./Guessing.tsx";
 
 const engine = new Engine();
-
+window.engine = engine;
 function App() {
 
 

@@ -1,7 +1,7 @@
 import type {Emoji} from "unicode-emoji";
 import * as ue from 'unicode-emoji';
 import {Text} from '@radix-ui/themes'
-import {intersection, isEqual} from "lodash";
+import {difference, intersection, isEqual, uniq} from "lodash";
 
 export enum GUESS {
     _BRUH_REACT,
@@ -15,17 +15,25 @@ export enum GUESS {
 
 const emojis = ue.getEmojis();
 console.log(emojis);
-
+type Emojigroupkw = "japan" | "new" | "flag" | "inclusive"
 window.e = emojis;
 export default class Engine {
-    emojis: Emoji[];
+    #emojis: Emoji[];
+    emojigroup: Record<Emojigroupkw, Emoji[]>;
     had: number[];
     current: Emoji | undefined;
     keywordsCorrect: string[];
     noClue: (Emoji | undefined)[];
+    emojisettings: Record<Emojigroupkw, boolean>
 
     constructor() {
-        this.emojis = emojis;
+        this.emojigroup = {};
+        this.emojigroup.japan = emojis.filter(emoji => emoji.keywords.includes("Japan"))
+        this.emojigroup.new = emojis.filter(emoji => emoji.version === "16.0" || emoji.version === "15.1")
+        this.emojigroup.flag = emojis.filter(emoji => emoji.description.includes("flag:"))
+        this.emojigroup.inclusive = emojis.map(emoji => ({...emoji, ...emoji.variations})).filter(e => e).flat() as Emoji[]
+        this.emojisettings = {hardcore: false, japan: false, new: false, inclusive: false, flag: false}
+        this.#emojis = difference(emojis, this.emojigroups);
         this.had = [];
         this.current = undefined;
         this.keywordsCorrect = [];
@@ -34,6 +42,23 @@ export default class Engine {
 
     get saved() {
         return JSON.parse(localStorage.trophies || "[]");
+    }
+
+    get emojigroups() {
+        return uniq([]
+            .concat(this.emojigroup.japan)
+            .concat(this.emojigroup.flag)
+            .concat(this.emojigroup.inclusive)
+            .concat(this.emojigroup.new))
+    }
+
+    get emojis() {
+        return uniq([]
+            .concat(this.emojisettings.flag ? this.emojigroup.flag : [])
+            .concat(this.emojisettings.flag ? this.emojigroup.new : [])
+            .concat(this.emojisettings.inclusive ? this.emojigroup.inclusive : [])
+            .concat(this.emojisettings.flag ? this.emojigroup.japan : [])
+            .concat(this.#emojis))
     }
 
     next() {
@@ -45,7 +70,7 @@ export default class Engine {
             if (repeat) found++;
             else found = 0;
             if (found > this.emojis.length - 5) {
-                alert("BRUH")
+                alert("BRUH") // # todo all emojis used
                 found = 0;
             }
         }
@@ -53,6 +78,10 @@ export default class Engine {
         this.current = this.emojis[index];
         this.keywordsCorrect = [];
         return this.current;
+    }
+
+    get count() {
+        return this.emojis.length;
     }
 
     submit(guess: string): GUESS {

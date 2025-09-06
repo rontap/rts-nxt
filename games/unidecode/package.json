@@ -12,6 +12,7 @@
     "bodge": "vite build"
   },
   "dependencies": {
+    "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/themes": "^3.2.1",
     "@tailwindcss/vite": "^4.1.12",
     "lodash": "^4.17.21",
