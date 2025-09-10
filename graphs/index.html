@@ -60,36 +60,55 @@
     }
 </style>
 <script>
-    function proc_tue() {
-        const val = tue_val.value;
-        const procd = val.split("\n").map(val => val.split(" "))[0]
+    const ws = new WebSocket("ws://localhost:4242")
 
+    // ws.addEventListener("open", (event) => {
+    //
+    // });
+    // ws.addEventListener("message", (event) => {
+    //     console.log("Message from server ", event.data);
+    // });
+
+    window.onhashchange = function(hash) {
+        console.log(hash,window.location.hash);
+        $_GET("graph")
+        $_GET("solution")
+    }
+    function proc_tue(tgraph,tpath) {
+        const nthIndex = Number(tue_range.value);
+        const val = tgraph;
+        const procd = val.split("\n").map(val => val.split(" "))[0].filter(v => v)
         const pd = 80
         for (let i = 0; i < procd.length; i += 3) {
-            const nd = new Node(Number(procd[i]), {x: Number(procd[i + 1] ), y: Number(procd[i + 2] )});
-
+            const nd = new Node(Number(procd[i]) - 1, {x: Number(procd[i + 1]), y: Number(procd[i + 2])});
+            console.log(nd, procd[i], procd[i + 1], procd[i + 2]);
             graph.addNode(nd)
         }
-        setTimeout( function() {
+        setTimeout(function () {
             if (tue_fx.value) {
-                const proceval = tue_fx.value
-                const proce = proceval.replace("[", "").replace("]", "").split(",").map(Number)
+                const jspath = JSON.parse(tpath)
+                const proce = jspath[nthIndex].map(Number);
+                //const proce = proceval.replace("[", "").replace("]", "").split(",").map(Number)
                 console.log(proce, '<<')
                 console.log(graph.nodes)
                 for (let i = 0; i < proce.length - 1; i++) {
-                    console.log(proce[i+1])
-                    graph.nodes.get(proce[i])?.edges?.set(proce[i+1],1)
+                    console.log(proce[i + 1])
+                    graph.nodes.get(proce[i])?.edges?.set(proce[i + 1], i)
                 }
+                graph.nodes.get(proce[proce.length-1])?.edges?.set(proce[0], 1)
+                render(null,{which:3});
 
             }
-        },100)
+        }, 100)
 
     }
 </script>
 <div id="tue">
     <input id="tue_val"/>
     <input id="tue_fx"/>
-    <button onclick="proc_tue()">DO THING</button>
+    <button onclick="proc_tue(tue_val.value,tue_fx.value)">DO THING</button>
+    <input type="range" value="0" min="0" id="tue_range" onchange="proc_tue(tue_val.value,tue_fx.value)"/>
+    <button onclick="tue_range.value=Number(tue_range.value)+1;proc_tue(tue_val.value,tue_fx.value)">NEXT</button>
 </div>
 
 <holder>

@@ -6,7 +6,7 @@
 import numpy as np
 import math
 import os
-
+import random
 
 class Point2D:
     """Class for representing a point in 2D space"""
@@ -97,7 +97,7 @@ class TSP:
         notInTour = self.cities.copy()
         notInTour.remove(start)
 
-        print("Start computing NN tour")
+        # print("Start computing NN tour")
         for i in range(self.nCities - 1):
             curCity = tour[i]
             closestDist = -1  # initialize with -1
@@ -114,24 +114,18 @@ class TSP:
             tour.append(closestCity)
             notInTour.remove(closestCity)
 
-        print("Finished computing NN tour")
+        # print("Finished computing NN tour")
 
         return tour
 
-    def furthestCity(self, city, notInTour):
-        closestDist = -1
-        closestCity = None
-        for j in notInTour:
-            dist = self.distMatrix[city][j]
-            closestDist = dist
-            closestCity = j
-        return [closestCity, closestDist]
 
     def getCitiesCopy(self):
         return self.cities.copy()
 
-    def evaluateSolution(self, tour):
-        print(tour)
+    def evaluateSolution(self, tour, echo=False):
+        if echo:
+            print(tour)
+
         if self.isFeasible(tour):
             costs = self.computeCosts(tour)
             print("The solution is feasible with costs " + str(costs))
@@ -166,6 +160,60 @@ class TSP:
                     return False
         return True
 
+    def getTour_OutlierInsertion(self, start):
+        """
+        In this assignment, you will develop and implement a Greedy Randomized Adaptive Search
+        Procedure (GRASP) based on outlier insertion to solve the Traveling Salesman Problem (TSP).
+        After selecting an initial city, the algorithm creates a tour by joining it with the city with the
+        largest distance from the initial city. Then, in each iteration, among all cities not in the tour,
+        we choose the city the furthest to any city in the tour. Finally, we insert the selected city in
+        the position that causes the smallest increase in tour length. Figure 1 illustrates this outlier
+        insertion heuristic for a small TSP instance.
+        """
+        """
+        Performs the nearest neighbour algorithm
+
+        Parameters
+        ----------
+        start : int
+            starting point of the tour
+
+        Returns
+        -------
+        tour : list of ints
+            order in which the cities are visitied.
+
+        """
+        tour = [start]
+        notInTour = self.cities.copy()
+        notInTour.remove(start)
+
+        print("[")
+        # print("Start computing NN tour")
+        for i in range(self.nCities - 1):
+            curCity = tour[i]
+            furthestDist = -1  # initialize with -1
+            furthestCity = None  # initialize with None
+
+            # find closest city not yet in tour
+            for j in notInTour:
+                dist = self.distMatrix[curCity][j]
+                if dist > furthestDist or furthestCity is None:
+                    # update the closest city and distance
+                    furthestDist = dist
+                    furthestCity = j
+
+            # we now have a furthest city
+            print(tour)
+            print(",")
+            tour.append(furthestCity)
+            notInTour.remove(furthestCity)
+
+        # print("Finished computing NN tour")
+        print("[]]")
+        return tour
+
+
     def computeCosts(self, tour):
         """
         Computes the costs of a tour
@@ -195,7 +243,7 @@ class TSP:
         notInTour.remove(start)
 
 
-def testMultiple():
+def testMultiple(cb):
     """
     Task 1: Make a selection of 5 small, 3 medium and 2 large instances
     # TODO MAKE SEEDED-RANDOM
@@ -208,22 +256,38 @@ def testMultiple():
     largeFiles = map(lambda v: largePrefix + v, os.listdir(largePrefix)[:2])
 
     totalCosts = 0
-    for f in smallFiles:
-        inst = TSP(f)
-        tour = inst.getTour_NN(0)
-        totalCosts += inst.evaluateSolution(tour)
+    with open(cb.__name__ + ".csv", "w", encoding="utf-8") as logs:
+        for f in largeFiles:
+            cb(f, logs)
+
+
+def _task2_NN_heuristic_for_starting_positions(file, logs):
+    """
+    Task 2: check multiple starting positions
+    """
+    inst = TSP(file)
+    logs.write("\n" + file + " ")
+    for _ in range(min(10, len(inst.cities))):
+        city = random.randint(0, len(inst.cities) - 1)
+        tour = inst.getTour_NN(city)
+        logs.write(str(inst.evaluateSolution(tour)) + " ")
 
 
 ##############################################################################
+
+NUMBER_OF_STRARTING_POINTS = 10
+random.seed(42)
+print(random.random())
 
 instFilename = "Instances/Small/berlin52.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
-inst.evaluateSolution(tour)
+tour = inst.getTour_OutlierInsertion(startPointNN)
+inst.evaluateSolution(tour,True)
 
 inst.initGRASP(startPointNN)
 
 print(inst.points)
 
-testMultiple()
+#testMultiple(_task2_NN_heuristic_for_starting_positions)
