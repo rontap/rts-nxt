@@ -190,18 +190,24 @@ class TSP:
 
         print("[")
         # print("Start computing NN tour")
-        for i in range(self.nCities - 1):
+        for i in range(self.nCities - 1): # CREATING PATH
             curCity = tour[i]
             furthestDist = -1  # initialize with -1
             furthestCity = None  # initialize with None
-
-            # find closest city not yet in tour
-            for j in notInTour:
-                dist = self.distMatrix[curCity][j]
-                if dist > furthestDist or furthestCity is None:
+            # go through ALL cities not yet in tour
+            for j in notInTour: # inspecting all possible nodes to add
+                closestDist = -1  # initialize with -1
+                closestCity = None  # initialize with None
+                for k in tour:
+                    dist = self.distMatrix[k][j]
+                    if dist < closestDist or closestCity is None:
+                        # update the closest city and distance
+                        closestDist = dist
+                        closestCity = j
+                if closestDist > furthestDist or furthestCity is None:
                     # update the closest city and distance
-                    furthestDist = dist
-                    furthestCity = j
+                    furthestDist = closestDist
+                    furthestCity = closestCity
 
             # we now have a furthest city
             print(tour)
@@ -210,7 +216,8 @@ class TSP:
             notInTour.remove(furthestCity)
 
         # print("Finished computing NN tour")
-        print("[]]")
+        print(tour)
+        print("]")
         return tour
 
 
@@ -279,7 +286,7 @@ NUMBER_OF_STRARTING_POINTS = 10
 random.seed(42)
 print(random.random())
 
-instFilename = "Instances/Small/berlin52.tsp"
+instFilename = "Instances/Small/aron.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
