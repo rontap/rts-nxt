@@ -8,6 +8,7 @@ import math
 import os
 import random
 
+
 class Point2D:
     """Class for representing a point in 2D space"""
 
@@ -118,7 +119,6 @@ class TSP:
 
         return tour
 
-
     def getCitiesCopy(self):
         return self.cities.copy()
 
@@ -190,12 +190,13 @@ class TSP:
 
         print("[")
         # print("Start computing NN tour")
-        for i in range(self.nCities - 1): # CREATING PATH
+        for i in range(self.nCities - 1):  # CREATING PATH
             curCity = tour[i]
             furthestDist = -1  # initialize with -1
             furthestCity = None  # initialize with None
+            furthest = []
             # go through ALL cities not yet in tour
-            for j in notInTour: # inspecting all possible nodes to add
+            for j in notInTour:  # inspecting all possible nodes to add
                 closestDist = -1  # initialize with -1
                 closestCity = None  # initialize with None
                 for k in tour:
@@ -204,6 +205,7 @@ class TSP:
                         # update the closest city and distance
                         closestDist = dist
                         closestCity = j
+                furthest.append((closestCity,closestDist))
                 if closestDist > furthestDist or furthestCity is None:
                     # update the closest city and distance
                     furthestDist = closestDist
@@ -212,14 +214,31 @@ class TSP:
             # we now have a furthest city
             print(tour)
             print(",")
-            tour.append(furthestCity)
+            # where to insert it?
+            bestCostToInsert = -1
+            bestLocationToInsert = None
+            fauxtour = tour.copy()
+            fauxtour.append(tour[0])
+            if i == 0:
+                bestLocationToInsert = 0
+            else:
+                for k in range(len(fauxtour) - 1):
+                    current = self.distMatrix[fauxtour[k], fauxtour[k + 1]]
+                    new = self.distMatrix[fauxtour[k], furthestCity] + self.distMatrix[furthestCity, fauxtour[k + 1]]
+                    diff = new - current
+                    if diff < bestCostToInsert or bestLocationToInsert is None:
+                        bestCostToInsert = diff
+                        bestLocationToInsert = k
+                        #print("Best Cost" + str(bestCostToInsert))
+
+            tour.insert(bestLocationToInsert+1, furthestCity)
+            # tour.append(furthestCity)
             notInTour.remove(furthestCity)
 
         # print("Finished computing NN tour")
         print(tour)
         print("]")
         return tour
-
 
     def computeCosts(self, tour):
         """
@@ -286,15 +305,15 @@ NUMBER_OF_STRARTING_POINTS = 10
 random.seed(42)
 print(random.random())
 
-instFilename = "Instances/Small/aron.tsp"
+instFilename = "Instances/Small/berlin52.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
 tour = inst.getTour_OutlierInsertion(startPointNN)
-inst.evaluateSolution(tour,True)
+inst.evaluateSolution(tour, True)
 
 inst.initGRASP(startPointNN)
 
 print(inst.points)
 
-#testMultiple(_task2_NN_heuristic_for_starting_positions)
+# testMultiple(_task2_NN_heuristic_for_starting_positions)
