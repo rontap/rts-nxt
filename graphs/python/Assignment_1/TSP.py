@@ -277,8 +277,8 @@ class TSP:
         costs += self.distMatrix[tour[-1], tour[0]]
         return costs
 
-    def isTwoOpt(self, tour):
-        isOpt = True
+    def shouldTwoOpt(self, tour):
+        isOpt = []
         for i in range(len(tour) - 1):
             for j in range(i + 2, len(tour) - 1):
                 # print(tour[i], "->", tour[i + 1], tour[j], "->", tour[j + 1])
@@ -287,32 +287,62 @@ class TSP:
                 ac_cost = self.distMatrix[tour[i], tour[j]]
                 bd_cost = self.distMatrix[tour[i + 1], tour[j + 1]]
                 if ab_cost + cd_cost > ac_cost + bd_cost:
-                    print("Improvement can be made.")
-                    isOpt = False
+                    # print("Improvement can be made.")
+                    isOpt.append((i, j))
         return isOpt
         # print(ab_cost,cd_cost,ac_cost,bd_cost,ac_cost,bd_cost)
 
+    def isTwoOpt(self, tour):
+        return len(self.shouldTwoOpt(tour)) == 0
+
     def makeTwoOpt(self, opt_tour):
         size = len(opt_tour)
+        opt_output = [opt_tour]
         i = 0
-        while i < 9999 or self.isTwoOpt(opt_tour):
-            first = random.randint(0, size)
-            second = first
-            while first == second and abs(first - second) < 1:
-                second = random.randint(0, size)
-            section_first = opt_tour[0:first]
-            section_second = opt_tour[first + 1: second]
+        while i < REASONABLE_ITER:
+            opt = self.shouldTwoOpt(opt_tour)
+
+            if len(opt) == 0:
+                print("Yum yum yum.")
+                break
+
+            anIndex = random.randint(0, len(opt) - 1)
+            (first, second) = opt[anIndex]
+            print("\n==a,b (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second], opt_tour[second + 1],
+                  "); out of candidates", len(opt))
+
+            section_first = opt_tour[0:first + 1]
+            section_second = opt_tour[first + 1: second + 1]
             section_third = opt_tour[second + 1:len(opt_tour)]
-            section_second.reverse()
             new_tour = section_first + section_second[::-1] + section_third
             print(opt_tour, new_tour)
             print(section_first, section_second, section_third)
-            i = i + 1
-            if i > 999:
-                print("BRUH")
+            if len(opt_tour) != len(new_tour):
+                print("BAD DOG")
+            print("COst New|Old:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
             if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
-                print("Improve:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
                 opt_tour = new_tour
+            opt_output.append(new_tour)
+
+            i = i + 1
+            # first = random.randint(0, size)
+            # second = first
+            # while first == second and abs(first - second) < 1:
+            #     second = random.randint(0, size)
+            # section_first = opt_tour[0:first]
+            # section_second = opt_tour[first + 1: second]
+            # section_third = opt_tour[second + 1:len(opt_tour)]
+            # section_second.reverse()
+            # new_tour = section_first + section_second[::-1] + section_third
+            # print(opt_tour, new_tour)
+            # print(section_first, section_second, section_third)
+            # i = i + 1
+            # if i > 999:
+            #     print("BRUH")
+            # if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
+            #     print("Improve:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
+            #     opt_tour = new_tour
+        print(opt_output)
         return opt_tour
 
     def initGRASP(self, start):
@@ -354,16 +384,18 @@ def _task2_NN_heuristic_for_starting_positions(file, logs):
 ##############################################################################
 
 NUMBER_OF_STRARTING_POINTS = 10
+REASONABLE_ITER = 999
 T_CITY = 0
 T_DIST = 1
 random.seed(42)
 print(random.random())
 
-instFilename = "Instances/Small/notTwoOpt.tsp"
+instFilename = "Instances/Small/berlin52.tsp"
+instFilename = "Instances/Medium/a280.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
-# tour = inst.getTour_OutlierInsertion(startPointNN)
+tour = inst.getTour_GRASPedInsertion(startPointNN)
 inst.evaluateSolution(tour, True)
 
 # inst.initGRASP(startPointNN)

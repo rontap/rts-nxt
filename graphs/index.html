@@ -69,18 +69,29 @@
     //     console.log("Message from server ", event.data);
     // });
 
-    window.onhashchange = function(hash) {
-        console.log(hash,window.location.hash);
+    window.onhashchange = function (hash) {
+        console.log(hash, window.location.hash);
         $_GET("graph")
         $_GET("solution")
     }
-    function proc_tue(tgraph,tpath) {
+
+    const FORCE_LSA = true;
+    window.LSA_xdiff = [];
+
+    function partial_succ_prev(arr, arrb, index) {
+        const orig = arr[index];
+        const succ = arr[index + 1];
+        const newindex = arrb.findIndex(v => v === orig);
+        return arrb.at(newindex - 1) == succ || arrb.at(newindex + 1) == succ
+    }
+
+    function proc_tue(tgraph, tpath) {
         const nthIndex = Number(tue_range.value);
         const val = tgraph;
         const procd = val.split("\n").map(val => val.split(" "))[0].filter(v => v)
         const pd = 80
         for (let i = 0; i < procd.length; i += 3) {
-            const nd = new Node(Number(procd[i]) - 1, {x: Number(procd[i + 1]), y: Number(procd[i + 2])});
+            const nd = new Node(Number(procd[i]) - 1, {x: Number(procd[i + 1]) * 3, y: Number(procd[i + 2]) * 3});
             console.log(nd, procd[i], procd[i + 1], procd[i + 2]);
             graph.addNode(nd)
         }
@@ -88,27 +99,53 @@
             if (tue_fx.value) {
                 const jspath = JSON.parse(tpath)
                 const proce = jspath[nthIndex].map(Number);
+                if (nthIndex > 0) {
+                    const proceprev = jspath[nthIndex - 1].map(Number);
+                    LSA_xdiff = [...graph.nodes].map(([k, val], i) => {
+                        if (nthIndex >= jspath.length - 1) {
+                            return true;
+                        }
+                        if (proce.length != graph.nodes.size ) {
+                            if (proce.includes(val.id)) {
+                                return "#48F"
+                            }
+                            return "#999"
+                        }
+
+                        if (proce[i] == proceprev[i] ||
+                            partial_succ_prev(proceprev, proce, i)) {
+                            return "#26C"
+                        } else {
+                            return "#444"
+                        }
+                    })
+                }
                 //const proce = proceval.replace("[", "").replace("]", "").split(",").map(Number)
                 console.log(proce, '<<')
                 console.log(graph.nodes)
                 for (let i = 0; i < proce.length - 1; i++) {
                     console.log(proce[i + 1])
-                    graph.nodes.get(proce[i])?.edges?.set(proce[i + 1], i)
+                    graph.nodes.get(proce[i])?.edges?.set(proce[i + 1], Math.max(2, 20))
                 }
-                graph.nodes.get(proce[proce.length-1])?.edges?.set(proce[0], 1)
-                render(null,{which:3});
+                graph.nodes.get(proce[proce.length - 1])?.edges?.set(proce[0], 1)
+                render(null, {which: 3});
 
             }
         }, 100)
 
     }
+
+    var intval;
 </script>
 <div id="tue">
     <input id="tue_val"/>
     <input id="tue_fx"/>
     <button onclick="proc_tue(tue_val.value,tue_fx.value)">DO THING</button>
-    <input type="range" value="0" min="0" id="tue_range" onchange="proc_tue(tue_val.value,tue_fx.value)"/>
+    <input type="input" value="0" min="0" max="999" id="tue_range" onchange="proc_tue(tue_val.value,tue_fx.value)"/>
     <button onclick="tue_range.value=Number(tue_range.value)+1;proc_tue(tue_val.value,tue_fx.value)">NEXT</button>
+    <button onclick="if(intval||Number(tue_range.value)>=graph.nodes.length-1){clearInterval(intval)}else{intval = setInterval(function(){proc_tue(tue_val.value,tue_fx.value);tue_range.value++;},100)}">
+        TIMELAPSE BABY
+    </button>
 </div>
 
 <holder>
