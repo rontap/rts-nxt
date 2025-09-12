@@ -160,7 +160,16 @@ class TSP:
                     return False
         return True
 
+    def getTour_GRASPedInsertion(self, start):
+        # TODO: QQ: Do we need to do Simulated Annauling? 
+        graspDistance = lambda l: 0
+        graspIdk = lambda l: 0
+        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, graspIdk)
+
     def getTour_OutlierInsertion(self, start):
+        return self.getTour_OutlierInsertion_Parametrized(start, lambda l: min(0, 1), lambda l: 0)
+
+    def getTour_OutlierInsertion_Parametrized(self, start, graspDistance, graspIdk):
         """
         In this assignment, you will develop and implement a Greedy Randomized Adaptive Search
         Procedure (GRASP) based on outlier insertion to solve the Traveling Salesman Problem (TSP).
@@ -205,12 +214,15 @@ class TSP:
                         # update the closest city and distance
                         closestDist = dist
                         closestCity = j
-                furthest.append((closestCity,closestDist))
+                furthest.append((closestCity, closestDist))
                 if closestDist > furthestDist or furthestCity is None:
                     # update the closest city and distance
                     furthestDist = closestDist
                     furthestCity = closestCity
 
+            furthest.sort(key=lambda city: city[T_DIST], reverse=True)
+            selectedIndex = graspDistance(len(furthest))
+            furthestCity = furthest[selectedIndex][T_CITY]  # todo add here the fact that its not always 0
             # we now have a furthest city
             print(tour)
             print(",")
@@ -229,9 +241,9 @@ class TSP:
                     if diff < bestCostToInsert or bestLocationToInsert is None:
                         bestCostToInsert = diff
                         bestLocationToInsert = k
-                        #print("Best Cost" + str(bestCostToInsert))
+                        # print("Best Cost" + str(bestCostToInsert))
 
-            tour.insert(bestLocationToInsert+1, furthestCity)
+            tour.insert(bestLocationToInsert + 1, furthestCity)
             # tour.append(furthestCity)
             notInTour.remove(furthestCity)
 
@@ -255,6 +267,8 @@ class TSP:
             costs of tour.
 
         """
+        if (len(tour) != len(self.cities)):
+            return ValueError("Tour is wrong size, huh")
         costs = 0
         for i in range(len(tour) - 1):
             costs += self.distMatrix[tour[i], tour[i + 1]]
@@ -262,6 +276,44 @@ class TSP:
         # add the costs to complete the tour back to the start
         costs += self.distMatrix[tour[-1], tour[0]]
         return costs
+
+    def isTwoOpt(self, tour):
+        isOpt = True
+        for i in range(len(tour) - 1):
+            for j in range(i + 2, len(tour) - 1):
+                # print(tour[i], "->", tour[i + 1], tour[j], "->", tour[j + 1])
+                ab_cost = self.distMatrix[tour[i], tour[i + 1]]
+                cd_cost = self.distMatrix[tour[j], tour[j + 1]]
+                ac_cost = self.distMatrix[tour[i], tour[j]]
+                bd_cost = self.distMatrix[tour[i + 1], tour[j + 1]]
+                if ab_cost + cd_cost > ac_cost + bd_cost:
+                    print("Improvement can be made.")
+                    isOpt = False
+        return isOpt
+        # print(ab_cost,cd_cost,ac_cost,bd_cost,ac_cost,bd_cost)
+
+    def makeTwoOpt(self, opt_tour):
+        size = len(opt_tour)
+        i = 0
+        while i < 9999 or self.isTwoOpt(opt_tour):
+            first = random.randint(0, size)
+            second = first
+            while first == second and abs(first - second) < 1:
+                second = random.randint(0, size)
+            section_first = opt_tour[0:first]
+            section_second = opt_tour[first + 1: second]
+            section_third = opt_tour[second + 1:len(opt_tour)]
+            section_second.reverse()
+            new_tour = section_first + section_second[::-1] + section_third
+            print(opt_tour, new_tour)
+            print(section_first, section_second, section_third)
+            i = i + 1
+            if i > 999:
+                print("BRUH")
+            if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
+                print("Improve:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
+                opt_tour = new_tour
+        return opt_tour
 
     def initGRASP(self, start):
         tour = [start]
@@ -302,18 +354,23 @@ def _task2_NN_heuristic_for_starting_positions(file, logs):
 ##############################################################################
 
 NUMBER_OF_STRARTING_POINTS = 10
+T_CITY = 0
+T_DIST = 1
 random.seed(42)
 print(random.random())
 
-instFilename = "Instances/Small/berlin52.tsp"
+instFilename = "Instances/Small/notTwoOpt.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 tour = inst.getTour_NN(startPointNN)
-tour = inst.getTour_OutlierInsertion(startPointNN)
+# tour = inst.getTour_OutlierInsertion(startPointNN)
 inst.evaluateSolution(tour, True)
 
-inst.initGRASP(startPointNN)
+# inst.initGRASP(startPointNN)
 
-print(inst.points)
+tour = inst.makeTwoOpt(tour)
+print(inst.isTwoOpt(tour))
+
+print(tour)
 
 # testMultiple(_task2_NN_heuristic_for_starting_positions)
