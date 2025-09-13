@@ -18,7 +18,8 @@ class Point2D:
         self.y = y
 
     # method that computes the rounded euclidian distance between two 2D points
-    def getDistance(c1, c2):
+    def getDistance(c1, c2):  #
+
         dx = c1.x - c2.x
         dy = c1.y - c2.y
         return math.sqrt(dx ** 2 + dy ** 2)
@@ -51,6 +52,7 @@ class TSP:
         """
         points = list()  # add all points to list
         f = open(tspFileName)
+        self.tspFileName = tspFileName
         for line in f.readlines()[6:-1]:  # start reading from line 7, skip last line
             asList = line.split()
             floatList = list(map(float, asList))
@@ -63,7 +65,7 @@ class TSP:
             points.append(c)
         f.close()
 
-        print("Read in all points, start computing distance matrix")
+        print("[init] Read in all points, start computing distance matrix")
 
         self.points = points
         self.nCities = len(points)
@@ -71,13 +73,11 @@ class TSP:
 
         # compute distance matrix, assume Euclidian TSP
         self.distMatrix = np.zeros((self.nCities, self.nCities))  # init as nxn matrix
-        for i in range(self.nCities):
-            for j in range(i + 1, self.nCities):
-                distItoJ = Point2D.getDistance(points[i], points[j])
-                self.distMatrix[i, j] = distItoJ
-                self.distMatrix[j, i] = distItoJ
+        coords = np.array([[p.x, p.y] for p in points], dtype=np.float64)
+        diffs = coords[:, None, :] - coords[None, :, :]
+        self.distMatrix = np.sqrt(np.sum(diffs ** 2, axis=-1))
 
-        print("Finished computing distance matrix")
+        print("[init] Finished computing distance matrix")
 
     def getTour_NN(self, start):
         """
@@ -128,10 +128,10 @@ class TSP:
 
         if self.isFeasible(tour):
             costs = self.computeCosts(tour)
-            print("The solution is feasible with costs " + str(costs))
+            echo and print("The solution is feasible with costs " + str(costs))
             return costs
         else:
-            print("The solution is infeasible")
+            echo and print("The solution is infeasible")
             return None
 
     def isFeasible(self, tour):
@@ -194,63 +194,68 @@ class TSP:
 
         """
         tour = [start]
+        benchmark_iter = 0
         notInTour = self.cities.copy()
         notInTour.remove(start)
-
-        print("[")
-        # print("Start computing NN tour")
-        for i in range(self.nCities - 1):  # CREATING PATH
-            curCity = tour[i]
-            furthestDist = -1  # initialize with -1
-            furthestCity = None  # initialize with None
-            furthest = []
-            # go through ALL cities not yet in tour
-            for j in notInTour:  # inspecting all possible nodes to add
-                closestDist = -1  # initialize with -1
-                closestCity = None  # initialize with None
-                for k in tour:
-                    dist = self.distMatrix[k][j]
-                    if dist < closestDist or closestCity is None:
+        with open(self.tspFileName + "_outlierInsert.json", "w", encoding="utf-8") as logs:
+            LOG and logs.write("[")
+            print("[outlier insertion] Start computing NN tour")
+            for i in range(self.nCities - 1):  # CREATING PATH
+                i % 100 == 0 and print("[outlier insertion] iteration " + str(i))
+                curCity = tour[i]
+                furthestDist = -1  # initialize with -1
+                furthestCity = None  # initialize with None
+                furthest = []
+                # go through ALL cities not yet in tour
+                for j in notInTour:  # inspecting all possible nodes to add
+                    closestDist = -1  # initialize with -1
+                    closestCity = None  # initialize with None
+                    for k in tour:
+                        benchmark_iter = benchmark_iter + 1
+                        dist = self.distMatrix[k][j]
+                        if dist < closestDist or closestCity is None:
+                            # update the closest city and distance
+                            closestDist = dist
+                            closestCity = j
+                    furthest.append((closestCity, closestDist))
+                    if closestDist > furthestDist or furthestCity is None:
                         # update the closest city and distance
-                        closestDist = dist
-                        closestCity = j
-                furthest.append((closestCity, closestDist))
-                if closestDist > furthestDist or furthestCity is None:
-                    # update the closest city and distance
-                    furthestDist = closestDist
-                    furthestCity = closestCity
+                        furthestDist = closestDist
+                        furthestCity = closestCity
 
-            furthest.sort(key=lambda city: city[T_DIST], reverse=True)
-            selectedIndex = graspDistance(len(furthest))
-            furthestCity = furthest[selectedIndex][T_CITY]  # todo add here the fact that its not always 0
-            # we now have a furthest city
-            print(tour)
-            print(",")
-            # where to insert it?
-            bestCostToInsert = -1
-            bestLocationToInsert = None
-            fauxtour = tour.copy()
-            fauxtour.append(tour[0])
-            if i == 0:
-                bestLocationToInsert = 0
-            else:
-                for k in range(len(fauxtour) - 1):
-                    current = self.distMatrix[fauxtour[k], fauxtour[k + 1]]
-                    new = self.distMatrix[fauxtour[k], furthestCity] + self.distMatrix[furthestCity, fauxtour[k + 1]]
-                    diff = new - current
-                    if diff < bestCostToInsert or bestLocationToInsert is None:
-                        bestCostToInsert = diff
-                        bestLocationToInsert = k
-                        # print("Best Cost" + str(bestCostToInsert))
+                furthest.sort(key=lambda city: city[T_DIST], reverse=True)
+                selectedIndex = graspDistance(len(furthest))
+                furthestCity = furthest[selectedIndex][T_CITY]  # todo add here the fact that its not always 0
+                # we now have a furthest city
+                LOG and logs.write(str(tour))
+                LOG and logs.write(",")
+                # where to insert it?
+                bestCostToInsert = -1
+                bestLocationToInsert = None
+                fauxtour = tour.copy()
+                fauxtour.append(tour[0])
+                if i == 0:
+                    bestLocationToInsert = 0
+                else:
+                    for k in range(len(fauxtour) - 1):
+                        current = self.distMatrix[fauxtour[k], fauxtour[k + 1]]
+                        new = self.distMatrix[fauxtour[k], furthestCity] + self.distMatrix[
+                            furthestCity, fauxtour[k + 1]]
+                        diff = new - current
+                        if diff < bestCostToInsert or bestLocationToInsert is None:
+                            bestCostToInsert = diff
+                            bestLocationToInsert = k
+                            # print("Best Cost" + str(bestCostToInsert))
 
-            tour.insert(bestLocationToInsert + 1, furthestCity)
-            # tour.append(furthestCity)
-            notInTour.remove(furthestCity)
+                tour.insert(bestLocationToInsert + 1, furthestCity)
+                # tour.append(furthestCity)
+                notInTour.remove(furthestCity)
 
-        # print("Finished computing NN tour")
-        print(tour)
-        print("]")
-        return tour
+            # print("Finished computing NN tour")
+            LOG and logs.write(str(tour))
+            LOG and logs.write("]")
+            print("Get Tour Outlier Insertion done with ", benchmark_iter, " iteration.")
+            return tour
 
     def computeCosts(self, tour):
         """
@@ -268,7 +273,7 @@ class TSP:
 
         """
         if (len(tour) != len(self.cities)):
-            return ValueError("Tour is wrong size, huh")
+            raise Exception("The tour does not include all cities.")
         costs = 0
         for i in range(len(tour) - 1):
             costs += self.distMatrix[tour[i], tour[i + 1]]
@@ -303,45 +308,35 @@ class TSP:
             opt = self.shouldTwoOpt(opt_tour)
 
             if len(opt) == 0:
-                print("Yum yum yum.")
+                print("Make Two Opt Converges")
                 break
 
             anIndex = random.randint(0, len(opt) - 1)
             (first, second) = opt[anIndex]
-            print("\n==a,b (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second], opt_tour[second + 1],
-                  "); out of candidates", len(opt))
+            if DEBUG: print("Trying to switch nodes (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second],
+                            opt_tour[second + 1],
+                            "); #", anIndex, " out of candidates", len(opt))
 
             section_first = opt_tour[0:first + 1]
             section_second = opt_tour[first + 1: second + 1]
             section_third = opt_tour[second + 1:len(opt_tour)]
             new_tour = section_first + section_second[::-1] + section_third
-            print(opt_tour, new_tour)
-            print(section_first, section_second, section_third)
-            if len(opt_tour) != len(new_tour):
-                print("BAD DOG")
-            print("COst New|Old:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
+            if DEBUG:
+                print(opt_tour, new_tour)
+                print(section_first, section_second, section_third)
+
             if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
                 opt_tour = new_tour
+                DEBUG and print("Improvement in cost: New | Old:", self.computeCosts(new_tour),
+                                self.computeCosts(opt_tour))
             opt_output.append(new_tour)
 
             i = i + 1
-            # first = random.randint(0, size)
-            # second = first
-            # while first == second and abs(first - second) < 1:
-            #     second = random.randint(0, size)
-            # section_first = opt_tour[0:first]
-            # section_second = opt_tour[first + 1: second]
-            # section_third = opt_tour[second + 1:len(opt_tour)]
-            # section_second.reverse()
-            # new_tour = section_first + section_second[::-1] + section_third
-            # print(opt_tour, new_tour)
-            # print(section_first, section_second, section_third)
-            # i = i + 1
-            # if i > 999:
-            #     print("BRUH")
-            # if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
-            #     print("Improve:", self.computeCosts(new_tour), self.computeCosts(opt_tour))
-            #     opt_tour = new_tour
+            if i >= REASONABLE_ITER:
+                raise Exception("Too many iterations, does not converge.")
+            if len(opt_tour) != len(new_tour):
+                raise Exception("Inconsistent number of nodes in tour.")
+
         print(opt_output)
         return opt_tour
 
@@ -374,17 +369,19 @@ def _task2_NN_heuristic_for_starting_positions(file, logs):
     Task 2: check multiple starting positions
     """
     inst = TSP(file)
-    logs.write("\n" + file + " ")
+    LOG and logs.write("\n" + file + " ")
     for _ in range(min(10, len(inst.cities))):
         city = random.randint(0, len(inst.cities) - 1)
         tour = inst.getTour_NN(city)
-        logs.write(str(inst.evaluateSolution(tour)) + " ")
+        LOG and logs.write(str(inst.evaluateSolution(tour)) + " ")
 
 
 ##############################################################################
 
 NUMBER_OF_STRARTING_POINTS = 10
 REASONABLE_ITER = 999
+DEBUG = False
+LOG = False
 T_CITY = 0
 T_DIST = 1
 random.seed(42)
@@ -392,9 +389,10 @@ print(random.random())
 
 instFilename = "Instances/Small/berlin52.tsp"
 instFilename = "Instances/Medium/a280.tsp"
+instFilename = "Instances/Large/brd14051.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
-tour = inst.getTour_NN(startPointNN)
+# tour = inst.getTour_NN(startPointNN)
 tour = inst.getTour_GRASPedInsertion(startPointNN)
 inst.evaluateSolution(tour, True)
 
