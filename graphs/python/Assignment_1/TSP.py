@@ -7,7 +7,6 @@ import numpy as np
 import math
 import os
 import random
-from line_profiler_pycharm import profile
 
 
 class Point2D:
@@ -23,6 +22,7 @@ class Point2D:
         dx = c1.x - c2.x
         dy = c1.y - c2.y
         return math.sqrt(dx ** 2 + dy ** 2)
+
 
 class TSP:
     """
@@ -294,17 +294,19 @@ class TSP:
 
     def shouldTwoOpt(self, tour):
         isOpt = []
-        for i in range(len(tour) - 1):
-            for j in range(i + 2, len(tour) - 1):
-                # print(tour[i], "->", tour[i + 1], tour[j], "->", tour[j + 1])
-                ab_cost = self.distMatrix[tour[i], tour[i + 1]]
-                cd_cost = self.distMatrix[tour[j], tour[j + 1]]
-                ac_cost = self.distMatrix[tour[i], tour[j]]
-                bd_cost = self.distMatrix[tour[i + 1], tour[j + 1]]
+        dmx = self.distMatrix
+        t = tour
+        for i in range(len(t) - 1):
+            # [SPEED] calculating this and destructuring self.distMatrix has a 10% improvement on the performance on this function
+            ab_cost = dmx[t[i], t[i + 1]]
+            for j in range(i + 2, len(t) - 1):
+                cd_cost = dmx[t[j], t[j + 1]]
+                ac_cost = dmx[t[i], t[j]]
+                bd_cost = dmx[t[i + 1], t[j + 1]]
                 if ab_cost + cd_cost > ac_cost + bd_cost:
-                    # print("Improvement can be made.")
+                    return [(i, j)]
                     isOpt.append((i, j))
-                    if len(isOpt) > 1:
+                    if len(isOpt) > 0:
                         return isOpt
         return isOpt
 
@@ -315,6 +317,7 @@ class TSP:
 
     def makeTwoOpt(self, opt_tour):
         print("[2-opt] Exchange begins")
+        og_tour = opt_tour
         size = len(opt_tour)
         opt_output = [opt_tour]
         i = 0
@@ -322,29 +325,28 @@ class TSP:
             opt = self.shouldTwoOpt(opt_tour)
 
             if len(opt) == 0:
-                print("Make Two Opt Converges")
+                print("Make Two Opt Converges in ", i, " steps, optimised from", self.computeCosts(og_tour), " to ",
+                      self.computeCosts(new_tour))
                 break
 
-            anIndex = 0#random.randint(0, len(opt) - 1)
+            anIndex = random.randint(0, len(opt) - 1)
             (first, second) = opt[anIndex]
-            if DEBUG: print("Trying to switch nodes (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second],
+            DEBUG and print("Trying to switch nodes (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second],
                             opt_tour[second + 1],
                             "); #", anIndex, " out of candidates", len(opt))
 
-            section_first = opt_tour[0:first + 1]
+            # section_first = opt_tour[0:first + 1]
             section_second = opt_tour[first + 1: second + 1]
-            section_third = opt_tour[second + 1:len(opt_tour)]
-            new_tour = section_first + section_second[::-1] + section_third
-            if DEBUG:
-                print(opt_tour, new_tour)
-                print(section_first, section_second, section_third)
+            # section_third = opt_tour[second + 1:len(opt_tour)]
+            new_tour = opt_tour[0:first + 1] + section_second[::-1] + opt_tour[second + 1:len(opt_tour)]
+            DEBUG and print(opt_tour, new_tour)
+            # print(section_first, section_second, section_third)
 
-            if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
-                opt_tour = new_tour
-                print("Improvement in cost: New | Old:", self.computeCosts(new_tour),
-                      self.computeCosts(opt_tour))
-            else:
-                print("No improvment. how is that possible")
+            # if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
+            opt_tour = new_tour
+            DEBUG and print("Improvement in cost: New:", self.computeCosts(new_tour))
+            # else:
+            # raise Exception("This split actually made costs go up. How?")
             opt_output.append(new_tour)
 
             i = i + 1
@@ -353,7 +355,6 @@ class TSP:
             if len(opt_tour) != len(new_tour):
                 raise Exception("Inconsistent number of nodes in tour.")
 
-        print(opt_output)
         return opt_tour
 
     def initGRASP(self, start):
@@ -405,6 +406,8 @@ print(random.random())
 
 instFilename = "Instances/Small/berlin52.tsp"
 instFilename = "Instances/Medium/a280.tsp"
+instFilename = "Instances/Large/d1655.tsp"
+instFilename = "Instances/Large/d1655.tsp"
 instFilename = "Instances/Large/brd14051.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
