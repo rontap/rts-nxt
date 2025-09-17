@@ -69,6 +69,7 @@ class TSP:
         self.points = points
         self.nCities = len(points)
         self.cities = list(range(self.nCities))
+        self.twoOptSweepFrom = 0
 
         # compute distance matrix, assume Euclidian TSP
         coords = np.array([[p.x, p.y] for p in points], dtype=np.float64)
@@ -158,14 +159,42 @@ class TSP:
                     return False
         return True
 
+    def getTour(self, withLocal=True):
+        startingCity = self.cities.copy()
+        random.shuffle(startingCity)
+        tour = None
+        best = float('inf')
+        with open(self.tspFileName + "_getTour_local" + str(withLocal) + ".csv", "w", encoding="utf-8") as logs:
+            for i in range(GRASPED_ITERATIONS):
+                city = self.cities[i]
+                currentTour = self.getTour_GRASPedInsertion(city)
+                if withLocal:
+                    currentTour = self.makeTwoOpt(currentTour)
+                cost = self.evaluateSolution(currentTour)
+                LOG and logs.write(str(cost) + "[" + str(city) + "],")
+                if cost < best:
+                    best = cost
+                    tour = currentTour
+            print("[getTour] best tour cost: ", best)
+
     def getTour_GRASPedInsertion(self, start):
-        # TODO: QQ: Do we need to do Simulated Annauling? 
-        graspDistance = lambda l: 0
+        # TODO: QQ: Do we need to do Simulated Annauling?
+        graspDistance = lambda l: min(len(l) - 1, 1)
+
+        def graspDistance(l):
+            maxIndex = len(l) - 1
+            furthest = l[0][T_DIST]
+            # list comprehension Source: https://stackoverflow.com/questions/3013449/list-comprehension-vs-lambda-filter
+            candidates = [x for x in l if x[T_DIST] * (1 + ALPHA) >= furthest]
+            selected = random.randint(0, len(candidates) - 1)
+            return selected
+
         graspIdk = lambda l: 0
         return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, graspIdk)
 
     def getTour_OutlierInsertion(self, start):
-        return self.getTour_OutlierInsertion_Parametrized(start, lambda l: min(0, 1), lambda l: 0)
+        graspDistance = lambda l: 0
+        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, lambda l: 0)
 
     def getTour_OutlierInsertion_Parametrized(self, start, graspDistance, graspIdk):
         """
@@ -205,25 +234,10 @@ class TSP:
                 closestDist[j] = self.distMatrix[tour[0], j]
 
             for i in range(self.nCities - 1):  # CREATING PATH
-                i % 500 == 0 and print("[outlier insertion] iteration " + str(i))
-                # go through ALL cities not yet in tour
-                # for j in notInTour:  # inspecting all possible nodes to add
-                # closestDist = -1  # initialize with -1
-                # closestCity = None  # initialize with None
-                # finding the closest city from each j (notInTour) to each i (inTour)
-                # for k in tour:
-                #     benchmark_iter = benchmark_iter + 1
-                #     dist = self.distMatrix[k][j]
-                #     if dist < closestDist or closestCity is None:
-                #         # update the closest city and distance
-                #         closestDist = dist
-                #         closestCity = j
+                DEBUG and i > 1 and i % 500 == 0 and print("[outlier insertion] iteration " + str(i))
                 furthest = [(j, closestDist[j]) for j in notInTour]
-                # if len(furthest) < 10 or closestDist > np.mean(furthest):
-                #     furthest.append((closestCity, closestDist))
-
                 furthest.sort(key=lambda city: city[T_DIST], reverse=True)
-                selectedIndex = graspDistance(len(furthest))
+                selectedIndex = graspDistance(furthest)
                 furthestCity = furthest[selectedIndex][T_CITY]  # todo add here the fact that its not always 0
                 # we now have a furthest city
                 LOG and logs.write(str(tour))
@@ -232,7 +246,6 @@ class TSP:
                 bestLocationToInsert = self.findBestLocationToInsert(furthestCity, i, tour)
 
                 tour.insert(bestLocationToInsert + 1, furthestCity)
-                # tour.append(furthestCity)
                 notInTour.remove(furthestCity)
 
                 for j in notInTour:
@@ -240,7 +253,6 @@ class TSP:
                     if self.distMatrix[furthestCity][j] < closestDist[j]:
                         closestDist[j] = self.distMatrix[furthestCity][j]
 
-            # print("Finished computing NN tour")
             LOG and logs.write(str(tour))
             LOG and logs.write("]")
             print("Get Tour Outlier Insertion done with ", benchmark_iter, " iteration.")
@@ -252,7 +264,7 @@ class TSP:
         fauxtour = tour.copy()
         fauxtour.append(tour[0])
 
-        # calculate best location to insert
+        # calculate the best location to insert
         if i == 0:
             bestLocationToInsert = 0
         else:
@@ -296,7 +308,7 @@ class TSP:
         isOpt = []
         dmx = self.distMatrix
         t = tour
-        for i in range(len(t) - 1):
+        for i in range(self.twoOptSweepFrom,len(t) - 1):
             # [SPEED] calculating this and destructuring self.distMatrix has a 10% improvement on the performance on this function
             ab_cost = dmx[t[i], t[i + 1]]
             for j in range(i + 2, len(t) - 1):
@@ -304,10 +316,11 @@ class TSP:
                 ac_cost = dmx[t[i], t[j]]
                 bd_cost = dmx[t[i + 1], t[j + 1]]
                 if ab_cost + cd_cost > ac_cost + bd_cost:
+                    self.twoOptSweepFrom = i
                     return [(i, j)]
-                    isOpt.append((i, j))
-                    if len(isOpt) > 0:
-                        return isOpt
+        if isOpt == [] and self.twoOptSweepFrom != 0:
+            self.twoOptSweepFrom = 0
+            self.shouldTwoOpt(tour)
         return isOpt
 
         # print(ab_cost,cd_cost,ac_cost,bd_cost,ac_cost,bd_cost)
@@ -325,33 +338,37 @@ class TSP:
             opt = self.shouldTwoOpt(opt_tour)
 
             if len(opt) == 0:
-                print("Make Two Opt Converges in ", i, " steps, optimised from", self.computeCosts(og_tour), " to ",
+                print("Make Two Opt Converges in ", i, " steps, optimised from ", self.computeCosts(og_tour), " to ",
                       self.computeCosts(new_tour))
                 break
 
             anIndex = random.randint(0, len(opt) - 1)
             (first, second) = opt[anIndex]
-            DEBUG and print("Trying to switch nodes (", opt_tour[first], opt_tour[first + 1], "),(", opt_tour[second],
-                            opt_tour[second + 1],
-                            "); #", anIndex, " out of candidates", len(opt))
+            False and DEBUG and print("Trying to switch nodes (", opt_tour[first], opt_tour[first + 1], "),(",
+                                      opt_tour[second],
+                                      opt_tour[second + 1],
+                                      "); #", anIndex, " out of candidates", len(opt))
 
             # section_first = opt_tour[0:first + 1]
             section_second = opt_tour[first + 1: second + 1]
             # section_third = opt_tour[second + 1:len(opt_tour)]
             new_tour = opt_tour[0:first + 1] + section_second[::-1] + opt_tour[second + 1:len(opt_tour)]
-            DEBUG and print(opt_tour, new_tour)
+            # DEBUG and print(opt_tour, new_tour)
             # print(section_first, section_second, section_third)
 
             # if self.computeCosts(new_tour) < self.computeCosts(opt_tour):
+            DEBUG and print("[2opt] Iteration " + str(i) + "; Improvement in cost: New:", self.computeCosts(new_tour),
+                            "%Diff: ",
+                            self.computeCosts(opt_tour) / self.computeCosts(new_tour) - 1)
             opt_tour = new_tour
-            DEBUG and print("Improvement in cost: New:", self.computeCosts(new_tour))
             # else:
             # raise Exception("This split actually made costs go up. How?")
             opt_output.append(new_tour)
 
             i = i + 1
             if i >= REASONABLE_ITER:
-                raise Exception("Too many iterations, does not converge.")
+                print("[twoOpt] Too many iterations, does not converge.")
+                return opt_tour
             if len(opt_tour) != len(new_tour):
                 raise Exception("Inconsistent number of nodes in tour.")
 
@@ -368,40 +385,51 @@ def testMultiple(cb):
     Task 1: Make a selection of 5 small, 3 medium and 2 large instances
     # TODO MAKE SEEDED-RANDOM
     """
+
     smallPrefix = "Instances/Small/"
     medPrefix = "Instances/Medium/"
     largePrefix = "Instances/Large/"
-    smallFiles = map(lambda v: smallPrefix + v, os.listdir(smallPrefix)[:5])
-    medFiles = map(lambda v: medPrefix + v, os.listdir(medPrefix)[:3])
-    largeFiles = map(lambda v: largePrefix + v, os.listdir(largePrefix)[:2])
-
+    smallFiles = list(map(lambda v: smallPrefix + v, os.listdir(smallPrefix)))
+    medFiles = list(map(lambda v: medPrefix + v, os.listdir(medPrefix)))
+    largeFiles = list(map(lambda v: largePrefix + v, os.listdir(largePrefix)))
+    random.shuffle(smallFiles)
+    random.shuffle(medFiles)
+    random.shuffle(largeFiles)
+    mergedFiles = smallFiles[:SAMPLE_S_FILES] + medFiles[:SAMPLE_M_FILES] + largeFiles[:SAMPLE_L_FILES]
     totalCosts = 0
     with open(cb.__name__ + ".csv", "w", encoding="utf-8") as logs:
-        for f in largeFiles:
+        for f in mergedFiles:
+            print("[testMultiple] calculating ", cb.__name__, " for ", f)
             cb(f, logs)
 
 
-def _task2_NN_heuristic_for_starting_positions(file, logs):
+def cb_NN_MultipleStartingPoints(file, logs):
     """
     Task 2: check multiple starting positions
     """
     inst = TSP(file)
-    LOG and logs.write("\n" + file + " ")
-    for _ in range(min(10, len(inst.cities))):
+    LOG and logs.write("\n" + file + ", " + str(len(inst.cities)) + ",")
+    for _ in range(min(NUMBER_OF_STARTING_POINTS, len(inst.cities))):
         city = random.randint(0, len(inst.cities) - 1)
         tour = inst.getTour_NN(city)
-        LOG and logs.write(str(inst.evaluateSolution(tour)) + " ")
+        LOG and logs.write(str(inst.evaluateSolution(tour)) + ",")
 
 
 ##############################################################################
-
-NUMBER_OF_STRARTING_POINTS = 10
-REASONABLE_ITER = 999
-DEBUG = False
-LOG = False
-T_CITY = 0
-T_DIST = 1
-random.seed(42)
+NUMBER_OF_STRARTING_POINTS = 10  # number of starting points to try
+REASONABLE_ITER = 1000
+ALPHA = 0
+GRASPED_ITERATIONS = 50
+# number of samples to take from...
+SAMPLE_S_FILES = 10  # small
+SAMPLE_M_FILES = 5  # medium
+SAMPLE_L_FILES = 5  # large files
+NUMBER_OF_STARTING_POINTS = 80
+DEBUG = True  # should display print debug messages
+LOG = True  # should log to files
+T_CITY = 0  # tuple city position
+T_DIST = 1  # tuple distance position
+random.seed(51)
 print(random.random())
 
 instFilename = "Instances/Small/berlin52.tsp"
@@ -412,14 +440,17 @@ instFilename = "Instances/Large/brd14051.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
 # tour = inst.getTour_NN(startPointNN)
+# tour = inst.getTour_OutlierInsertion(startPointNN)
 tour = inst.getTour_GRASPedInsertion(startPointNN)
-inst.evaluateSolution(tour, True)
+# inst.getTour()
+# inst.getTour(False)
+# inst.evaluateSolution(tour, True)
 
 # inst.initGRASP(startPointNN)
 
 tour = inst.makeTwoOpt(tour)
-print(inst.isTwoOpt(tour))
+# print(inst.isTwoOpt(tour))
+#
+# print(tour)
 
-print(tour)
-
-# testMultiple(_task2_NN_heuristic_for_starting_positions)
+# testMultiple(cb_NN_MultipleStartingPoints)
