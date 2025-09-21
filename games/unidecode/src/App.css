@@ -66,6 +66,14 @@ h1 {
     font-size: 2em;
 }
 
+.medText {
+    font-size: 1.5em;
+}
+
+.mdText {
+    font-size: 1.2em;
+}
+
 .gameCard {
     text-align: center;
     background: white;
@@ -167,4 +175,29 @@ h1 span {
     border: none;
     margin-left: -2em;
     margin-right: -2em;
+}
+
+.missedEmojis tr {
+    text-align: left;
+}
+
+.missedEmojis td {
+    padding-bottom: 5px;
+    padding-right: 15px;
+}
+
+.owns {
+    margin-left: 3px !important;
+    margin-top: -10px !important;
+}
+
+.emojictr.highlighted {
+    box-shadow: var(--bcolor) 0px 0px 5px 0px;
+}
+
+.opacity-reduced {
+    opacity: .85;
+}
+.opacity-reduced > * {
+    background: #eee;
 }

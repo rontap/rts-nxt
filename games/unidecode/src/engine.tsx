@@ -20,11 +20,14 @@ export enum DIFFUCULTY {
     RARE,
     LEGENDARY
 }
+const style = 'background-color: darkblue; color: white; font-style: italic; border: 5px solid hotpink; font-size: 1.2em;'
+
+console.warn("%cDID YOU THINK YOU CAN JUST GET ALL OF THE ANWSERS FROM THE CONSOLE???? I MEAN, YES, BUT BAD DOG!!! They are in the global variable i_am_a_bad_person",style)
 
 const emojis = ue.getEmojis();
-console.log(emojis);
+// console.log(emojis);
 type Emojigroupkw = "japan" | "new" | "flag" | "inclusive"
-window.e = emojis;
+window.i_am_a_bad_person_emojis = emojis;
 export default class Engine {
     #emojis: Emoji[];
     emojigroup: Record<Emojigroupkw, Emoji[]>;
@@ -114,7 +117,7 @@ export default class Engine {
         const guessAndPrev = guess + " " + this.partialGuesses.join(" ")
 
         // if the two guesses are identical, CORRECT
-        console.log(guessAndPrev, "<CMP>", description)
+
         if (compare(guessAndPrev, description)) {
             this.partialGuesses = [];
             return GUESS.CORRECT;
@@ -126,7 +129,7 @@ export default class Engine {
             // if this was already a guess, do not include it.
             console.log(guess, description)
             if (this.partialGuesses.includes(guess)) {
-                console.log("you already guessed this?")
+                return GUESS.CLOSE_EXTRA_REPEAT;
             } else if (partiallyIncludes(guess, description)) {
                 console.log("partmatch")
                 this.partialGuesses.push(guess)
@@ -181,7 +184,7 @@ export default class Engine {
         if (emoji.group === "symbols") {
             return DIFFUCULTY.RARE
         }
-        if (emoji.description.split(" ").length > 3) {
+        if (emoji.description?.split(" ").length > 3) {
             return DIFFUCULTY.RARE
         }
         return DIFFUCULTY.UNCOMMON

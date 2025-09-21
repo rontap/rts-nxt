@@ -8,6 +8,7 @@ export default function Collection({saved, engine}: { saved: Emoji[], engine: En
     const groupped = Object.groupBy(engine.emojis, el => el.group)
     const [selected, setSelected] = useState(Object.keys(groupped)[0]);
     return <>
+        EvilCheater Detected <br/>
         <SegmentedControl.Root value={selected} onValueChange={value => startTransition(() => {
             setSelected(value)
         })}>
@@ -20,9 +21,10 @@ export default function Collection({saved, engine}: { saved: Emoji[], engine: En
                 {
                     groupped[selected].map((emoji: Emoji) => <span className={"grid p-1 emojism"}>
                         <Suspense fallback={<></>}>
-
-                                <EmojiJSX emoji={emoji}/>
-
+                            <span className={`opacity-${saved.includes(emoji.emoji) ? "100" : "reduced"}`}>
+                            <EmojiJSX emoji={emoji} highlight={saved.includes(emoji.emoji)}
+                                      addText={saved.includes(emoji.emoji) ? "You have this emoji!" : "This emoji has eluded you so far..."}/>
+                            </span>
                         </Suspense>
                 </span>
                     )
