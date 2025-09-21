@@ -1,9 +1,9 @@
 import {Button, Callout, Card, Flex, Heading, Progress, Switch, Text, TextField} from "@radix-ui/themes";
 import Engine, {GUESS} from "./engine.tsx";
-import {calloutRootPropDefs} from "@radix-ui/themes/dist/esm/components/callout.props";
 import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
 import Examples from "./Examples.tsx";
+import EmojiJSX from "./Emoji.tsx";
 
 
 const TIME = 300;
@@ -23,6 +23,7 @@ export function Guessing({engine}: { engine: Engine }) {
     const [begin, setBegin] = useState(false);
     const [update, setUpdate] = useState({});
     const [totalScore, setTotalScore] = useState(0);
+    const [showEmojisUpTo, setShowEmojisUpTo] = useState(32 - 8);
     const doFail = () => {
         setCorrectGuesses(guesses => {
             console.log(saved, [...new Set(saved.concat(guesses))], guesses)
@@ -35,6 +36,7 @@ export function Guessing({engine}: { engine: Engine }) {
         setTotalTime(undefined);
     }
     const onNext = (penalty = true) => {
+
         setCurr(engine.next());
         setTotalScore(prev => prev + score)
         if (score === 0) {
@@ -77,10 +79,14 @@ export function Guessing({engine}: { engine: Engine }) {
                 setTimeout(function () {
                     onNext(false);
                 }, 450)
-            } else if (result == GUESS.CLOSE_SUBSTR) {
-                setScore(score => score + 40 > 80 ? 80 : score + 40)
+            } else if (result == GUESS.MATCH_PARTIAL) {
+                setText("")
+                const length = 100 / (engine.current.description.split(" ").length)
+                console.log("length", length, engine.current.description)
+                setScore(score => score + length > 95 ? 95 : score + length)
             } else if (result == GUESS.CLOSE_EXTRA) {
-                setScore(score => score + 20 > 80 ? 80 : score + 20)
+                const GUESSED_KEYWORD = 15
+                setScore(score => score + GUESSED_KEYWORD > 80 ? 80 : score + GUESSED_KEYWORD)
             }
         } else if (event.key === 'Tab') {
             event.preventDefault();
@@ -111,7 +117,11 @@ export function Guessing({engine}: { engine: Engine }) {
                 </div>
             </>}
             {!isStarted &&
-                <><Callout.Root>The goal of the game is to guess the offical UNICODE name of the emoji. You have 5
+                <>
+                <div className={"m-2"}>
+                    <h3 className={"text-center text-3xl mb-4"}>Welcome to&nbsp;
+                        <span className={"underline decoration-dotted decoration-neutral-300 decoration-2 underline-offset-2"} title={"Unicode + Decode = Unidecode"}>Unidecode</span></h3>
+                    The goal of the game is to guess the offical UNICODE name of the emoji. You have 5
                     minutes to
                     name as many as you can.<br/>
                     If you skip an emoji, you get up to 30 seconds deducted. You can lower the deducted seconds by:
@@ -124,68 +134,69 @@ export function Guessing({engine}: { engine: Engine }) {
                     <li>
                         If you guess an emoji correct, you gain 6 seconds.
                     </li>
-                </Callout.Root>
-                    <br/>
-                    <Examples engine={engine}/>
-                    {saved.length > 10 && <>
-                        <Callout.Root color={"amber"} className={"mt-3"}>
-                            <Text as="label" size="3">
-                                <Flex gap="2">
-                                    <Switch size="2"
-                                            onCheckedChange={val => {
-                                                setUpdate({})
-                                                engine.emojisettings.flag = val
-                                            }}/> Hardcore
-                                    Mode
-                                    (+{engine.emojigroup.flag.length + engine.emojigroup.flag.length + engine.emojigroup.japan.length + engine.emojigroup.new.length} Emojis)
-                                </Flex>
-                            </Text>
-                            You have now more than 10 emojis unlocked, so you can play in hard mode too.<br/>
-                            Hard mode adds back all emojis: original japanese emojis like 🈯, flags like 🇬🇷, new emojis
-                            like 🧑‍🦼‍➡️ or 🪾.
-                        </Callout.Root>
-                    </>
-                    }
-                    {saved.length > 50 && <>
-                        <Callout.Root color={"mint"} className={"mt-3"}>
-                            <Text as="label" size="3">
-                                <Flex gap="2">
-                                    <Switch size="2"/> Does not Work yet . Equality Mode
-                                    (+{engine.emojigroup.inclusive.length} Emojis)
-                                </Flex>
-                            </Text>
-                            <b>You have now more than 50 emojis unlocked, so you can play in equality mode too.</b>
-                            Emojis can have modifiers attached to them, such as skin tone. 👨‍💼 "man office worker" can
-                            be 👨🏽‍💼👨🏾‍💼 - skintones range from: light, medium-light, medium, medium-dark to dark. So
-                            👨🏿‍💼 is "man office worker dark skin tone"<br/>
-                            Emojis with multiple people can be constructed with skin tone modifier and gender modifier.
-                            For example
-                            💏 "kiss" can be 🧑🏽‍❤️‍💋‍🧑🏼 "kiss person, person, medium skin tone, medium-light skin tone",
-                            and adding gender:
-                            👩🏻‍❤️‍💋‍👨🏼 "kiss woman, man, light skin tone, medium-light skin tone". <br/>
-                            Sometimes, the number of people is flexible, from 🧑‍🧒 "family adult, child" 👩‍👩‍👦‍👦 "family
-                            woman, woman, boy, boy"
-                            <br/>
-                            20% of the emojis will be of this type.
-                        </Callout.Root>
-                    </>
-                    }
-                    {saved.length > 250 && <>
-                        <Callout.Root color={"red"} className={"mt-3"}>
-                            <Text as="label" size="3">
-                                <Flex gap="2">
-                                    <Switch size="2"/> Does Not Work Yet. Completionist Mode
-                                </Flex>
-                            </Text>
-                            You have now more than 250 emojis unlocked, so you can play in completionist mode too.
-                            <br/>
-                            Only emojis that you do not already know will be asked.
-                        </Callout.Root>
-                    </>
-                    }
+                </div>
+                    <hr className={"extend-hr mt-3"}/>
+                <br/>
+                <Examples engine={engine}/>
+                {saved.length > 10 && <>
+                    <Callout.Root color={"amber"} className={"mt-3"}>
+                        <Text as="label" size="3">
+                            <Flex gap="2">
+                                <Switch size="2"
+                                        onCheckedChange={val => {
+                                            setUpdate({})
+                                            engine.emojisettings.flag = val
+                                        }}/> Hardcore
+                                Mode
+                                (+{engine.emojigroup.flag.length + engine.emojigroup.flag.length + engine.emojigroup.japan.length + engine.emojigroup.new.length} Emojis)
+                            </Flex>
+                        </Text>
+                        You have now more than 10 emojis unlocked, so you can play in hard mode too.<br/>
+                        Hard mode adds back all emojis: original japanese emojis like 🈯, flags like 🇬🇷, new emojis
+                        like 🧑‍🦼‍➡️ or 🪾.
+                    </Callout.Root>
+                </>
+                }
+                {saved.length > 50 && <>
+                    <Callout.Root color={"mint"} className={"mt-3"}>
+                        <Text as="label" size="3">
+                            <Flex gap="2">
+                                <Switch size="2"/> Does not Work yet . Equality Mode
+                                (+{engine.emojigroup.inclusive.length} Emojis)
+                            </Flex>
+                        </Text>
+                        <b>You have now more than 50 emojis unlocked, so you can play in equality mode too.</b>
+                        Emojis can have modifiers attached to them, such as skin tone. 👨‍💼 "man office worker" can
+                        be 👨🏽‍💼👨🏾‍💼 - skintones range from: light, medium-light, medium, medium-dark to dark. So
+                        👨🏿‍💼 is "man office worker dark skin tone"<br/>
+                        Emojis with multiple people can be constructed with skin tone modifier and gender modifier.
+                        For example
+                        💏 "kiss" can be 🧑🏽‍❤️‍💋‍🧑🏼 "kiss person, person, medium skin tone, medium-light skin tone",
+                        and adding gender:
+                        👩🏻‍❤️‍💋‍👨🏼 "kiss woman, man, light skin tone, medium-light skin tone". <br/>
+                        Sometimes, the number of people is flexible, from 🧑‍🧒 "family adult, child" 👩‍👩‍👦‍👦 "family
+                        woman, woman, boy, boy"
+                        <br/>
+                        20% of the emojis will be of this type.
+                    </Callout.Root>
+                </>
+                }
+                {saved.length > 250 && <>
+                    <Callout.Root color={"red"} className={"mt-3"}>
+                        <Text as="label" size="3">
+                            <Flex gap="2">
+                                <Switch size="2"/> Does Not Work Yet. Completionist Mode
+                            </Flex>
+                        </Text>
+                        You have now more than 250 emojis unlocked, so you can play in completionist mode too.
+                        <br/>
+                        Only emojis that you do not already know will be asked.
+                    </Callout.Root>
+                </>
+                }
 
-                    <Button className={"!w-full !mt-3"} onClick={start} size={"4"} color={"green"}>BEGIN
-                        GUESSING {engine.count} EMOJIS</Button>
+                <Button className={"!w-full !mt-3"} onClick={start} size={"4"} color={"green"}>BEGIN
+                    GUESSING {engine.count} EMOJIS</Button>
                 </>}
 
             {isStarted && !fail && <>
@@ -193,7 +204,11 @@ export function Guessing({engine}: { engine: Engine }) {
                                 value={text}
                                 className={"!mb-3"}
                                 onChange={(event) => setText(event.target.value)}
-                                onKeyDown={onKey}/>
+                                onKeyDown={onKey}>
+                    <TextField.Slot>
+                        {engine.partialGuesses.join(" ")}
+                    </TextField.Slot>
+                </TextField.Root>
 
                 {guess && <Guesswork guess={guess}/>}
                 <div>
@@ -230,7 +245,23 @@ export function Guessing({engine}: { engine: Engine }) {
                 </>
 
             }
-            <span className={"largeText"}>Previously Collected {saved.length} emojis <br/> {saved.slice(0, 99)}</span>
+            <span className={"largeText"}>Previously Collected {saved.length} emojis <br/>
+                <div className={"grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-1"}>
+                     {saved
+                         .slice(0, showEmojisUpTo)
+                         .map(engine.getByEmoji)
+                         .sort(Engine.sortRarity)
+                         .map((emoji: Emoji, i: number) => {
+                             return <EmojiJSX key={i} emoji={emoji}/>
+
+                         })}
+                </div>
+                {saved.length > showEmojisUpTo &&
+                    <Button variant="outline" className={"!mt-2 !ml-0.5"}
+                            onClick={() => setShowEmojisUpTo(e => e + 18)}>Show
+                        18 more</Button>
+                }
+                    < /span>
         </Card>
         <br/>
 
@@ -263,6 +294,8 @@ const getColorFromGuess = (guess: GUESS): (typeof calloutRootPropDefs.color.defa
     switch (guess) {
         case GUESS.CORRECT:
             return "green"
+        case GUESS.MATCH_PARTIAL:
+            return "green"
         case GUESS.CLOSE_EXTRA:
             return "orange"
         case GUESS.CLOSE_EXTRA_REPEAT:
@@ -284,8 +317,10 @@ const getTextFromGuess = (guess: GUESS): string => {
             return "This is not the main emoji name, but a keyword"
         case GUESS.CLOSE_EXTRA_REPEAT:
             return "You have already guessed this keyword or part of the solution"
+        case GUESS.MATCH_PARTIAL:
+            return "You guessed part of the emoji name!"
         case GUESS.CLOSE_SUBSTR:
-            return "Your guess is part of the emoji name."
+            return "Your guess is part of the emoji name!"
         case GUESS.WRONG:
             return "Incorrect word"
         case GUESS.SHORT:
@@ -295,7 +330,11 @@ const getTextFromGuess = (guess: GUESS): string => {
     }
 }
 
-function Guesswork({guess}: { guess: GUESS }) {
+function Guesswork({
+                       guess
+                   }: {
+    guess: GUESS
+}) {
     return <Callout.Root variant={"surface"} className={"mt-3 mb-3"} color={getColorFromGuess(guess)}>
         <Callout.Text>
             {getTextFromGuess(guess)}

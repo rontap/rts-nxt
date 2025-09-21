@@ -4,10 +4,16 @@ import Engine, {prune} from "./engine.tsx";
 
 export default function Examples({engine}: { engine: Engine }) {
     const [example, setExample] = useState(0);
-    let rand = Math.floor(Math.random() * engine.emojis.length)
+    const [rand, setR] = useState(0)
+
     useEffect(() => {
-        rand = Math.floor(Math.random() * engine.emojis.length)
-    }, [example])
+        Math.floor(Math.random() * engine.emojis.length)
+    }, [])
+
+    const updateEx = () => {
+        setExample(e => e + 1)
+        setR(Math.floor(Math.random() * engine.emojis.length))
+    }
     const emo = engine.emojis[rand];
     return <>
         <div>
@@ -17,7 +23,7 @@ export default function Examples({engine}: { engine: Engine }) {
 
                 <div className={"flr-emoji"}> {emo.emoji}</div>
                 {
-                    example < 4 ? <span><Button onClick={() => setExample(e => e + 1)}>Another</Button></span> : <br/>
+                    example < 4 ? <span><Button onClick={updateEx}>Another</Button></span> : <br/>
                 }
             </Callout.Root>
 

@@ -1,4 +1,4 @@
-import type {Emoji} from "unicode-emoji";
+import type {BaseEmoji, Emoji} from "unicode-emoji";
 import * as ue from 'unicode-emoji';
 import {Text} from '@radix-ui/themes'
 import {difference, intersection, isEqual, uniq} from "lodash";
@@ -10,7 +10,15 @@ export enum GUESS {
     CORRECT,
     CLOSE_SUBSTR,
     CLOSE_EXTRA,
-    CLOSE_EXTRA_REPEAT
+    CLOSE_EXTRA_REPEAT,
+    MATCH_PARTIAL
+}
+
+export enum DIFFUCULTY {
+    COMMON,
+    UNCOMMON,
+    RARE,
+    LEGENDARY
 }
 
 const emojis = ue.getEmojis();
@@ -23,6 +31,7 @@ export default class Engine {
     had: number[];
     current: Emoji | undefined;
     keywordsCorrect: string[];
+    partialGuesses: string[];
     noClue: (Emoji | undefined)[];
     emojisettings: Record<Emojigroupkw, boolean>
 
@@ -38,10 +47,20 @@ export default class Engine {
         this.current = undefined;
         this.keywordsCorrect = [];
         this.noClue = [];
+        this.partialGuesses = [];
     }
 
     get saved() {
         return JSON.parse(localStorage.trophies || "[]");
+    }
+
+    getByEmoji(emoji: string) {
+        const e = emojis.find(e => e.emoji === emoji);
+        if (!e) return {
+            emoji,
+            rarity: DIFFUCULTY.LEGENDARY
+        }
+        else return e
     }
 
     get emojigroups() {
@@ -77,6 +96,7 @@ export default class Engine {
         this.had.push(index);
         this.current = this.emojis[index];
         this.keywordsCorrect = [];
+        this.partialGuesses = [];
         return this.current;
     }
 
@@ -91,13 +111,27 @@ export default class Engine {
 
         if (guess.length < 2) return GUESS.SHORT;
 
+        const guessAndPrev = guess + " " + this.partialGuesses.join(" ")
+
         // if the two guesses are identical, CORRECT
-        if (compare(guess, description)) return GUESS.CORRECT;
+        console.log(guessAndPrev, "<CMP>", description)
+        if (compare(guessAndPrev, description)) {
+            this.partialGuesses = [];
+            return GUESS.CORRECT;
+        }
 
 
         // if the whole text section has partial match, CLOSE_SUBSTR
         if (description.includes(guess) || guess.includes(description)) {
             // if this was already a guess, do not include it.
+            console.log(guess, description)
+            if (this.partialGuesses.includes(guess)) {
+                console.log("you already guessed this?")
+            } else if (partiallyIncludes(guess, description)) {
+                console.log("partmatch")
+                this.partialGuesses.push(guess)
+                return GUESS.MATCH_PARTIAL
+            }
             if (this.keywordsCorrect.includes(guess)) {
                 return GUESS.CLOSE_EXTRA_REPEAT;
             }
@@ -123,6 +157,54 @@ export default class Engine {
         return GUESS.WRONG;
     }
 
+    static difficulty(emoji: BaseEmoji): DIFFUCULTY {
+        const easy = "👻👽❤️🩷🧡💛💚💙🩵💜🤎🖤🩶🤍🦵🦶👂👁️🦴👃👄👅🏠🧱🚕⚓🛹⛺🌈⚾\n" +
+            "🏀👓🎸🔋💊🚬🪦🔴🟠🟡🟢🔵🟣🟤⚫⚪🏳️🏴🏳️‍🌈🫁🧠🫀"
+        if (emoji.rarity) {
+            return emoji.rarity
+        }
+        if (easy.includes(emoji.emoji)) {
+            return DIFFUCULTY.COMMON
+        }
+        if (emoji.category === "food-drink") {
+            return DIFFUCULTY.COMMON
+        }
+        if (emoji.category === "animals-nature") {
+            return DIFFUCULTY.COMMON
+        }
+        if (emoji.group === "activities") {
+            return DIFFUCULTY.UNCOMMON
+        }
+        if (emoji.group === "flags") {
+            return DIFFUCULTY.RARE
+        }
+        if (emoji.group === "symbols") {
+            return DIFFUCULTY.RARE
+        }
+        if (emoji.description.split(" ").length > 3) {
+            return DIFFUCULTY.RARE
+        }
+        return DIFFUCULTY.UNCOMMON
+    }
+
+    static sortRarity(a: Emoji, b: Emoji) {
+        return Engine.difficulty(a) - Engine.difficulty(b)
+    }
+
+    static difficultyText(d: DIFFUCULTY) {
+        switch (d) {
+            case DIFFUCULTY.COMMON:
+                return "common"
+            case DIFFUCULTY.UNCOMMON:
+                return "uncommon"
+            case DIFFUCULTY.RARE:
+                return "rare"
+            case DIFFUCULTY.LEGENDARY:
+                return "legendary"
+
+        }
+    }
+
 }
 
 export const prune = (text: string) => {
@@ -131,6 +213,7 @@ export const prune = (text: string) => {
         .replace(/’/g, "")
         .replace(/'/g, "")
         .replace(/:/g, "")
+        .replace(/[ \t]+$/g, "") //trailing spaces
         .toLowerCase()
 }
 const tokenize = (text: string) => {

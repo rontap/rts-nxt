@@ -1,5 +1,5 @@
 
-const RADIUS = 10;
+const RADIUS = 5;
 const VERSION = 12.1;
 const NAME = 'Graphisoft';
 const INSTANCE = String(Math.randInt(1000)+1);

@@ -122,6 +122,49 @@ h1 span {
     left: calc(50% - 100px);
     z-index: 0;
 }
+
 #progress circle {
     transition: all .2s ease-out;
+}
+
+.rarity {
+}
+
+.rarity.rarity-common {
+
+    --bcolor: #4caf50;
+}
+
+.rarity.rarity-uncommon {
+
+    --bcolor: #2196f3;
+}
+
+.rarity.rarity-rare {
+    --tint: #f3e5f5;
+    --bcolor: #9c27b0;
+}
+
+.rarity.rarity-legendary {
+    --tint: #ffcc80;
+    --bcolor: #ff9800;
+}
+
+.emojictr {
+    margin: 2px;
+    border: 1px solid var(--bcolor);
+    background: var(--tint);
+    border-radius: 4px;
+    padding: 8px;
+    vertical-align: center;
+    text-align: center;
+    border-bottom: 5px solid var(--bcolor);
+}
+
+.extend-hr {
+    height: 1px;
+    background: rgb(221 223 229);
+    border: none;
+    margin-left: -2em;
+    margin-right: -2em;
 }

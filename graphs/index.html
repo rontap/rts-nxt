@@ -91,7 +91,7 @@
         const procd = val.split("\n").map(val => val.split(" "))[0].filter(v => v)
         const pd = 80
         for (let i = 0; i < procd.length; i += 3) {
-            const nd = new Node(Number(procd[i]) - 1, {x: Number(procd[i + 1]) * 3, y: Number(procd[i + 2]) * 3});
+            const nd = new Node(Number(procd[i]) - 1, {y: Number(procd[i + 1]) * 4.5, x: Number(procd[i + 2]) * 4.5});
             console.log(nd, procd[i], procd[i + 1], procd[i + 2]);
             graph.addNode(nd)
         }

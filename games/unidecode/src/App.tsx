@@ -3,11 +3,11 @@ import './App.css'
 import "@radix-ui/themes/styles.css";
 import {Heading, Theme} from '@radix-ui/themes';
 import Engine from './engine.tsx';
-import Collection from "./Collection.tsx";
 import {Guessing} from "./Guessing.tsx";
 
 const engine = new Engine();
 window.engine = engine;
+
 function App() {
 
 
