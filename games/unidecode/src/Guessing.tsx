@@ -4,6 +4,7 @@ import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
 import Examples from "./Examples.tsx";
 import EmojiJSX from "./Emoji.tsx";
+import Title from "./Title.tsx";
 
 
 const TIME = 300;
@@ -99,6 +100,7 @@ export function Guessing({engine}: { engine: Engine }) {
             onNext();
         }
     }
+
     const progress = Math.round(totalTime / TIME * 100)
     const scoreprogress = 565.48 - (score * 5.6548)
     return <>
@@ -130,7 +132,8 @@ export function Guessing({engine}: { engine: Engine }) {
                         <h3 className={"text-center text-3xl mb-4"}>Welcome to&nbsp;
                             <span
                                 className={"underline decoration-dotted decoration-neutral-300 decoration-2 underline-offset-2"}
-                                title={"Unicode + Decode = Unidecode"}>Unidecode</span></h3>
+                                title={"Unicode + Decode = Unidecode"}>Unidecode</span>
+                        </h3>
                         The goal of the game is to guess the offical UNICODE name of the emoji. You have 5
                         minutes to name as many as you can.<br/>
                         This is harder than it sounds, 😃 is "grinning face with big eyes". If you guess a part of the
@@ -237,6 +240,7 @@ export function Guessing({engine}: { engine: Engine }) {
                 <TextField.Root radius="large" placeholder="Emoji Name. Press ENTER to submit"
                                 value={text}
                                 disabled={pause}
+                                size={"3"}
                                 className={"!mb-3"}
                                 onChange={(event) => setText(event.target.value)}
                                 onKeyDown={onKey}>
@@ -263,9 +267,15 @@ export function Guessing({engine}: { engine: Engine }) {
 
 
             </>}
-            {fail && <>
-                Game over. Total score {Math.round(totalScore)}. Total correct guesses: {correctGuesses.length}
-            </>}
+            {fail && <div className={"medText"}>
+                Game over. Total score {Math.round(totalScore)}. <br/>
+                Total correct guesses: {correctGuesses.length}
+                <div className={"mt-2"}>
+                    <Button className={"!w-full"} size={"3"} onClick={() => window.location.reload()}>
+                        Play Again
+                    </Button>
+                </div>
+            </div>}
 
         </Card>
         <br/>
@@ -347,7 +357,6 @@ export function Guessing({engine}: { engine: Engine }) {
     </>
 }
 
-
 const getColorFromGuess = (guess: GUESS): (typeof calloutRootPropDefs.color.default) => {
     switch (guess) {
         case GUESS.CORRECT:
@@ -366,6 +375,7 @@ const getColorFromGuess = (guess: GUESS): (typeof calloutRootPropDefs.color.defa
             return "red"
     }
 }
+
 
 const getTextFromGuess = (guess: GUESS): string => {
     switch (guess) {

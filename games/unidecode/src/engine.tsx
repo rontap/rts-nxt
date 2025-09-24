@@ -20,9 +20,10 @@ export enum DIFFUCULTY {
     RARE,
     LEGENDARY
 }
+
 const style = 'background-color: darkblue; color: white; font-style: italic; border: 5px solid hotpink; font-size: 1.2em;'
 
-console.warn("%cDID YOU THINK YOU CAN JUST GET ALL OF THE ANWSERS FROM THE CONSOLE???? I MEAN, YES, BUT BAD DOG!!! They are in the global variable i_am_a_bad_person",style)
+console.warn("%cDID YOU THINK YOU CAN JUST GET ALL OF THE ANWSERS FROM THE CONSOLE???? I MEAN, YES, BUT BAD DOG!!! They are in the global variable i_am_a_bad_person", style)
 
 const emojis = ue.getEmojis();
 // console.log(emojis);
@@ -162,12 +163,16 @@ export default class Engine {
 
     static difficulty(emoji: BaseEmoji): DIFFUCULTY {
         const easy = "👻👽❤️🩷🧡💛💚💙🩵💜🤎🖤🩶🤍🦵🦶👂👁️🦴👃👄👅🏠🧱🚕⚓🛹⛺🌈⚾\n" +
-            "🏀👓🎸🔋💊🚬🪦🔴🟠🟡🟢🔵🟣🟤⚫⚪🏳️🏴🏳️‍🌈🫁🧠🫀"
+            "🏀👓🎸🔋💊🚬🪦🔴🟠🟡🟢🔵🟣🟤⚫⚪🏳️🏴🏳️‍🌈🫁🧠🫀📅🔨🔑🚽🧬🧺🪣🧼🪒📎🎀🎄🎈🎫🏆🧵👕👖🥁🎺🎧🖱️⌨️🖨️🕯️🪙🧲🪜🔬🚪🩻🧽🪥🚭"
+        const hard = "🙊🙉🙈🐲🦕💮🪷🌺🍃☘️🏵️🐠🥀🫔🥮🍥🍶💒🕛🕧🕐🕜🕑🕝🕒🕞🕓🕟🕔🕠🕕🕡🕖🕢🕗🕣🕘🕤🕙🕥🕚🕦⛄"
         if (emoji.rarity) {
             return emoji.rarity
         }
         if (easy.includes(emoji.emoji)) {
             return DIFFUCULTY.COMMON
+        }
+        if (hard.includes(emoji.emoji)) {
+            return DIFFUCULTY.RARE
         }
         if (emoji.category === "food-drink") {
             return DIFFUCULTY.COMMON
@@ -215,6 +220,7 @@ export const prune = (text: string) => {
         .replace(/flag: /, "")
         .replace(/’/g, "")
         .replace(/'/g, "")
+        .replace(/"/g, "")
         .replace(/:/g, "")
         .replace(/[ \t]+$/g, "") //trailing spaces
         .toLowerCase()

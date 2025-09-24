@@ -4,9 +4,9 @@
 @author: (original) Rolf van Lieshout
 """
 
-## Guide to keywords
-## @Note: anything
+## GUIDE TO KEYWORDS
 ## @Source: sourcing ideas or improvements that are from Stackoverflow/AI/Other
+## @Note: Other explanation
 
 import numpy as np
 import math
@@ -46,7 +46,6 @@ class TSP:
 
     def __init__(self, tspFileName):
         """
-        @Note: Remains unchanged
         Reads a .tsp file and constructs an instance. 
         We assume that it is an Euclidian TSP
 
@@ -58,6 +57,7 @@ class TSP:
         points = list()  # add all points to list
         f = open(tspFileName)
         self.tspFileName = tspFileName
+        # @Note: Remains unchanged
         for line in f.readlines()[6:-1]:  # start reading from line 7, skip last line
             asList = line.split()
             floatList = list(map(float, asList))
@@ -134,8 +134,7 @@ class TSP:
             echo and print("The solution is feasible with costs " + str(costs))
             return costs
         else:
-            echo and print("The solution is infeasible")
-            return None
+            raise Exception("Solution is infeasable.")
 
     def isFeasible(self, tour):
         """
@@ -154,7 +153,7 @@ class TSP:
         """
         # first check if the length of the tour is correct
         if len(tour) != self.nCities:
-            print("Length of tour incorrect")
+            raise Exception("Solution is infeasable: Length of tour is incorrect")
             return False
         else:
             # check if all cities in the tour
@@ -163,34 +162,17 @@ class TSP:
                     return False
         return True
 
-    def getTour_GRASPedInsertion(self, start):
+    def getTour_OutlierInsertion_Parametrized(self, start, graspDistance, _):
         """
-        Defines the selection method for the GRASP and calls the outlier insertion.
-        @param start:
-        """
-
-        def graspDistance(l):
-            maxIndex = len(l) - 1
-            furthest = l[0][T_DIST]
-            # @source list comprehension: https://stackoverflow.com/questions/3013449/list-comprehension-vs-lambda-filter
-            # calculating the candidates that are ALPHA % smaller than the furthest
-            candidates = [x for x in l if x[T_DIST] * (1 + ALPHA) >= furthest]
-            selected = random.randint(0, len(candidates) - 1)
-            return selected
-
-        graspIdk = lambda l: 0
-        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, graspIdk)
-
-    def getTour_OutlierInsertion(self, start):
-        graspDistance = lambda l: 0
-        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, lambda l: 0)
-
-    def getTour_OutlierInsertion_Parametrized(self, start, graspDistance, graspIdk):
-        """
-        Performs the nearest neighbour algorithm
+        Performs the Outlier Insertion algorithm.
 
         Parameters
         ----------
+        graspDistance : lambda(candidates: list[]) -> int
+            The selection for the location at which to insert the furthest node is
+            parametrized by a function called `graspDistance` which receives as a parameter the list of candidate furthest points.
+            The function should return the index of the selected candidate. Without GRASP, it should be 0. For GRASP, see
+            implementation in getTour_GRASPedInsertion
         start : int
             starting point of the tour
 
@@ -209,25 +191,39 @@ class TSP:
             print("[outlier insertion] Start computing NN tour")
 
             # initialize closestDist
+            # @source for declare an array of uniform values https://stackoverflow.com/questions/4056768/how-to-declare-array-of-zeros-in-python-or-an-array-of-a-certain-size
             closestDist = [float("inf")] * self.nCities
+
+            # as initialisation, for each node not in tour (so every except the start point), init the distance matrix.
+            # the closest distance will be to the starting point, as it is the only one in the tour currently
             for j in notInTour:
                 closestDist[j] = self.distMatrix[tour[0], j]
 
-            for i in range(self.nCities - 1):  # CREATING PATH
+            # outer loop: iterate over the number of cities. In each iteration, a city will be added to the tour.
+            for i in range(self.nCities - 1):
                 DEBUG and i > 1 and i % 500 == 0 and print("[outlier insertion] iteration " + str(i))
+
+                # get all nodes not in tour, and store their closest distance in a tuple with <T_CITY,T_DIST> fields.
                 furthest = [(j, closestDist[j]) for j in notInTour]
+                # sort items by furthest->closest. We store the closest cities,
+                # but out of all the closest cities we actually want the one that is the farthest
                 furthest.sort(key=lambda city: city[T_DIST], reverse=True)
+                # the selection of the actual index is handled by the parameter graspDistance.
                 selectedIndex = graspDistance(furthest)
-                furthestCity = furthest[selectedIndex][T_CITY]  # todo add here the fact that its not always 0
-                # we now have a furthest city
+                # we now have a furthest city.
+                furthestCity = furthest[selectedIndex][T_CITY]
                 LOG and logs.write(str(tour))
                 LOG and logs.write(",")
-                # where to insert it?
-                bestLocationToInsert = self.findBestLocationToInsert(furthestCity, i, tour)
 
+                # find the best location to insert the new city. Here the best location is the one that adds the least distance.
+                bestLocationToInsert = self.findBestLocationToInsert(furthestCity, i, tour)
+                # add node to tour and remove from notInTour
                 tour.insert(bestLocationToInsert + 1, furthestCity)
                 notInTour.remove(furthestCity)
 
+                # the list containing the closest cities needs updating,
+                # but we only need to compare it to the newly added item to the tour.
+                # this optimisation saves a lot of time complexity for this function.
                 for j in notInTour:
                     benchmark_iter += 1
                     if self.distMatrix[furthestCity][j] < closestDist[j]:
@@ -237,6 +233,43 @@ class TSP:
             LOG and logs.write("]")
             print("[outlier insertion] Get Tour Outlier Insertion done with ", benchmark_iter, " iteration.")
             return tour
+
+    def getTour_GRASPedInsertion(self, start):
+        """
+            define the GRASP function and call the outlier insertion.
+        """
+
+        def graspDistance(ogCandidates):
+            """
+            Recieves the candidate list for which node to insert into the tour sorted from best (=highest distance)
+            to worst (=lowest distance)
+            Then filters only the items that are at most alpha % smaller than the furthest node's value.
+            Then, choose randomly, without weights.
+            An improvement potential here would be to weigh the best options heavier
+
+            Parameters
+            ----------
+            ogCandidates: the original candidate list
+
+            """
+            maxIndex = len(ogCandidates) - 1
+            furthest = ogCandidates[0][T_DIST]
+            # @source list comprehension: https://stackoverflow.com/questions/3013449/list-comprehension-vs-lambda-filter
+            # calculating the candidates that are ALPHA % smaller than the furthest
+            candidates = [x for x in ogCandidates if x[T_DIST] * (1 + ALPHA) >= furthest]
+            # randomly select one
+            selected = random.randint(0, len(candidates) - 1)
+            return selected
+
+        _ = lambda l: 0  # unused for possible future improvement of randomising the location of the insertion
+        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, _)
+
+    def getTour_OutlierInsertion(self, start):
+        """
+        Do Outlier Insertion with always choosing the furthest node to insert.
+        """
+        graspDistance = lambda l: 0
+        return self.getTour_OutlierInsertion_Parametrized(start, graspDistance, lambda l: 0)
 
     def findBestLocationToInsert(self, furthestCity, i, tour):
         """
@@ -255,8 +288,10 @@ class TSP:
         bestLocationToInsert = None
         fauxtour = tour.copy()
         fauxtour.append(tour[0])  # creating a fake cyle to
-        distMx = self.distMatrix
+        distMx = self.distMatrix  # attempt at improving performance by removing one accessory, speed benefit is negligable
+
         # calculate the best location to insert
+        # if this is the first iteration, we know where to insert.
         if i == 0:
             bestLocationToInsert = 0
         else:
@@ -284,9 +319,11 @@ class TSP:
             costs of tour.
 
         """
-        if (len(tour) != len(self.cities)):
-            raise Exception("The tour does not include all cities.")
         costs = 0
+        # no silent errors
+        if len(tour) != len(self.cities):
+            raise Exception("The tour does not include all cities.")
+
         for i in range(len(tour) - 1):
             costs += self.distMatrix[tour[i], tour[i + 1]]
 
@@ -296,6 +333,9 @@ class TSP:
 
     def shouldTwoOpt(self, tour):
         """
+        Searches in the tour 2 links which when swapped, would total less than before.
+        Returns the first nodes in the tour to swap, so (i,j) will be returned.
+        If there is no such node, returns []. Does not actually execute the swapping
 
         Parameters
         ----------
@@ -308,22 +348,26 @@ class TSP:
         isOpt = []
         dmx = self.distMatrix
         t = tour
+        # do not start the search for the 2-Opt every time from the beginnning, instead remember the position of the last
+        # found swap (only for i) and continue from there. This allows the function to not have to iterate over parts of the 
+        # tour that have already been cleared up.
         for i in range(self.twoOptSweepFrom, len(t) - 1):
-            # [SPEED] calculating this and destructuring self.distMatrix has a 10% improvement on the performance on this function
+            #  Calculating this and dereferencing self.distMatrix has a 10% improvement on the performance on this function
             ab_cost = dmx[t[i], t[i + 1]]
             for j in range(i + 2, len(t) - 1):
                 cd_cost = dmx[t[j], t[j + 1]]
                 ac_cost = dmx[t[i], t[j]]
                 bd_cost = dmx[t[i + 1], t[j + 1]]
+                # are the costs of the swapped edges lower than before? If yes, return the edges to be swapped
                 if ab_cost + cd_cost > ac_cost + bd_cost:
                     self.twoOptSweepFrom = i
                     return [(i, j)]
+        # a swap could in fact introduce another possible 2-Opt in the tour. Therefore, we cannot just sweep the tour
+        # once, we have to ensure that starting from the beginning, there are no viable swaps
         if isOpt == [] and self.twoOptSweepFrom != 0:
             self.twoOptSweepFrom = 0
             self.shouldTwoOpt(tour)
         return isOpt
-
-        # print(ab_cost,cd_cost,ac_cost,bd_cost,ac_cost,bd_cost)
 
     def isTwoOpt(self, tour):
         """
@@ -389,7 +433,7 @@ class TSP:
 
             i = i + 1
             if i >= REASONABLE_ITER:
-                print("[twoOpt] Too many iterations, does not converge in " + REASONABLE_ITER + " steps")
+                print("[twoOpt] Too many iterations, does not converge in " + str(REASONABLE_ITER) + " steps")
                 return opt_tour
             if len(opt_tour) != len(new_tour):
                 raise Exception("Inconsistent number of nodes in tour.")
@@ -402,7 +446,7 @@ class TSP:
         bestTourNoOpt = None
         with open("getTour_GRASP.csv", "w", encoding="utf-8") as logs_G:
             with open("getTour.csv", "w", encoding="utf-8") as logs:
-                for initialCity in range(NUMBER_OF_STRARTING_POINTS):
+                for initialCity in range(GRASP_STARTING_POINTS):
                     best = float('inf')
                     bestNoTwoOpt = float('inf')
                     print("[getTour] starting city is ", initialCity)
@@ -436,7 +480,6 @@ class TSP:
 def testMultiple(cb):
     """
     Task 1: Make a selection of 5 small, 3 medium and 2 large instances
-    # TODO MAKE SEEDED-RANDOM
     """
 
     smallPrefix = "Instances/Small/"
@@ -446,6 +489,7 @@ def testMultiple(cb):
     medFiles = list(map(lambda v: medPrefix + v, os.listdir(medPrefix)))
     largeFiles = list(map(lambda v: largePrefix + v, os.listdir(largePrefix)))
 
+    # filter out junk files
     random.shuffle([x for x in smallFiles if ".json" not in x])
     random.shuffle([x for x in medFiles if ".json" not in x])
     random.shuffle([x for x in largeFiles if ".json" not in x])
@@ -453,13 +497,15 @@ def testMultiple(cb):
     totalCosts = 0
     with open(cb.__name__ + ".csv", "w", encoding="utf-8") as logs:
         for f in mergedFiles:
-            print("[testMultiple] calculating ", cb.__name__, " for ", f)
-            cb(f, logs)
+            if ".csv" in f:
+                print("[testMultiple] calculating ", cb.__name__, " for ", f)
+                cb(f, logs)
 
 
 def cb_NN_MultipleStartingPoints(file, logs):
     """
     Task 2: check multiple starting positions
+    to be used as a callback for test multiple
     """
     inst = TSP(file)
     LOG and logs.write("\n" + file + ", " + str(len(inst.cities)) + ",")
@@ -472,46 +518,53 @@ def cb_NN_MultipleStartingPoints(file, logs):
 ##############################################################################
 # CONFIGURATION PARAMETERS
 ##############################################################################
-NUMBER_OF_STRARTING_POINTS = 60  # number of starting points to try
+GRASP_STARTING_POINTS = 5  # number of starting points to try
 REASONABLE_ITER = 1000  # reasonable iterations for 2-opt to converge in.
-ALPHA = 0.20  # alpha value for GRASP selection of furthest node in the graph Best is [0.1-0.25]
+ALPHA = 0.60  # alpha value for GRASP selection of furthest node in the graph Best is [0.1-0.25]
 GRASPED_ITERATIONS = 10  # How many times should the GRASPed Outlier insertion be run
 # number of samples to take from...
 SAMPLE_S_FILES = 10  # ...small
 SAMPLE_M_FILES = 5  # ...medium
 SAMPLE_L_FILES = 5  # ...large files
-NUMBER_OF_STARTING_POINTS = 80  # number of starting points to try for task 1
-DEBUG = False  # should display print debug messages
+NUMBER_OF_STARTING_POINTS = 30  # number of starting points to try for task 1
+DEBUG = False  # should display print debug messages <== CONTROL THIS FOR MORE DETAILS
 LOG = True  # should log to files
 T_CITY = 0  # city position in <tuple>
 T_DIST = 1  # distance position in <tuple>
 
 ##############################################################################
-# CONFIGURATION PARAMETERS
+# RUN MOST THINGS
 ##############################################################################
-random.seed(51)  #
+random.seed(42)  #
 print(random.random())
 
 instFilename = "Instances/Small/berlin52.tsp"
-instFilename = "Instances/Medium/a280.tsp"
-# instFilename = "Instances/Large/d1655.tsp"
+instFilename = "Instances/Small/pr76.tsp"
+# instFilename = "Instances/Medium/a280.tsp"
+instFilename = "Instances/Medium/ali535.tsp"
 # instFilename = "Instances/Large/d1655.tsp"
 # instFilename = "Instances/Large/brd14051.tsp"
 inst = TSP(instFilename)
 startPointNN = 0
-# tour = inst.getTour_NN(startPointNN)
+
 # tour = inst.getTour_OutlierInsertion(startPointNN)
 # tour = inst.getTour_GRASPedInsertion(startPointNN)
-instFilename = "Instances/Medium/att532.tsp"
-inst.getTour()
+# instFilename = "Instances/Medium/att532.tsp"
 # inst.getTour(False)
-# inst.evaluateSolution(tour, True)
+
 
 # inst.initGRASP(startPointNN)
 
-# tour = inst.makeTwoOpt(tour)
-# print(inst.isTwoOpt(tour))
-#
-# print(tour)
+inst.getTour()
+tour = inst.getTour_NN(startPointNN)
+startPointNN = 0
+inst.evaluateSolution(tour, True)
+tour = inst.makeTwoOpt(tour)
+inst.evaluateSolution(tour, True)
 
-# testMultiple(cb_NN_MultipleStartingPoints)
+testMultiple(cb_NN_MultipleStartingPoints)
+
+# evaulate a hard problem
+instFilename = "Instances/Large/brd14051.tsp"
+inst = TSP(instFilename)
+tour = inst.getTour_GRASPedInsertion(startPointNN)

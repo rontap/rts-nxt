@@ -8,10 +8,7 @@
 }
 
 .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+
 }
 
 .logo:hover {
@@ -198,6 +195,11 @@ h1 span {
 .opacity-reduced {
     opacity: .85;
 }
+
 .opacity-reduced > * {
     background: #eee;
+}
+
+.unidecodeTitle {
+    text-shadow: 2px 2px  4px #CCC;
 }
