@@ -201,5 +201,22 @@ h1 span {
 }
 
 .unidecodeTitle {
-    text-shadow: 2px 2px  4px #CCC;
+    text-shadow: 2px 2px 4px #CCC;
+}
+
+.animate-last-left :last-child {
+    animation: last-left 0.5s ease-out;
+}
+
+@keyframes last-left {
+    0% {
+        margin-left: 20px;
+        opacity:0;
+    }
+    25% {
+        opacity:1;
+    }
+    100% {
+        margin-left: 0px;
+    }
 }

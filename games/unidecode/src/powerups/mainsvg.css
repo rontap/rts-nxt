@@ -1,0 +1,19 @@
+#mainsvg {
+    transform: scale(2);
+}
+
+.cls-1 {
+    fill: #231f20;
+    stroke-width: 0px;
+}
+
+.cls-2 {
+    fill: #ec008c;
+    stroke: #f15a29;
+    stroke-miterlimit: 10;
+    stroke-width: 5px;
+}
+
+.noop {
+    opacity:0;
+}

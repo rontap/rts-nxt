@@ -4,7 +4,8 @@ import {useState} from "react";
 import type {Emoji} from "unicode-emoji";
 import Examples from "./Examples.tsx";
 import EmojiJSX from "./Emoji.tsx";
-import Title from "./Title.tsx";
+import Hints from "./powerups/Hints.tsx";
+import PreviousCollection from "./previousCollection.tsx";
 
 
 const TIME = 300;
@@ -12,7 +13,7 @@ const PENALTY = 30;
 const timeLost = (score) => ((100 - score) / 100) * PENALTY
 
 export function Guessing({engine}: { engine: Engine }) {
-    const saved = engine.saved;
+    const saved = Engine.saved;
     const [text, setText] = useState<string>("");
     const [curr, setCurr] = useState<Emoji | undefined>();
     const [guess, setGuess] = useState<GUESS>();
@@ -24,11 +25,10 @@ export function Guessing({engine}: { engine: Engine }) {
     const [begin, setBegin] = useState(false);
     const [update, setUpdate] = useState({});
     const [totalScore, setTotalScore] = useState(0);
-    const [showEmojisUpTo, setShowEmojisUpTo] = useState(32 - 8);
     const [pause, setPause] = useState(false);
     const doFail = () => {
         setCorrectGuesses(guesses => {
-            console.log(saved, [...new Set(saved.concat(guesses))], guesses)
+            // console.log(saved, [...new Set(saved.concat(guesses))], guesses)
             localStorage.trophies = JSON.stringify([...new Set(saved.concat(guesses))]);
             return guesses;
         })
@@ -116,7 +116,9 @@ export function Guessing({engine}: { engine: Engine }) {
                      xmlns="http://www.w3.org/2000/svg"
                      style={{transform: "rotate(-90deg)"}}>
                     <circle r="90" cx="100" cy="100" fill="transparent" stroke="#e0e0e0" strokeWidth="16px"></circle>
-                    <circle r="90" cx="100" cy="100" stroke="#48F" strokeWidth="16px" strokeLinecap="round"
+                    <circle r="90" cx="100" cy="100" stroke={score > 99 ? "#4caf50" : "#2196f3"}
+                            strokeWidth={score > 99 ? "20px" : "16px"}
+                            strokeLinecap="round"
                             strokeDashoffset={scoreprogress + "px"} fill="transparent"
                             stroke-dasharray={"565.48px"}></circle>
                 </svg>
@@ -263,6 +265,7 @@ export function Guessing({engine}: { engine: Engine }) {
                     <Button className={"!mt-3"} variant={"outline"}
                             onClick={() => setPause(p => !p)}>{pause ? "Continue" : "Pause"}
                     </Button>
+                    <Hints engine={engine} upTo={10}/>
                 </div>
 
 
@@ -289,7 +292,7 @@ export function Guessing({engine}: { engine: Engine }) {
                     <span className={"largeText"}>
                          <div className={"grid grid-cols-3 md:grid-cols-4 gap-1"}>
                         {correctGuesses
-                            .map(engine.getByEmoji)
+                            .map(Engine.getByEmoji)
                             .sort(Engine.sortRarity)
                             .map((emoji: Emoji, i: number) => {
                                 return <EmojiJSX key={i} emoji={emoji}/>
@@ -306,25 +309,7 @@ export function Guessing({engine}: { engine: Engine }) {
                 </>
 
             }
-            <div className={"medText"}>
-                <div className={"mb-2"}>Previously Collected {saved.length} emojis</div>
-
-                <div className={"grid grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-1 largeText"}>
-                    {saved
-                        .slice(0, showEmojisUpTo)
-                        .map(engine.getByEmoji)
-                        .sort(Engine.sortRarity)
-                        .map((emoji: Emoji, i: number) => {
-                            return <EmojiJSX key={i} emoji={emoji}/>
-
-                        })}
-                </div>
-                {saved.length > showEmojisUpTo &&
-                    <Button variant="outline" className={"!mt-2 !ml-0.5"}
-                            onClick={() => setShowEmojisUpTo(e => e + 18)}>Show
-                        18 more</Button>
-                }
-            < /div>
+            <PreviousCollection/>
         </Card>
         <br/>
 

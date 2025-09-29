@@ -37,6 +37,7 @@ export default class Engine {
     keywordsCorrect: string[];
     partialGuesses: string[];
     noClue: (Emoji | undefined)[];
+    hintsShowed: string[];
     emojisettings: Record<Emojigroupkw, boolean>
 
     constructor() {
@@ -52,13 +53,14 @@ export default class Engine {
         this.keywordsCorrect = [];
         this.noClue = [];
         this.partialGuesses = [];
+        this.hintsShowed = [];
     }
 
-    get saved() {
+    static get saved() {
         return JSON.parse(localStorage.trophies || "[]");
     }
 
-    getByEmoji(emoji: string) {
+    static getByEmoji(emoji: string) {
         const e = emojis.find(e => e.emoji === emoji);
         if (!e) return {
             emoji,
@@ -101,6 +103,7 @@ export default class Engine {
         this.current = this.emojis[index];
         this.keywordsCorrect = [];
         this.partialGuesses = [];
+        this.hintsShowed = [];
         return this.current;
     }
 
@@ -132,7 +135,6 @@ export default class Engine {
             if (this.partialGuesses.includes(guess)) {
                 return GUESS.CLOSE_EXTRA_REPEAT;
             } else if (partiallyIncludes(guess, description)) {
-                console.log("partmatch")
                 this.partialGuesses.push(guess)
                 return GUESS.MATCH_PARTIAL
             }
@@ -224,6 +226,19 @@ export const prune = (text: string) => {
         .replace(/:/g, "")
         .replace(/[ \t]+$/g, "") //trailing spaces
         .toLowerCase()
+}
+export const toText = (emojitext: string) => {
+    return emojitext
+        .replace(/-/g, " ")
+}
+/**
+ * remove hints that are in the anwser too
+ * @param emoji
+ */
+export const safeHints = (emoji: Emoji) => {
+    const solution = tokenize(emoji.description)
+    const hints = tokenize(emoji.keywords.join(" "))
+    return difference(hints, solution)
 }
 const tokenize = (text: string) => {
     return prune(text)
