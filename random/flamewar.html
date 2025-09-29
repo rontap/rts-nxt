@@ -1,191 +1,238 @@
-
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Flamewar Debating</title>
     <link rel="stylesheet" href="../NXTJS/sole-design.css">
     <link rel="stylesheet" href="../NXTJS/design.css">
-    	<link rel="stylesheet" href="../NXTJS/elements.css">
-      <link rel="stylesheet" href="../NXTJS/input.css">
-      <meta name="viewport" content="initial-scale=1, maximum-scale=2">
-      <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
-	     <link rel="icon" href="../NXTJS/icons/flamewar.png" type="image/png">
-
+    <link rel="stylesheet" href="../NXTJS/elements.css">
+    <link rel="stylesheet" href="../NXTJS/input.css">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=2">
+    <script type="text/javascript" src="../NXTJS/jsplus.js"></script>
+    <link rel="icon" href="../NXTJS/icons/flamewar.png" type="image/png">
 
 
     <style>
-:root {
-  --primary:#2C2F33;
-  --dark-primary:#23272A;
-  --light-primary:#99AAB5;
-}
-        nav {
-          height:35px;
+        :root {
+            --primary: #2C2F33;
+            --dark-primary: #23272A;
+            --light-primary: #99AAB5;
         }
+
+        nav {
+            height: 35px;
+        }
+
         nav header {
-          background:transparent;
-          box-shadow:none;
-          color:#ccc !important;
-          border:0px;
-          text-align: center;
-          width:100%;
-          margin-top:12px;
-          color:white !important;
-          font-family:'Montserrat';
-          font-weight: bold;
-          text-transform: uppercase;
+            background: transparent;
+            box-shadow: none;
+            color: #ccc !important;
+            border: 0px;
+            text-align: center;
+            width: 100%;
+            margin-top: 12px;
+            color: white !important;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            text-transform: uppercase;
             font-size: 27px;
         }
+
         nav header div {
-          color:#eee;
+            color: #eee;
         }
+
         body {
-          background:var(--discord) !important;
-          color:#eee;
+            background: var(--discord) !important;
+            color: #eee;
+            font-family: "Bahnschrift", "Montserrat";
         }
 
         #refresh {
-          box-shadow:0px 2px 3px #111;
-          position:absolute;
-          right: 30px;
-          top:30px;
-          background: #ff5722;
-          z-index: 99;
+            box-shadow: 0px 2px 3px #111;
+            position: absolute;
+            left: 80px;
+            top: 30px;
+            width: 260px;
+            background: #ff5722;
+            z-index: 99;
+            font-size: 20px;
         }
+
         #refresh:hover {
-          background: #ff8a65;
+            background: #ff8a65;
         }
-          #info {
-            right:120px;
-            top:10px;
-            position:absolute;
-            bottom:inherit;
-            box-shadow:0px 0px 0px #111;
+
+        #info {
+            right: 120px;
+            top: 10px;
+            position: absolute;
+            bottom: inherit;
+            box-shadow: 0px 0px 0px #111;
             border: 1px solid var(--light-bg);
             cursor: pointer;
             z-index: 99;
-          }
-          #info:hover {
-            box-shadow:0px 2px 3px #111;
-          }
-          #info:active {
-            box-shadow:0px 2px 3px #111 inset;
-          }
-          #info i {
-            margin-right:20px;
-          }
-        content div{
-            position:absolute;
-            top:60px;
-            border:0px solid var(--light-bg);
-            bottom:0px;
-            z-index: -1;
-            width:calc( 33.33% - 40px );
-            margin:00px ;
-            padding:20px;
-            transition:all .1s linear;
-              text-align: center;
         }
+
+        #info:hover {
+            box-shadow: 0px 2px 3px #111;
+        }
+
+        #info:active {
+            box-shadow: 0px 2px 3px #111 inset;
+        }
+
+        #info i {
+            margin-right: 20px;
+        }
+
+        content div {
+            position: absolute;
+            top: 60px;
+            border: 0px solid var(--light-bg);
+            bottom: 0px;
+            z-index: -1;
+            width: calc(33.33% - 40px);
+            margin: 00px;
+            padding: 20px;
+            transition: all .1s linear;
+            text-align: center;
+        }
+
         content div:hover {
-            border:10px solid var(--light-bg) ;
-          padding:10px;
+            border: 10px solid var(--light-bg);
+            padding: 10px;
             cursor: pointer;
         }
+
         content div:active {
-          background:var(--light-bg) !important;
+            background: var(--light-bg) !important;
         }
+
         #is {
-          left:calc( 33.33% );
-          background:hsla(223, 8%, 29%, 1);
+            left: calc(33.33%);
+            background: hsla(223, 8%, 29%, 1);
         }
+
         #why {
-          left:calc( 2 * 33.33% );
-          background: #50545e;
+            left: calc(2 * 33.33%);
+            background: #50545e;
         }
+
         content div b {
 
-           word-wrap:break-word;
-          font-size:3.5vw;
-          font-weight: 400;
-          text-transform: uppercase;
-          display: block;
-          letter-spacing: -2px;
-              padding-top: calc(50%  - 2vw);
+            word-wrap: break-word;
+            font-size: 3.5vw;
+            font-weight: 400;
+            text-transform: uppercase;
+            display: block;
+            letter-spacing: -2px;
+            padding-top: calc(50% - 2vw);
 
         }
-        @media (max-width:800px) {
-          #is {
-            top:calc( 33.33% + 40px);
 
-          }
-          #why {
-            top:calc( 2 * 33.33% + 20px);
-          }
-          content div {
-            left:0px !important;
-            right:0px !important;
-            width:calc(100% - 40px);
-            height:calc(33.33% - 60px);
-
-          }
-          content div b {
-              padding-top:40px;
-                font-size:50px;
-          }
+        @media (max-width: 800px) {
+            #refresh {
+                top: initial;
+                bottom: 30px;
+                left: 30px;
+                right: 30px;
+                width: unset;
+                height: 75px;
+            }
         }
+
+        #is {
+            top: calc(33.33% + 40px);
+
+        }
+
+        #why {
+            top: calc(2 * 33.33% + 20px);
+        }
+
+        content div {
+            left: 0px !important;
+            right: 0px !important;
+            width: calc(100% - 40px);
+            height: calc(33.33% - 60px);
+
+        }
+
+        content div b {
+            padding-top: 40px;
+            font-size: 50px;
+        }
+
+        }
+
         #linkBack {
-          top:0px;
-          position: absolute;
-          z-index: 99;
-          left:-20px;
+            top: 0px;
+            position: absolute;
+            z-index: 99;
+            left: -20px;
         }
+
         #NineDotMenu {
-      display: none;
+            display: none;
+        }
+
+        #info {
+            right: 10px;
         }
     </style>
 
 <body style="background-color: white;">
 
 
-
 <nav>
-  <header>FLAMEWAR Debating</header>
+    <header>FLAMEWAR Debating</header>
 </nav>
 
-<div id="linkBack" >
-    <i class="material-icons"  onclick="location.href='rtsmenu.html'">arrow_back</i>
-    <span  onclick="location.href='rtsmenu.html'" style="background:#00796B;">Go back to Menu.</span>
+<div id="linkBack">
+    <i class="material-icons" onclick="location.href='rtsmenu.html'">arrow_back</i>
+    <span onclick="location.href='rtsmenu.html'" style="background:#00796B;">Go back to Menu.</span>
     <i class="material-icons" id="NineDotMenu" onmousedown="nxt.openMenu('');">apps</i>
 </div>
 
 
-  <button real  id="info"  onclick="infobox.showModal();"><i class="material-icons">info</i> Info</button>
-<i class="material-icons fab" id="refresh" onclick="redo();">refresh</i>
+<button real id="info" onclick="infobox.showModal();"><i class="material-icons">info</i> Info</button>
+<button real id="refresh" onclick="redo()">
+    Another One Please
+    <i class="material-icons">refresh</i>
+</button>
 
-<dialog id="infobox" nxt >
-  <h1 class="covered  white-text" style="background:#ff5722;">Flamewar Debate Generator</h1><br>
+<dialog id="infobox" nxt>
+    <h1 class="covered  white-text" style="background:#ff5722;">Flamewar Debate Generator</h1><br>
 
-  Never run out of debate topics ever again using the <i>Flamewar (tm) Debate Generator 2000</i>.<br><hr>
-  This application offers <b id="amounts"></b> combination of topics, some dead serious, some funny and some grammatically incorrect.<br><hr>
-  If you have any suggestions, write to: <i>aron.tatai @gmail.com</i><br>
-  Cheers, 2018 (version 2.1)<br>
+    Never run out of debate topics ever again using the <i>Flamewar (tm) Debate Generator 2000</i>.<br>
+    <hr>
+    This application offers <b id="amounts"></b> combination of topics, some dead serious, some funny and some
+    grammatically incorrect.<br>
+    Click on one item to change the WHO/IS/WHY, or regenerate a completely new one!
+    <hr>
+    If you have any suggestions, write to: <i>a.r.o.n.t.a.t.a.i at gmail dot com</i><br>
+    Cheers, rontap
+    <hr/>
+    <br/>2025 Added 25 suggestions (version 2.3)
+    <br/>2021 Added 15 suggestionts (version 2.2)
+    <br/>2018 (version 2.1)<br>
 
-  <action>
+    <action>
 
-    <button flr warning onclick="infobox.close();">Close</button>
-  </action>
+        <button flr warning onclick="infobox.close();">Close</button>
+    </action>
 </dialog>
 
 <content>
-  <div id="who" onclick='$("#who b").innerHTML= who[Math.randInt(who.length)] ;'><b>Kids are</b></div>
-  <div id="is" onclick='$("#is b").innerHTML=   is[Math.randInt(is.length)] ;'><b>responsible for</b></div>
-  <div id="why" onclick='$("#why b").innerHTML= why[Math.randInt(why.length)] ;'><b>eating Tide Pods</b></div>
+    <div id="who" onclick='$("#who b").innerHTML= who[Math.randInt(who.length)] ;'><b>Kids are</b></div>
+    <div id="is" onclick='$("#is b").innerHTML=   is[Math.randInt(is.length)] ;'><b>responsible for</b></div>
+    <div id="why" onclick='$("#why b").innerHTML= why[Math.randInt(why.length)] ;'><b>eating Tide Pods</b></div>
 </content>
 
 
 </body>
-  <link rel="stylesheet" href="../xfiles/xfiles-design.css">
-  <link rel="stylesheet" href="../xfiles/xfiles-ui.css">
-    <link rel="stylesheet" href="../NXTJS/colors.css">
-  <script type="text/javascript" src="../tools/flamewar.js"></script>
+<link rel="stylesheet" href="../xfiles/xfiles-design.css">
+<link rel="stylesheet" href="../xfiles/xfiles-ui.css">
+<link rel="stylesheet" href="../NXTJS/colors.css">
+<script type="text/javascript" src="../tools/flamewar.js"></script>
 </html>

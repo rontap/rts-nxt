@@ -16,7 +16,7 @@ who = [
     "The left is",
     "The right is",
     "Colonisation is",
-    "Media companies are",
+    "The Mainstream media is",
     "The Chinese are",
     "The US is",
     "The UK is",
@@ -38,8 +38,6 @@ who = [
     "Kim Jong Un is",
     "unrealistic beauty standards are",
     "Elon Musk is",
-    //2.0
-    "Pharmaceutical Companies"
 ];
 is = [
     "responsible for",
@@ -85,7 +83,8 @@ why = [
 ];
 
 let EXT = {
-    ihm: true
+    ihm: true,
+    next: true,
 }
 if (EXT.ihm) {
     who.push(...[
@@ -100,16 +99,54 @@ if (EXT.ihm) {
         "Jeff Bezos is",
         "Mark Zuckerberg is",
         "Forced mass immigration is",
-        "Feminists are"
+        "Feminists are",
+        "Pharmaceutical Companies are"
     ])
     why.push(...[
         "labour rights",
         "higher taxes",
-        "Hitler",
         "drug legalisation",
         "lowering the age of consent"
     ])
 
+}
+if (EXT.next) {
+    who.push(...[
+        "The Deep state is",
+        "Conspiracy theorists are",
+        "Vegans are",
+        "The gays are",
+        "Andrew Tate is"
+    ])
+    is.push(...[
+        "orchestrating",
+        "covering up",
+        "leaking",
+        "profiting from",
+        "normalizing",
+        "funding",
+        "secretly in love with",
+        "trying to cancel",
+        "weaponizing",
+        "gaslighting us into",
+        "literally Hitler because"
+    ])
+    why.push(...[
+        "5G Towers",
+        "Fake News",
+        "robot uprising",
+        "flat earth",
+        "mass surveillance",
+        "cancel culture",
+        "the new world order",
+        "globalist takeover",
+        "mandatory pronouns",
+        "destroying the nuclear family",
+        "climate change hysteria",
+        "the red pill movement",
+        "eating bugs",
+        "cultural marxism"
+    ])
 }
 
 function redo() {
